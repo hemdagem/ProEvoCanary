@@ -1,0 +1,13 @@
+﻿@model ProEvo45.Models.SelectListModel
+
+@{
+    ViewBag.Title = "Records";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Records</h2>
+
+
+@Html.DropDownListFor(m => m.SelectedItem, Model.ListItems)
+
+
