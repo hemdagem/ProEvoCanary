@@ -1,0 +1,15 @@
+﻿@model ProEvo45.Models.HomeModel
+
+<div class="Events">
+    
+    @Html.Partial("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
+</div>
+<div class="News">
+    @Html.Partial("~/Views/Shared/Partials/_News.cshtml",Model.News)
+</div>
+<div class="TopPlayers">
+    @Html.Partial("~/Views/Shared/Partials/_Players.cshtml",Model.Players)
+</div>
+<div class="Results">
+    @Html.Partial("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
+</div>

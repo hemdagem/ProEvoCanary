@@ -1,0 +1,21 @@
+﻿@using System.Web.Optimization
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+   @Styles.Render("~/bundles/css")
+</head>```````````````````````````````
+<body>
+    <div class="background">
+        <img src="/Images/ProEvoBanner.png" class="imgLogo" alt="Pro Evo Banner" />
+        @Html.Partial("_Login")
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
