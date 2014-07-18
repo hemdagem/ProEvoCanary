@@ -3,9 +3,9 @@ using System.Data;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using ProEvo45.Helpers;
-using ProEvo45.Models;
-using ProEvo45.Repositories;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Repositories;
+using ProEvoCanary.Models;
 
 namespace ProEvoTests
 {

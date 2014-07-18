@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
-using ProEvo45.Helpers;
-using ProEvo45.Models;
-using ProEvo45.Repositories.Interfaces;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Repositories.Interfaces;
+using ProEvoCanary.Models;
 
-namespace ProEvo45Tests
+namespace ProEvoCanaryTests
 {
     public class RssFeedRepository : IRssFeedRepository
     {

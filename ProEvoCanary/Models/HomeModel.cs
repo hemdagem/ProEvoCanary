@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace ProEvo45.Models
+
+namespace ProEvoCanary.Models
 {
     public class HomeModel
     {

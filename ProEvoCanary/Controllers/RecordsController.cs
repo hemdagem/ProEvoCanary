@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using ProEvo45.Models;
-using ProEvo45.Repositories;
-using ProEvo45.Repositories.Interfaces;
+using ProEvoCanary.Repositories;
+using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers

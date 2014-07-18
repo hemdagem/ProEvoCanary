@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Xml;
-using ProEvo45.Models;
+using ProEvoCanary.Models;
 
-namespace ProEvo45.Helpers
+namespace ProEvoCanary.Helpers
 {
     public class Loader : ILoader
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Caching;
-using ProEvo45.Helpers;
-using ProEvo45.Models;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Models;
 
-namespace ProEvo45.Repositories.Interfaces
+namespace ProEvoCanary.Repositories.Interfaces
 {
     public interface IRssFeedRepository
     {

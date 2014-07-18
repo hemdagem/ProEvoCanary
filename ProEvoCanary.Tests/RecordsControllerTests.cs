@@ -3,8 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvo45.Models;
-using ProEvo45.Repositories.Interfaces;
+using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Controllers;
 using ProEvoCanary.Models;
 

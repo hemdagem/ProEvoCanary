@@ -2,9 +2,9 @@
 using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
-using ProEvo45.Helpers;
-using ProEvo45.Models;
-using ProEvo45Tests;
+using ProEvoCanary.Helpers;
+using ProEvoCanaryTests;
+using ProEvoCanary.Models;
 
 namespace ProEvoTests
 {

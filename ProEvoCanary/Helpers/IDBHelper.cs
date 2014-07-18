@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Security.Cryptography.X509Certificates;
 
-namespace ProEvo45.Helpers
+namespace ProEvoCanary.Helpers
 {
     public interface IDBHelper
     {
