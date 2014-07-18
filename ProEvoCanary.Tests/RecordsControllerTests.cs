@@ -3,23 +3,23 @@ using System.Linq;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Controllers;
 using ProEvoCanary.Models;
+using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvoTests
+namespace ProEvoCanary.Tests
 {
     [TestFixture]
     public class RecordsControllerTests
     {
-        Mock<IPlayerRepository> playerRepository;
-        Mock<IResultRepository> resultRepository;
+        Mock<IPlayerRepository> _playerRepository;
+        Mock<IResultRepository> _resultRepository;
 
 
         private void Setup()
         {
-            playerRepository = new Mock<IPlayerRepository>();
-            resultRepository = new Mock<IResultRepository>();
+            _playerRepository = new Mock<IPlayerRepository>();
+            _resultRepository = new Mock<IResultRepository>();
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace ProEvoTests
         {
             //given
             Setup();
-            var recordsController = new RecordsController(playerRepository.Object, resultRepository.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
 
             //when
            var result = recordsController.HeadToHead() as ViewResult;
@@ -42,7 +42,7 @@ namespace ProEvoTests
         {
             //given
             Setup();
-            playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
+            _playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
             {
                 ListItems = new List<SelectListItem>
                 {
@@ -54,7 +54,7 @@ namespace ProEvoTests
                 }, SelectedItem = "0"
                
             });
-            var recordsController = new RecordsController(playerRepository.Object, resultRepository.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
 
             //when
             var result = recordsController.HeadToHead() as ViewResult;
@@ -73,7 +73,7 @@ namespace ProEvoTests
         {
             //given
             Setup();
-            playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
+            _playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
             {
                 ListItems = new List<SelectListItem>
                 {
@@ -91,7 +91,7 @@ namespace ProEvoTests
 
             });
 
-            resultRepository.Setup(x => x.GetHeadToHeadResults(It.IsAny<int>(),It.IsAny<int>())).Returns(new List<ResultsModel>
+            _resultRepository.Setup(x => x.GetHeadToHeadResults(It.IsAny<int>(),It.IsAny<int>())).Returns(new List<ResultsModel>
             {
                 new ResultsModel
                 {
@@ -102,7 +102,7 @@ namespace ProEvoTests
                     ResultID = 1
                 }
             });
-            var recordsController = new RecordsController(playerRepository.Object, resultRepository.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
 
             //when
             var result = recordsController.HeadToHeadResults(It.IsAny<int>(), It.IsAny<int>()) as ViewResult;

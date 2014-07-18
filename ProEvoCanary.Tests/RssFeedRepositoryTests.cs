@@ -3,10 +3,10 @@ using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
-using ProEvoCanaryTests;
 using ProEvoCanary.Models;
+using ProEvoCanaryTests;
 
-namespace ProEvoTests
+namespace ProEvoCanary.Tests
 {
     class RssFeedRepositoryTests
     {

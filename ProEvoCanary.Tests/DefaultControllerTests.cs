@@ -4,12 +4,12 @@ using System.Runtime.Caching;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
-using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Controllers;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
+using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvoTests
+namespace ProEvoCanary.Tests
 {
     [TestFixture]
     public class DefaultControllerTests
