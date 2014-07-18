@@ -45,5 +45,30 @@ namespace ProEvo45.Repositories
 
             return lstResults;
         }
+
+        public List<ResultsModel> GetHeadToHeadResults(int playerOne, int playerTwo)
+        {
+            _helper.AddParameter("@UserOneID", playerOne);
+            _helper.AddParameter("@UserTwoID", playerTwo);
+            var reader = _helper.ExecuteReader("sp_HeadToHeadResults");
+            var lstResults = new List<ResultsModel>();
+            if (reader != null)
+            {
+                while (reader.Read())
+                {
+
+                    lstResults.Add(new ResultsModel
+                    {
+                        HomeTeam = reader["HomeUser"].ToString(),
+                        AwayTeam = reader["AwayUser"].ToString(),
+                        HomeScore = int.Parse(reader["HomeScore"].ToString()),
+                        AwayScore = int.Parse(reader["AwayScore"].ToString()),
+                        ResultID = int.Parse(reader["ResultsID"].ToString())
+                    });
+                }
+            }
+
+            return lstResults;
+        }
     }
 }

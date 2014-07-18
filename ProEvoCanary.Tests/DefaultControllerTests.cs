@@ -4,10 +4,10 @@ using System.Runtime.Caching;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvo45.Controllers;
 using ProEvo45.Helpers;
 using ProEvo45.Models;
 using ProEvo45.Repositories.Interfaces;
+using ProEvoCanary.Controllers;
 
 namespace ProEvoTests
 {

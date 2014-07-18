@@ -6,7 +6,7 @@ using ProEvo45.Repositories;
 using ProEvo45.Repositories.Interfaces;
 using ProEvo45Tests;
 
-namespace ProEvo45.Controllers
+namespace ProEvoCanary.Controllers
 {
     public class DefaultController : Controller
     {

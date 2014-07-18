@@ -8,6 +8,8 @@ namespace ProEvo45.App_Start
         {
             bundles.Add(new StyleBundle("~/bundles/css").Include("~/css/ProEvo.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include("~/scripts/proevo.js"));
+
             // Code removed for clarity.
             BundleTable.EnableOptimizations = true;
         }
