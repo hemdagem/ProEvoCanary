@@ -2,9 +2,9 @@
 using System.Data;
 using System.Data.SqlClient;
 using Elmah;
-using ProEvo45.Repositories.Interfaces;
+using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvo45.Helpers
+namespace ProEvoCanary.Helpers
 {
     public class DBHelper : IDBHelper
     {

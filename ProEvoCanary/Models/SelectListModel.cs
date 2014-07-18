@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace ProEvo45.Models
+namespace ProEvoCanary.Models
 {
     public class SelectListModel
     {

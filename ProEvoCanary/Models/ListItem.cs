@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ProEvo45.Models
+﻿namespace ProEvoCanary.Models
 {
     public class ListItem
     {

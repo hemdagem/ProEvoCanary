@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProEvo45.Models;
+using ProEvoCanary.Models;
 
-namespace ProEvo45.Helpers
+namespace ProEvoCanary.Helpers
 {
     public interface ILoader
     {

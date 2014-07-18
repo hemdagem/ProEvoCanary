@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using ProEvo45;
-using ProEvo45.App_Start;
+using ProEvoCanary;
+using ProEvoCanary.App_Start;
 
 namespace ProEvoCanary
 {
