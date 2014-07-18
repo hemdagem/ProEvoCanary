@@ -6,5 +6,6 @@ namespace ProEvo45.Repositories.Interfaces
     public interface IResultRepository
     {
         List<ResultsModel> GetResults();
+        List<ResultsModel> GetHeadToHeadResults(int playerOne,int playerTwo);
     }
 }

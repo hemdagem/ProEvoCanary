@@ -133,6 +133,7 @@
     <Content Include="Images\Up.png" />
     <Content Include="Images\UserImages\2.jpg" />
     <Content Include="Images\UserImages\NoImage.png" />
+    <Content Include="scripts\proevo.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,7 @@
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\PlayerModel.cs" />
+    <Compile Include="Models\ResultsListModel.cs" />
     <Compile Include="Models\ResultsModel.cs" />
     <Compile Include="Models\RssFeedModel.cs" />
     <Compile Include="Models\SelectListModel.cs" />
