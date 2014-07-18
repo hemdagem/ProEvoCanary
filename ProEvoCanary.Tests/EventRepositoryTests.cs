@@ -4,10 +4,10 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
-using ProEvoCanary.Repositories;
 using ProEvoCanary.Models;
+using ProEvoCanary.Repositories;
 
-namespace ProEvoTests
+namespace ProEvoCanary.Tests
 {
     [TestFixture]
     public class EventRepositoryTests
