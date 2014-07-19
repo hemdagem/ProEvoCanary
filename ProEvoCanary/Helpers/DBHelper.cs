@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.SqlClient;
 using Elmah;
-using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Helpers
 {
@@ -99,6 +98,10 @@ namespace ProEvoCanary.Helpers
             _sqlCommand.Parameters.Add(new SqlParameter(parameterName, value));
         }
 
+        public void ClearParameters()
+        {
+            _sqlCommand.Parameters.Clear();
+        }
     }
 }
 

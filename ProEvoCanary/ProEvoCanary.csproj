@@ -164,6 +164,7 @@
     <Compile Include="Repositories\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRssFeedRepository.cs" />
+    <Compile Include="Models\RecordsModel.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\ResultsRepository.cs" />
     <Compile Include="Repositories\RssFeedRepository.cs" />

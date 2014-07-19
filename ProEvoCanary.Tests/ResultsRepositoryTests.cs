@@ -89,6 +89,66 @@ namespace ProEvoCanary.Tests
 
         }
 
+        [Test]
+        public void ShouldGetHeadToHeadRecord()
+        {
+            Mock<IDBHelper> helper = new Mock<IDBHelper>();
+
+            //given
+            var resultsModel = new List<RecordsModel>()
+            {
+                new RecordsModel
+                {
+                    TotalMatches =1,
+                    PlayerOneWins = 2,
+                    PlayerTwoWins = 2,
+                    TotalDraws = 4
+
+                }
+            };
+            
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+                readerForHeadToHeadResults(resultsModel));
+
+            ResultsRepository repository = new ResultsRepository(helper.Object);
+
+            //when
+            var resultsModels = repository.GetHeadToHeadRecord(It.IsAny<int>(), It.IsAny<int>());
+
+            //then
+            Assert.That(resultsModels.TotalMatches, Is.EqualTo(1));
+            Assert.That(resultsModels.TotalDraws, Is.EqualTo(4));
+            Assert.That(resultsModels.PlayerOneWins, Is.EqualTo(2));
+            Assert.That(resultsModels.PlayerTwoWins, Is.EqualTo(2));
+
+
+        }
+
+        private IDataReader readerForHeadToHeadResults(List<RecordsModel> objectsToEmulate)
+        {
+            var moq = new Mock<IDataReader>();
+
+            int count = -1;
+
+            moq.Setup(x => x.Read())
+                .Returns(() => count < objectsToEmulate.Count - 1)
+                .Callback(() => count++);
+
+            moq.Setup(x => x["PlayerOneWins"])
+                .Returns(() => objectsToEmulate[count].PlayerOneWins);
+
+            moq.Setup(x => x["PlayerTwoWins"])
+                .Returns(() => objectsToEmulate[count].PlayerTwoWins);
+
+            moq.Setup(x => x["TotalDraws"])
+                .Returns(() => objectsToEmulate[count].TotalDraws);
+
+            moq.Setup(x => x["TotalMatches"])
+                .Returns(() => objectsToEmulate[count].TotalMatches);
+
+            return moq.Object;
+        }
+
         private IDataReader reader(List<ResultsModel> objectsToEmulate)
         {
             var moq = new Mock<IDataReader>();
