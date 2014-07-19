@@ -14,18 +14,14 @@ namespace ProEvoCanary.Repositories
             _helper = helper;
         }
 
-        public ResultsRepository()
-            : this(new DBHelper())
-        {
-
-        }
+        public ResultsRepository() : this(new DBHelper()) { }
 
         public List<ResultsModel> GetResults()
         {
-
-            var reader = _helper.ExecuteReader("sp_RecentResults");
+            _helper.ClearParameters();
             var lstResults = new List<ResultsModel>();
-            if (reader != null)
+
+            using (var reader = _helper.ExecuteReader("sp_RecentResults"))
             {
                 while (reader.Read())
                 {
@@ -48,11 +44,12 @@ namespace ProEvoCanary.Repositories
 
         public List<ResultsModel> GetHeadToHeadResults(int playerOne, int playerTwo)
         {
+            _helper.ClearParameters();
             _helper.AddParameter("@UserOneID", playerOne);
             _helper.AddParameter("@UserTwoID", playerTwo);
-            var reader = _helper.ExecuteReader("sp_HeadToHeadResults");
+
             var lstResults = new List<ResultsModel>();
-            if (reader != null)
+            using (var reader = _helper.ExecuteReader("sp_HeadToHeadResults"))
             {
                 while (reader.Read())
                 {
@@ -69,6 +66,29 @@ namespace ProEvoCanary.Repositories
             }
 
             return lstResults;
+        }
+
+        public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
+        {
+            _helper.ClearParameters();
+            _helper.AddParameter("@UserOneID", playerOne);
+            _helper.AddParameter("@UserTwoID", playerTwo);
+            var headToHeadRecordList = new RecordsModel();
+
+            using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord"))
+            {
+                while (reader.Read())
+                {
+
+                    headToHeadRecordList.TotalMatches = (int)reader["TotalMatches"];
+                    headToHeadRecordList.TotalDraws = (int)reader["TotalDraws"];
+                    headToHeadRecordList.PlayerOneWins = (int)reader["PlayerOneWins"];
+                    headToHeadRecordList.PlayerTwoWins = (int)reader["PlayerTwoWins"];
+
+                }
+            }
+
+            return headToHeadRecordList;
         }
     }
 }

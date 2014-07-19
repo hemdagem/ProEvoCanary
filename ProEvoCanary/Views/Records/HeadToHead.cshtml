@@ -27,11 +27,13 @@
                 <tr align="center">
                     <td>
                         Player
-                        @Html.DropDownListFor(m => m.Items.SelectedItem, Model.Items.ListItems)
+                        @Html.DropDownListFor(m => m.PlayerOneList.SelectedItem, Model.PlayerOneList.ListItems)
                         <br />
                         <asp:Image ID="imgHomeTeam" BorderStyle="Solid" BorderWidth="1" BorderColor="#7F0000"
                                    runat="server" Height="200" Width="200" ImageUrl="~/Images/TeamImages/NoImage.png" />
                     </td>
+
+
                     <td style="width: 328px;" valign="top">
                         <table cellpadding="0" cellspacing="4">
                             <tr align="center" valign="top">
@@ -39,39 +41,50 @@
                                     <input type="button" value="View" onclick="ProEvo.viewResult()" />
                                 </td>
                             </tr>
-                            <tr align="center">
-                                <td>
-                                    Played
-                                </td>
-                                <td>
+
+                            @if (@Model.HeadToHead != null)
+                            {
+                                <tr align="center">
+                                    <td>
+                                        Played
+                                    </td>
+                                    <td>
+                                        @Model.HeadToHead.PlayerOneWins
                                     <asp:Label ID="lblP1Wins" runat="server"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblP2Wins" runat="server"></asp:Label>
-                                </td>
-                                <td>
-                                    Drawn
-                                </td>
-                            </tr>
-                            <tr id="trStats">
-                                <td>
+                                    @Model.HeadToHead.PlayerTwoWins
+                                <asp:Label ID="lblP2Wins" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                Drawn
+                            </td>
+                        </tr>
+                                <tr id="trStats">
+                                    <td>
+                                        @Model.HeadToHead.TotalMatches
                                     <asp:Label ID="lblTotalPlayed" runat="server"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblP1Won" runat="server"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblP2Won" runat="server"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:Label ID="lblTotalDraws" runat="server"></asp:Label>
-                                </td>
-                            </tr>
+                                    @Model.HeadToHead.PlayerOneWins
+                                <asp:Label ID="lblP1Won" runat="server"></asp:Label>
+                            </td>
+                            <td>
+                                @Model.HeadToHead.PlayerTwoWins
+                            <asp:Label ID="lblP2Won" runat="server"></asp:Label>
+                        </td>
+                        <td>
+                            @Model.HeadToHead.TotalDraws
+                        <asp:Label ID="lblTotalDraws" runat="server"></asp:Label>
+                    </td>
+                </tr>
+                            }
                         </table>
                     </td>
+
                     <td>
                         Player
-                        @Html.DropDownListFor(m => m.Items.SelectedItem, Model.Items.ListItems)
+                        @Html.DropDownListFor(m => m.PlayerTwoList.SelectedItem, Model.PlayerTwoList.ListItems)
                         <br />
                         <asp:Image ID="imgAwayTeam" BorderStyle="Solid" BorderWidth="1" BorderColor="#7F0000"
                                    runat="server" Height="200" Width="200" ImageUrl="~/Images/TeamImages/NoImage.png" />

@@ -8,5 +8,6 @@ namespace ProEvoCanary.Helpers
         int ExecuteNonQuery(string storedProcedure);
         IDataReader ExecuteReader(string commandText);
         void AddParameter(string parameterName, object value);
+        void ClearParameters();
     }
 }

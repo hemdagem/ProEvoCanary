@@ -20,6 +20,16 @@ namespace ProEvoCanary.Tests
         {
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
+            _playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
+            {
+                ListItems = new List<SelectListItem>
+                {
+                    new SelectListItem{ Text = "Hemang", Value ="1" }
+                    
+                },
+                SelectedItem = "0"
+
+            });
         }
 
         [Test]
@@ -30,10 +40,10 @@ namespace ProEvoCanary.Tests
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
 
             //when
-           var result = recordsController.HeadToHead() as ViewResult;
+            var result = recordsController.HeadToHead() as ViewResult;
 
             //then
-            Assert.That(result.ViewName,Is.EqualTo("HeadToHead"));
+            Assert.That(result.ViewName, Is.EqualTo("HeadToHead"));
         }
 
 
@@ -42,18 +52,6 @@ namespace ProEvoCanary.Tests
         {
             //given
             Setup();
-            _playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
-            {
-                ListItems = new List<SelectListItem>
-                {
-                    new SelectListItem
-                    {
-                        Text = "Hemang", Value ="1"
-                    }
-                    
-                }, SelectedItem = "0"
-               
-            });
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
 
             //when
@@ -63,9 +61,11 @@ namespace ProEvoCanary.Tests
             var model = (ResultsListModel)result.Model;
 
             Assert.That(model, Is.Not.Null);
-            Assert.That(model.Items.ListItems.First().Text, Is.EqualTo("Hemang"));
-            Assert.That(model.Items.ListItems.First().Value, Is.EqualTo("1"));
-  
+            Assert.That(model.PlayerOneList.ListItems.First().Text, Is.EqualTo("Hemang"));
+            Assert.That(model.PlayerOneList.ListItems.First().Value, Is.EqualTo("1"));
+            Assert.That(model.PlayerTwoList.ListItems.First().Text, Is.EqualTo("Hemang"));
+            Assert.That(model.PlayerTwoList.ListItems.First().Value, Is.EqualTo("1"));
+
         }
 
         [Test]
@@ -73,25 +73,8 @@ namespace ProEvoCanary.Tests
         {
             //given
             Setup();
-            _playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
-            {
-                ListItems = new List<SelectListItem>
-                {
-                    new SelectListItem
-                    {
-                        Text = "Hemang", Value ="1"
-                    },
-                    new SelectListItem
-                    {
-                        Text = "Hemdagem", Value = "2"
-                    }
-                    
-                },
-                SelectedItem = "0"
 
-            });
-
-            _resultRepository.Setup(x => x.GetHeadToHeadResults(It.IsAny<int>(),It.IsAny<int>())).Returns(new List<ResultsModel>
+            _resultRepository.Setup(x => x.GetHeadToHeadResults(1, 2)).Returns(new List<ResultsModel>
             {
                 new ResultsModel
                 {
@@ -102,10 +85,19 @@ namespace ProEvoCanary.Tests
                     ResultID = 1
                 }
             });
+            _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
+                new RecordsModel
+                {
+                    TotalMatches = 1,
+                    PlayerOneWins = 2,
+                    PlayerTwoWins = 3,
+                    TotalDraws = 4
+                }
+            );
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
 
             //when
-            var result = recordsController.HeadToHeadResults(It.IsAny<int>(), It.IsAny<int>()) as ViewResult;
+            var result = recordsController.HeadToHeadResults(1, 2) as ViewResult;
 
             //then
             var model = (ResultsListModel)result.Model;
@@ -116,7 +108,14 @@ namespace ProEvoCanary.Tests
             Assert.That(model.Results.First().ResultID, Is.EqualTo(1));
             Assert.That(model.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(model.Results.First().AwayTeam, Is.EqualTo("Villa"));
-  
+            Assert.That(model.PlayerOneList.SelectedItem, Is.EqualTo("1"));
+            Assert.That(model.PlayerTwoList.SelectedItem, Is.EqualTo("2"));
+            Assert.That(model.HeadToHead.TotalMatches, Is.EqualTo(1));
+            Assert.That(model.HeadToHead.TotalDraws, Is.EqualTo(4));
+            Assert.That(model.HeadToHead.PlayerOneWins, Is.EqualTo(2));
+            Assert.That(model.HeadToHead.PlayerTwoWins, Is.EqualTo(3));
+
         }
+
     }
 }
