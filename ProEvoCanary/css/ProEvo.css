@@ -1,12 +1,46 @@
-﻿body {
-    font-family: Arial;
-    color: White;
-    font-size: 10pt;
-    background-color: Black;
-    background-image: url(../Images/Background3.png);
-    background-repeat: repeat;
+﻿@font-face {
+    font-family: robotoblack;
+    src: url(/css/Roboto-MediumItalic.ttf);
 }
 
+body {
+    font-family: robotoblack, Arial;
+    background-color: #000;
+    background-image: url(../Images/Emirates_Stadium_Logo_Arsenal.JPG);
+    background-repeat: repeat;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+h1 {
+    color: #fff;
+    font-size: 3em;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    padding: 0;
+}
+
+
+
+a:link, a:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    height: 30px;
+    width: 100px;
+    background-color: #e74c3c;
+    border: 1px solid #e74c3c;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}
 
 .background {
     width: 100%;
@@ -28,11 +62,10 @@ header {
 }
 
 
-.Events, .TopPlayers, .News, .Results {
+.block {
     width: 20%;
     background-repeat: no-repeat;
     display: inline-block;
-    height: 307px;
     background-color: #e74c3c;
     -ms-border-radius: 10px;
     border-radius: 10px;
@@ -58,23 +91,21 @@ header {
     top: 65px;
     font-size: 8pt;
     background-repeat: no-repeat;
-    font-family: Arial;
 }
 
 
 ul.menu {
     background-color: #e74c3c;
     height: 54px;
-    width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-bottom: 20px;
-    vertical-align: middle;
-    text-align: center;
-    display: table;
 }
 
     ul.menu li {
-        display: table-cell;
+        float: left;
+        list-style: none;
+        margin-right: 10px;
+        color: #fff;
     }
 
 
@@ -83,19 +114,4 @@ ul.menu {
     position: relative;
     top: 17px;
     vertical-align: middle;
-}
-
-a:link, a:visited {
-    color: White;
-    border-style: none;
-}
-
-
-a:hover {
-    color: #0066CC;
-    border-style: none;
-}
-
-img {
-    border-style: none;
 }

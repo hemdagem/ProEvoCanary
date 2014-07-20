@@ -1,45 +1,47 @@
 ﻿@model List<ProEvoCanary.Models.EventModel>
-Events
 
-<table width="100%" cellpadding="0" cellspacing="0" class="EventsTable">
-    
-    @foreach (var item in Model)
-    {
-        <tr runat="server" align="left" valign="top">
-            <td>
-                Event Name:
-            </td>
-            <td>
-                <a href="#">@item.Name</a>
-            </td>
-        </tr>
-        <tr align="left" valign="top">
-            <td>
-                Venue:
-            </td>
-            <td>
-                @item.Venue
-            </td>
-        </tr>
-        <tr align="left" valign="top">
-            <td>
-                Date:
-            </td>
-            <td>
-               @item.Date
-            </td>
-        </tr>
-        <tr align="left" valign="top">
-            <td>
-                Event Host:
-            </td>
-            <td>
-                @item.Name
-                <br />
-                <br />
-            </td>
-        </tr>
-    }
+<div class="block Events">
+    <h2>Events</h2>
+    <table width="100%" cellpadding="0" cellspacing="0" class="EventsTable">
 
-    
+        @foreach (var item in Model)
+        {
+            <tr runat="server" align="left" valign="top">
+                <td>
+                    Event Name:
+                </td>
+                <td>
+                    <a href="#">@item.Name</a>
+                </td>
+            </tr>
+            <tr align="left" valign="top">
+                <td>
+                    Venue:
+                </td>
+                <td>
+                    @item.Venue
+                </td>
+            </tr>
+            <tr align="left" valign="top">
+                <td>
+                    Date:
+                </td>
+                <td>
+                    @item.Date
+                </td>
+            </tr>
+            <tr align="left" valign="top">
+                <td>
+                    Event Host:
+                </td>
+                <td>
+                    @item.Name
+                    <br />
+                    <br />
+                </td>
+            </tr>
+        }
+
+
     </table>
+</div>
