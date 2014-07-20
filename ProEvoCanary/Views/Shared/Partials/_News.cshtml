@@ -1,28 +1,32 @@
 ﻿@model List<ProEvoCanary.Models.RssFeedModel>
-News
+<div class="block News">
+    <h2>News</h2>
+    <table width="95%" cellpadding="0" cellspacing="0" style="text-align: center; margin-left: 5px;">
+        @foreach (var item in Model.Take(5))
+        {
 
-<table width="95%" cellpadding="0" cellspacing="0" style="text-align: center; margin-left: 5px;">
-    @foreach (var item in Model.Take(5))
-    {
+            <tr id="Tr3" style="width: 66px;">
+                <td rowspan="3" style="border-bottom: solid 1px white;">
 
-        <tr id="Tr3"style="width: 66px;">
-            <td rowspan="3" style="border-bottom: solid 1px white;">
+                    <a target="new" href="@item.LinkUrl">
+                        <img src="@item.LinkTitle" />
+                    </a>
 
-                <a target="new" href="@item.LinkUrl">
-                    <img src="@item.LinkTitle" />
-                </a>
-            </td>
-        </tr>
-        <tr id="Tr1">
-            <td>
-                <a target="new" href="@item.LinkUrl">@item.LinkTitle</a>
-            </td>
-        </tr>
-        <tr id="Tr2">
-            <td style="border-bottom: solid 1px white;">
-                @item.LinkDescription
-            </td>
-        </tr>
+                </td>
+            </tr>
+            <tr id="Tr1">
+                <td>
+                    <h3>
+                        <a target="new" href="@item.LinkUrl">@item.LinkTitle</a>
+                    </h3>
+                </td>
+            </tr>
+            <tr id="Tr2">
+                <td style="border-bottom: solid 1px white;">
+                    @item.LinkDescription
+                </td>
+            </tr>
 
-    }
-</table>
+        }
+    </table>
+</div>

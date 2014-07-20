@@ -1,39 +1,41 @@
 ﻿@model List<ProEvoCanary.Models.PlayerModel>
-ListItems
+<div class="block TopPlayers">
+    <h2>Top Players</h2>
 
-<table width="100%" cellpadding="0" cellspacing="0">
-    <tr align="center">
-        <th>
-            P
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Pts Av.
-        </th>
-        <th>
-            Gls Av.
-        </th>
-    </tr>
-
-    @for (int index = 0; index < Model.Count; index++)
-    {
-        var item = Model[index];
-        <tr align="center" style="height: 20px;">
-
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr align="center">
             <td>
-                @index+1
+                P
             </td>
             <td>
-                <a href="#">@item.PlayerName</a>
+                Name
             </td>
             <td>
-                @item.PointsPerGame
+                Pts Av.
             </td>
             <td>
-                @item.GoalsPerGame
+                Gls Av.
             </td>
         </tr>
-    }
-</table>
+
+        @for (int index = 0; index < Model.Count; index++)
+        {
+            var item = Model[index];
+            <tr align="center" style="height: 20px;">
+
+                <td>
+                    @index+1
+                </td>
+                <td>
+                    <a href="#">@item.PlayerName</a>
+                </td>
+                <td>
+                    @item.PointsPerGame
+                </td>
+                <td>
+                    @item.GoalsPerGame
+                </td>
+            </tr>
+        }
+    </table>
+</div>

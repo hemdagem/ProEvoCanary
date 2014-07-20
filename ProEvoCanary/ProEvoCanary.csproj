@@ -14,7 +14,7 @@
     <RootNamespace>ProEvoCanary</RootNamespace>
     <AssemblyName>ProEvoCanary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -103,34 +103,12 @@
   <ItemGroup>
     <Content Include="css\ProEvo.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\000106005.jpg" />
-    <Content Include="Images\000106007.jpg" />
-    <Content Include="Images\Background3.png" />
-    <Content Include="Images\ContactUs.png" />
-    <Content Include="Images\Down.png" />
-    <Content Include="Images\EditIcon.png" />
-    <Content Include="Images\Events.png" />
-    <Content Include="Images\FabregasB.png" />
-    <Content Include="Images\gerrard.jpg" />
-    <Content Include="Images\go.png" />
-    <Content Include="Images\goOver.png" />
-    <Content Include="Images\Home.png" />
-    <Content Include="Images\KakaB.png" />
-    <Content Include="Images\Links.png" />
-    <Content Include="Images\LoginBanner.png" />
-    <Content Include="Images\MessiB.png" />
-    <Content Include="Images\NoMove.png" />
-    <Content Include="Images\PES2009.png" />
-    <Content Include="Images\ProEvoBanner.png" />
-    <Content Include="Images\Profile.png" />
-    <Content Include="Images\Records.png" />
-    <Content Include="Images\ronaldo.jpg" />
+    <Content Include="Images\Emirates_Stadium_Logo_Arsenal.JPG" />
     <Content Include="Images\TeamImages\argentina.jpg" />
     <Content Include="Images\TeamImages\brazil.jpg" />
     <Content Include="Images\TeamImages\England.gif" />
     <Content Include="Images\TeamImages\holland.jpg" />
     <Content Include="Images\TeamImages\NoImage.png" />
-    <Content Include="Images\Up.png" />
     <Content Include="Images\UserImages\2.jpg" />
     <Content Include="Images\UserImages\NoImage.png" />
     <Content Include="scripts\proevo.js" />
@@ -184,6 +162,24 @@
     <Content Include="Images\TeamImages\Thumbs.db" />
     <Content Include="Images\Thumbs.db" />
     <Content Include="Images\UserImages\Thumbs.db" />
+    <Content Include="css\Roboto-Black.ttf" />
+    <Content Include="css\Roboto-BlackItalic.ttf" />
+    <Content Include="css\Roboto-Bold.ttf" />
+    <Content Include="css\Roboto-BoldItalic.ttf" />
+    <Content Include="css\Roboto-Italic.ttf" />
+    <Content Include="css\Roboto-Light.ttf" />
+    <Content Include="css\Roboto-LightItalic.ttf" />
+    <Content Include="css\Roboto-Medium.ttf" />
+    <Content Include="css\Roboto-MediumItalic.ttf" />
+    <Content Include="css\Roboto-Regular.ttf" />
+    <Content Include="css\Roboto-Thin.ttf" />
+    <Content Include="css\Roboto-ThinItalic.ttf" />
+    <Content Include="css\RobotoCondensed-Bold.ttf" />
+    <Content Include="css\RobotoCondensed-BoldItalic.ttf" />
+    <Content Include="css\RobotoCondensed-Italic.ttf" />
+    <Content Include="css\RobotoCondensed-Light.ttf" />
+    <Content Include="css\RobotoCondensed-LightItalic.ttf" />
+    <Content Include="css\RobotoCondensed-Regular.ttf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -209,7 +205,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63051</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63051/</IISUrl>
+          <IISUrl>http://www.proevoleague.hem</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

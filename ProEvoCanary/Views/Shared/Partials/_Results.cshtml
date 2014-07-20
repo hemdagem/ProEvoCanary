@@ -1,31 +1,32 @@
 ﻿@model List<ProEvoCanary.Models.ResultsModel>
+<div class="block Results">
+    <h2>Results</h2>
+    <table>
 
-Results
-<table border='1' cellpadding='7' cellspacing='0' style='background-color: #7F0000; text-align: center; position: relative; left: 25px;'>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.HomeTeam
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @item.HomeTeam
-               
-            </td>
-            <td>
-                @item.HomeScore
-            </td>
-            <td width='10' align='center'>
-                -
-            </td>
-            <td>
-                @item.AwayScore
-            </td>
-            <td>
-              @item.AwayTeam
-            </td>
-            <td>
-                <a href="@Url.Action("Details","Results",new{ Id=@item.ResultID})">View Match Information</a>
-                
-            </td>
-        </tr>
-    }
-</table>
+                </td>
+                <td>
+                    @item.HomeScore
+                </td>
+                <td width='10' align='center'>
+                    -
+                </td>
+                <td>
+                    @item.AwayScore
+                </td>
+                <td>
+                    @item.AwayTeam
+                </td>
+                <td>
+                    <a href="@Url.Action("Details","Results",new{ Id=@item.ResultID})">View Match Information</a>
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
