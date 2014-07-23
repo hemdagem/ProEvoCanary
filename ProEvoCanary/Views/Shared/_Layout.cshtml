@@ -7,17 +7,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title></title>
-   @Styles.Render("~/bundles/css")
-  
+    @Styles.Render("~/bundles/css")
+
 </head>
 <body>
-    <div class="background">
-        <h1>PRO EVO LEAGUE</h1>
-        @Html.Partial("_Login")
-        <div>
-            @RenderBody()
-        </div>
-    </div>
+    
+
+    <h1>PRO EVO LEAGUE</h1>
+    @Html.Partial("_Login")
+
+    @RenderBody()
     @Scripts.Render("~/bundles/scripts")
 </body>
 </html>

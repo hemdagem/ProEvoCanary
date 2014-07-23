@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using System.Xml.Linq;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers
@@ -13,18 +15,22 @@ namespace ProEvoCanary.Helpers
             var reader = XmlReader.Create(url);
             var feed = SyndicationFeed.Load(reader);
             reader.Close();
-            var rssFeedModel = new List<RssFeedModel>();
-            foreach (var syndicationItem in feed.Items)
+            var rssFeedModelList = new List<RssFeedModel>();
+            foreach (SyndicationItem syndicationItem in feed.Items)
             {
-                rssFeedModel.Add(new RssFeedModel
+
+                var rssFeedModel = new RssFeedModel
                 {
                     LinkTitle = syndicationItem.Title.Text,
                     LinkDescription = syndicationItem.Summary.Text,
-                    LinkUrl = syndicationItem.Id
-                });
+                    LinkUrl = syndicationItem.Id,
+                    ImageUrl = syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last()
+                };
+
+                rssFeedModelList.Add(rssFeedModel);
             }
 
-            return rssFeedModel;
+            return rssFeedModelList;
         }
     }
 }
