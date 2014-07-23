@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.Caching;
+using System.Web.Caching;
 using Elmah;
 
 namespace ProEvoCanary.Helpers
@@ -10,19 +12,21 @@ namespace ProEvoCanary.Helpers
         private readonly IConfiguration _connectionString;
         private readonly IDbConnection _connection;
         private readonly IDbCommand _sqlCommand;
+        private readonly MemoryCache _cache;
         private readonly int _commandCommandTimeout = 30;
 
 
-        public DBHelper(IConfiguration configuration, IDbConnection connection, IDbCommand command, int commandTimeout)
+        public DBHelper(IConfiguration configuration, IDbConnection connection, IDbCommand command,MemoryCache cache, int commandTimeout)
         {
             _connectionString = configuration;
             _connection = connection;
             _sqlCommand = command;
+            _cache = cache;
             _commandCommandTimeout = commandTimeout;
 
         }
 
-        public DBHelper() : this(new Configuration(), new SqlConnection(), new SqlCommand(), 30)
+        public DBHelper() : this(new Configuration(), new SqlConnection(), new SqlCommand(),MemoryCache.Default, 30)
         {
             _connection.ConnectionString = _connectionString.GetConfig();
             _sqlCommand = new SqlCommand { CommandTimeout = _commandCommandTimeout, Connection = _connection as SqlConnection, CommandType = CommandType.StoredProcedure };
@@ -79,6 +83,8 @@ namespace ProEvoCanary.Helpers
         {
             try
             {
+                
+
                 _connection.Open();
                 _sqlCommand.CommandText = storedProcedure;
                 return _sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
@@ -103,6 +109,8 @@ namespace ProEvoCanary.Helpers
             _sqlCommand.Parameters.Clear();
         }
     }
+
+   
 }
 
 

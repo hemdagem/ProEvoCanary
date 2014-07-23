@@ -2,46 +2,15 @@
 
 <div class="block Events">
     <h2>Events</h2>
-    <table width="100%" cellpadding="0" cellspacing="0" class="EventsTable">
 
-        @foreach (var item in Model)
-        {
-            <tr runat="server" align="left" valign="top">
-                <td>
-                    Event Name:
-                </td>
-                <td>
-                    <a href="#">@item.Name</a>
-                </td>
-            </tr>
-            <tr align="left" valign="top">
-                <td>
-                    Venue:
-                </td>
-                <td>
-                    @item.Venue
-                </td>
-            </tr>
-            <tr align="left" valign="top">
-                <td>
-                    Date:
-                </td>
-                <td>
-                    @item.Date
-                </td>
-            </tr>
-            <tr align="left" valign="top">
-                <td>
-                    Event Host:
-                </td>
-                <td>
-                    @item.Name
-                    <br />
-                    <br />
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model)
+    {
+        <ul class="EventsTable">
+            <li><span>Event Name:</span>  <span><a href="#">@item.Name</a></span>   </li>
+            <li><span>Venue:</span>  <span>@item.Venue</span> </li>
+            <li><span>Date:</span>  <span>@item.Date</span>  </li>
+            <li><span>Event Host:</span>   <span>@item.Name</span>  </li>
+        </ul>
+    }
 
-
-    </table>
 </div>
