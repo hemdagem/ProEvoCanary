@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
-using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 
 namespace ProEvoCanary.Tests
@@ -18,22 +16,21 @@ namespace ProEvoCanary.Tests
         public void ShouldGetPlayerList()
         {
             //given
-            var resultsModel = new List<PlayerModel>()
+            var dictionary = new Dictionary<string, object>
             {
-                new PlayerModel
-                {
-                    PlayerName = "Arsenal",
-                    PlayerId = 1
-                }
+                {"LoginID", 1},
+                {"Name", "Arsenal"},
+                {"Surname", "Rajyaguru"},
+                {"Username", "hemdagem"},
+                {"UserType", 2}
             };
 
-            Mock<IDBHelper> helper = new Mock<IDBHelper>();
-            PlayerRepository repository = new PlayerRepository(helper.Object);
-
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                reader(resultsModel));
+                DataReaderTest.Reader(dictionary));
 
             //when
+            var repository = new PlayerRepository(helper.Object);
             var resultsModels = repository.GetPlayerList();
 
             //then
@@ -49,25 +46,20 @@ namespace ProEvoCanary.Tests
         public void ShouldGetPlayers()
         {
 
-            //given
-            var resultsModel = new List<PlayerModel>()
+            var dictionary = new Dictionary<string, object>
             {
-                new PlayerModel
-                {
-                    
-                    PointsPerGame = 4.2f,
-                    GoalsPerGame = 3.2f,
-                    PlayerName = "Arsenal",
-                    MatchesPlayed = 1,
-                    PlayerId = 1
-                }
+                {"LoginID", 1},
+                {"Name", "Arsenal"},
+                {"GoalsPerGame", 3.2f},
+                {"PointsPerGame", 4.2f},
+                {"MatchesPlayed", 1}
             };
 
-            Mock<IDBHelper> helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                reader(resultsModel));
+                DataReaderTest.Reader(dictionary));
 
-            PlayerRepository repository = new PlayerRepository(helper.Object);
+            var repository = new PlayerRepository(helper.Object);
 
             //when
             var resultsModels = repository.GetPlayers();
@@ -81,36 +73,6 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
 
         }
-
-        private IDataReader reader(List<PlayerModel> objectsToEmulate)
-        {
-            var moq = new Mock<IDataReader>();
-
-            // This var stores current position in 'ojectsToEmulate' list
-            int count = -1;
-
-            moq.Setup(x => x.Read())
-                .Returns(() => count < objectsToEmulate.Count - 1)
-                .Callback(() => count++);
-
-            moq.Setup(x => x["LoginID"])
-                .Returns(() => objectsToEmulate[count].PlayerId);
-
-            moq.Setup(x => x["Name"])
-                .Returns(() => objectsToEmulate[count].PlayerName);
-
-            moq.Setup(x => x["GoalsPerGame"])
-                .Returns(() => objectsToEmulate[count].GoalsPerGame);
-
-            moq.Setup(x => x["PointsPerGame"])
-                .Returns(() => objectsToEmulate[count].PointsPerGame);
-
-            moq.Setup(x => x["MatchesPlayed"])
-                .Returns(() => objectsToEmulate[count].MatchesPlayed);
-
-            return moq.Object;
-        }
-
     }
 }
 

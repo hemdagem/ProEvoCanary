@@ -82,6 +82,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataReaderTest.cs" />
     <Compile Include="DefaultControllerTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />
     <Compile Include="PlayerRepositoryTests.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="RecordsControllerTests.cs" />
     <Compile Include="ResultsRepositoryTests.cs" />
     <Compile Include="RssFeedRepositoryTests.cs" />
+    <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProEvoCanary\ProEvoCanary.csproj">

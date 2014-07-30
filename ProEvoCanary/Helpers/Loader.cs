@@ -16,19 +16,23 @@ namespace ProEvoCanary.Helpers
             var feed = SyndicationFeed.Load(reader);
             reader.Close();
             var rssFeedModelList = new List<RssFeedModel>();
-            foreach (SyndicationItem syndicationItem in feed.Items)
+            if (feed != null)
             {
-
-                var rssFeedModel = new RssFeedModel
+                foreach (SyndicationItem syndicationItem in feed.Items)
                 {
-                    LinkTitle = syndicationItem.Title.Text,
-                    LinkDescription = syndicationItem.Summary.Text,
-                    LinkUrl = syndicationItem.Id,
-                    ImageUrl = syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last()
-                };
 
-                rssFeedModelList.Add(rssFeedModel);
+                    var rssFeedModel = new RssFeedModel
+                    {
+                        LinkTitle = syndicationItem.Title.Text,
+                        LinkDescription = syndicationItem.Summary.Text,
+                        LinkUrl = syndicationItem.Id,
+                        ImageUrl = syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last()
+                    };
+
+                    rssFeedModelList.Add(rssFeedModel);
+                }
             }
+
 
             return rssFeedModelList;
         }

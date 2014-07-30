@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.Caching;
 using ProEvoCanary.Helpers;
-using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
+using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvoCanaryTests
+namespace ProEvoCanary.Repositories
 {
     public class RssFeedRepository : IRssFeedRepository
     {
@@ -18,7 +18,6 @@ namespace ProEvoCanaryTests
             if (memoryCache.Contains(RssCacheKey))
             {
                 rssFeedModel = memoryCache.Get(RssCacheKey) as List<RssFeedModel>;
-
             }
             else
             {
@@ -26,8 +25,6 @@ namespace ProEvoCanaryTests
                 var cacheItemExpiry = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_cacheExpiry) };
                 memoryCache.Add(RssCacheKey, rssFeedModel, cacheItemExpiry);
             }
-
-
 
             return rssFeedModel;
         }
