@@ -1,16 +1,18 @@
 ﻿@model List<ProEvoCanary.Models.RssFeedModel>
-<div class="block News">
-    <h2>News</h2>
 
+<ul class="small-block-grid-1">
     @foreach (var item in Model.Take(5))
     {
-        <div class="content">
-            <img src="@item.ImageUrl" alt="" width="144" height="81" />
-            <h3>
-                <a href="@item.LinkUrl">@item.LinkTitle</a><br />
-                <span>@item.LinkDescription</span>
-            </h3>
 
-        </div>
+        <li>
+            <p> <img src="@item.ImageUrl" alt="" width="144" height="81" /></p>
+
+            <p> <a href="@item.LinkUrl">@item.LinkTitle</a></p>
+
+            <p> @item.LinkDescription</p>
+            <hr/>
+        </li>
+
+
     }
-</div>
+</ul>

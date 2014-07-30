@@ -6,7 +6,7 @@ namespace ProEvoCanary.App_Start
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/bundles/css").Include("~/content/css/reset.css").Include("~/content/css/site.css"));
+            bundles.Add(new StyleBundle("~/bundles/css").Include("~/content/css/normalize.css").Include("~/content/css/foundation.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include("~/scripts/proevo.js"));
 

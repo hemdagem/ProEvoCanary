@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
-using ProEvoCanaryTests;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers
@@ -16,7 +15,7 @@ namespace ProEvoCanary.Controllers
         private readonly IResultRepository _resultRepository;
         private readonly MemoryCache _memoryCache;
         private readonly ILoader _loader;
-        private const string url = "http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml";
+        private const string URL = "http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml";
 
         public DefaultController(IPlayerRepository playerRepository, IRssFeedRepository rssFeedRepository, IEventRepository eventRepository, IResultRepository resultRepository, MemoryCache memoryCache, ILoader loader)
         {
@@ -40,7 +39,7 @@ namespace ProEvoCanary.Controllers
             var homeModel = new HomeModel
             {
                 Players = _playerRepository.GetPlayers(),
-                News = _rssFeedRepository.GetFeed(url, _memoryCache, _loader),
+                News = _rssFeedRepository.GetFeed(URL, _memoryCache, _loader),
                 Events = _eventRepository.GetEvents(),
                 Results = _resultRepository.GetResults()
             };

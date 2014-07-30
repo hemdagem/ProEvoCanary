@@ -101,8 +101,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\css\reset.css" />
-    <Content Include="content\css\site.css" />
+    <Content Include="content\css\foundation.css" />
+    <Content Include="content\css\foundation.min.css" />
+    <Content Include="content\css\normalize.css" />
+    <Content Include="content\js\foundation.min.js" />
+    <Content Include="content\js\foundation\foundation.abide.js" />
+    <Content Include="content\js\foundation\foundation.accordion.js" />
+    <Content Include="content\js\foundation\foundation.alert.js" />
+    <Content Include="content\js\foundation\foundation.clearing.js" />
+    <Content Include="content\js\foundation\foundation.dropdown.js" />
+    <Content Include="content\js\foundation\foundation.equalizer.js" />
+    <Content Include="content\js\foundation\foundation.interchange.js" />
+    <Content Include="content\js\foundation\foundation.joyride.js" />
+    <Content Include="content\js\foundation\foundation.js" />
+    <Content Include="content\js\foundation\foundation.magellan.js" />
+    <Content Include="content\js\foundation\foundation.offcanvas.js" />
+    <Content Include="content\js\foundation\foundation.orbit.js" />
+    <Content Include="content\js\foundation\foundation.reveal.js" />
+    <Content Include="content\js\foundation\foundation.slider.js" />
+    <Content Include="content\js\foundation\foundation.tab.js" />
+    <Content Include="content\js\foundation\foundation.tooltip.js" />
+    <Content Include="content\js\foundation\foundation.topbar.js" />
+    <Content Include="content\js\vendor\fastclick.js" />
+    <Content Include="content\js\vendor\jquery.cookie.js" />
+    <Content Include="content\js\vendor\jquery.js" />
+    <Content Include="content\js\vendor\modernizr.js" />
+    <Content Include="content\js\vendor\placeholder.js" />
     <Content Include="Global.asax" />
     <Content Include="Images\Emirates_Stadium_Logo_Arsenal.JPG" />
     <Content Include="scripts\proevo.js" />
@@ -111,6 +135,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -122,14 +147,18 @@
     <Compile Include="Helpers\IDBHelper.cs" />
     <Compile Include="Helpers\ILoader.cs" />
     <Compile Include="Helpers\Loader.cs" />
+    <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\ResultsListModel.cs" />
     <Compile Include="Models\ResultsModel.cs" />
     <Compile Include="Models\RssFeedModel.cs" />
     <Compile Include="Models\SelectListModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventRepository.cs" />
@@ -137,9 +166,11 @@
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRssFeedRepository.cs" />
     <Compile Include="Models\RecordsModel.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\ResultsRepository.cs" />
     <Compile Include="Repositories\RssFeedRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -153,6 +184,8 @@
     <Content Include="Views\Shared\Partials\_Players.cshtml" />
     <Content Include="Views\Shared\Partials\_Results.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="content\img\.gitkeep" />
+    <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -162,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
