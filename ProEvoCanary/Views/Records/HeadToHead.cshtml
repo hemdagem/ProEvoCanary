@@ -4,134 +4,57 @@
     ViewBag.Title = "Records";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h1 class="text-center"><small>Head to Head Records</small></h1>
 
-<h2>Records</h2>
+<div class="row">
+    <div class="large-4 columns">
+        @Html.DropDownListFor(m => m.PlayerOneList.SelectedItem, Model.PlayerOneList.ListItems)
+    </div>
+    <div class="large-4 columns text-center">
+        <button onclick="ProEvo.viewResult()">View</button>
+    </div>
+    <div class="large-4 columns">
+        @Html.DropDownListFor(m => m.PlayerTwoList.SelectedItem, Model.PlayerTwoList.ListItems)
+    </div>
+</div>
 
-<table cellpadding="0" cellspacing="0" width="100%">
-    <tr align="center">
-        <td>
-            <table width="100%">
-                <tr>
-                    <td align="center" colspan="2">
-                        <h2>
-                            Head to Head
-                        </h2>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr align="center">
-        <td>
-            <table cellpadding="0" cellspacing="0">
-                <tr align="center">
-                    <td>
-                        Player
-                        @Html.DropDownListFor(m => m.PlayerOneList.SelectedItem, Model.PlayerOneList.ListItems)
-                        <br />
-                        <asp:Image ID="imgHomeTeam" BorderStyle="Solid" BorderWidth="1" BorderColor="#7F0000"
-                                   runat="server" Height="200" Width="200" ImageUrl="~/Images/TeamImages/NoImage.png" />
-                    </td>
+<div class="row">
+    <div class="small-12 large-12 text-center">
+        @if (@Model.HeadToHead != null)
+        {
+            <ul class="small-block-grid-3">
+                <li>@Model.HeadToHead.TotalMatches</li>
+                <li>Matches</li>
+                <li>@Model.HeadToHead.TotalMatches</li>
+            </ul>
+            <ul class="small-block-grid-3">
+                <li>@Model.HeadToHead.PlayerOneWins</li>
+                <li>Won</li>
+                <li>@Model.HeadToHead.PlayerTwoWins</li>
+            </ul>
+            <ul class="small-block-grid-3">
+                <li>@Model.HeadToHead.TotalDraws</li>
+                <li>Drawn</li>
+                <li>@Model.HeadToHead.TotalDraws</li>
+            </ul>
+        }
+    </div>
+</div>
 
+<div class="row">
+    <div class="small-12 large-12 text-center">
 
-                    <td style="width: 328px;" valign="top">
-                        <table cellpadding="0" cellspacing="4">
-                            <tr align="center" valign="top">
-                                <td colspan="4">
-                                    <button onclick="ProEvo.viewResult()">View</button>
-                                </td>
-                            </tr>
-
-                            @if (@Model.HeadToHead != null)
-                            {
-                                <tr align="center">
-                                    <td>
-                                        Played
-                                    </td>
-                                    <td>
-                                        @Model.HeadToHead.PlayerOneWins
-                                    <asp:Label ID="lblP1Wins" runat="server"></asp:Label>
-                                </td>
-                                <td>
-                                    @Model.HeadToHead.PlayerTwoWins
-                                <asp:Label ID="lblP2Wins" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                Drawn
-                            </td>
-                        </tr>
-                                <tr id="trStats">
-                                    <td>
-                                        @Model.HeadToHead.TotalMatches
-                                    <asp:Label ID="lblTotalPlayed" runat="server"></asp:Label>
-                                </td>
-                                <td>
-                                    @Model.HeadToHead.PlayerOneWins
-                                <asp:Label ID="lblP1Won" runat="server"></asp:Label>
-                            </td>
-                            <td>
-                                @Model.HeadToHead.PlayerTwoWins
-                            <asp:Label ID="lblP2Won" runat="server"></asp:Label>
-                        </td>
-                        <td>
-                            @Model.HeadToHead.TotalDraws
-                        <asp:Label ID="lblTotalDraws" runat="server"></asp:Label>
-                    </td>
-                </tr>
-                            }
-                        </table>
-                    </td>
-
-                    <td>
-                        Player
-                        @Html.DropDownListFor(m => m.PlayerTwoList.SelectedItem, Model.PlayerTwoList.ListItems)
-                        <br />
-                        <asp:Image ID="imgAwayTeam" BorderStyle="Solid" BorderWidth="1" BorderColor="#7F0000"
-                                   runat="server" Height="200" Width="200" ImageUrl="~/Images/TeamImages/NoImage.png" />
-                    </td>
-                </tr>
-
-                @if (Model.Results.Count > 0)
-                {
-                    <tr align="center">
-                        <td colspan="3">
-
-                            <table>
-                                <tr align="center">
-                                    <th colspan="5">
-                                        Previous Meetings
-                                    </th>
-                                </tr>
-
-                                @foreach (var item in Model.Results)
-                                {
-                                    <tr>
-                                        <td>
-                                            @item.HomeTeam
-                                        </td>
-                                        <td>
-                                            @item.HomeScore
-                                        </td>
-                                        <td>
-                                            -
-                                        </td>
-                                        <td>
-                                            @item.AwayScore
-                                        </td>
-                                        <td>
-                                            @item.AwayTeam
-                                        </td>
-                                    </tr>
-                                }
-
-
-                            </table>
-
-
-                        </td>
-                    </tr>
-                }
-            </table>
-        </td>
-    </tr>
-</table>
+        @if (Model.Results.Count > 0)
+        {
+            <h2><small>Previous Meetings</small></h2>
+            foreach (var item in Model.Results)
+            {
+                <ul class="no-bullet text-center">
+                    <li>
+                        @item.HomeTeam  @item.HomeScore - @item.AwayScore @item.AwayTeam
+                    </li>
+                </ul>
+            }
+        }
+    </div>
+</div>
