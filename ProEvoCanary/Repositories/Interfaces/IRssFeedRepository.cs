@@ -7,6 +7,6 @@ namespace ProEvoCanary.Repositories.Interfaces
 {
     public interface IRssFeedRepository
     {
-        List<RssFeedModel> GetFeed(string url, MemoryCache memoryCache, ILoader loader);
+        List<RssFeedModel> GetFeed(string url);
     }
 }

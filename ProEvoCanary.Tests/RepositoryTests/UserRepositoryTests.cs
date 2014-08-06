@@ -25,7 +25,7 @@ namespace ProEvoCanary.Tests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTest.Reader(dictionary));
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTestHelper.Reader(dictionary));
 
             var repository = new UserRepository(helper.Object);
 
@@ -57,7 +57,7 @@ namespace ProEvoCanary.Tests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTest.Reader(dictionary));
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTestHelper.Reader(dictionary));
 
             var repository = new UserRepository(helper.Object);
 

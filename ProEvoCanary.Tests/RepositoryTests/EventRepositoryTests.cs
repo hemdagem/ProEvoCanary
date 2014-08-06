@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
@@ -27,9 +28,9 @@ namespace ProEvoCanary.Tests
 
             var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTest.Reader(dictionary));
+                DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new EventRepository(helper.Object);
+            var repository = new EventRepository(helper.Object,MemoryCache.Default);
 
             //when
             var resultsModels = repository.GetEvents();
@@ -44,5 +45,35 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.First().Completed, Is.EqualTo(true));
         }
 
+
+        [Test]
+        public void ShouldGetCachedListOfEvents()
+        {
+            //given
+            var dictionary = new Dictionary<string, object>
+            {
+                {"TournamentID", 0},
+                {"TournamentName", "Event"},
+                {"Venue", "Venue"},
+                {"Date", "10/10/2010"},
+                {"Name", "Arsenal"},
+                {"Completed", true},
+            };
+
+
+            var helper = new Mock<IDBHelper>();
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+                DataReaderTestHelper.Reader(dictionary));
+
+            var repository = new EventRepository(helper.Object,MemoryCache.Default);
+
+            //when
+            repository.GetEvents();
+            repository.GetEvents();
+
+            //then
+            helper.Verify(x=>x.ExecuteReader(It.IsAny<string>()),Times.Once());
+
+        }
     }
 }

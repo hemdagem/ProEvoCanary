@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
@@ -14,7 +15,6 @@ namespace ProEvoCanary.Tests
         [Test]
         public void ShouldGetResults()
         {
-
             //given
             var dictionary = new Dictionary<string, object>
             {
@@ -29,9 +29,9 @@ namespace ProEvoCanary.Tests
 
             var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTest.Reader(dictionary));
+                DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new ResultsRepository(helper.Object);
+            var repository = new ResultsRepository(helper.Object, MemoryCache.Default);
 
             //when
             var resultsModels = repository.GetResults();
@@ -45,8 +45,36 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().HomeTeamID, Is.EqualTo(1));
             Assert.That(resultsModels.First().ResultID, Is.EqualTo(1));
-
         }
+
+        [Test]
+        public void ShouldCacheHeadToHeadResults()
+        {
+            //given
+            var dictionary = new Dictionary<string, object>
+            {
+                {"HomeTeam", "Arsenal"},
+                {"AwayTeam", "Villa"},
+                {"HomeScore", 3},
+                {"AwayScore", 0},
+                {"HomeTeamID", 1},
+                {"AwayTeamID", 2},
+                {"ResultsID", 1},
+            };
+
+            var helper = new Mock<IDBHelper>();
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+                DataReaderTestHelper.Reader(dictionary));
+
+            var repository = new ResultsRepository(helper.Object, MemoryCache.Default);
+
+            //when
+            repository.GetResults();
+            repository.GetResults();
+
+            helper.Verify(x=>x.ExecuteReader(It.IsAny<string>()),Times.Once);
+        }
+
 
         [Test]
         public void ShouldGetHeadToHeadResults()
@@ -64,9 +92,9 @@ namespace ProEvoCanary.Tests
 
             var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTest.Reader(dictionary));
+                DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new ResultsRepository(helper.Object);
+            var repository = new ResultsRepository(helper.Object, MemoryCache.Default);
 
             //when
             var resultsModels = repository.GetHeadToHeadResults(It.IsAny<int>(), It.IsAny<int>());
@@ -79,6 +107,32 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().ResultID, Is.EqualTo(1));
 
+        }
+
+        [Test]
+        public void ShouldGetCachedHeadToHeadResults()
+        {
+            //given
+            var dictionary = new Dictionary<string, object>
+            {
+                {"HomeUser", "Arsenal"},
+                {"AwayUser", "Villa"},
+                {"HomeScore", 3},
+                {"AwayScore", 0},
+                {"ResultsID", 1},
+            };
+
+            var helper = new Mock<IDBHelper>();
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+                DataReaderTestHelper.Reader(dictionary));
+
+            var repository = new ResultsRepository(helper.Object, MemoryCache.Default);
+
+            //when
+            repository.GetHeadToHeadResults(1, 2);
+            repository.GetHeadToHeadResults(1, 2);
+
+            helper.Verify(x => x.ExecuteReader(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -96,9 +150,9 @@ namespace ProEvoCanary.Tests
             };
 
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTest.Reader(dictionary));
+                DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new ResultsRepository(helper.Object);
+            var repository = new ResultsRepository(helper.Object, MemoryCache.Default);
 
             //when
             var resultsModels = repository.GetHeadToHeadRecord(It.IsAny<int>(), It.IsAny<int>());
@@ -108,12 +162,32 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.TotalDraws, Is.EqualTo(0));
             Assert.That(resultsModels.PlayerOneWins, Is.EqualTo(2));
             Assert.That(resultsModels.PlayerTwoWins, Is.EqualTo(2));
-
-
         }
 
+
+        [Test]
+        public void ShouldGetCachedHeadToHeadRecord()
+        {
+            var helper = new Mock<IDBHelper>();
+            //given
+            var dictionary = new Dictionary<string, object>
+            {
+                {"PlayerOneWins", 2},
+                {"PlayerTwoWins", 2},
+                {"TotalDraws", 0},
+                {"TotalMatches", 4},
+            };
+
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+                DataReaderTestHelper.Reader(dictionary));
+
+            var repository = new ResultsRepository(helper.Object, MemoryCache.Default);
+
+            //when
+            repository.GetHeadToHeadRecord(1, 2);
+            repository.GetHeadToHeadRecord(1, 2);
+
+            helper.Verify(x => x.ExecuteReader(It.IsAny<string>()), Times.Once);
+        }
     }
-
-
-
 }
