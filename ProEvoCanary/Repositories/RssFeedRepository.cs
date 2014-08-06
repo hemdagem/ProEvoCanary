@@ -17,6 +17,11 @@ namespace ProEvoCanary.Repositories
             AbsoluteExpiration = DateTimeOffset.Now.AddHours(3)
         };
 
+        public RssFeedRepository() : this(MemoryCache.Default, new Loader())
+        {
+            
+        }
+
         public RssFeedRepository(MemoryCache memoryCache, ILoader loader)
         {
             _memoryCache = memoryCache;
