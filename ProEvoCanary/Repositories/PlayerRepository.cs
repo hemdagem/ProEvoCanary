@@ -33,7 +33,7 @@ namespace ProEvoCanary.Repositories
                 {
                     players.Add(new PlayerModel
                     {
-                        PlayerId = (int)reader["LoginID"],
+                        PlayerId = (int)reader["UserId"],
                         PlayerName = reader["Name"].ToString(),
                         GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
                         PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
@@ -62,7 +62,7 @@ namespace ProEvoCanary.Repositories
                     players.Add(new ListItem
                     {
                         Text = reader["Name"].ToString(),
-                        Value = reader["LoginID"].ToString()
+                        Value = reader["UserId"].ToString()
                     });
                 }
 
