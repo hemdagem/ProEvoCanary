@@ -24,3 +24,4 @@ c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanar
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary\bin\System.Web.Mvc.xml
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary\obj\Debug\ProEvoCanary.dll
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary\obj\Debug\ProEvoCanary.pdb
+C:\Users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary\obj\Debug\ProEvoCanary.csprojResolveAssemblyReference.cache

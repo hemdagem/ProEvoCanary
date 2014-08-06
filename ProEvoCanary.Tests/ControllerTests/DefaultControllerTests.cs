@@ -21,19 +21,8 @@ namespace ProEvoCanary.Tests
         Mock<IResultRepository> _resultsRepository;
         private DefaultController _defaultController;
         private ViewResult _result;
-        MemoryCache _defaultCache;
-        private Mock<ILoader> _loader; 
         private void Setup()
         {
-            _defaultCache = new MemoryCache("testCache");
-
-            _loader = new Mock<ILoader>();
-
-            _loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
-                {
-                    LinkTitle = "hemang",
-                    LinkDescription = "ha"
-                }});
 
             _playerRepository = new Mock<IPlayerRepository>();
             _playerRepository.Setup(x => x.GetPlayers()).Returns(new List<PlayerModel>{new PlayerModel
@@ -48,7 +37,7 @@ namespace ProEvoCanary.Tests
 
 
             _rssFeedRepository = new Mock<IRssFeedRepository>();
-            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>(), _defaultCache,_loader.Object)).Returns(new List<RssFeedModel>{new RssFeedModel
+            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
@@ -79,7 +68,7 @@ namespace ProEvoCanary.Tests
 
             }});
 
-            _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object, _eventsRepository.Object, _resultsRepository.Object, _defaultCache,_loader.Object);
+            _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object, _eventsRepository.Object, _resultsRepository.Object);
             _result = _defaultController.Index() as ViewResult;
         }
 

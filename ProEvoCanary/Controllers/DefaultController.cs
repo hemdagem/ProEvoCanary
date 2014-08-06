@@ -13,22 +13,18 @@ namespace ProEvoCanary.Controllers
         private readonly IRssFeedRepository _rssFeedRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IResultRepository _resultRepository;
-        private readonly MemoryCache _memoryCache;
-        private readonly ILoader _loader;
         private const string URL = "http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml";
 
-        public DefaultController(IPlayerRepository playerRepository, IRssFeedRepository rssFeedRepository, IEventRepository eventRepository, IResultRepository resultRepository, MemoryCache memoryCache, ILoader loader)
+        public DefaultController(IPlayerRepository playerRepository, IRssFeedRepository rssFeedRepository, IEventRepository eventRepository, IResultRepository resultRepository)
         {
             _playerRepository = playerRepository;
             _rssFeedRepository = rssFeedRepository;
             _eventRepository = eventRepository;
             _resultRepository = resultRepository;
-            _memoryCache = memoryCache;
-            _loader = loader;
         }
 
         public DefaultController()
-            : this(new PlayerRepository(), new RssFeedRepository(), new EventRepository(), new ResultsRepository(), MemoryCache.Default, new Loader())
+            : this(new PlayerRepository(), new RssFeedRepository(MemoryCache.Default,new Loader()), new EventRepository(), new ResultsRepository())
         {
 
         }
@@ -39,7 +35,7 @@ namespace ProEvoCanary.Controllers
             var homeModel = new HomeModel
             {
                 Players = _playerRepository.GetPlayers(),
-                News = _rssFeedRepository.GetFeed(URL, _memoryCache, _loader),
+                News = _rssFeedRepository.GetFeed(URL),
                 Events = _eventRepository.GetEvents(),
                 Results = _resultRepository.GetResults()
             };
