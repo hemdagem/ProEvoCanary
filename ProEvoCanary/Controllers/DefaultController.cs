@@ -24,7 +24,7 @@ namespace ProEvoCanary.Controllers
         }
 
         public DefaultController()
-            : this(new PlayerRepository(), new RssFeedRepository(MemoryCache.Default,new Loader()), new EventRepository(), new ResultsRepository())
+            : this(new PlayerRepository(), new RssFeedRepository(), new EventRepository(), new ResultsRepository())
         {
 
         }
