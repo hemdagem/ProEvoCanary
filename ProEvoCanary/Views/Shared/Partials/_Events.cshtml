@@ -1,0 +1,13 @@
+﻿@model List<ProEvoCanary.Models.EventModel>
+
+<div class="panel">
+    @foreach (var item in Model)
+    {
+        <ul>
+            <li>Event Name:  <a href="#">@item.Name</a>   </li>
+            <li>Venue:  @item.Venue </li>
+            <li>Date:  @item.Date </li>
+            <li>Event Host:   @item.Name </li>
+        </ul>
+    }
+</div>
