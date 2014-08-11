@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using Elmah;
 
 namespace ProEvoCanary.Helpers
 {
@@ -45,7 +44,8 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
-                ErrorSignal.FromCurrentContext().Raise(e);
+                
+
             }
             finally
             {
@@ -66,7 +66,6 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
-                ErrorSignal.FromCurrentContext().Raise(e);
             }
             finally
             {
@@ -88,7 +87,6 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
-                ErrorSignal.FromCurrentContext().Raise(e);
             }
 
             return null;
