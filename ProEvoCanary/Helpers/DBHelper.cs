@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using ProEvoCanary.Helpers.Interfaces;
 
 namespace ProEvoCanary.Helpers
 {
@@ -44,8 +45,6 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
-                
-
             }
             finally
             {
@@ -78,8 +77,6 @@ namespace ProEvoCanary.Helpers
         {
             try
             {
-                
-
                 _connection.Open();
                 _sqlCommand.CommandText = storedProcedure;
                 return _sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
@@ -87,10 +84,9 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
+                throw new Exception(string.Format("Database error: {0}", storedProcedure), e);
+
             }
-
-            return null;
-
         }
 
         public void AddParameter(string parameterName, object value)
@@ -103,8 +99,6 @@ namespace ProEvoCanary.Helpers
             _sqlCommand.Parameters.Clear();
         }
     }
-
-   
 }
 
 

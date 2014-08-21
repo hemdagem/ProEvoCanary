@@ -23,18 +23,13 @@ namespace ProEvoCanary.Controllers
             _resultRepository = resultRepository;
         }
 
-        public DefaultController()
-            : this(new PlayerRepository(), new RssFeedRepository(), new EventRepository(), new ResultsRepository())
-        {
+        public DefaultController() : this(new PlayerRepositoryDecorator(), new RssFeedRepository(), new EventRepositoryDecorator(), new ResultsRepository()) { }
 
-        }
-
-        // GET: Default
         public ActionResult Index()
         {
             var homeModel = new HomeModel
             {
-                Players = _playerRepository.GetPlayers(),
+                Players = _playerRepository.GetTopPlayers(),
                 News = _rssFeedRepository.GetFeed(URL),
                 Events = _eventRepository.GetEvents(),
                 Results = _resultRepository.GetResults()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Caching;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
@@ -10,29 +11,17 @@ namespace ProEvoCanary.Repositories
     public class ResultsRepository : IResultRepository
     {
         private readonly IDBHelper _helper;
-        private readonly MemoryCache _memoryCache;
-        private const string RecentResultsKey = "recent_results";
-        private const string HeadToHeadResultsKey = "head_to_head_results_playerOne{0}_playerTwo{1}";
-        private const string HeadToHeadRecordsKey = "head_to_head_records_playerOne{0}_playerTwo{1}";
 
-        private readonly CacheItemPolicy policy = new CacheItemPolicy
-        {
-            AbsoluteExpiration = DateTimeOffset.Now.AddHours(3)
-        };
 
-        public ResultsRepository(IDBHelper helper, MemoryCache memoryCache)
+        public ResultsRepository(IDBHelper helper)
         {
             _helper = helper;
-            _memoryCache = memoryCache;
         }
 
-        public ResultsRepository() : this(new DBHelper(), MemoryCache.Default) { }
+        public ResultsRepository() : this(new DBHelper()) { }
 
         public List<ResultsModel> GetResults()
         {
-            var results = GetCachedItem(RecentResultsKey) as List<ResultsModel>;
-            if (results != null) return results;
-
             _helper.ClearParameters();
             var lstResults = new List<ResultsModel>();
 
@@ -52,21 +41,13 @@ namespace ProEvoCanary.Repositories
                     });
                 }
             }
-            _memoryCache.Add(RecentResultsKey, lstResults, policy);
+
             return lstResults;
         }
 
         public List<ResultsModel> GetHeadToHeadResults(int playerOne, int playerTwo)
         {
-            var cachedKey = string.Format(HeadToHeadResultsKey, playerOne, playerTwo);
-            var lstResults = GetCachedItem(cachedKey) as List<ResultsModel>;
-
-            if (lstResults != null)
-            {
-                return lstResults;
-            }
-
-            lstResults = new List<ResultsModel>();
+            var lstResults = new List<ResultsModel>();
 
             _helper.ClearParameters();
             _helper.AddParameter("@UserOneID", playerOne);
@@ -89,19 +70,11 @@ namespace ProEvoCanary.Repositories
                 }
             }
 
-            _memoryCache.Add(cachedKey, lstResults, policy);
-
             return lstResults;
         }
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
         {
-            var cachedKey = string.Format(HeadToHeadRecordsKey, playerOne, playerTwo);
-
-            if (_memoryCache.Contains(cachedKey))
-            {
-                return _memoryCache.Get(cachedKey) as RecordsModel;
-            }
 
             _helper.ClearParameters();
             _helper.AddParameter("@UserOneID", playerOne);
@@ -119,15 +92,8 @@ namespace ProEvoCanary.Repositories
                 }
             }
 
-            _memoryCache.Add(cachedKey, headToHeadRecordList, policy);
-
             return headToHeadRecordList;
         }
 
-
-        private object GetCachedItem(string key)
-        {
-            return _memoryCache.Contains(key) ? _memoryCache.Get(key) : null;
-        }
     }
 }

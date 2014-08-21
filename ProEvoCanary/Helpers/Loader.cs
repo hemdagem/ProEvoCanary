@@ -3,6 +3,7 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Xml;
 using System.Xml.Linq;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers

@@ -67,6 +67,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -122,7 +125,6 @@
     <Content Include="content\js\vendor\modernizr.js" />
     <Content Include="content\js\vendor\placeholder.js" />
     <Content Include="Global.asax" />
-    <Content Include="Images\Emirates_Stadium_Logo_Arsenal.JPG" />
     <Content Include="scripts\proevo.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -137,9 +139,16 @@
     </Compile>
     <Compile Include="Helpers\Configuration.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
-    <Compile Include="Helpers\IConfiguration.cs" />
-    <Compile Include="Helpers\IDBHelper.cs" />
-    <Compile Include="Helpers\ILoader.cs" />
+    <Compile Include="Helpers\DefaultReader.cs" />
+    <Compile Include="Repositories\CacheEventRepository.cs" />
+    <Compile Include="Repositories\CachingManager.cs" />
+    <Compile Include="Repositories\EventRepositoryDecorator.cs" />
+    <Compile Include="Repositories\Interfaces\ICacheResultsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICacheEventRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICache.cs" />
+    <Compile Include="Helpers\Interfaces\IConfiguration.cs" />
+    <Compile Include="Helpers\Interfaces\IDBHelper.cs" />
+    <Compile Include="Helpers\Interfaces\ILoader.cs" />
     <Compile Include="Helpers\Loader.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\EventModel.cs" />
@@ -154,7 +163,9 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CachePlayerRepository.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICachePlayerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
@@ -162,7 +173,10 @@
     <Compile Include="Models\RecordsModel.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
+    <Compile Include="Repositories\PlayerRepositoryDecorator.cs" />
+    <Compile Include="Repositories\ResultsCacheRepository.cs" />
     <Compile Include="Repositories\ResultsRepository.cs" />
+    <Compile Include="Repositories\ResultsRepositoryDecorator.cs" />
     <Compile Include="Repositories\RssFeedRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>

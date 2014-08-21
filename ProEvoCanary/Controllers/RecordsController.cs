@@ -18,15 +18,11 @@ namespace ProEvoCanary.Controllers
             _resultRepository = resultRepository;
         }
 
-        public RecordsController()
-            : this(new PlayerRepository(), new ResultsRepository())
-        {
-
-        }
+        public RecordsController() : this(new PlayerRepository(), new ResultsRepository()) { }
 
         public ActionResult HeadToHead()
         {
-            var playerList = _playerRepository.GetPlayerList();
+            var playerList = _playerRepository.GetAllPlayers();
             var model = new ResultsListModel
             {
                 PlayerOneList = playerList,
@@ -42,7 +38,7 @@ namespace ProEvoCanary.Controllers
 
         public ActionResult HeadToHeadResults(int playerOneId, int playerTwoId)
         {
-            var playerOneList = _playerRepository.GetPlayerList();
+            var playerOneList = _playerRepository.GetAllPlayers();
             playerOneList.SelectedItem = playerOneId.ToString(CultureInfo.InvariantCulture);
 
 

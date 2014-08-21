@@ -5,7 +5,7 @@ namespace ProEvoCanary.Repositories.Interfaces
 {
     public interface IPlayerRepository
     {
-        List<PlayerModel> GetPlayers();
-        SelectListModel GetPlayerList();
+        List<PlayerModel> GetTopPlayers();
+        SelectListModel GetAllPlayers();
     }
 }
