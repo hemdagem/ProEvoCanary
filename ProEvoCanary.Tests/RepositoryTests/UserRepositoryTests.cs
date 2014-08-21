@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 

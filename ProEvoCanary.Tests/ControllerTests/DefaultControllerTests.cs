@@ -15,7 +15,7 @@ namespace ProEvoCanary.Tests
     public class DefaultControllerTests
     {
 
-        Mock<IPlayerRepository> _playerRepository;
+        Mock<ICachePlayerRepository> _playerRepository;
         Mock<IRssFeedRepository> _rssFeedRepository;
         Mock<IEventRepository> _eventsRepository;
         Mock<IResultRepository> _resultsRepository;
@@ -24,8 +24,8 @@ namespace ProEvoCanary.Tests
         private void Setup()
         {
 
-            _playerRepository = new Mock<IPlayerRepository>();
-            _playerRepository.Setup(x => x.GetPlayers()).Returns(new List<PlayerModel>{new PlayerModel
+            _playerRepository = new Mock<ICachePlayerRepository>();
+            _playerRepository.Setup(x => x.GetTopPlayers()).Returns(new List<PlayerModel>{new PlayerModel
             {
                 PlayerId = 1,
                 PlayerName = "Hemang",

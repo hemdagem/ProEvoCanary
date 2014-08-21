@@ -1,4 +1,6 @@
-﻿namespace ProEvoCanary.Helpers
+﻿using ProEvoCanary.Helpers.Interfaces;
+
+namespace ProEvoCanary.Helpers
 {
     public class Configuration : IConfiguration
     {

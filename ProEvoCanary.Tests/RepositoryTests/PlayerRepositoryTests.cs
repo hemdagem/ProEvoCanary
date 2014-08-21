@@ -4,6 +4,7 @@ using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
 
 namespace ProEvoCanary.Tests
@@ -31,8 +32,8 @@ namespace ProEvoCanary.Tests
                 DataReaderTestHelper.Reader(dictionary));
 
             //when
-            var repository = new PlayerRepository(helper.Object, MemoryCache.Default);
-            var resultsModels = repository.GetPlayerList();
+            var repository = new PlayerRepository(helper.Object);
+            var resultsModels = repository.GetAllPlayers();
 
             //then
             Assert.That(resultsModels,Is.Not.Null);
@@ -42,33 +43,7 @@ namespace ProEvoCanary.Tests
 
         }
 
-        [Test]
-        public void ShouldGetCachedPlayerList()
-        {
-
-            var dictionary = new Dictionary<string, object>
-            {
-                {"UserId", 1},
-                {"Name", "Arsenal"},
-                {"GoalsPerGame", 3.2f},
-                {"PointsPerGame", 4.2f},
-                {"MatchesPlayed", 1}
-            };
-
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTestHelper.Reader(dictionary));
-
-            var repository = new PlayerRepository(helper.Object, MemoryCache.Default);
-
-            //when
-            repository.GetPlayerList();
-            repository.GetPlayerList();
-
-            //then
-            helper.Verify(x => x.ExecuteReader(It.IsAny<string>()), Times.Once());
-
-        }
+ 
 
         [Test]
         public void ShouldGetPlayers()
@@ -87,10 +62,10 @@ namespace ProEvoCanary.Tests
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new PlayerRepository(helper.Object, MemoryCache.Default);
+            var repository = new PlayerRepository(helper.Object);
 
             //when
-            var resultsModels = repository.GetPlayers();
+            var resultsModels = repository.GetTopPlayers();
 
             //then
             Assert.That(resultsModels.Count, Is.EqualTo(1));
@@ -102,33 +77,7 @@ namespace ProEvoCanary.Tests
 
         }     
         
-        [Test]
-        public void ShouldGetCachedPlayers()
-        {
-
-            var dictionary = new Dictionary<string, object>
-            {
-                {"UserId", 1},
-                {"Name", "Arsenal"},
-                {"GoalsPerGame", 3.2f},
-                {"PointsPerGame", 4.2f},
-                {"MatchesPlayed", 1}
-            };
-
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTestHelper.Reader(dictionary));
-
-            var repository = new PlayerRepository(helper.Object, MemoryCache.Default);
-
-            //when
-            repository.GetPlayers();
-            repository.GetPlayers();
-
-            //then
-            helper.Verify(x => x.ExecuteReader(It.IsAny<string>()), Times.Once());
-
-        }
+      
     }
 }
 

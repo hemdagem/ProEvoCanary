@@ -20,7 +20,7 @@ namespace ProEvoCanary.Tests
         {
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
-            _playerRepository.Setup(x => x.GetPlayerList()).Returns(new SelectListModel
+            _playerRepository.Setup(x => x.GetAllPlayers()).Returns(new SelectListModel
             {
                 ListItems = new List<SelectListItem>
                 {

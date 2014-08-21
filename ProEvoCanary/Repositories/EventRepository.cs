@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Caching;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
@@ -26,23 +27,20 @@ namespace ProEvoCanary.Repositories
 
             var reader = _helper.ExecuteReader("[sp_GetTDetails]");
             var lstTournament = new List<EventModel>();
-            if (reader != null)
+            while (reader.Read())
             {
-
-                while (reader.Read())
+                lstTournament.Add(new EventModel
                 {
-                    lstTournament.Add(new EventModel
-                    {
-                        EventID = (int)reader["TournamentID"],
-                        EventName = reader["TournamentName"].ToString(),
-                        Venue = reader["Venue"].ToString(),
-                        Date = reader["Date"].ToString(),
-                        Name = reader["Name"].ToString(),
-                        Completed = (bool)reader["Completed"]
-                    });
+                    EventID = (int)reader["TournamentID"],
+                    EventName = reader["TournamentName"].ToString(),
+                    Venue = reader["Venue"].ToString(),
+                    Date = reader["Date"].ToString(),
+                    Name = reader["Name"].ToString(),
+                    Completed = (bool)reader["Completed"]
+                });
 
-                }
             }
+
             _memoryCache.Add(EventsListCacheKey, lstTournament, _policy);
             return lstTournament;
         }
