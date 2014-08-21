@@ -1,10 +1,9 @@
 ﻿var ProEvo = ProEvo || {};
 
-ProEvo.viewResult = function() {
+ProEvo.viewResult = function () {
 
-    var elements = document.getElementsByTagName("select");
+    var playerOne = document.getElementById("playerOne");
+    var playerTwo = document.getElementById("playerTwo");
 
-    if (elements.length === 2) {
-        window.location = "/Records/HeadToHeadResults?playerOneId=" + elements[0].value + "&playertwoId=" + elements[1].value;
-    }
+    window.location = "/Records/HeadToHeadResults?playerOneId=" + playerOne.value + "&playertwoId=" + playerTwo.value;
 };
