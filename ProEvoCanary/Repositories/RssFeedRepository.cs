@@ -10,37 +10,26 @@ namespace ProEvoCanary.Repositories
 {
     public class RssFeedRepository : IRssFeedRepository
     {
-        private readonly MemoryCache _memoryCache;
-        private readonly ILoader _loader;
-        private const string RssCacheKey = "RssCache";
-        private readonly CacheItemPolicy _policy = new CacheItemPolicy
-        {
-            AbsoluteExpiration = DateTimeOffset.Now.AddHours(3)
-        };
+        private readonly ICacheRssLoader _cacheRssLoader;
+        private readonly IRssLoader _rssLoader;
 
-        public RssFeedRepository() : this(MemoryCache.Default, new Loader())
-        {
-            
-        }
+        public RssFeedRepository() : this(new RssCacheLoader(), new Loader()) { }
 
-        public RssFeedRepository(MemoryCache memoryCache, ILoader loader)
+        public RssFeedRepository(ICacheRssLoader cacheRssLoader, IRssLoader rssLoader)
         {
-            _memoryCache = memoryCache;
-            _loader = loader;
+            _cacheRssLoader = cacheRssLoader;
+            _rssLoader = rssLoader;
         }
 
         public List<RssFeedModel> GetFeed(string url)
         {
-            List<RssFeedModel> rssFeedModel;
-            if (_memoryCache.Contains(RssCacheKey))
-            {
-                rssFeedModel = _memoryCache.Get(RssCacheKey) as List<RssFeedModel>;
-            }
-            else
-            {
-                rssFeedModel = _loader.Load(url);
-                _memoryCache.Add(RssCacheKey, rssFeedModel, _policy);
-            }
+            var rssFeedModel = _cacheRssLoader.Load(url);
+
+            if (rssFeedModel != null) return rssFeedModel;
+
+            rssFeedModel = _rssLoader.Load(url);
+
+            _cacheRssLoader.AddToCache(url, rssFeedModel, 3);
 
             return rssFeedModel;
         }

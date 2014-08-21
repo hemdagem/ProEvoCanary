@@ -17,8 +17,7 @@ namespace ProEvoCanary.Tests
         public void ShouldGetNews()
         {
             //given
-            var loader = new Mock<ILoader>();
-            var defaultCache = new MemoryCache("testCache");
+            var loader = new Mock<IRssLoader>();
             loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
@@ -31,8 +30,8 @@ namespace ProEvoCanary.Tests
                 }});
 
             //when
-            var repository = new RssFeedRepository(defaultCache, loader.Object);
-           var feed = repository.GetFeed(It.IsAny<string>());
+            var repository = new RssFeedRepository(new RssCacheLoader(), loader.Object);
+           var feed = repository.GetFeed("Yes");
            
 
             //then
@@ -50,21 +49,32 @@ namespace ProEvoCanary.Tests
         public void ShouldGetCachedNews()
         {
             //given
-            var loader = new Mock<ILoader>();
-            var defaultCache = new MemoryCache("testCache");
+            var loader = new Mock<IRssLoader>();
+            var cacheLoader = new Mock<ICacheRssLoader>();
+
             loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
                 }});
 
+            cacheLoader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>
+            {
+                new RssFeedModel
+                {
+                    LinkTitle = "hemang",
+                    LinkDescription = "ha"
+                }
+            });
+
+       
             //when
-            var repository = new RssFeedRepository(defaultCache, loader.Object);
+            var repository = new RssFeedRepository(cacheLoader.Object, loader.Object);
             repository.GetFeed(It.IsAny<string>());
             repository.GetFeed(It.IsAny<string>());
 
             //then
-            loader.Verify(x => x.Load(It.IsAny<string>()), Times.Once);
+            loader.Verify(x => x.Load(It.IsAny<string>()), Times.Never);
 
         }
     }

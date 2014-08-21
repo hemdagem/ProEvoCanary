@@ -23,7 +23,7 @@ namespace ProEvoCanary.Repositories
 
         public object Get(string key)
         {
-            return _memoryCache.Get(key);
+            return _memoryCache.Contains(key) ? _memoryCache.Get(key) : null;
         }
     }
 }

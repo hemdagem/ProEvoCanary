@@ -139,7 +139,8 @@
     </Compile>
     <Compile Include="Helpers\Configuration.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
-    <Compile Include="Helpers\DefaultReader.cs" />
+    <Compile Include="Helpers\Interfaces\ICacheRssLoader.cs" />
+    <Compile Include="Helpers\RssCacheLoader.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Repositories\CachingManager.cs" />
     <Compile Include="Repositories\EventRepositoryDecorator.cs" />
@@ -148,7 +149,7 @@
     <Compile Include="Repositories\Interfaces\ICache.cs" />
     <Compile Include="Helpers\Interfaces\IConfiguration.cs" />
     <Compile Include="Helpers\Interfaces\IDBHelper.cs" />
-    <Compile Include="Helpers\Interfaces\ILoader.cs" />
+    <Compile Include="Helpers\Interfaces\IRssLoader.cs" />
     <Compile Include="Helpers\Loader.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\EventModel.cs" />
