@@ -3,7 +3,7 @@ using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers.Interfaces
 {
-    public interface ILoader
+    public interface IRssLoader
     {
         List<RssFeedModel> Load(string url);
     }
