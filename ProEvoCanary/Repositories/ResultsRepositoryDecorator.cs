@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
@@ -8,7 +10,7 @@ namespace ProEvoCanary.Repositories
     {
         private readonly ICacheResultsRepository _cacheResultsRepository;
         private readonly IResultRepository _resultRepository;
-        private readonly ICache _cache;
+        private readonly ICacheManager _cacheManager;
         private const string EventsListCacheKey = "EventsListCache";
 
         public ResultsRepositoryDecorator() : this(new ResultsCacheRepository(),new ResultsRepository() ) { }

@@ -1,6 +1,6 @@
-﻿namespace ProEvoCanary.Repositories.Interfaces
+﻿namespace ProEvoCanary.Helpers.Interfaces
 {
-    public interface ICache
+    public interface ICacheManager
     {
         void Add(string key, object value, int cacheHours);
         object Get(string key);

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Runtime.Caching;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Repositories
 {
-    public class CachingManager : ICache
+    public class CachingManager : ICacheManager
     {
         private readonly MemoryCache _memoryCache;
         private readonly CacheItemPolicy _policy = new CacheItemPolicy();

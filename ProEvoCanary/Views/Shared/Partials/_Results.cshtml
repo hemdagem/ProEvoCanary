@@ -1,11 +1,10 @@
 ﻿@model List<ProEvoCanary.Models.ResultsModel>
 
-    <ul>
-        @foreach (var item in Model)
-        {
-            <li>
-                @item.HomeTeam <a href="@Url.Action("Details","Results",new{ Id=@item.ResultID})">@item.HomeScore  -  @item.AwayScore</a>  @item.AwayTeam
-
-            </li>
-        }
-    </ul>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            @item.HomeTeam <a href="@Url.Action("Details","Results",new{ Id=@item.ResultID})">@item.HomeScore  -  @item.AwayScore</a>  @item.AwayTeam
+        </li>
+    }
+</ul>

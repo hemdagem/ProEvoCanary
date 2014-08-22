@@ -11,21 +11,17 @@ namespace ProEvoCanary.Repositories
     public class EventRepository : IEventRepository
     {
         private readonly IDBHelper _helper;
-        private readonly MemoryCache _memoryCache;
-        private const string EventsListCacheKey = "EventsListCache";
-        private readonly CacheItemPolicy _policy = new CacheItemPolicy
+
+        public EventRepository(IDBHelper helper)
         {
-            AbsoluteExpiration = DateTimeOffset.Now.AddHours(3)
-        };
+            _helper = helper;
+        }
+
+        public EventRepository() : this(new DBHelper()) { }
 
         public List<EventModel> GetEvents()
         {
-            if (_memoryCache.Contains(EventsListCacheKey))
-            {
-                return _memoryCache.Get(EventsListCacheKey) as List<EventModel>;
-            }
-
-            var reader = _helper.ExecuteReader("[sp_GetTDetails]");
+            var reader = _helper.ExecuteReader("sp_GetTDetails");
             var lstTournament = new List<EventModel>();
             while (reader.Read())
             {
@@ -40,22 +36,10 @@ namespace ProEvoCanary.Repositories
                 });
 
             }
-
-            _memoryCache.Add(EventsListCacheKey, lstTournament, _policy);
             return lstTournament;
         }
 
 
-        public EventRepository(IDBHelper helper, MemoryCache memoryCache)
-        {
-            _helper = helper;
-            _memoryCache = memoryCache;
-        }
 
-        public EventRepository()
-            : this(new DBHelper(), MemoryCache.Default)
-        {
-
-        }
     }
 }

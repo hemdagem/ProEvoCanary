@@ -45,6 +45,7 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
+                throw new Exception(string.Format("Database error: {0}", storedProcedure), e);
             }
             finally
             {
@@ -65,6 +66,7 @@ namespace ProEvoCanary.Helpers
             }
             catch (Exception e)
             {
+                throw new Exception(string.Format("Database error: {0}", storedProcedure), e);
             }
             finally
             {
@@ -80,12 +82,10 @@ namespace ProEvoCanary.Helpers
                 _connection.Open();
                 _sqlCommand.CommandText = storedProcedure;
                 return _sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
-
             }
             catch (Exception e)
             {
                 throw new Exception(string.Format("Database error: {0}", storedProcedure), e);
-
             }
         }
 

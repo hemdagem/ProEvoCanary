@@ -3,7 +3,6 @@
 <ul class="small-block-grid-1">
     @foreach (var item in Model.Take(5))
     {
-
         <li>
             <p> <img src="@item.ImageUrl" alt="" width="144" height="81" /></p>
 
@@ -12,7 +11,5 @@
             <p> @item.LinkDescription</p>
             <hr/>
         </li>
-
-
     }
 </ul>
