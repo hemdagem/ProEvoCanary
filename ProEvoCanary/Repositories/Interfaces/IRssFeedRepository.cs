@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Caching;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Repositories.Interfaces

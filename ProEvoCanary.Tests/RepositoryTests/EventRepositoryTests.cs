@@ -31,7 +31,7 @@ namespace ProEvoCanary.Tests
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new EventRepository(helper.Object,MemoryCache.Default);
+            var repository = new EventRepository(helper.Object);
 
             //when
             var resultsModels = repository.GetEvents();
