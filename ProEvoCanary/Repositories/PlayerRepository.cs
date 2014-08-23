@@ -9,9 +9,9 @@ namespace ProEvoCanary.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly IDBHelper _helper;
+        private readonly IdBHelper _helper;
 
-        public PlayerRepository(IDBHelper helper)
+        public PlayerRepository(IdBHelper helper)
         {
             _helper = helper;
         }
@@ -26,7 +26,7 @@ namespace ProEvoCanary.Repositories
             {
                 players.Add(new PlayerModel
                 {
-                    PlayerId = (int)reader["UserId"],
+                    PlayerId = (int)reader["Id"],
                     PlayerName = reader["Name"].ToString(),
                     GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
                     PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
@@ -47,7 +47,7 @@ namespace ProEvoCanary.Repositories
                 players.Add(new ListItem
                 {
                     Text = reader["Name"].ToString(),
-                    Value = reader["UserId"].ToString()
+                    Value = reader["Id"].ToString()
                 });
             }
 

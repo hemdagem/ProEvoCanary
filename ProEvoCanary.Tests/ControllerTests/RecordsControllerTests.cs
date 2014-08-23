@@ -82,7 +82,7 @@ namespace ProEvoCanary.Tests
                     AwayTeam = "Villa",
                     HomeScore = 3,
                     HomeTeam = "Arsenal",
-                    ResultID = 1
+                    ResultId = 1
                 }
             });
             _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
@@ -105,7 +105,7 @@ namespace ProEvoCanary.Tests
             Assert.That(model, Is.Not.Null);
             Assert.That(model.Results.First().AwayScore, Is.EqualTo(0));
             Assert.That(model.Results.First().HomeScore, Is.EqualTo(3));
-            Assert.That(model.Results.First().ResultID, Is.EqualTo(1));
+            Assert.That(model.Results.First().ResultId, Is.EqualTo(1));
             Assert.That(model.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(model.Results.First().AwayTeam, Is.EqualTo("Villa"));
             Assert.That(model.PlayerOneList.SelectedItem, Is.EqualTo("1"));

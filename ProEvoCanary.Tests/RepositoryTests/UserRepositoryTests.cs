@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
+using ProEvoCanary.ViewModels;
 
-namespace ProEvoCanary.Tests
+namespace ProEvoCanary.Tests.RepositoryTests
 {
     [TestFixture]
     public class UserRepositoryTests
     {
+        readonly LoginModel loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>());
+
 
         [Test]
         public void ShouldGetAdminUser()
@@ -25,7 +27,7 @@ namespace ProEvoCanary.Tests
                 {"UserType", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTestHelper.Reader(dictionary));
 
             var repository = new UserRepository(helper.Object);
@@ -57,7 +59,7 @@ namespace ProEvoCanary.Tests
                 {"UserType", 2}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTestHelper.Reader(dictionary));
 
             var repository = new UserRepository(helper.Object);
@@ -72,6 +74,36 @@ namespace ProEvoCanary.Tests
             Assert.That(user.Surname, Is.EqualTo("Rajyaguru"));
             Assert.That(user.Username, Is.EqualTo("hemdagem"));
 
+        }
+
+        [Test]
+        public void ShouldCreateUser()
+        {
+            var helper = new Mock<IdBHelper>();
+            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(1);
+
+            var repository = new UserRepository(helper.Object);
+
+            //when
+            var user = repository.CreateUser(loginModel.Username, loginModel.Forename, loginModel.Surname, loginModel.EmailAddress);
+
+            //then
+            Assert.That(user, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void ShouldNotCreateUser()
+        {
+            var helper = new Mock<IdBHelper>();
+            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(0);
+
+            var repository = new UserRepository(helper.Object);
+
+            //when
+            var user = repository.CreateUser(loginModel.Username, loginModel.Forename, loginModel.Surname, loginModel.EmailAddress);
+
+            //then
+            Assert.That(user, Is.EqualTo(0));
         }
     }
 }

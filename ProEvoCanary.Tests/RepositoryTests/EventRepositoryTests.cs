@@ -18,7 +18,7 @@ namespace ProEvoCanary.Tests
             //given
             var dictionary = new Dictionary<string, object>
             {
-                {"TournamentID", 0},
+                {"TournamentId", 0},
                 {"TournamentName", "Event"},
                 {"Venue", "Venue"},
                 {"Date", "10/10/2010"},
@@ -27,7 +27,7 @@ namespace ProEvoCanary.Tests
             };
 
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -38,7 +38,7 @@ namespace ProEvoCanary.Tests
 
             //then
             Assert.That(resultsModels.Count, Is.EqualTo(1));
-            Assert.That(resultsModels.First().EventID, Is.EqualTo(0));
+            Assert.That(resultsModels.First().EventId, Is.EqualTo(0));
             Assert.That(resultsModels.First().EventName, Is.EqualTo("Event"));
             Assert.That(resultsModels.First().Venue, Is.EqualTo("Venue"));
             Assert.That(resultsModels.First().Date, Is.EqualTo("10/10/2010"));

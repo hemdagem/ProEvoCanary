@@ -10,9 +10,9 @@ namespace ProEvoCanary.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly IDBHelper _helper;
+        private readonly IdBHelper _helper;
 
-        public EventRepository(IDBHelper helper)
+        public EventRepository(IdBHelper helper)
         {
             _helper = helper;
         }
@@ -21,13 +21,13 @@ namespace ProEvoCanary.Repositories
 
         public List<EventModel> GetEvents()
         {
-            var reader = _helper.ExecuteReader("sp_GetTDetails");
+            var reader = _helper.ExecuteReader("sp_GetTournamentDetails");
             var lstTournament = new List<EventModel>();
             while (reader.Read())
             {
                 lstTournament.Add(new EventModel
                 {
-                    EventID = (int)reader["TournamentID"],
+                    EventId = (int)reader["Id"],
                     EventName = reader["TournamentName"].ToString(),
                     Venue = reader["Venue"].ToString(),
                     Date = reader["Date"].ToString(),

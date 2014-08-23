@@ -46,7 +46,7 @@ namespace ProEvoCanary.Tests
             _eventsRepository = new Mock<IEventRepository>();
             _eventsRepository.Setup(x => x.GetEvents()).Returns(new List<EventModel>{new EventModel
             {
-                EventID = 1,
+                EventId = 1,
                 EventName = "Hemang",
                 Venue = "Home",
                 Date = "10/10/2014",
@@ -58,11 +58,11 @@ namespace ProEvoCanary.Tests
             _resultsRepository = new Mock<IResultRepository>();
             _resultsRepository.Setup(x => x.GetResults()).Returns(new List<ResultsModel>{new ResultsModel
             {
-                ResultID = 1,
-                HomeTeamID = 1,
+                ResultId = 1,
+                HomeTeamId = 1,
                 HomeTeam = "Arsenal",
                 HomeScore = 5,
-                AwayTeamID =2,
+                AwayTeamId =2,
                 AwayTeam = "Aston Villa",
                 AwayScore = 2,
 
@@ -126,7 +126,7 @@ namespace ProEvoCanary.Tests
 
             //then
             Assert.That(model.Events.Count(), Is.EqualTo(1));
-            Assert.That(model.Events.First().EventID, Is.EqualTo(1));
+            Assert.That(model.Events.First().EventId, Is.EqualTo(1));
             Assert.That(model.Events.First().EventName, Is.EqualTo("Hemang"));
             Assert.That(model.Events.First().Venue, Is.EqualTo("Home"));
             Assert.That(model.Events.First().Date, Is.EqualTo("10/10/2014"));
@@ -145,11 +145,11 @@ namespace ProEvoCanary.Tests
 
             //then
             Assert.That(model.Results.Count(), Is.EqualTo(1));
-            Assert.That(model.Results.First().ResultID, Is.EqualTo(1));
-            Assert.That(model.Results.First().HomeTeamID, Is.EqualTo(1));
+            Assert.That(model.Results.First().ResultId, Is.EqualTo(1));
+            Assert.That(model.Results.First().HomeTeamId, Is.EqualTo(1));
             Assert.That(model.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(model.Results.First().HomeScore, Is.EqualTo(5));
-            Assert.That(model.Results.First().AwayTeamID, Is.EqualTo(2));
+            Assert.That(model.Results.First().AwayTeamId, Is.EqualTo(2));
             Assert.That(model.Results.First().AwayTeam, Is.EqualTo("Aston Villa"));
             Assert.That(model.Results.First().AwayScore, Is.EqualTo(2));
         }

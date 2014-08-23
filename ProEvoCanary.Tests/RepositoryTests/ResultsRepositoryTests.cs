@@ -23,12 +23,12 @@ namespace ProEvoCanary.Tests
                 {"AwayTeam", "Villa"},
                 {"HomeScore", 3},
                 {"AwayScore", 0},
-                {"HomeTeamID", 1},
-                {"AwayTeamID", 2},
-                {"ResultsID", 1},
+                {"HomeTeamId", 1},
+                {"AwayTeamId", 2},
+                {"ResultsId", 1},
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -41,11 +41,11 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.Count, Is.EqualTo(1));
             Assert.That(resultsModels.First().AwayScore, Is.EqualTo(0));
             Assert.That(resultsModels.First().AwayTeam, Is.EqualTo("Villa"));
-            Assert.That(resultsModels.First().AwayTeamID, Is.EqualTo(2));
+            Assert.That(resultsModels.First().AwayTeamId, Is.EqualTo(2));
             Assert.That(resultsModels.First().HomeScore, Is.EqualTo(3));
             Assert.That(resultsModels.First().HomeTeam, Is.EqualTo("Arsenal"));
-            Assert.That(resultsModels.First().HomeTeamID, Is.EqualTo(1));
-            Assert.That(resultsModels.First().ResultID, Is.EqualTo(1));
+            Assert.That(resultsModels.First().HomeTeamId, Is.EqualTo(1));
+            Assert.That(resultsModels.First().ResultId, Is.EqualTo(1));
         }
 
        
@@ -62,10 +62,10 @@ namespace ProEvoCanary.Tests
                 {"AwayUser", "Villa"},
                 {"HomeScore", 3},
                 {"AwayScore", 0},
-                {"ResultsID", 1},
+                {"ResultsId", 1},
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -80,7 +80,7 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.First().AwayTeam, Is.EqualTo("Villa"));
             Assert.That(resultsModels.First().HomeScore, Is.EqualTo(3));
             Assert.That(resultsModels.First().HomeTeam, Is.EqualTo("Arsenal"));
-            Assert.That(resultsModels.First().ResultID, Is.EqualTo(1));
+            Assert.That(resultsModels.First().ResultId, Is.EqualTo(1));
 
         }
 
@@ -88,7 +88,7 @@ namespace ProEvoCanary.Tests
         [Test]
         public void ShouldGetHeadToHeadRecord()
         {
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
 
             //given
             var dictionary = new Dictionary<string, object>

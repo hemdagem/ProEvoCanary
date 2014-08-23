@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
         <li>
-            @item.HomeTeam <a href="@Url.Action("Details","Results",new{ Id=@item.ResultID})">@item.HomeScore  -  @item.AwayScore</a>  @item.AwayTeam
+            @item.HomeTeam <a href="@Url.Action("Details","Results",new{ Id=@item.ResultId})">@item.HomeScore  -  @item.AwayScore</a>  @item.AwayTeam
         </li>
     }
 </ul>
