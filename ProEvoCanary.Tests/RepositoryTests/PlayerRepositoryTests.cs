@@ -27,7 +27,7 @@ namespace ProEvoCanary.Tests
                 {"UserType", 2}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -58,7 +58,7 @@ namespace ProEvoCanary.Tests
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IdBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 

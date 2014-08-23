@@ -1,16 +1,23 @@
-﻿using ProEvoCanary.Helpers.Interfaces;
+﻿using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
+using IUser = ProEvoCanary.Models.IUser;
 
 namespace ProEvoCanary.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IDBHelper _dbHelper;
+        private readonly IdBHelper _dbHelper;
 
-        public UserRepository(IDBHelper dbHelper)
+        public UserRepository(IdBHelper dbHelper)
         {
             _dbHelper = dbHelper;
+        }
+
+        public UserRepository() : this(new DBHelper())
+        {
+            
         }
 
         public IUser GetUser(string username)
@@ -44,6 +51,16 @@ namespace ProEvoCanary.Repositories
         }
 
 
+        public int CreateUser(string userName, string forename, string surname, string emailAddress)
+        {
+            _dbHelper.AddParameter("@Username", userName);
+            _dbHelper.AddParameter("@Forename", forename);
+            _dbHelper.AddParameter("@Surname", surname);
+            _dbHelper.AddParameter("@Email", emailAddress);
 
+
+
+            return  _dbHelper.ExecuteScalar("sp_AddNewUser");
+        }
     }
 }

@@ -132,6 +132,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -180,6 +181,7 @@
     <Compile Include="Repositories\ResultsRepositoryDecorator.cs" />
     <Compile Include="Repositories\RssFeedRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="ViewModels\LoginModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -187,7 +189,7 @@
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Records\HeadToHead.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\Partials\_Events.cshtml" />
     <Content Include="Views\Shared\Partials\_News.cshtml" />
     <Content Include="Views\Shared\Partials\_Players.cshtml" />
@@ -195,6 +197,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="content\img\.gitkeep" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Views\Authentication\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

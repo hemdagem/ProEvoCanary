@@ -8,10 +8,10 @@ namespace ProEvoCanary.Repositories
 {
     public class ResultsRepository : IResultRepository
     {
-        private readonly IDBHelper _helper;
+        private readonly IdBHelper _helper;
 
 
-        public ResultsRepository(IDBHelper helper)
+        public ResultsRepository(IdBHelper helper)
         {
             _helper = helper;
         }
@@ -33,9 +33,9 @@ namespace ProEvoCanary.Repositories
                         AwayTeam = reader["AwayTeam"].ToString(),
                         HomeScore = int.Parse(reader["HomeScore"].ToString()),
                         AwayScore = int.Parse(reader["AwayScore"].ToString()),
-                        HomeTeamID = int.Parse(reader["HomeTeamID"].ToString()),
-                        AwayTeamID = int.Parse(reader["AwayTeamID"].ToString()),
-                        ResultID = int.Parse(reader["ResultsID"].ToString())
+                        HomeTeamId = int.Parse(reader["HomeTeamId"].ToString()),
+                        AwayTeamId = int.Parse(reader["AwayTeamId"].ToString()),
+                        ResultId = int.Parse(reader["Id"].ToString())
                     });
                 }
             }
@@ -48,8 +48,8 @@ namespace ProEvoCanary.Repositories
             var lstResults = new List<ResultsModel>();
 
             _helper.ClearParameters();
-            _helper.AddParameter("@UserOneID", playerOne);
-            _helper.AddParameter("@UserTwoID", playerTwo);
+            _helper.AddParameter("@UserOneId", playerOne);
+            _helper.AddParameter("@UserTwoId", playerTwo);
 
 
             using (var reader = _helper.ExecuteReader("sp_HeadToHeadResults"))
@@ -63,7 +63,7 @@ namespace ProEvoCanary.Repositories
                         AwayTeam = reader["AwayUser"].ToString(),
                         HomeScore = int.Parse(reader["HomeScore"].ToString()),
                         AwayScore = int.Parse(reader["AwayScore"].ToString()),
-                        ResultID = int.Parse(reader["ResultsID"].ToString())
+                        ResultId = int.Parse(reader["Id"].ToString())
                     });
                 }
             }
@@ -75,8 +75,8 @@ namespace ProEvoCanary.Repositories
         {
 
             _helper.ClearParameters();
-            _helper.AddParameter("@UserOneID", playerOne);
-            _helper.AddParameter("@UserTwoID", playerTwo);
+            _helper.AddParameter("@UserOneId", playerOne);
+            _helper.AddParameter("@UserTwoId", playerTwo);
             var headToHeadRecordList = new RecordsModel();
 
             using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord"))

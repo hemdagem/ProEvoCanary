@@ -13,7 +13,6 @@ c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanar
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\System.Web.WebPages.dll
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\System.Web.WebPages.Razor.dll
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\System.Web.Optimization.dll
-c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\Elmah.dll
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\ProEvoCanary.pdb
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\Moq.xml
 c:\users\hemdagem\documents\visual studio 2013\Projects\ProEvoCanary\ProEvoCanary.Tests\bin\Debug\nunit.framework.xml
