@@ -74,9 +74,16 @@ namespace ProEvoCanary.Tests
             //given
             Setup();
 
-            _resultRepository.Setup(x => x.GetHeadToHeadResults(1, 2)).Returns(new List<ResultsModel>
-            {
-                new ResultsModel
+            _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
+                new RecordsModel
+                {
+                    TotalMatches = 1,
+                    PlayerOneWins = 2,
+                    PlayerTwoWins = 3,
+                    TotalDraws = 4,
+                    Results = new List<ResultsModel>
+                    {
+                       new ResultsModel
                 {
                     AwayScore = 0,
                     AwayTeam = "Villa",
@@ -84,14 +91,7 @@ namespace ProEvoCanary.Tests
                     HomeTeam = "Arsenal",
                     ResultId = 1
                 }
-            });
-            _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
-                new RecordsModel
-                {
-                    TotalMatches = 1,
-                    PlayerOneWins = 2,
-                    PlayerTwoWins = 3,
-                    TotalDraws = 4
+                    }
                 }
             );
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
@@ -103,11 +103,11 @@ namespace ProEvoCanary.Tests
             var model = (ResultsListModel)result.Model;
 
             Assert.That(model, Is.Not.Null);
-            Assert.That(model.Results.First().AwayScore, Is.EqualTo(0));
-            Assert.That(model.Results.First().HomeScore, Is.EqualTo(3));
-            Assert.That(model.Results.First().ResultId, Is.EqualTo(1));
-            Assert.That(model.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
-            Assert.That(model.Results.First().AwayTeam, Is.EqualTo("Villa"));
+            Assert.That(model.HeadToHead.Results.First().AwayScore, Is.EqualTo(0));
+            Assert.That(model.HeadToHead.Results.First().HomeScore, Is.EqualTo(3));
+            Assert.That(model.HeadToHead.Results.First().ResultId, Is.EqualTo(1));
+            Assert.That(model.HeadToHead.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
+            Assert.That(model.HeadToHead.Results.First().AwayTeam, Is.EqualTo("Villa"));
             Assert.That(model.PlayerOneList.SelectedItem, Is.EqualTo("1"));
             Assert.That(model.PlayerTwoList.SelectedItem, Is.EqualTo("2"));
             Assert.That(model.HeadToHead.TotalMatches, Is.EqualTo(1));

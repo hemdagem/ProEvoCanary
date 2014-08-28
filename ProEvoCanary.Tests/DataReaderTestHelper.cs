@@ -19,6 +19,23 @@ namespace ProEvoCanary.Tests
                 moq.Setup(x => x[keyValuePairItem.Key]).Returns(() => keyValuePairItem.Value);
             }
             return moq.Object;
+        } 
+
+        public static IDataReader MultipleResultsReader(Dictionary<string, object> dictionary)
+        {
+            var moq = new Mock<IDataReader>();
+
+            moq.Setup(x => x.Read()).Returns(new Queue<bool>(new[] { true, false, true, false }).Dequeue);
+
+            foreach (KeyValuePair<string, object> keyValuePair in dictionary)
+            {
+                var keyValuePairItem = keyValuePair;
+                moq.Setup(x => x[keyValuePairItem.Key]).Returns(() => keyValuePairItem.Value);
+            }
+
+            return moq.Object;
         }
+
+
     }
 }

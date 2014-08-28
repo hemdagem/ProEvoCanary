@@ -18,7 +18,7 @@ namespace ProEvoCanary.Tests
             //given
             var dictionary = new Dictionary<string, object>
             {
-                {"TournamentId", 0},
+                {"Id", 0},
                 {"TournamentName", "Event"},
                 {"Venue", "Venue"},
                 {"Date", "10/10/2010"},

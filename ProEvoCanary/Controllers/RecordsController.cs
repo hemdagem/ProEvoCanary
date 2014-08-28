@@ -26,7 +26,6 @@ namespace ProEvoCanary.Controllers
             var model = new ResultsListModel
             {
                 PlayerOneList = playerList,
-                Results = new List<ResultsModel>(),
                 PlayerTwoList = new SelectListModel
             {
                 ListItems = playerList.ListItems
@@ -50,7 +49,6 @@ namespace ProEvoCanary.Controllers
                 ListItems = playerOneList.ListItems,
                 SelectedItem = playerTwoId.ToString(CultureInfo.InvariantCulture)
             },
-                Results = _resultRepository.GetHeadToHeadResults(playerOneId, playerTwoId),
                 HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
             };
 
