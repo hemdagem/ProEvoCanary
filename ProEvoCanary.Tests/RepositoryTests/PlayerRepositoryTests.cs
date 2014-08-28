@@ -20,7 +20,7 @@ namespace ProEvoCanary.Tests
             //given
             var dictionary = new Dictionary<string, object>
             {
-                {"UserId", 1},
+                {"Id", 1},
                 {"Name", "Arsenal"},
                 {"Surname", "Rajyaguru"},
                 {"Username", "hemdagem"},
@@ -51,7 +51,7 @@ namespace ProEvoCanary.Tests
 
             var dictionary = new Dictionary<string, object>
             {
-                {"UserId", 1},
+                {"Id", 1},
                 {"Name", "Arsenal"},
                 {"GoalsPerGame", 3.2f},
                 {"PointsPerGame", 4.2f},

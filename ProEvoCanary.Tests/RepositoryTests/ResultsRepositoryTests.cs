@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.Tests
+namespace ProEvoCanary.Tests.RepositoryTests
 {
     [TestFixture]
     public class ResultsRepositoryTests
@@ -25,7 +23,7 @@ namespace ProEvoCanary.Tests
                 {"AwayScore", 0},
                 {"HomeTeamId", 1},
                 {"AwayTeamId", 2},
-                {"ResultsId", 1},
+                {"Id", 1},
             };
 
             var helper = new Mock<IdBHelper>();
@@ -48,42 +46,6 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.First().ResultId, Is.EqualTo(1));
         }
 
-       
-
-
-        [Test]
-        public void ShouldGetHeadToHeadResults()
-        {
-
-            //given
-            var dictionary = new Dictionary<string, object>
-            {
-                {"HomeUser", "Arsenal"},
-                {"AwayUser", "Villa"},
-                {"HomeScore", 3},
-                {"AwayScore", 0},
-                {"ResultsId", 1},
-            };
-
-            var helper = new Mock<IdBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTestHelper.Reader(dictionary));
-
-            var repository = new ResultsRepository(helper.Object);
-
-            //when
-            var resultsModels = repository.GetHeadToHeadResults(It.IsAny<int>(), It.IsAny<int>());
-
-            //then
-            Assert.That(resultsModels.Count, Is.EqualTo(1));
-            Assert.That(resultsModels.First().AwayScore, Is.EqualTo(0));
-            Assert.That(resultsModels.First().AwayTeam, Is.EqualTo("Villa"));
-            Assert.That(resultsModels.First().HomeScore, Is.EqualTo(3));
-            Assert.That(resultsModels.First().HomeTeam, Is.EqualTo("Arsenal"));
-            Assert.That(resultsModels.First().ResultId, Is.EqualTo(1));
-
-        }
-
     
         [Test]
         public void ShouldGetHeadToHeadRecord()
@@ -97,10 +59,15 @@ namespace ProEvoCanary.Tests
                 {"PlayerTwoWins", 2},
                 {"TotalDraws", 0},
                 {"TotalMatches", 4},
+                {"HomeUser", "Arsenal"},
+                {"AwayUser", "Villa"},
+                {"HomeScore", 3},
+                {"AwayScore", 0},
+                {"Id", 1},
             };
 
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTestHelper.Reader(dictionary));
+                DataReaderTestHelper.MultipleResultsReader(dictionary));
 
             var repository = new ResultsRepository(helper.Object);
 
@@ -112,6 +79,12 @@ namespace ProEvoCanary.Tests
             Assert.That(resultsModels.TotalDraws, Is.EqualTo(0));
             Assert.That(resultsModels.PlayerOneWins, Is.EqualTo(2));
             Assert.That(resultsModels.PlayerTwoWins, Is.EqualTo(2));
+            Assert.That(resultsModels.Results.Count, Is.EqualTo(1));
+            Assert.That(resultsModels.Results.First().AwayScore, Is.EqualTo(0));
+            Assert.That(resultsModels.Results.First().AwayTeam, Is.EqualTo("Villa"));
+            Assert.That(resultsModels.Results.First().HomeScore, Is.EqualTo(3));
+            Assert.That(resultsModels.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
+            Assert.That(resultsModels.Results.First().ResultId, Is.EqualTo(1));
         }
 
 

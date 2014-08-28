@@ -1,4 +1,6 @@
-﻿namespace ProEvoCanary.Models
+﻿using System.Collections.Generic;
+
+namespace ProEvoCanary.Models
 {
     public class RecordsModel
     {
@@ -6,5 +8,6 @@
         public int TotalDraws { get; set; }
         public int PlayerOneWins { get; set; }
         public int PlayerTwoWins { get; set; }
+        public List<ResultsModel> Results { get; set; }
     }
 }
