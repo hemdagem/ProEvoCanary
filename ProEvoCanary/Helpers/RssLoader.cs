@@ -8,7 +8,7 @@ using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers
 {
-    public class Loader : IRssLoader
+    public class RssLoader : IRssLoader
     {
         public List<RssFeedModel> Load(string url)
         {

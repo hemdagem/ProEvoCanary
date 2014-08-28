@@ -30,7 +30,7 @@ namespace ProEvoCanary.Tests
                 }});
 
             //when
-            var repository = new RssFeedRepository(new RssCacheLoader(), loader.Object);
+            var repository = new RssFeedRepositoryDecorator(new RssCacheLoader(), loader.Object);
            var feed = repository.GetFeed("Yes");
            
 
@@ -69,7 +69,7 @@ namespace ProEvoCanary.Tests
 
        
             //when
-            var repository = new RssFeedRepository(cacheLoader.Object, loader.Object);
+            var repository = new RssFeedRepositoryDecorator(cacheLoader.Object, loader.Object);
             repository.GetFeed(It.IsAny<string>());
             repository.GetFeed(It.IsAny<string>());
 

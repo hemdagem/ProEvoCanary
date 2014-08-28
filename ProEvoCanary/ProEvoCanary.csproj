@@ -151,7 +151,7 @@
     <Compile Include="Helpers\Interfaces\IConfiguration.cs" />
     <Compile Include="Helpers\Interfaces\IDBHelper.cs" />
     <Compile Include="Helpers\Interfaces\IRssLoader.cs" />
-    <Compile Include="Helpers\Loader.cs" />
+    <Compile Include="Helpers\RssLoader.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
@@ -179,7 +179,7 @@
     <Compile Include="Repositories\ResultsCacheRepository.cs" />
     <Compile Include="Repositories\ResultsRepository.cs" />
     <Compile Include="Repositories\ResultsRepositoryDecorator.cs" />
-    <Compile Include="Repositories\RssFeedRepository.cs" />
+    <Compile Include="Repositories\RssFeedRepositoryDecorator.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
   </ItemGroup>
