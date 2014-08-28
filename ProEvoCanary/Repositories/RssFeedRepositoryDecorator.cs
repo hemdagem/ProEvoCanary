@@ -6,14 +6,14 @@ using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Repositories
 {
-    public class RssFeedRepository : IRssFeedRepository
+    public class RssFeedRepositoryDecorator : IRssFeedRepository
     {
         private readonly ICacheRssLoader _cacheRssLoader;
         private readonly IRssLoader _rssLoader;
 
-        public RssFeedRepository() : this(new RssCacheLoader(), new Loader()) { }
+        public RssFeedRepositoryDecorator() : this(new RssCacheLoader(), new RssLoader()) { }
 
-        public RssFeedRepository(ICacheRssLoader cacheRssLoader, IRssLoader rssLoader)
+        public RssFeedRepositoryDecorator(ICacheRssLoader cacheRssLoader, IRssLoader rssLoader)
         {
             _cacheRssLoader = cacheRssLoader;
             _rssLoader = rssLoader;
