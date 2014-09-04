@@ -1,0 +1,37 @@
+﻿using System.Collections.Generic;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Models;
+using ProEvoCanary.Repositories.Interfaces;
+
+namespace ProEvoCanary.Repositories
+{
+    public class RssFeedRepository : IRssFeedRepository
+    {
+        private readonly ICacheRssLoader _cacheRssLoader;
+        private readonly IRssLoader _rssLoader;
+
+        public RssFeedRepository() : this(new RssCacheLoader(), new Loader()) { }
+
+        public RssFeedRepository(ICacheRssLoader cacheRssLoader, IRssLoader rssLoader)
+        {
+            _cacheRssLoader = cacheRssLoader;
+            _rssLoader = rssLoader;
+        }
+
+        public List<RssFeedModel> GetFeed(string url)
+        {
+            var rssFeedModel = _cacheRssLoader.Load(url);
+
+            if (rssFeedModel != null) return rssFeedModel;
+
+            rssFeedModel = _rssLoader.Load(url);
+
+            _cacheRssLoader.AddToCache(url, rssFeedModel, 3);
+
+            return rssFeedModel;
+        }
+
+
+    }
+}

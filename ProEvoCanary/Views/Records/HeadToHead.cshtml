@@ -1,0 +1,60 @@
+﻿@model ProEvoCanary.Models.ResultsListModel
+
+@{
+    ViewBag.Title = "Records";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="text-center"><small>Head to Head Records</small></h1>
+
+<div class="row">
+    <div class="large-4 columns">
+        @Html.DropDownListFor(m => m.PlayerOneList.SelectedItem, Model.PlayerOneList.ListItems, new { id = "playerOne" })
+    </div>
+    <div class="large-4 columns text-center">
+        <button onclick="ProEvo.viewResult()">View</button>
+    </div>
+    <div class="large-4 columns">
+        @Html.DropDownListFor(m => m.PlayerTwoList.SelectedItem, Model.PlayerTwoList.ListItems, new { id = "playerTwo" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 large-12 text-center">
+        @if (@Model.HeadToHead != null)
+        {
+            <ul class="small-block-grid-3">
+                <li>@Model.HeadToHead.TotalMatches</li>
+                <li>Matches</li>
+                <li>@Model.HeadToHead.TotalMatches</li>
+            </ul>
+            <ul class="small-block-grid-3">
+                <li>@Model.HeadToHead.PlayerOneWins</li>
+                <li>Won</li>
+                <li>@Model.HeadToHead.PlayerTwoWins</li>
+            </ul>
+            <ul class="small-block-grid-3">
+                <li>@Model.HeadToHead.TotalDraws</li>
+                <li>Drawn</li>
+                <li>@Model.HeadToHead.TotalDraws</li>
+            </ul>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="small-12 large-12 text-center">
+
+        @if (Model.Results.Count > 0)
+        {
+            <h2><small>Previous Meetings</small></h2>
+            foreach (var item in Model.Results)
+            {
+                <ul class="no-bullet text-center">
+                    <li>
+                        @item.HomeTeam  @item.HomeScore - @item.AwayScore @item.AwayTeam
+                    </li>
+                </ul>
+            }
+        }
+    </div>
+</div>
