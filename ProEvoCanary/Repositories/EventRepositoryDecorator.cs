@@ -8,6 +8,7 @@ namespace ProEvoCanary.Repositories
     {
         private readonly ICacheEventRepository _cacheEventRepository;
         private readonly IEventRepository _eventRepository;
+        private const int CacheHours = 30;
 
         private const string EventsListCacheKey = "EventsListCache";
 
@@ -23,11 +24,11 @@ namespace ProEvoCanary.Repositories
         {
             var events = _cacheEventRepository.GetEvents();
 
-            if (events != null) return events;
-
-            events = _eventRepository.GetEvents();
-
-            _cacheEventRepository.AddToCache(EventsListCacheKey, events, 30);
+            if (events == null)
+            {
+                events = _eventRepository.GetEvents();
+                _cacheEventRepository.AddToCache(EventsListCacheKey, events, CacheHours);
+            }
 
             return events;
         }

@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using ProEvoCanary.Helpers;
-using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Repositories
 {
-    public class ResultsRepositoryDecorator : ICacheResultsRepository
+    public class ResultsRepositoryDecorator : IResultRepository
     {
         private readonly ICacheResultsRepository _cacheResultsRepository;
         private readonly IResultRepository _resultRepository;
-        private readonly ICacheManager _cacheManager;
-        private const string EventsListCacheKey = "EventsListCache";
+        private const string RecentResultsKey = "recent_results";
+        private const string headToHeadResultsKey = "{0}_{1}";
 
-        public ResultsRepositoryDecorator() : this(new ResultsCacheRepository(),new ResultsRepository() ) { }
+        private const int CacheHours = 30;
+        public ResultsRepositoryDecorator() : this(new ResultsCacheRepository(), new ResultsRepository()) { }
 
         public ResultsRepositoryDecorator(ICacheResultsRepository cacheResultsRepository, IResultRepository resultRepository)
         {
@@ -21,25 +21,34 @@ namespace ProEvoCanary.Repositories
             _resultRepository = resultRepository;
         }
 
-
         public List<ResultsModel> GetResults()
         {
-            throw new System.NotImplementedException();
-        }
+            List<ResultsModel> results = _cacheResultsRepository.GetResults();
 
-        public List<ResultsModel> GetHeadToHeadResults(int playerOne, int playerTwo)
-        {
-            throw new System.NotImplementedException();
+            if (results == null)
+            {
+                results = _resultRepository.GetResults();
+                _cacheResultsRepository.AddToCache(RecentResultsKey, results, CacheHours);
+            }
+
+            return results;
         }
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
         {
-            throw new System.NotImplementedException();
-        }
 
-        public void AddToCache(string key, object value, int cacheHours)
-        {
-            throw new System.NotImplementedException();
+            RecordsModel results = _cacheResultsRepository.GetHeadToHeadRecord(playerOne, playerTwo);
+
+            if (results == null)
+            {
+                results = _resultRepository.GetHeadToHeadRecord(playerOne, playerTwo);
+
+                var key = string.Format(headToHeadResultsKey, playerOne, playerTwo);
+
+                _cacheResultsRepository.AddToCache(key, results, CacheHours);
+            }
+
+            return results;
         }
     }
 }

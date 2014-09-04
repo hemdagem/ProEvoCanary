@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Caching;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
@@ -56,42 +57,25 @@ namespace ProEvoCanary.Tests.IntegrationTests
             End();
         }
 
-        [Test]
-        public void ShouldGetCachedHeadToHeadResults()
-        {
-            //given
-            Setup();
-            var resultsModel = new List<ResultsModel>
-            {
-                new ResultsModel
-                {
-                    AwayScore = 1
-                }
-            };
-            string headToHeadResultsKey = string.Format("head_to_head_results_playerOne{0}_playerTwo{1}", 1, 2);
-
-            _cache.Set(headToHeadResultsKey, resultsModel, _cacheItemPolicy);
-
-            var repository = new ResultsCacheRepository(new CachingManager(_cache));
-
-            //when
-            var resultsModels = repository.GetHeadToHeadResults(1, 2);
-
-            Assert.That(resultsModels.Count, Is.EqualTo(1));
-            Assert.That(resultsModels[0].AwayScore, Is.EqualTo(resultsModel[0].AwayScore));
-
-            End();
-        }
-
 
         [Test]
         public void ShouldGetCachedHeadToHeadRecord()
         {
             //given
             Setup();
-            var resultsModel = new RecordsModel { PlayerOneWins = 1 };
+            var resultsModel = new RecordsModel
+            {
+                PlayerOneWins = 1,
+                Results = new List<ResultsModel>
+                {
+                    new ResultsModel
+                    {
+                        AwayScore = 1
+                    }
+                }
+            };
 
-            string headToHeadResultsKey = string.Format("head_to_head_records_playerOne{0}_playerTwo{1}", 1, 2);
+            string headToHeadResultsKey = string.Format("{0}_{1}", 1, 2);
 
             _cache.Set(headToHeadResultsKey, resultsModel, _cacheItemPolicy);
 
@@ -102,6 +86,8 @@ namespace ProEvoCanary.Tests.IntegrationTests
 
             Assert.IsNotNull(resultsModels);
             Assert.That(resultsModels.PlayerOneWins, Is.EqualTo(resultsModel.PlayerOneWins));
+            Assert.That(resultsModels.Results.Count,Is.EqualTo(1));
+            Assert.That(resultsModels.Results.First().AwayScore,Is.EqualTo(1));
 
             End();
         }
