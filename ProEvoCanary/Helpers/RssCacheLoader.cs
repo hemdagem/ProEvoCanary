@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories;
-using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Helpers
 {

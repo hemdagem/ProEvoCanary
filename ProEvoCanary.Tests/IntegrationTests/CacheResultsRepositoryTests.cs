@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Caching;
 using NUnit.Framework;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 

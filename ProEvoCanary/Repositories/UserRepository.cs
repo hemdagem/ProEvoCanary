@@ -15,10 +15,7 @@ namespace ProEvoCanary.Repositories
             _dbHelper = dbHelper;
         }
 
-        public UserRepository() : this(new DBHelper())
-        {
-            
-        }
+        public UserRepository() : this(new DBHelper()) { }
 
         public IUser GetUser(string username)
         {
@@ -57,8 +54,6 @@ namespace ProEvoCanary.Repositories
             _dbHelper.AddParameter("@Forename", forename);
             _dbHelper.AddParameter("@Surname", surname);
             _dbHelper.AddParameter("@Email", emailAddress);
-
-
 
             return  _dbHelper.ExecuteScalar("sp_AddNewUser");
         }
