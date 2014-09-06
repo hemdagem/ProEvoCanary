@@ -23,7 +23,7 @@ namespace ProEvoCanary.Controllers
             _resultRepository = resultRepository;
         }
 
-        public DefaultController() : this(new PlayerRepositoryDecorator(), new RssFeedRepository(), new EventRepositoryDecorator(), new ResultsRepository()) { }
+        public DefaultController() : this(new PlayerRepositoryDecorator(), new RssFeedRepositoryDecorator(), new EventRepositoryDecorator(), new ResultsRepository()) { }
 
         public ActionResult Index()
         {
