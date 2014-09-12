@@ -7,7 +7,7 @@ using ProEvoCanary.Controllers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Tests.ControllerTests
 {
     [TestFixture]
     public class RecordsControllerTests
@@ -33,7 +33,7 @@ namespace ProEvoCanary
         }
 
         [Test]
-        public void ShouldGetRightView()
+        public void ShouldGetRightViewForHeadToHeadView()
         {
             //given
             Setup();
@@ -48,7 +48,7 @@ namespace ProEvoCanary
 
 
         [Test]
-        public void ShouldSetModelWithRightProperties()
+        public void ShouldSetModelWithRightPropertiesForHeadToHead()
         {
             //given
             Setup();

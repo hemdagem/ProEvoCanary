@@ -1,85 +1,101 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Caching;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Tests.ControllerTests
 {
     [TestFixture]
     public class DefaultControllerTests
     {
-
-        Mock<ICachePlayerRepository> _playerRepository;
-        Mock<IRssFeedRepository> _rssFeedRepository;
-        Mock<IEventRepository> _eventsRepository;
-        Mock<IResultRepository> _resultsRepository;
+        private Mock<ICachePlayerRepository> _playerRepository;
+        private Mock<IRssFeedRepository> _rssFeedRepository;
+        private Mock<IEventRepository> _eventsRepository;
+        private Mock<IResultRepository> _resultsRepository;
         private DefaultController _defaultController;
         private ViewResult _result;
+
         private void Setup()
         {
-
             _playerRepository = new Mock<ICachePlayerRepository>();
-            _playerRepository.Setup(x => x.GetTopPlayers()).Returns(new List<PlayerModel>{new PlayerModel
+            _playerRepository.Setup(x => x.GetTopPlayers()).Returns(new List<PlayerModel>
             {
-                PlayerId = 1,
-                PlayerName = "Hemang",
-                GoalsPerGame = 2,
-                MatchesPlayed = 3,
-                PointsPerGame = 3.2f
-                
-            }});
+                new PlayerModel
+                {
+                    PlayerId = 1,
+                    PlayerName = "Hemang",
+                    GoalsPerGame = 2,
+                    MatchesPlayed = 3,
+                    PointsPerGame = 3.2f
+                }
+            });
 
 
             _rssFeedRepository = new Mock<IRssFeedRepository>();
-            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
+            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(new List<RssFeedModel>
+            {
+                new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
-                }});
+                }
+            });
 
             _eventsRepository = new Mock<IEventRepository>();
-            _eventsRepository.Setup(x => x.GetEvents()).Returns(new List<EventModel>{new EventModel
+            _eventsRepository.Setup(x => x.GetEvents()).Returns(new List<EventModel>
             {
-                EventId = 1,
-                EventName = "Hemang",
-                Venue = "Home",
-                Date = "10/10/2014",
-                Name = "Hemang",
-                Completed = true
-
-            }});
+                new EventModel
+                {
+                    EventId = 1,
+                    EventName = "Hemang",
+                    Venue = "Home",
+                    Date = "10/10/2014",
+                    Name = "Hemang",
+                    Completed = true
+                }
+            });
 
             _resultsRepository = new Mock<IResultRepository>();
-            _resultsRepository.Setup(x => x.GetResults()).Returns(new List<ResultsModel>{new ResultsModel
+            _resultsRepository.Setup(x => x.GetResults()).Returns(new List<ResultsModel>
             {
-                ResultId = 1,
-                HomeTeamId = 1,
-                HomeTeam = "Arsenal",
-                HomeScore = 5,
-                AwayTeamId =2,
-                AwayTeam = "Aston Villa",
-                AwayScore = 2,
+                new ResultsModel
+                {
+                    ResultId = 1,
+                    HomeTeamId = 1,
+                    HomeTeam = "Arsenal",
+                    HomeScore = 5,
+                    AwayTeamId = 2,
+                    AwayTeam = "Aston Villa",
+                    AwayScore = 2,
+                }
+            });
 
-            }});
-
-            _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object, _eventsRepository.Object, _resultsRepository.Object);
+            _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object,
+                _eventsRepository.Object, _resultsRepository.Object);
             _result = _defaultController.Index() as ViewResult;
         }
 
         [Test]
-        public void ShouldSetViewToDefault()
+        public void ShouldSetEventsModel()
         {
             //given
             Setup();
 
+            //when
+            var model = _result.Model as HomeModel;
+
             //then
-            Assert.That(_result.ViewName, Is.EqualTo("Index"));
+            Assert.That(model.Events.Count(), Is.EqualTo(1));
+            Assert.That(model.Events.First().EventId, Is.EqualTo(1));
+            Assert.That(model.Events.First().EventName, Is.EqualTo("Hemang"));
+            Assert.That(model.Events.First().Venue, Is.EqualTo("Home"));
+            Assert.That(model.Events.First().Date, Is.EqualTo("10/10/2014"));
+            Assert.That(model.Events.First().Name, Is.EqualTo("Hemang"));
+            Assert.That(model.Events.First().Completed, Is.EqualTo(true));
         }
 
         [Test]
@@ -101,40 +117,6 @@ namespace ProEvoCanary
         }
 
         [Test]
-        public void ShouldSetRssFeedModel()
-        {
-            //given
-            Setup();
-
-            //when
-            var model = _result.Model as HomeModel;
-
-            //then
-            Assert.That(model.News.Count(), Is.EqualTo(1));
-            Assert.That(model.News.First().LinkTitle, Is.EqualTo("hemang"));
-            Assert.That(model.News.First().LinkDescription, Is.EqualTo("ha"));
-        }
-
-        [Test]
-        public void ShouldSetEventsModel()
-        {
-            //given
-            Setup();
-
-            //when
-            var model = _result.Model as HomeModel;
-
-            //then
-            Assert.That(model.Events.Count(), Is.EqualTo(1));
-            Assert.That(model.Events.First().EventId, Is.EqualTo(1));
-            Assert.That(model.Events.First().EventName, Is.EqualTo("Hemang"));
-            Assert.That(model.Events.First().Venue, Is.EqualTo("Home"));
-            Assert.That(model.Events.First().Date, Is.EqualTo("10/10/2014"));
-            Assert.That(model.Events.First().Name, Is.EqualTo("Hemang"));
-            Assert.That(model.Events.First().Completed, Is.EqualTo(true));
-        }
-        
-        [Test]
         public void ShouldSetResultsModel()
         {
             //given
@@ -154,8 +136,29 @@ namespace ProEvoCanary
             Assert.That(model.Results.First().AwayScore, Is.EqualTo(2));
         }
 
+        [Test]
+        public void ShouldSetRssFeedModel()
+        {
+            //given
+            Setup();
 
-       
+            //when
+            var model = _result.Model as HomeModel;
 
+            //then
+            Assert.That(model.News.Count(), Is.EqualTo(1));
+            Assert.That(model.News.First().LinkTitle, Is.EqualTo("hemang"));
+            Assert.That(model.News.First().LinkDescription, Is.EqualTo("ha"));
+        }
+
+        [Test]
+        public void ShouldSetViewToDefault()
+        {
+            //given
+            Setup();
+
+            //then
+            Assert.That(_result.ViewName, Is.EqualTo("Index"));
+        }
     }
 }
