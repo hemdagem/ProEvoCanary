@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Helpers.Exceptions
 {
     public class NotUniqueException : Exception
     {

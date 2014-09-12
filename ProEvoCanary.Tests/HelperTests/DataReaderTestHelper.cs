@@ -21,11 +21,11 @@ namespace ProEvoCanary
             return moq.Object;
         } 
 
-        public static IDataReader MultipleResultsReader(Dictionary<string, object> dictionary)
+        public static IDataReader MultipleResultsReader(Dictionary<string, object> dictionary, Queue<bool> readQueue)
         {
             var moq = new Mock<IDataReader>();
 
-            moq.Setup(x => x.Read()).Returns(new Queue<bool>(new[] { true, false, true, false }).Dequeue);
+            moq.Setup(x => x.Read()).Returns(readQueue.Dequeue);
 
             foreach (KeyValuePair<string, object> keyValuePair in dictionary)
             {

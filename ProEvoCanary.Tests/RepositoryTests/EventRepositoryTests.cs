@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Caching;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Tests.RepositoryTests
 {
     [TestFixture]
     public class EventRepositoryTests

@@ -28,6 +28,11 @@ namespace ProEvoCanary.Repositories
             return _cacheManager.Get(TopPlayerListCacheKey) as List<PlayerModel>;
         }
 
+        public List<PlayerModel> GetTopPlayersRange(int pageNumber, int playersPerPage)
+        {
+            throw new NotImplementedException();
+        }
+
         public SelectListModel GetAllPlayers()
         {
             return _cacheManager.Get(PlayerListCacheKey) as SelectListModel;

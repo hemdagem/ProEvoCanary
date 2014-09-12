@@ -67,7 +67,7 @@ namespace ProEvoCanary.RepositoryTests
             };
 
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
-                DataReaderTestHelper.MultipleResultsReader(dictionary));
+                DataReaderTestHelper.MultipleResultsReader(dictionary,new Queue<bool>(new[] { true, false, true, false })));
 
             var repository = new ResultsRepository(helper.Object);
 
