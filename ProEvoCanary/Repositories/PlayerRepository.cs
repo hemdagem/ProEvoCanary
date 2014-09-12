@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
@@ -17,6 +18,38 @@ namespace ProEvoCanary.Repositories
         }
 
         public PlayerRepository() : this(new DBHelper()) { }
+
+        public List<PlayerModel> GetTopPlayersRange(int pageNumber = 1, int playersPerPage = 10)
+        {
+            if (pageNumber < 1 || playersPerPage < 1)
+            {
+                throw new LessThanOneException();
+            }
+
+            _helper.ClearParameters();
+            _helper.AddParameter("@RowsPerPage", playersPerPage);
+            _helper.AddParameter("@PageNumber", pageNumber);
+            var players = new List<PlayerModel>();
+            var reader = _helper.ExecuteReader("sp_GetTopPlayers");
+            while (reader.Read())
+            {
+                players.Add(new PlayerModel
+                {
+                    PlayerId = (int)reader["Id"],
+                    PlayerName = reader["Name"].ToString(),
+                    GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
+                    PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
+                    MatchesPlayed = (int)reader["MatchesPlayed"]
+                });
+            }
+
+            if (players.Count > playersPerPage)
+            {
+                throw new TooManyPlayersReturnedException();
+            }
+
+            return players;
+        }
 
         public List<PlayerModel> GetTopPlayers()
         {
@@ -36,6 +69,8 @@ namespace ProEvoCanary.Repositories
 
             return players;
         }
+
+
 
         public SelectListModel GetAllPlayers()
         {

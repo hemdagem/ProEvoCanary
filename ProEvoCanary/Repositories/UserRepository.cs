@@ -47,7 +47,6 @@ namespace ProEvoCanary.Repositories
             return userModel;
         }
 
-
         public int CreateUser(string userName, string forename, string surname, string emailAddress)
         {
             _dbHelper.AddParameter("@Username", userName);

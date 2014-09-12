@@ -11,7 +11,6 @@ namespace ProEvoCanary.Repositories
         private readonly ICacheRssLoader _cacheRssLoader;
         private readonly IRssLoader _rssLoader;
 
-
         public RssFeedRepositoryDecorator() : this(new RssCacheLoader(), new RssLoader()) { }
 
         public RssFeedRepositoryDecorator(ICacheRssLoader cacheRssLoader, IRssLoader rssLoader)

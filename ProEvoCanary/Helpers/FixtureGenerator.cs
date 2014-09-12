@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers

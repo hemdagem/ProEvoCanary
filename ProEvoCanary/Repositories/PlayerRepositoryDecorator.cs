@@ -32,6 +32,11 @@ namespace ProEvoCanary.Repositories
             return players;
         }
 
+        public List<PlayerModel> GetTopPlayersRange(int pageNumber, int playersPerPage)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public SelectListModel GetAllPlayers()
         {
             var players = _cacheRepository.GetAllPlayers();

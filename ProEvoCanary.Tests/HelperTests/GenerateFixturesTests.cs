@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Exceptions;
 
 namespace ProEvoCanary.Tests.HelperTests
 {

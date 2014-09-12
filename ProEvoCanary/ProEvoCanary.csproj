@@ -144,8 +144,10 @@
     <Compile Include="Helpers\DBHelper.cs" />
     <Compile Include="Helpers\FixtureGenerator.cs" />
     <Compile Include="Helpers\Interfaces\ICacheRssLoader.cs" />
-    <Compile Include="Helpers\NotUniqueException.cs" />
+    <Compile Include="Helpers\Exceptions\LessThanOneException.cs" />
+    <Compile Include="Helpers\Exceptions\NotUniqueException.cs" />
     <Compile Include="Helpers\RssCacheLoader.cs" />
+    <Compile Include="Helpers\Exceptions\TooManyPlayersReturnedException.cs" />
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Helpers\CachingManager.cs" />

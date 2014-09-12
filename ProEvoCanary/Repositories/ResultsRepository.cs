@@ -10,7 +10,6 @@ namespace ProEvoCanary.Repositories
     {
         private readonly IdBHelper _helper;
 
-
         public ResultsRepository(IdBHelper helper)
         {
             _helper = helper;
@@ -45,7 +44,6 @@ namespace ProEvoCanary.Repositories
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
         {
-
             _helper.ClearParameters();
             _helper.AddParameter("@UserOneId", playerOne);
             _helper.AddParameter("@UserTwoId", playerTwo);
