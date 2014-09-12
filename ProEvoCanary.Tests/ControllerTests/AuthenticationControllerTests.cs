@@ -6,7 +6,7 @@ using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.ViewModels;
 
-namespace ProEvoCanary.Tests.ControllerTests
+namespace ProEvoCanary.ControllerTests
 {
     [TestFixture]
     public class AuthenticationControllerTests

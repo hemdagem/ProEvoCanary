@@ -6,7 +6,7 @@ using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.ViewModels;
 
-namespace ProEvoCanary.Tests.RepositoryTests
+namespace ProEvoCanary.RepositoryTests
 {
     [TestFixture]
     public class UserRepositoryTests

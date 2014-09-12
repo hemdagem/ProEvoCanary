@@ -2,7 +2,7 @@
 using System.Data;
 using Moq;
 
-namespace ProEvoCanary.Tests
+namespace ProEvoCanary
 {
     public static class DataReaderTestHelper
     {

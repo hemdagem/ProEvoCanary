@@ -142,8 +142,11 @@
     </Compile>
     <Compile Include="Helpers\Configuration.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
+    <Compile Include="Helpers\FixtureGenerator.cs" />
     <Compile Include="Helpers\Interfaces\ICacheRssLoader.cs" />
+    <Compile Include="Helpers\NotUniqueException.cs" />
     <Compile Include="Helpers\RssCacheLoader.cs" />
+    <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Helpers\CachingManager.cs" />
     <Compile Include="Repositories\EventRepositoryDecorator.cs" />
@@ -157,7 +160,7 @@
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\IUser.cs" />
+    <Compile Include="Models\Interfaces\IUser.cs" />
     <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\ResultsListModel.cs" />

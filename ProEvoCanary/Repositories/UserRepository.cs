@@ -2,7 +2,7 @@
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
-using IUser = ProEvoCanary.Models.IUser;
+using IUser = ProEvoCanary.Models.Interfaces.IUser;
 
 namespace ProEvoCanary.Repositories
 {

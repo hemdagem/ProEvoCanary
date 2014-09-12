@@ -7,7 +7,7 @@ using ProEvoCanary.Controllers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
-namespace ProEvoCanary.Tests
+namespace ProEvoCanary
 {
     [TestFixture]
     public class RecordsControllerTests

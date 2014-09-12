@@ -7,7 +7,7 @@ using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.Tests
+namespace ProEvoCanary
 {
     class RssFeedRepositoryTests
     {
