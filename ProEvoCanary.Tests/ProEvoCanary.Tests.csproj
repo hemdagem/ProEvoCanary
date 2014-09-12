@@ -86,8 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\AuthenticationControllerTests.cs" />
-    <Compile Include="DataReaderTestHelper.cs" />
+    <Compile Include="HelperTests\DataReaderTestHelper.cs" />
     <Compile Include="ControllerTests\DefaultControllerTests.cs" />
+    <Compile Include="HelperTests\GenerateFixturesTests.cs" />
     <Compile Include="IntegrationTests\CacheEventRepositoryTests.cs" />
     <Compile Include="IntegrationTests\CachePlayerRepositoryTests.cs" />
     <Compile Include="IntegrationTests\CacheResultsRepositoryTests.cs" />
@@ -109,9 +110,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HelperTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

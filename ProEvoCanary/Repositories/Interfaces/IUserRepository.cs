@@ -1,4 +1,5 @@
 ﻿using ProEvoCanary.Models;
+using ProEvoCanary.Models.Interfaces;
 
 namespace ProEvoCanary.Repositories.Interfaces
 {

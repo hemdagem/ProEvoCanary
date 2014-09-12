@@ -8,7 +8,7 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.Tests.IntegrationTests
+namespace ProEvoCanary.IntegrationTests
 {
     public class CachePlayerRepositoryTests
     {

@@ -1,4 +1,6 @@
-﻿namespace ProEvoCanary.Models
+﻿using ProEvoCanary.Models.Interfaces;
+
+namespace ProEvoCanary.Models
 {
     public class UserModel : IUser
     {

@@ -7,7 +7,7 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.Tests
+namespace ProEvoCanary
 {
     [TestFixture]
     public class EventRepositoryTests

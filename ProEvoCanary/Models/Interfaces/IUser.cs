@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Models
+﻿namespace ProEvoCanary.Models.Interfaces
 {
     public interface IUser
     {
