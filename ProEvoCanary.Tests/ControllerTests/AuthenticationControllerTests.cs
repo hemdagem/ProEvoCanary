@@ -1,17 +1,16 @@
 ﻿using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Controllers;
-using ProEvoCanary.Models;
+using ProEvoCanary.Areas.Admin.Controllers;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.ViewModels;
 
-namespace ProEvoCanary.ControllerTests
+namespace ProEvoCanary.Tests.ControllerTests
 {
     [TestFixture]
     public class AuthenticationControllerTests
     {
-        readonly LoginModel loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>());
+        readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>());
 
 
         [Test]
@@ -34,13 +33,12 @@ namespace ProEvoCanary.ControllerTests
         {
             //given
             var repo = new Mock<IUserRepository>();
-            var model = loginModel;
             var authenticationController = new AuthenticationController(repo.Object);
             //when
-            authenticationController.Create(model);
+            authenticationController.Create(_loginModel);
 
             //then
-            repo.Verify(x => x.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress), Times.Once);
+            repo.Verify(x => x.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress), Times.Once);
 
 
         }
@@ -50,14 +48,13 @@ namespace ProEvoCanary.ControllerTests
         {
             //given
             var repo = new Mock<IUserRepository>();
-            var model = loginModel;
             var authenticationController = new AuthenticationController(repo.Object);
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
-            authenticationController.Create(model);
+            authenticationController.Create(_loginModel);
 
             //then
-            repo.Verify(x => x.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress), Times.Never);
+            repo.Verify(x => x.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress), Times.Never);
 
 
         }
@@ -70,13 +67,11 @@ namespace ProEvoCanary.ControllerTests
         {
             //given
             var repo = new Mock<IUserRepository>();
-            var model = loginModel;
-
             var authenticationController = new AuthenticationController(repo.Object);
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
-            var redirectToRouteResult = authenticationController.Create(model) as RedirectToRouteResult;
-            var view = authenticationController.Create(model) as ViewResult;
+            var redirectToRouteResult = authenticationController.Create(_loginModel) as RedirectToRouteResult;
+            var view = authenticationController.Create(_loginModel) as ViewResult;
 
             //then
             Assert.IsNull(redirectToRouteResult);
@@ -89,14 +84,13 @@ namespace ProEvoCanary.ControllerTests
         {
             //given
             var repo = new Mock<IUserRepository>();
-            var model = loginModel;
 
-            repo.Setup(x => x.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress)).Returns(0);
+            repo.Setup(x => x.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress)).Returns(0);
             var authenticationController = new AuthenticationController(repo.Object);
 
             //when
-            var redirectToRouteResult = authenticationController.Create(model) as RedirectToRouteResult;
-            var view = authenticationController.Create(model) as ViewResult;
+            var redirectToRouteResult = authenticationController.Create(_loginModel) as RedirectToRouteResult;
+            var view = authenticationController.Create(_loginModel) as ViewResult;
 
             //then
             Assert.IsNull(redirectToRouteResult);
