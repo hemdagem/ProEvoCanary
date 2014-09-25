@@ -204,7 +204,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="content\img\.gitkeep" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Authentication\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
