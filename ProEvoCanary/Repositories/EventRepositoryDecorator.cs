@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
+using EventModel = ProEvoCanary.Models.EventModel;
 
 namespace ProEvoCanary.Repositories
 {
@@ -32,5 +32,6 @@ namespace ProEvoCanary.Repositories
 
             return events;
         }
+
     }
 }

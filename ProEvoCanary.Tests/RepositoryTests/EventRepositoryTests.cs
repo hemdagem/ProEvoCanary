@@ -10,6 +10,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
     [TestFixture]
     public class EventRepositoryTests
     {
+
         [Test]
         public void ShouldGetListOfEvents()
         {
@@ -25,7 +26,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -43,8 +44,5 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().Name, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().Completed, Is.EqualTo(true));
         }
-
-
-       
     }
 }

@@ -10,9 +10,9 @@ namespace ProEvoCanary.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly IdBHelper _helper;
+        private readonly IDBHelper _helper;
 
-        public PlayerRepository(IdBHelper helper)
+        public PlayerRepository(IDBHelper helper)
         {
             _helper = helper;
         }
@@ -45,7 +45,7 @@ namespace ProEvoCanary.Repositories
 
             if (players.Count > playersPerPage)
             {
-                throw new TooManyPlayersReturnedException();
+                throw new TooManyPlayersReturnedException("Too many players return. A potential issue with the stored procedure sp_GetTopPlayers");
             }
 
             return players;

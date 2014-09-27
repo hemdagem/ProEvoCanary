@@ -1,4 +1,5 @@
-﻿using ProEvoCanary.Helpers;
+﻿using System;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
@@ -8,9 +9,9 @@ namespace ProEvoCanary.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IdBHelper _dbHelper;
+        private readonly IDBHelper _dbHelper;
 
-        public UserRepository(IdBHelper dbHelper)
+        public UserRepository(IDBHelper dbHelper)
         {
             _dbHelper = dbHelper;
         }
@@ -49,12 +50,29 @@ namespace ProEvoCanary.Repositories
 
         public int CreateUser(string userName, string forename, string surname, string emailAddress)
         {
+            if (String.IsNullOrEmpty(userName))
+            {
+                throw new NullReferenceException("Username cannot be empty");
+            }
+            if (String.IsNullOrEmpty(forename))
+            {
+                throw new NullReferenceException("Forename cannot be empty");
+            }
+            if (String.IsNullOrEmpty(surname))
+            {
+                throw new NullReferenceException("Surname cannot be empty");
+            }
+            if (String.IsNullOrEmpty(emailAddress))
+            {
+                throw new NullReferenceException("Email Address cannot be empty");
+            }
+
             _dbHelper.AddParameter("@Username", userName);
             _dbHelper.AddParameter("@Forename", forename);
             _dbHelper.AddParameter("@Surname", surname);
             _dbHelper.AddParameter("@Email", emailAddress);
 
-            return  _dbHelper.ExecuteScalar("sp_AddNewUser");
+            return _dbHelper.ExecuteScalar("sp_AddNewUser");
         }
     }
 }

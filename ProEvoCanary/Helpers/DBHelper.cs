@@ -5,7 +5,7 @@ using ProEvoCanary.Helpers.Interfaces;
 
 namespace ProEvoCanary.Helpers
 {
-    public class DBHelper : IdBHelper
+    public class DBHelper : IDBHelper
     {
         private readonly IConfiguration _connectionString;
         private readonly IDbConnection _connection;

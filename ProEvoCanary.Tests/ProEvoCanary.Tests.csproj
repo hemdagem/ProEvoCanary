@@ -86,12 +86,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\AuthenticationControllerTests.cs" />
+    <Compile Include="ControllerTests\EventControllerTests.cs" />
     <Compile Include="HelperTests\DataReaderTestHelper.cs" />
     <Compile Include="ControllerTests\DefaultControllerTests.cs" />
     <Compile Include="HelperTests\GenerateFixturesTests.cs" />
     <Compile Include="IntegrationTests\CacheEventRepositoryTests.cs" />
     <Compile Include="IntegrationTests\CachePlayerRepositoryTests.cs" />
     <Compile Include="IntegrationTests\CacheResultsRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\AdminEventRepositoryTests.cs" />
     <Compile Include="RepositoryTests\EventRepositoryTests.cs" />
     <Compile Include="RepositoryTests\PlayerRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using ProEvoCanary.Areas.Admin.Models;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
-using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
+using EventModel = ProEvoCanary.Models.EventModel;
 
 namespace ProEvoCanary.Repositories
 {
