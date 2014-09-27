@@ -2,15 +2,15 @@
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Areas.Admin.Controllers;
+using ProEvoCanary.Areas.Admin.Models;
 using ProEvoCanary.Repositories.Interfaces;
-using ProEvoCanary.ViewModels;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {
     [TestFixture]
     public class AuthenticationControllerTests
     {
-        readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>());
+        readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
 
 
         [Test]

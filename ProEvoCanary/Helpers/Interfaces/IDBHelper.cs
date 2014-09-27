@@ -2,7 +2,7 @@
 
 namespace ProEvoCanary.Helpers.Interfaces
 {
-    public interface IdBHelper
+    public interface IDBHelper
     {
         int ExecuteScalar(string commandText);
         int ExecuteNonQuery(string storedProcedure);

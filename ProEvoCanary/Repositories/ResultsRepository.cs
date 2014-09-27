@@ -8,9 +8,9 @@ namespace ProEvoCanary.Repositories
 {
     public class ResultsRepository : IResultRepository
     {
-        private readonly IdBHelper _helper;
+        private readonly IDBHelper _helper;
 
-        public ResultsRepository(IdBHelper helper)
+        public ResultsRepository(IDBHelper helper)
         {
             _helper = helper;
         }

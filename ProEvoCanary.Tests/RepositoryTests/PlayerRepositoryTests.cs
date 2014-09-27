@@ -2,13 +2,11 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
-using ProEvoCanary.Tests.RepositoryTests;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Tests.RepositoryTests
 {
     [TestFixture]
     public class PlayerRepositoryTests
@@ -28,7 +26,7 @@ namespace ProEvoCanary
                 {"UserType", 2}
             };
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -58,7 +56,7 @@ namespace ProEvoCanary
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -91,7 +89,7 @@ namespace ProEvoCanary
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -114,7 +112,7 @@ namespace ProEvoCanary
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -136,7 +134,7 @@ namespace ProEvoCanary
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -170,7 +168,7 @@ namespace ProEvoCanary
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IdBHelper>();
+            var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, true, true, false })));
 
@@ -178,6 +176,33 @@ namespace ProEvoCanary
 
             //when
             repository.GetTopPlayersRange(1, 2);
+
+        }    
+        
+        [Test]
+        public void ShouldHaveRightParametersWhenGettingPlayersRange()
+        {
+            var dictionary = new Dictionary<string, object>
+            {
+                {"Id", 1},
+                {"Name", "Arsenal"},
+                {"GoalsPerGame", 3.2f},
+                {"PointsPerGame", 4.2f},
+                {"MatchesPlayed", 1}
+            };
+
+            var helper = new Mock<IDBHelper>();
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+                DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, false })));
+
+            var repository = new PlayerRepository(helper.Object);
+
+            //when
+            repository.GetTopPlayersRange(1, 2);
+
+            helper.Verify(x => x.AddParameter("@RowsPerPage", 2), Times.Once);
+            helper.Verify(x => x.AddParameter("@PageNumber", 1), Times.Once);
+          
 
         }
 

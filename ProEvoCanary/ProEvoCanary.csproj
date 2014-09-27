@@ -135,6 +135,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EventController.cs" />
+    <Compile Include="Areas\Admin\Models\EventModel.cs" />
+    <Compile Include="Areas\Admin\Models\EventTypes.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,6 +154,7 @@
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Helpers\CachingManager.cs" />
+    <Compile Include="Repositories\AdminEventRepository.cs" />
     <Compile Include="Repositories\EventRepositoryDecorator.cs" />
     <Compile Include="Repositories\Interfaces\ICacheResultsRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICacheEventRepository.cs" />
@@ -175,6 +179,7 @@
     <Compile Include="Repositories\CachePlayerRepository.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICachePlayerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAdminEventRepository.cs" />
     <Compile Include="Repositories\Interfaces\IEventRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPlayerRepository.cs" />
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
@@ -206,6 +211,7 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Authentication\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Event\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
