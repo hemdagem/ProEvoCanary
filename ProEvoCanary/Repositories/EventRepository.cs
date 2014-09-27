@@ -30,7 +30,6 @@ namespace ProEvoCanary.Repositories
                 {
                     EventId = (int)reader["Id"],
                     EventName = reader["TournamentName"].ToString(),
-                    Venue = reader["Venue"].ToString(),
                     Date = reader["Date"].ToString(),
                     Name = reader["Name"].ToString(),
                     Completed = (bool)reader["Completed"]

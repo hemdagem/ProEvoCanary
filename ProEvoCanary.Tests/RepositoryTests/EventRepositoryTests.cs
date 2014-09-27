@@ -19,7 +19,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
             {
                 {"Id", 0},
                 {"TournamentName", "Event"},
-                {"Venue", "Venue"},
                 {"Date", "10/10/2010"},
                 {"Name", "Arsenal"},
                 {"Completed", true},
@@ -39,7 +38,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.Count, Is.EqualTo(1));
             Assert.That(resultsModels.First().EventId, Is.EqualTo(0));
             Assert.That(resultsModels.First().EventName, Is.EqualTo("Event"));
-            Assert.That(resultsModels.First().Venue, Is.EqualTo("Venue"));
             Assert.That(resultsModels.First().Date, Is.EqualTo("10/10/2010"));
             Assert.That(resultsModels.First().Name, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().Completed, Is.EqualTo(true));

@@ -38,7 +38,6 @@ namespace ProEvoCanary.IntegrationTests
                     EventId = 1,
                     EventName = "Event",
                     Name = "Arsenal",
-                    Venue = "Venue"
 
                 }
             };
@@ -57,7 +56,6 @@ namespace ProEvoCanary.IntegrationTests
             Assert.That(eventModels[0].EventId, Is.EqualTo(expectedEvents[0].EventId));
             Assert.That(eventModels[0].EventName, Is.EqualTo(expectedEvents[0].EventName));
             Assert.That(eventModels[0].Name, Is.EqualTo(expectedEvents[0].Name));
-            Assert.That(eventModels[0].Venue, Is.EqualTo(expectedEvents[0].Venue));
            
             End();
         }
