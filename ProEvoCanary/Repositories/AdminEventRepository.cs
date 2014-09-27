@@ -30,7 +30,6 @@ namespace ProEvoCanary.Repositories
                 {
                     EventId = (int)reader["Id"],
                     EventName = reader["TournamentName"].ToString(),
-                    Venue = reader["Venue"].ToString(),
                     Date = reader["Date"].ToString(),
                     Name = reader["Name"].ToString(),
                     Completed = (bool)reader["Completed"]
@@ -58,7 +57,7 @@ namespace ProEvoCanary.Repositories
             _helper.AddParameter("@Date", utcNow);
             _helper.AddParameter("@OwnerId", ownerId);
 
-            return _helper.ExecuteScalar("sp_AddNewUser");
+            return _helper.ExecuteScalar("sp_AddTournament");
         }
     }
 }
