@@ -26,7 +26,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails")).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new EventRepository(helper.Object);

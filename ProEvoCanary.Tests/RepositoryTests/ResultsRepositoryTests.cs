@@ -5,7 +5,7 @@ using NUnit.Framework;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.RepositoryTests
+namespace ProEvoCanary.Tests.RepositoryTests
 {
     [TestFixture]
     public class ResultsRepositoryTests
@@ -27,7 +27,7 @@ namespace ProEvoCanary.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_RecentResults")).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new ResultsRepository(helper.Object);
@@ -66,7 +66,7 @@ namespace ProEvoCanary.RepositoryTests
                 {"Id", 1},
             };
 
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_RecentResults")).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary,new Queue<bool>(new[] { true, false, true, false })));
 
             var repository = new ResultsRepository(helper.Object);

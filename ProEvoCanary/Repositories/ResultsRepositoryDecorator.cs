@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
@@ -10,7 +9,7 @@ namespace ProEvoCanary.Repositories
         private readonly ICacheResultsRepository _cacheResultsRepository;
         private readonly IResultRepository _resultRepository;
         private const string RecentResultsKey = "recent_results";
-        private const string headToHeadResultsKey = "{0}_{1}";
+        private const string HeadToHeadResultsKey = "{0}_{1}";
 
         private const int CacheHours = 30;
         public ResultsRepositoryDecorator() : this(new ResultsCacheRepository(), new ResultsRepository()) { }
@@ -43,7 +42,7 @@ namespace ProEvoCanary.Repositories
             {
                 results = _resultRepository.GetHeadToHeadRecord(playerOne, playerTwo);
 
-                var key = string.Format(headToHeadResultsKey, playerOne, playerTwo);
+                var key = string.Format(HeadToHeadResultsKey, playerOne, playerTwo);
 
                 _cacheResultsRepository.AddToCache(key, results, CacheHours);
             }
