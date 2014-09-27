@@ -29,7 +29,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTestHelper.Reader(dictionary));
+            helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(dictionary));
 
             var repository = new UserRepository(helper.Object);
 
@@ -61,7 +61,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(DataReaderTestHelper.Reader(dictionary));
+            helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(dictionary));
 
             var repository = new UserRepository(helper.Object);
 
@@ -81,7 +81,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldCreateUser()
         {
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(1);
 
             var repository = new UserRepository(helper.Object);
 
@@ -100,7 +100,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(0);
+            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             var repository = new UserRepository(helper.Object);
 
@@ -117,7 +117,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(0);
+            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             var repository = new UserRepository(helper.Object);
 
@@ -134,7 +134,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(0);
+            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             var repository = new UserRepository(helper.Object);
 
@@ -151,7 +151,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar(It.IsAny<string>())).Returns(0);
+            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             var repository = new UserRepository(helper.Object);
 

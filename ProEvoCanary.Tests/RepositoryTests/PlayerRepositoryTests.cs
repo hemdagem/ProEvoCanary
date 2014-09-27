@@ -27,7 +27,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetUsers")).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             //when
@@ -57,7 +57,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -90,7 +90,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -135,7 +135,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -169,7 +169,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, true, true, false })));
 
             var repository = new PlayerRepository(helper.Object);
@@ -192,7 +192,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, false })));
 
             var repository = new PlayerRepository(helper.Object);
