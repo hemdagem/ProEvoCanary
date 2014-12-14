@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProEvoCanary.Areas.Admin.Models
+namespace ProEvoCanary.Models
 {
-    public class LoginModel
+    public class CreateUserModel
     {
-        public LoginModel() { }
+        public CreateUserModel() { }
 
-        public LoginModel(string forename, string surname, string username, string emailAddress)
+        public CreateUserModel(string forename, string surname, string username, string emailAddress, string password)
         {
+            Password = password;
             Forename = forename;
             Surname = surname;
             Username = username;
@@ -24,6 +25,9 @@ namespace ProEvoCanary.Areas.Admin.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
     }
 }

@@ -1,8 +1,37 @@
-﻿
+﻿@model ProEvoCanary.Models.LoginModel
+
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Authentication", FormMethod.Post))
+{
+    <div class="row">
+        <div class="large-12 columns">
+            <label>
+                Username
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Enter your username" })
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>
+                Password
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Enter your username" })
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+
+            <input type="submit" value="submit" class="button" />
+        </div>
+    </div>
+
+}
 

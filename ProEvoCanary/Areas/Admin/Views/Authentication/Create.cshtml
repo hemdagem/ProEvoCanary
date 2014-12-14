@@ -1,4 +1,4 @@
-﻿@model ProEvoCanary.Areas.Admin.Models.LoginModel
+﻿@model ProEvoCanary.Models.LoginModel
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -29,12 +29,6 @@
             <label>
                 Surname
                 @Html.TextBoxFor(model => model.Surname, new { placeholder = "Enter your Surname" })
-            </label>
-        </div>
-        <div class="large-12 columns">
-            <label>
-                Email Address
-                @Html.TextBoxFor(model => model.EmailAddress, new { placeholder = "Enter your Email Address" })
             </label>
         </div>
     

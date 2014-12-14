@@ -10,13 +10,15 @@ namespace ProEvoCanary.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IDBHelper _dbHelper;
+        private readonly IPasswordHash _passwordHash;
 
-        public UserRepository(IDBHelper dbHelper)
+        public UserRepository(IDBHelper dbHelper, IPasswordHash passwordHash)
         {
             _dbHelper = dbHelper;
+            _passwordHash = passwordHash;
         }
 
-        public UserRepository() : this(new DBHelper()) { }
+        public UserRepository() : this(new DBHelper(), new PasswordHash()) { }
 
         public IUser GetUser(string username)
         {
@@ -48,7 +50,7 @@ namespace ProEvoCanary.Repositories
             return userModel;
         }
 
-        public int CreateUser(string userName, string forename, string surname, string emailAddress)
+        public int CreateUser(string userName, string forename, string surname, string emailAddress, string password)
         {
             if (String.IsNullOrEmpty(userName))
             {
@@ -65,14 +67,46 @@ namespace ProEvoCanary.Repositories
             if (String.IsNullOrEmpty(emailAddress))
             {
                 throw new NullReferenceException("Email Address cannot be empty");
+            } 
+            if (String.IsNullOrEmpty(password))
+            {
+                throw new NullReferenceException("Password cannot be empty");
             }
 
             _dbHelper.AddParameter("@Username", userName);
             _dbHelper.AddParameter("@Forename", forename);
             _dbHelper.AddParameter("@Surname", surname);
             _dbHelper.AddParameter("@Email", emailAddress);
+            _dbHelper.AddParameter("@Password", _passwordHash.CreateHash(password));
 
             return _dbHelper.ExecuteScalar("sp_AddNewUser");
+        }
+
+
+        public UserModel Login(LoginModel loginModel)
+        {
+            if (String.IsNullOrEmpty(loginModel.Username) || String.IsNullOrEmpty(loginModel.Password))
+            {
+                throw new NullReferenceException("Username or Password is empty");
+            }
+
+            _dbHelper.AddParameter("@Username", loginModel.Username);
+
+            UserModel model = null;
+            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails"))
+            {
+                while (reader.Read())
+                {
+                    var hash = reader["Hash"].ToString();
+
+                    if (_passwordHash.ValidatePassword(loginModel.Password, hash))
+                    {
+                        model = new UserModel((int)reader["Id"], reader["Forename"].ToString(), reader["Surname"].ToString(), reader["Username"].ToString());
+                    }
+                }
+            }
+
+            return model;
         }
     }
 }

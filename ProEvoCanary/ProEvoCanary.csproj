@@ -167,9 +167,11 @@
     <Compile Include="Helpers\Interfaces\ICacheRssLoader.cs" />
     <Compile Include="Helpers\Exceptions\LessThanOneException.cs" />
     <Compile Include="Helpers\Exceptions\NotUniqueException.cs" />
+    <Compile Include="Helpers\PasswordHash.cs" />
     <Compile Include="Helpers\RssCacheLoader.cs" />
     <Compile Include="Helpers\Exceptions\TooManyPlayersReturnedException.cs" />
     <Compile Include="Helpers\StoredProcedureList.cs" />
+    <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Helpers\CachingManager.cs" />
@@ -212,7 +214,7 @@
     <Compile Include="Repositories\ResultsRepositoryDecorator.cs" />
     <Compile Include="Repositories\RssFeedRepositoryDecorator.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Areas\Admin\Models\LoginModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +235,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Event\Create.cshtml" />
     <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Authentication\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
