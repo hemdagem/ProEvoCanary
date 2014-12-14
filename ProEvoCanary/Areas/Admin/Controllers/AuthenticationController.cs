@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Areas.Admin.Models;
+using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 
@@ -14,10 +14,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
             _userRepository = userRepository;
         }
 
-        public AuthenticationController() : this(new UserRepository())
-        {
-
-        }
+        public AuthenticationController() : this(new UserRepository()) { }
 
         // GET: Authentication/Create
         public ActionResult Create()
@@ -27,16 +24,15 @@ namespace ProEvoCanary.Areas.Admin.Controllers
 
         // POST: Authentication/Create
         [HttpPost]
-        public ActionResult Create(LoginModel model)
+        public ActionResult Create(CreateUserModel model)
         {
             if (ModelState.IsValid)
             {
-                if (_userRepository.CreateUser(model.Username, model.Forename, model.Surname,
-                        model.EmailAddress) > 0)
+                if (_userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress,model.Password) > 0)
                 {
                     return RedirectToAction("Index", "Default");
                 }
-                
+
             }
 
             return View(model);

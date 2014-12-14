@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Areas.Admin.Models;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
@@ -12,14 +12,19 @@ namespace ProEvoCanary.Tests.RepositoryTests
     [TestFixture]
     public class UserRepositoryTests
     {
-        readonly LoginModel _loginModel = new LoginModel("Hemang", "Rajyaguru", "Hemang", "test@test.com");
-
-
-        [Test]
-        public void ShouldGetAdminUser()
-        {
-            //given
-            var dictionary = new Dictionary<string, object>
+        readonly CreateUserModel _loginModel = new CreateUserModel("Hemang", "Rajyaguru", "Hemang", "test@test.com", "password");
+        Mock<IDBHelper> _helper;
+        Mock<IPasswordHash> _passwordHash;
+        private UserRepository repository;
+        readonly Dictionary<string, object> _dictionary = new Dictionary<string, object>
+            {
+                {"UserId", 1},
+                {"Forename", "Hemang"},
+                {"Surname", "Rajyaguru"},
+                {"Username", "hemdagem"},
+                {"UserType", 2}
+            };  
+        readonly Dictionary<string, object> _Admindictionary = new Dictionary<string, object>
             {
                 {"UserId", 1},
                 {"Forename", "Hemang"},
@@ -28,11 +33,21 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"UserType", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new UserRepository(helper.Object);
+        private void Setup()
+        {
+            _helper = new Mock<IDBHelper>();
+            _passwordHash = new Mock<IPasswordHash>();
+            repository = new UserRepository(_helper.Object, _passwordHash.Object);
+        }
 
+        [Test]
+        public void ShouldGetAdminUser()
+        {
+            //given
+            Setup();
+            _passwordHash.Setup(x => x.ValidatePassword(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
+            _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(_Admindictionary));
             //when
             var user = (AdminModel)repository.GetUser(It.IsAny<string>());
 
@@ -51,19 +66,9 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
 
             //given
-            var dictionary = new Dictionary<string, object>
-            {
-                {"UserId", 1},
-                {"Forename", "Hemang"},
-                {"Surname", "Rajyaguru"},
-                {"Username", "hemdagem"},
-                {"UserType", 2}
-            };
+            Setup();
 
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(dictionary));
-
-            var repository = new UserRepository(helper.Object);
+            _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(_dictionary));
 
             //when
             var user = (UserModel)repository.GetUser(It.IsAny<string>());
@@ -80,13 +85,11 @@ namespace ProEvoCanary.Tests.RepositoryTests
         [Test]
         public void ShouldCreateUser()
         {
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(1);
-
-            var repository = new UserRepository(helper.Object);
+            Setup();
+            _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(1);
 
             //when
-            var user = repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress);
+            var user = repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
 
             //then
             Assert.That(user, Is.EqualTo(1));
@@ -99,16 +102,14 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldThrowExceptionIfUsernameIsEmptyWhenCreatingAUser(string username)
         {
             //given
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
-
-            var repository = new UserRepository(helper.Object);
+            Setup();
+            _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             //then
-            repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress);
+            repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
 
         }
-        
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -116,16 +117,16 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldThrowExceptionIfForenameIsEmptyWhenCreatingAUser(string forename)
         {
             //given
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
+            Setup();
+            _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
-            var repository = new UserRepository(helper.Object);
+
 
             //then
-            repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress);
+            repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
 
         }
-        
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -133,16 +134,14 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldThrowExceptionIfSurnameIsEmptyWhenCreatingAUser(string surname)
         {
             //given
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
-
-            var repository = new UserRepository(helper.Object);
+            Setup();
+            _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             //then
-            repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress);
+            repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress, _loginModel.Password);
 
         }
-        
+
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -150,13 +149,11 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldThrowExceptionIfEmailIsEmptyWhenCreatingAUser(string email)
         {
             //given
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
-
-            var repository = new UserRepository(helper.Object);
+            Setup();
+            _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             //then
-            repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email);
+            repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email, _loginModel.Password);
 
         }
     }

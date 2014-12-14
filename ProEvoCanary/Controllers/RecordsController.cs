@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Web.Mvc;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
@@ -7,6 +6,7 @@ using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers
 {
+    [AllowAnonymous]
     public class RecordsController : Controller
     {
         private readonly IPlayerRepository _playerRepository;
@@ -45,10 +45,10 @@ namespace ProEvoCanary.Controllers
             {
                 PlayerOneList = playerOneList,
                 PlayerTwoList = new SelectListModel
-            {
-                ListItems = playerOneList.ListItems,
-                SelectedItem = playerTwoId.ToString(CultureInfo.InvariantCulture)
-            },
+                {
+                    ListItems = playerOneList.ListItems,
+                    SelectedItem = playerTwoId.ToString(CultureInfo.InvariantCulture)
+                },
                 HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
             };
 

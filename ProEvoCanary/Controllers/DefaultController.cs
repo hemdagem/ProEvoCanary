@@ -1,6 +1,4 @@
-﻿using System.Runtime.Caching;
-using System.Web.Mvc;
-using ProEvoCanary.Helpers;
+﻿using System.Web.Mvc;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
@@ -24,7 +22,8 @@ namespace ProEvoCanary.Controllers
         }
 
         public DefaultController() : this(new PlayerRepositoryDecorator(), new RssFeedRepositoryDecorator(), new EventRepositoryDecorator(), new ResultsRepository()) { }
-
+        
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var homeModel = new HomeModel

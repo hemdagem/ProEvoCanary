@@ -9,6 +9,8 @@ namespace ProEvoCanary.Models
         public string Surname { get; set; }
         public string Username { get; set; }
 
+        public UserModel() { }
+
         public UserModel(int userId, string forename, string surname, string username)
         {
             UserId = userId;

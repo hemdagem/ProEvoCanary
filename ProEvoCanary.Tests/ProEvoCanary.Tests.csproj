@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\AuthenticationControllerTests.cs" />
+    <Compile Include="ControllerTests\Admin\AuthenticationControllerTests.cs" />
     <Compile Include="ControllerTests\EventControllerTests.cs" />
     <Compile Include="HelperTests\DataReaderTestHelper.cs" />
     <Compile Include="ControllerTests\DefaultControllerTests.cs" />
