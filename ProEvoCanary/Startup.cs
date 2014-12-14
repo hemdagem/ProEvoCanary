@@ -10,7 +10,7 @@ namespace ProEvoCanary
         {
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = CookieAuthenticationDefaults.AuthenticationType,
+                AuthenticationType = "ApplicationCookie",
                 LoginPath = new PathString("/authentication/login")
             });
         }

@@ -75,9 +75,6 @@ namespace ProEvoCanary.Tests.ControllerTests
 
         }
 
-
-
-
         [Test]
         public void ShouldNotRedirectToHomePageOnFailedModelEntry()
         {

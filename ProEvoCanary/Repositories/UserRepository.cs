@@ -40,7 +40,8 @@ namespace ProEvoCanary.Repositories
                             userModel = new UserModel((int)reader["UserId"],
                                 reader["Forename"].ToString(),
                                 reader["Surname"].ToString(),
-                                reader["Username"].ToString());
+                                reader["Username"].ToString(),
+                                (int)reader["UserType"]);
                             break;
                     }
                 }
@@ -101,7 +102,7 @@ namespace ProEvoCanary.Repositories
 
                     if (_passwordHash.ValidatePassword(loginModel.Password, hash))
                     {
-                        model = new UserModel((int)reader["Id"], reader["Forename"].ToString(), reader["Surname"].ToString(), reader["Username"].ToString());
+                        model = new UserModel((int)reader["Id"], reader["Forename"].ToString(), reader["Surname"].ToString(), loginModel.Username, (int)reader["UserType"]);
                     }
                 }
             }
