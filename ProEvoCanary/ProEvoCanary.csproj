@@ -156,12 +156,16 @@
     <Compile Include="Areas\Admin\Models\EventModel.cs" />
     <Compile Include="Areas\Admin\Models\EventTypes.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\AuthenticationHandler.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\IAuthenticationHandler.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AdminAccess.cs" />
+    <Compile Include="Helpers\AppController.cs" />
+    <Compile Include="Helpers\AppUser.cs" />
     <Compile Include="Helpers\Configuration.cs" />
     <Compile Include="Helpers\DBHelper.cs" />
     <Compile Include="Helpers\FixtureGenerator.cs" />

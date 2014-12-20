@@ -7,7 +7,7 @@ using ProEvoCanary.Helpers.Exceptions;
 namespace ProEvoCanary.Tests.HelperTests
 {
     [TestFixture]
-    public class GenerateFixturesTests
+    public class FixtureGenaratorTests
     {
         private readonly List<int> _teamIds = new List<int>();
 

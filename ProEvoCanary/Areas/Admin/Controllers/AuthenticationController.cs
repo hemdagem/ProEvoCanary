@@ -7,7 +7,7 @@ using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Areas.Admin.Controllers
 {
-
+    [AdminAuthorize(ClaimTypes.Role, "Admin")]
     public class AuthenticationController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -20,7 +20,6 @@ namespace ProEvoCanary.Areas.Admin.Controllers
         public AuthenticationController() : this(new UserRepository()) { }
 
         // GET: Authentication/Create
-        [AdminAuthorize(ClaimTypes.Role, "Admin")]
         public ActionResult Create()
         {
             return View("Create");

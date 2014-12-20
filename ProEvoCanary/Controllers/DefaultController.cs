@@ -1,11 +1,12 @@
 ﻿using System.Web.Mvc;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers
 {
-    public class DefaultController : Controller
+    public class DefaultController : AppController
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IRssFeedRepository _rssFeedRepository;
