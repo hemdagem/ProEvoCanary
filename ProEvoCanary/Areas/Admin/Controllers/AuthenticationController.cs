@@ -35,7 +35,6 @@ namespace ProEvoCanary.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Index", "Default");
                 }
-
             }
 
             return View(model);
