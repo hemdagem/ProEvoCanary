@@ -6,7 +6,7 @@ using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers
 {
-    public class DefaultController : AppController
+    public class DefaultController : Controller
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IRssFeedRepository _rssFeedRepository;

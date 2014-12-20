@@ -156,6 +156,7 @@
     <Compile Include="Areas\Admin\Models\EventModel.cs" />
     <Compile Include="Areas\Admin\Models\EventTypes.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Helpers\AppViewPage.cs" />
     <Compile Include="Helpers\AuthenticationHandler.cs" />
     <Compile Include="Helpers\ClaimsIdentityFactory.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
