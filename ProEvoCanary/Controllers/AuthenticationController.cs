@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;

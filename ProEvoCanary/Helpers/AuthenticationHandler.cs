@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers

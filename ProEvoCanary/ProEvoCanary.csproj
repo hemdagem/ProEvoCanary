@@ -160,7 +160,7 @@
     <Compile Include="Helpers\AuthenticationHandler.cs" />
     <Compile Include="Helpers\ClaimsIdentityFactory.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Helpers\IAuthenticationHandler.cs" />
+    <Compile Include="Helpers\Interfaces\IAuthenticationHandler.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
