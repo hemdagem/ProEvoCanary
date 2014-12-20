@@ -1,6 +1,6 @@
 ﻿using ProEvoCanary.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Helpers.Interfaces
 {
     public interface IAuthenticationHandler
     {
