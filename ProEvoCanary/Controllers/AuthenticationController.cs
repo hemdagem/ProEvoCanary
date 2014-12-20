@@ -1,6 +1,5 @@
-﻿using System;
-using System.Security.Claims;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
@@ -59,18 +58,7 @@ namespace ProEvoCanary.Controllers
             {
                 UserModel login = _userRepository.Login(model);
 
-                var identity = new ClaimsIdentity(new[] 
-                {
-                    new Claim(ClaimTypes.Name, login.Forename),
-                    new Claim(ClaimTypes.Role,Enum.Parse(typeof(UserType),login.UserType.ToString()).ToString()), 
-                }, "ApplicationCookie");
-
-               // var ctx = Request.GetOwinContext();
-                //IAuthenticationManager authManager = ctx.Authentication;
-
-                _authenticationHandler.SignIn(identity);
-
-                //authManager.SignIn(identity);
+                _authenticationHandler.SignIn(login);
 
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
@@ -81,5 +69,7 @@ namespace ProEvoCanary.Controllers
 
             return View();
         }
+
+
     }
 }

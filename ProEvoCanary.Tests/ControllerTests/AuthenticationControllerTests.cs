@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 using LoginModel = ProEvoCanary.Models.LoginModel;
