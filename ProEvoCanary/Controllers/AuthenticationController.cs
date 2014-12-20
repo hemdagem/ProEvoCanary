@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
@@ -12,14 +11,16 @@ namespace ProEvoCanary.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAuthenticationHandler _authenticationHandler;
 
-        public AuthenticationController(IUserRepository userRepository)
+        public AuthenticationController(IUserRepository userRepository, IAuthenticationHandler authenticationHandler)
         {
             _userRepository = userRepository;
+            _authenticationHandler = authenticationHandler;
         }
 
 
-        public AuthenticationController() : this(new UserRepository()) { }
+        public AuthenticationController() : this(new UserRepository(), new AuthenticationHandler()) { }
 
         // GET: Authentication/Create
         public ActionResult Create()
@@ -64,10 +65,12 @@ namespace ProEvoCanary.Controllers
                     new Claim(ClaimTypes.Role,Enum.Parse(typeof(UserType),login.UserType.ToString()).ToString()), 
                 }, "ApplicationCookie");
 
-                var ctx = Request.GetOwinContext();
-                var authManager = ctx.Authentication;
+               // var ctx = Request.GetOwinContext();
+                //IAuthenticationManager authManager = ctx.Authentication;
 
-                authManager.SignIn(identity);
+                _authenticationHandler.SignIn(identity);
+
+                //authManager.SignIn(identity);
 
                 if (!string.IsNullOrEmpty(returnUrl))
                 {

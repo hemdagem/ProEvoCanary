@@ -13,17 +13,24 @@ namespace ProEvoCanary.Tests.ControllerTests
     {
         readonly CreateUserModel _createUserModel = new CreateUserModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
         readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>());
+        private Mock<IUserRepository> repo;
+        private Mock<IAuthenticationHandler> authenticationMock;
 
+        private void Setup()
+        {
+            repo = new Mock<IUserRepository>();
+            authenticationMock = new Mock<IAuthenticationHandler>();
+        }
 
         [Test]
         public void ShouldSetDefaultViewNameToLoginForLoginPage()
         {
             //given
-            var repo = new Mock<IUserRepository>();
-            var authenticationController = new AuthenticationController(repo.Object);
+            Setup();
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
 
             //when
-            var viewResult = authenticationController.Login() as ViewResult;
+            var viewResult = authenticationController.Login(It.IsAny<string>()) as ViewResult;
 
             //then
 
@@ -33,8 +40,8 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetDefaultViewNameToCreateForCreatePage()
         {
             //given
-            var repo = new Mock<IUserRepository>();
-            var authenticationController = new AuthenticationController(repo.Object);
+            Setup();
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
@@ -48,8 +55,9 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldCallUserRepositoryWhenModelIsValid()
         {
             //given
-            var repo = new Mock<IUserRepository>();
-            var authenticationController = new AuthenticationController(repo.Object);
+            Setup();
+            repo.Setup(x => x.Login(_loginModel)).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
             //when
             authenticationController.Login(_loginModel, It.IsAny<string>());
 
@@ -63,8 +71,8 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldNotCallUserRepositoryWhenModelIsInValid()
         {
             //given
-            var repo = new Mock<IUserRepository>();
-            var authenticationController = new AuthenticationController(repo.Object);
+            Setup();
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
             authenticationController.Create(_createUserModel);
@@ -79,8 +87,8 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldNotRedirectToHomePageOnFailedModelEntry()
         {
             //given
-            var repo = new Mock<IUserRepository>();
-            var authenticationController = new AuthenticationController(repo.Object);
+            Setup();
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
             var redirectToRouteResult = authenticationController.Create(_createUserModel) as RedirectToRouteResult;
@@ -96,10 +104,9 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldNotRedirectToHomePageWhenCreateUserFailed()
         {
             //given
-            var repo = new Mock<IUserRepository>();
-
+            Setup();
             repo.Setup(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress, _createUserModel.Password)).Returns(0);
-            var authenticationController = new AuthenticationController(repo.Object);
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
 
             //when
             var redirectToRouteResult = authenticationController.Create(_createUserModel) as RedirectToRouteResult;
