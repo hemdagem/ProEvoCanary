@@ -11,7 +11,8 @@ namespace ProEvoCanary.Helpers
         {
             get
             {
-                return FindFirst(ClaimTypes.Name).Value;
+                Claim name = FindFirst(ClaimTypes.Name);
+                return name == null ? string.Empty : name.Value;
             }
         }
 
@@ -19,7 +20,8 @@ namespace ProEvoCanary.Helpers
         {
             get
             {
-                return FindFirst(ClaimTypes.Role).Value;
+                Claim role = FindFirst(ClaimTypes.Role);
+                return role == null ? string.Empty : role.Value;
             }
         }
     }
