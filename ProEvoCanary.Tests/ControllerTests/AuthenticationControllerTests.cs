@@ -5,6 +5,7 @@ using ProEvoCanary.Controllers;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
+using ProEvoCanary.Models.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 using LoginModel = ProEvoCanary.Models.LoginModel;
 
@@ -70,6 +71,22 @@ namespace ProEvoCanary.Tests.ControllerTests
         }
 
         [Test]
+        public void ShouldNotCallSignInMethodWhenLoginIsInvalid()
+        {
+            //given
+            Setup();
+            repo.Setup(x => x.Login(_loginModel)).Returns((UserModel)null);
+            authenticationMock.Setup(x => x.SignIn(It.IsAny<UserModel>()));
+            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            //when
+            authenticationController.Login(_loginModel, It.IsAny<string>());
+
+            //then
+            authenticationMock.Verify(x => x.SignIn(It.IsAny<UserModel>()), Times.Never);
+
+        }
+
+        [Test]
         public void ShouldNotCallUserRepositoryWhenModelIsInValid()
         {
             //given
@@ -83,7 +100,9 @@ namespace ProEvoCanary.Tests.ControllerTests
             repo.Verify(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress,_createUserModel.Password), Times.Never);
 
 
-        }
+        }  
+        
+
 
         [Test]
         public void ShouldNotRedirectToHomePageOnFailedModelEntry()

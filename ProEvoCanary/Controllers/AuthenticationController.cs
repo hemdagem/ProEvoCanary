@@ -59,14 +59,16 @@ namespace ProEvoCanary.Controllers
             {
                 UserModel login = _userRepository.Login(model);
 
-                _authenticationHandler.SignIn(login);
-
-                if (!string.IsNullOrEmpty(returnUrl))
+                if (login != null)
                 {
-                    Redirect(returnUrl);
+                    _authenticationHandler.SignIn(login);
+
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        Redirect(returnUrl);
+                    }
                 }
             }
-
 
             return View();
         }

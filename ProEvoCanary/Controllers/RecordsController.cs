@@ -27,9 +27,9 @@ namespace ProEvoCanary.Controllers
             {
                 PlayerOneList = playerList,
                 PlayerTwoList = new SelectListModel
-            {
-                ListItems = playerList.ListItems
-            }
+                {
+                    ListItems = playerList.ListItems
+                }
             };
 
             return View("HeadToHead", model);

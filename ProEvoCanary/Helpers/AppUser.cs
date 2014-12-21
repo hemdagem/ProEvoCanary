@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers
 {
@@ -22,6 +23,14 @@ namespace ProEvoCanary.Helpers
             {
                 Claim role = FindFirst(ClaimTypes.Role);
                 return role == null ? string.Empty : role.Value;
+            }
+        }
+
+        public bool IsAdmin
+        {
+            get
+            {
+                return Role == UserType.Admin.ToString();
             }
         }
     }
