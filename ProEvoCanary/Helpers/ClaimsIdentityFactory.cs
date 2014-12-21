@@ -14,7 +14,8 @@ namespace ProEvoCanary.Helpers
             {
                 new Claim(ClaimTypes.Name, login.Forename),
                 new Claim(ClaimTypes.Role, Enum.Parse(typeof (UserType), login.UserType.ToString()).ToString()),
-            }, AuthenticationType);
+            },
+            AuthenticationType);
             return identity;
         }
     }

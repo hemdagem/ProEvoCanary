@@ -1,14 +1,10 @@
-﻿@model ProEvoCanary.Models.LoginModel
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@model ProEvoCanary.Models.CreateUserModel
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<h1 class="text-center"><small>Add User</small></h1>
-
-
+<h2>Create</h2>
 
 @using (Html.BeginForm("Create", "Authentication", FormMethod.Post))
 {
@@ -16,28 +12,47 @@
         <div class="large-12 columns">
             <label>
                 Username
-                @Html.TextBoxFor(model => model.Username, new { placeholder = "Enter your username" })
+                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Enter your username" })
             </label>
         </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>
+                Password
+                @Html.PasswordFor(m => m.Password, new { @placeholder = "Enter your password" })
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12 columns">
+            <label>
+                Email Address
+                @Html.TextBoxFor(m => m.EmailAddress, new { @placeholder = "Enter your email address" })
+            </label>
+        </div>
+    </div>
+    <div class="row">
         <div class="large-12 columns">
             <label>
                 Forename
-                @Html.TextBoxFor(model => model.Forename, new { placeholder = "Enter your Forename" })
+                @Html.TextBoxFor(m => m.Forename, new { @placeholder = "Enter your forename" })
             </label>
         </div>
+    </div>
+    <div class="row">
         <div class="large-12 columns">
             <label>
                 Surname
-                @Html.TextBoxFor(model => model.Surname, new { placeholder = "Enter your Surname" })
+                @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Enter your surname" })
             </label>
         </div>
-    
+    </div>
+    <div class="row">
         <div class="large-12 columns">
-   
-            <button type="submit">Create User</button>
+
+            <input type="submit" value="submit" class="button" />
         </div>
     </div>
 
 }
-
-

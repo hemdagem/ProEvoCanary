@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Web.Mvc;
+using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers
 {
@@ -12,6 +13,8 @@ namespace ProEvoCanary.Helpers
                 return new AppUser(this.User as ClaimsPrincipal);
             }
         }
+
+   
     }
 
     public abstract class AppViewPage : AppViewPage<dynamic>
