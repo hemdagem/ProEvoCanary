@@ -15,9 +15,7 @@
         <!-- Right Nav Section -->
         <ul class="right">
             <li class="divider hide-for-small"></li>
-            <li>
-                <a href="@Url.Action("HeadToHead","Records")">Records</a>
-            </li>
+
             @if (CurrentUser.Identity.IsAuthenticated)
             {
                 if (CurrentUser.IsAdmin)
@@ -31,7 +29,9 @@
                     <a href="@Url.Action("Create","Event", new {area="Admin"})">Create Event</a>
                 </li>
             }
-
+            <li>
+                <a href="@Url.Action("HeadToHead","Records")">Records</a>
+            </li>
         </ul>
     </section>
 </nav>
