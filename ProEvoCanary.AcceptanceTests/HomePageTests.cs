@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.PhantomJS;
 
 namespace ProEvoCanary.AcceptanceTests
@@ -18,20 +13,23 @@ namespace ProEvoCanary.AcceptanceTests
         [SetUp]
         public void Setup()
         {
-            _driver = new PhantomJSDriver(@"C:\");
+            _driver = new PhantomJSDriver();
         }
 
         [Test]
-        public void ShouldHaveEventsOnTheHomePage()
+        public void ShouldHaveTheMainFourHeadingsOnTheHomePage()
         {
             _driver.Navigate().GoToUrl(URL);
-            IWebElement query = _driver.FindElement(By.TagName("h2"));
+            var query = _driver.FindElements(By.TagName("h2"));
 
-            Assert.That(query.Text, Is.EqualTo("Events"));
+            Assert.That(query[0].Text, Is.EqualTo("Events"));
+            Assert.That(query[1].Text, Is.EqualTo("News"));
+            Assert.That(query[2].Text, Is.EqualTo("Top Players"));
+            Assert.That(query[3].Text, Is.EqualTo("Results"));
         }  
         
         [Test]
-        public void ShouldGoToRecordsPageWhenLinkIsClicked()
+        public void ShouldHaveALinkToRecordsPage()
         {
             _driver.Navigate().GoToUrl(URL);
             IWebElement query = _driver.FindElement(By.CssSelector("body > nav > section > ul > li:last-child > a"));
