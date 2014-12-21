@@ -5,6 +5,7 @@ using System.Web;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.PhantomJS;
 
 namespace ProEvoCanary.AcceptanceTests
 {
@@ -17,7 +18,7 @@ namespace ProEvoCanary.AcceptanceTests
         [SetUp]
         public void Setup()
         {
-            _driver = new ChromeDriver(@"C:\");
+            _driver = new PhantomJSDriver(@"C:\");
         }
 
         [Test]
