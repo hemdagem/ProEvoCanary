@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Web.Mvc;
 using ProEvoCanary.Areas.Admin.Models;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Areas.Admin.Controllers
 {
+     [AdminAuthorize(ClaimTypes.Role, "Admin")]
     public class EventController : Controller
     {
         private readonly IAdminEventRepository _eventRepository;
