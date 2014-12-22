@@ -6,9 +6,9 @@ using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Areas.Admin.Models.EventModel;
 
-namespace ProEvoCanary.Areas.Admin.Controllers
+namespace ProEvoCanary.Controllers
 {
-    [AccessAuthorize(UserType.Admin)]
+    [AccessAuthorize(UserType.Standard)]
     public class EventController : Controller
     {
         private readonly IAdminEventRepository _eventRepository;

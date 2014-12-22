@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
+using ProEvoCanary.Tests.HelperTests;
 
 namespace ProEvoCanary.Tests.RepositoryTests
 {

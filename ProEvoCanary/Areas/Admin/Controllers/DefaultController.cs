@@ -1,10 +1,10 @@
-﻿using System.Security.Claims;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using ProEvoCanary.Helpers;
+using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Areas.Admin.Controllers
 {
-    [AdminAuthorize(ClaimTypes.Role, "Admin")]
+    [AccessAuthorize(UserType.Admin)]
     public class DefaultController : Controller
     {
         // GET: Admin/Default

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ProEvoCanary.Models
+﻿namespace ProEvoCanary.Models
 {
     public class ResultsListModel
     {

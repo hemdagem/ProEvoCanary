@@ -6,7 +6,7 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.IntegrationTests
+namespace ProEvoCanary.Tests.IntegrationTests
 {
     public class CacheEventRepositoryTests
     {
@@ -29,7 +29,7 @@ namespace ProEvoCanary.IntegrationTests
             //given
             Setup();
 
-            var expectedEvents = new List<EventModel>()
+            var expectedEvents = new List<EventModel>
             {
                 new EventModel
                 {

@@ -7,7 +7,7 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.IntegrationTests
+namespace ProEvoCanary.Tests.IntegrationTests
 {
     public class CacheResultsRepositoryTests
     {

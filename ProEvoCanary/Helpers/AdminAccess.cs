@@ -1,24 +1,23 @@
 ﻿using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers
 {
-    public class AdminAuthorize : AuthorizeAttribute
+    public class AccessAuthorize : AuthorizeAttribute
     {
-        private readonly string _claimType;
-        private readonly string _claimValue;
+        private readonly UserType _userType;
 
-        public AdminAuthorize(string type, string value)
+        public AccessAuthorize(UserType userType)
         {
-            _claimType = type;
-            _claimValue = value;
+            _userType = userType;
         }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var user = HttpContext.Current.User as ClaimsPrincipal;
-            if (user != null && user.HasClaim(_claimType, _claimValue))
+            if (user != null && (user.HasClaim(ClaimTypes.Role, _userType.ToString()) || user.HasClaim(ClaimTypes.Role, UserType.Admin.ToString())))
             {
                 base.OnAuthorization(filterContext);
             }
