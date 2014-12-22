@@ -6,6 +6,7 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
+using ProEvoCanary.Tests.HelperTests;
 
 namespace ProEvoCanary.Tests.RepositoryTests
 {
@@ -15,7 +16,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         readonly CreateUserModel _loginModel = new CreateUserModel("Hemang", "Rajyaguru", "Hemang", "test@test.com", "password");
         Mock<IDBHelper> _helper;
         Mock<IPasswordHash> _passwordHash;
-        private UserRepository repository;
+        private UserRepository _repository;
         readonly Dictionary<string, object> _dictionary = new Dictionary<string, object>
             {
                 {"UserId", 1},
@@ -24,7 +25,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Username", "hemdagem"},
                 {"UserType", 2}
             };  
-        readonly Dictionary<string, object> _Admindictionary = new Dictionary<string, object>
+        readonly Dictionary<string, object> _adminDictionary = new Dictionary<string, object>
             {
                 {"UserId", 1},
                 {"Forename", "Hemang"},
@@ -38,7 +39,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             _helper = new Mock<IDBHelper>();
             _passwordHash = new Mock<IPasswordHash>();
-            repository = new UserRepository(_helper.Object, _passwordHash.Object);
+            _repository = new UserRepository(_helper.Object, _passwordHash.Object);
         }
 
         [Test]
@@ -47,9 +48,9 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             Setup();
             _passwordHash.Setup(x => x.ValidatePassword(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
-            _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(_Admindictionary));
+            _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(_adminDictionary));
             //when
-            var user = (AdminModel)repository.GetUser(It.IsAny<string>());
+            var user = (AdminModel)_repository.GetUser(It.IsAny<string>());
 
             //then
             Assert.That(user, Is.TypeOf(typeof(AdminModel)));
@@ -71,7 +72,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails")).Returns(DataReaderTestHelper.Reader(_dictionary));
 
             //when
-            var user = (UserModel)repository.GetUser(It.IsAny<string>());
+            var user = (UserModel)_repository.GetUser(It.IsAny<string>());
 
             //then
             Assert.That(user, Is.Not.Null);
@@ -89,7 +90,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(1);
 
             //when
-            var user = repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
+            var user = _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
 
             //then
             Assert.That(user, Is.EqualTo(1));
@@ -106,7 +107,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             //then
-            repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
+            _repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
 
         }
 
@@ -123,7 +124,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             //then
-            repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
+            _repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
 
         }
 
@@ -138,7 +139,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             //then
-            repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress, _loginModel.Password);
+            _repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress, _loginModel.Password);
 
         }
 
@@ -153,7 +154,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
 
             //then
-            repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email, _loginModel.Password);
+            _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email, _loginModel.Password);
 
         }
     }

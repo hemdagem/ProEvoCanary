@@ -8,17 +8,17 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.IntegrationTests
+namespace ProEvoCanary.Tests.IntegrationTests
 {
     public class CachePlayerRepositoryTests
     {
-        private MemoryCache cache;
-        private CacheItemPolicy cacheItemPolicy;
+        private MemoryCache _cache;
+        private CacheItemPolicy _cacheItemPolicy;
 
         private void Setup()
         {
-            cache = MemoryCache.Default;
-            cacheItemPolicy = new CacheItemPolicy
+            _cache = MemoryCache.Default;
+            _cacheItemPolicy = new CacheItemPolicy
             {
                 AbsoluteExpiration = DateTimeOffset.Now.AddHours(3)
             };
@@ -26,8 +26,8 @@ namespace ProEvoCanary.IntegrationTests
 
         private void End()
         {
-            cache.Remove("TopPlayerCacheList");
-            cache.Remove("PlayerCacheList");
+            _cache.Remove("TopPlayerCacheList");
+            _cache.Remove("PlayerCacheList");
         }
 
         [Test]
@@ -42,9 +42,9 @@ namespace ProEvoCanary.IntegrationTests
                 }
             };
 
-            cache.Set("TopPlayerCacheList", playersExpected, cacheItemPolicy);
+            _cache.Set("TopPlayerCacheList", playersExpected, _cacheItemPolicy);
 
-            var repository = new CachePlayerRepository(new CachingManager(cache));
+            var repository = new CachePlayerRepository(new CachingManager(_cache));
 
             //when
             var players = repository.GetTopPlayers();
@@ -92,9 +92,9 @@ namespace ProEvoCanary.IntegrationTests
             };
 
             playerListModel.ListItems = new SelectList(players, "Value", "Text");
-            cache.Set("PlayerCacheList", playerListModel, cacheItemPolicy);
+            _cache.Set("PlayerCacheList", playerListModel, _cacheItemPolicy);
 
-            var repository = new CachePlayerRepository(new CachingManager(cache));
+            var repository = new CachePlayerRepository(new CachingManager(_cache));
 
             //when
             var selectListModel = repository.GetAllPlayers();

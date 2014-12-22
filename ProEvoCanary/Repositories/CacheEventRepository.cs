@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ProEvoCanary.Areas.Admin.Models;
+﻿using System.Collections.Generic;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;

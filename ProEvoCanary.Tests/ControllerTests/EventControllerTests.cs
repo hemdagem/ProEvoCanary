@@ -79,7 +79,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             var viewResult = authenticationController.Create() as ViewResult;
 
             //then
-            EventModel model = viewResult.Model as EventModel;
+            var model = viewResult.Model as EventModel;
          
             Assert.That(viewResult.Model, Is.TypeOf<EventModel>());
             Assert.That(model.UserSelectListModel, Is.EqualTo(players));

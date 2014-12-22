@@ -2,10 +2,8 @@
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Models.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 using LoginModel = ProEvoCanary.Models.LoginModel;
 
@@ -16,13 +14,13 @@ namespace ProEvoCanary.Tests.ControllerTests
     {
         readonly CreateUserModel _createUserModel = new CreateUserModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
         readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>());
-        private Mock<IUserRepository> repo;
-        private Mock<IAuthenticationHandler> authenticationMock;
+        private Mock<IUserRepository> _repo;
+        private Mock<IAuthenticationHandler> _authenticationMock;
 
         private void Setup()
         {
-            repo = new Mock<IUserRepository>();
-            authenticationMock = new Mock<IAuthenticationHandler>();
+            _repo = new Mock<IUserRepository>();
+            _authenticationMock = new Mock<IAuthenticationHandler>();
         }
 
         [Test]
@@ -30,7 +28,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 
             //when
             var viewResult = authenticationController.Login(It.IsAny<string>()) as ViewResult;
@@ -44,7 +42,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
@@ -59,13 +57,13 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            repo.Setup(x => x.Login(_loginModel)).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            _repo.Setup(x => x.Login(_loginModel)).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
             //when
             authenticationController.Login(_loginModel, It.IsAny<string>());
 
             //then
-            repo.Verify(x => x.Login(_loginModel), Times.Once);
+            _repo.Verify(x => x.Login(_loginModel), Times.Once);
 
 
         }
@@ -75,14 +73,14 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            repo.Setup(x => x.Login(_loginModel)).Returns((UserModel)null);
-            authenticationMock.Setup(x => x.SignIn(It.IsAny<UserModel>()));
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            _repo.Setup(x => x.Login(_loginModel)).Returns((UserModel)null);
+            _authenticationMock.Setup(x => x.SignIn(It.IsAny<UserModel>()));
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
             //when
             authenticationController.Login(_loginModel, It.IsAny<string>());
 
             //then
-            authenticationMock.Verify(x => x.SignIn(It.IsAny<UserModel>()), Times.Never);
+            _authenticationMock.Verify(x => x.SignIn(It.IsAny<UserModel>()), Times.Never);
 
         }
 
@@ -91,13 +89,13 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
             authenticationController.Create(_createUserModel);
 
             //then
-            repo.Verify(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress,_createUserModel.Password), Times.Never);
+            _repo.Verify(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress,_createUserModel.Password), Times.Never);
 
 
         }  
@@ -109,7 +107,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
             var redirectToRouteResult = authenticationController.Create(_createUserModel) as RedirectToRouteResult;
@@ -126,8 +124,8 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            repo.Setup(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress, _createUserModel.Password)).Returns(0);
-            var authenticationController = new AuthenticationController(repo.Object, authenticationMock.Object);
+            _repo.Setup(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress, _createUserModel.Password)).Returns(0);
+            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 
             //when
             var redirectToRouteResult = authenticationController.Create(_createUserModel) as RedirectToRouteResult;

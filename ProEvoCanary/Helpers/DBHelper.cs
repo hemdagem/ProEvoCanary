@@ -35,7 +35,7 @@ namespace ProEvoCanary.Helpers
         public int ExecuteScalar(string storedProcedure)
         {
 
-            var identity = 0;
+            int identity;
             try
             {
                 _sqlCommand.CommandText = storedProcedure;
@@ -56,7 +56,7 @@ namespace ProEvoCanary.Helpers
 
         public int ExecuteNonQuery(string storedProcedure)
         {
-            var iRowsAffected = 0;
+            int iRowsAffected;
 
             try
             {

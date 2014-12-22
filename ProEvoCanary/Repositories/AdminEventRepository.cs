@@ -40,7 +40,7 @@ namespace ProEvoCanary.Repositories
         }
 
 
-        public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes? friendly, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes? eventType, int ownerId)
         {
             if (string.IsNullOrEmpty(tournamentname))
             {
@@ -53,7 +53,7 @@ namespace ProEvoCanary.Repositories
             }
 
             _helper.AddParameter("@TournamentName", tournamentname);
-            _helper.AddParameter("@TournamentType", (int)friendly);
+            _helper.AddParameter("@TournamentType", (int)eventType);
             _helper.AddParameter("@Date", utcNow);
             _helper.AddParameter("@OwnerId", ownerId);
 
