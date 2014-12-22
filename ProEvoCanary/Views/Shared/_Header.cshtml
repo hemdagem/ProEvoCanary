@@ -20,17 +20,30 @@
             {
                 if (CurrentUser.IsAdmin)
                 {
-                    <li>
-                        <a href="@Url.Action("Create","Authentication", new {area="Admin"})">Add User</a>
+                    <li class="@IsActive("Index", "Default", "Admin")">
+                        <a href="@Url.Action("Index", "Default", new { area = "Admin" })">Admin</a>
+                    </li>
+                    <li class="@IsActive("Create", "Authentication", "Admin")">
+                        <a href="@Url.Action("Create", "Authentication", new {area = "Admin"})">Add User</a>
                     </li>
                 }
 
-                <li>
-                    <a href="@Url.Action("Create","Event", new {area="Admin"})">Create Event</a>
+                <li class="@IsActive("Create", "Event", "Admin")">
+                    <a href="@Url.Action("Create", "Event", new {area = "Admin"})">Create Event</a>
                 </li>
             }
-            <li>
-                <a href="@Url.Action("HeadToHead","Records")">Records</a>
+            else
+            {
+                <li class="@IsActive("Login", "Authentication")">
+                    <a href="@Url.Action("Login", "Authentication", new { area = "" })">Login</a>
+                </li>
+                <li class="@IsActive("Register", "Authentication")">
+                    <a href="@Url.Action("Register", "Authentication", new { area = "" })">Register</a>
+                </li>
+
+            }
+            <li class="@IsActive("HeadToHead", "Records")">
+                <a href="@Url.Action("HeadToHead", "Records", new { area = "" })">Records</a>
             </li>
         </ul>
     </section>

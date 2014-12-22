@@ -67,6 +67,10 @@ namespace ProEvoCanary.Controllers
                     {
                         Redirect(returnUrl);
                     }
+                    else
+                    {
+                        RedirectToAction("Index", "Default");
+                    }
                 }
             }
 
