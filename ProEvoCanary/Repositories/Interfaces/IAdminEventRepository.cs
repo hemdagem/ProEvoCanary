@@ -1,5 +1,5 @@
 ﻿using System;
-using ProEvoCanary.Areas.Admin.Models;
+using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Repositories.Interfaces
 {
