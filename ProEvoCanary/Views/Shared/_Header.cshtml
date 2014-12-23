@@ -21,16 +21,23 @@
                 if (CurrentUser.IsAdmin)
                 {
                     <li class="@IsActive("Index", "Default", "Admin")">
-                        <a href="@Url.Action("Index", "Default", new { area = "Admin" })">Admin</a>
+                        <a href="@Url.Action("Index", "Default", new {area = "Admin"})">Admin</a>
                     </li>
                     <li class="@IsActive("Create", "Authentication", "Admin")">
                         <a href="@Url.Action("Create", "Authentication", new {area = "Admin"})">Add User</a>
                     </li>
+                    <li class="@IsActive("Create", "Event", "Admin")">
+                        <a href="@Url.Action("Create", "Event", new {area = "Admin"})">Create Event</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="@IsActive("Create", "Event")">
+                        <a href="@Url.Action("Create", "Event", new {area = ""})">Create Event</a>
+                    </li>
                 }
 
-                <li class="@IsActive("Create", "Event", "Admin")">
-                    <a href="@Url.Action("Create", "Event", new {area = "Admin"})">Create Event</a>
-                </li>
+
             }
             else
             {

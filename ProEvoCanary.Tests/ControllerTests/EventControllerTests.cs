@@ -2,26 +2,23 @@
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Areas.Admin.Controllers;
-using ProEvoCanary.Areas.Admin.Models;
+using ProEvoCanary.Controllers;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
-using EventModel = ProEvoCanary.Areas.Admin.Models.EventModel;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {
     [TestFixture]
     public class EventControllerTests
     {
-        readonly EventModel _eventModel =new EventModel(It.IsAny<EventTypes>(),It.IsAny<string>(),It.IsAny<DateTime>(),It.IsAny<SelectListModel>());
+        readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<EventTypes>(), It.IsAny<string>(), It.IsAny<DateTime>());
 
         [Test]
         public void ShouldSetDefaultViewName()
         {
             //given
             var repo = new Mock<IAdminEventRepository>();
-            var userrepo = new Mock<IPlayerRepository>();
-            var authenticationController = new EventController(repo.Object, userrepo.Object);
+            var authenticationController = new EventController(repo.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
@@ -35,54 +32,48 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetTournamentDateToToday()
         {
             //given
-            var repo = new Mock<IAdminEventRepository>();
-            var userrepo = new Mock<IPlayerRepository>();
-            var authenticationController = new EventController(repo.Object, userrepo.Object);
+            var repo = new Mock<IAdminEventRepository>(); 
+            var authenticationController = new EventController(repo.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
 
             //then
-            Assert.That(((EventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
-        }        
+            Assert.That(((AddEventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
+        }
 
-        
+
         [Test]
         public void ShouldSetDefaultModel()
         {
             //given
             var repo = new Mock<IAdminEventRepository>();
-            var userrepo = new Mock<IPlayerRepository>();
 
-            var authenticationController = new EventController(repo.Object, userrepo.Object);
+            var authenticationController = new EventController(repo.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
 
             //then
 
-            Assert.That(viewResult.Model, Is.TypeOf<EventModel>());
+            Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
         }
-        
+
         [Test]
         public void ShouldSetDefaultModelProperties()
         {
             //given
             var repo = new Mock<IAdminEventRepository>();
             var userrepo = new Mock<IPlayerRepository>();
-            var players = new SelectListModel();
-            userrepo.Setup(x => x.GetAllPlayers()).Returns(players);
 
-            var authenticationController = new EventController(repo.Object, userrepo.Object);
+            var authenticationController = new EventController(repo.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
 
             //then
-            var model = viewResult.Model as EventModel;
-         
-            Assert.That(viewResult.Model, Is.TypeOf<EventModel>());
-            Assert.That(model.UserSelectListModel, Is.EqualTo(players));
+
+            Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
         }
 
         [Test]
@@ -90,8 +81,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             var repo = new Mock<IAdminEventRepository>();
-            var userrepo = new Mock<IPlayerRepository>();
-            var authenticationController = new EventController(repo.Object, userrepo.Object);
+            var authenticationController = new EventController(repo.Object);
 
             //when
             authenticationController.ModelState.AddModelError("TournamentName", "Missing Tournament Name");
@@ -102,29 +92,6 @@ namespace ProEvoCanary.Tests.ControllerTests
 
 
         }
-        [Test]
-        public void SelectListModelShouldBeRepopulatedIfModelPostIsInvalid()
-        {
-            //given
-            var repo = new Mock<IAdminEventRepository>();
-            var userrepo = new Mock<IPlayerRepository>();
-
-            userrepo.Setup(x => x.GetAllPlayers()).Returns(new SelectListModel());
-
-            var authenticationController = new EventController(repo.Object, userrepo.Object);
-
-            //when
-            authenticationController.ModelState.AddModelError("TournamentName", "Missing Tournament Name");
-            var viewResult = authenticationController.Create(_eventModel) as ViewResult;
-
-            //then
-            Assert.IsNotNull(((EventModel)viewResult.Model).UserSelectListModel);
-
-
-        }
-
-
-
 
     }
 }

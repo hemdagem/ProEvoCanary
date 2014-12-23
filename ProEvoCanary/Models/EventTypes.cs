@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Areas.Admin.Models
+﻿namespace ProEvoCanary.Models
 {
     public enum EventTypes
     {

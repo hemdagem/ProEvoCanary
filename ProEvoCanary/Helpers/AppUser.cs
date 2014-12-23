@@ -33,5 +33,14 @@ namespace ProEvoCanary.Helpers
                 return Role == UserType.Admin.ToString();
             }
         }
+
+        public int Id
+        {
+            get
+            {
+                Claim role = FindFirst(ClaimTypes.NameIdentifier);
+                return role == null ? 0 : int.Parse(role.Value);
+            }
+        }
     }
 }

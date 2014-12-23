@@ -155,7 +155,6 @@
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\EventController.cs" />
     <Compile Include="Areas\Admin\Models\EventModel.cs" />
-    <Compile Include="Areas\Admin\Models\EventTypes.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Helpers\AppViewPage.cs" />
@@ -180,7 +179,9 @@
     <Compile Include="Helpers\RssCacheLoader.cs" />
     <Compile Include="Helpers\Exceptions\TooManyPlayersReturnedException.cs" />
     <Compile Include="Helpers\StoredProcedureList.cs" />
+    <Compile Include="Models\AddEventModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
+    <Compile Include="Models\EventTypes.cs" />
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Helpers\CachingManager.cs" />
@@ -246,6 +247,7 @@
     <Content Include="Views\Authentication\Login.cshtml" />
     <Content Include="Views\Authentication\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
