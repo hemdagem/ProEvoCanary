@@ -17,6 +17,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var loader = new Mock<IRssLoader>();
+            var cacheLoader = new Mock<ICacheRssLoader>();
             loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
@@ -29,7 +30,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 }});
 
             //when
-            var repository = new RssFeedRepositoryDecorator(new RssCacheLoader(), loader.Object);
+            var repository = new RssFeedRepositoryDecorator(cacheLoader.Object, loader.Object);
            var feed = repository.GetFeed("Yes");
            
 

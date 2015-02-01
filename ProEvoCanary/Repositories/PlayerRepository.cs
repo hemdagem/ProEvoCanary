@@ -17,8 +17,6 @@ namespace ProEvoCanary.Repositories
             _helper = helper;
         }
 
-        public PlayerRepository() : this(new DBHelper()) { }
-
         public List<PlayerModel> GetTopPlayersRange(int pageNumber = 1, int playersPerPage = 10)
         {
             if (pageNumber < 1 || playersPerPage < 1)

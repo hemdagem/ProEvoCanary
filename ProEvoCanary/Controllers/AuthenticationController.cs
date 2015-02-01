@@ -19,9 +19,6 @@ namespace ProEvoCanary.Controllers
             _authenticationHandler = authenticationHandler;
         }
 
-
-        public AuthenticationController() : this(new UserRepository(), new AuthenticationHandler()) { }
-
         // GET: Authentication/Create
         public ActionResult Create()
         {

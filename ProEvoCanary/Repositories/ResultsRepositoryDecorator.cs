@@ -10,9 +10,7 @@ namespace ProEvoCanary.Repositories
         private readonly IResultRepository _resultRepository;
         private const string RecentResultsKey = "recent_results";
         private const string HeadToHeadResultsKey = "{0}_{1}";
-
         private const int CacheHours = 30;
-        public ResultsRepositoryDecorator() : this(new ResultsCacheRepository(), new ResultsRepository()) { }
 
         public ResultsRepositoryDecorator(ICacheResultsRepository cacheResultsRepository, IResultRepository resultRepository)
         {

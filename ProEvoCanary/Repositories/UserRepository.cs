@@ -18,8 +18,6 @@ namespace ProEvoCanary.Repositories
             _passwordHash = passwordHash;
         }
 
-        public UserRepository() : this(new DBHelper(), new PasswordHash()) { }
-
         public IUser GetUser(string username)
         {
             _dbHelper.AddParameter("@Username", username);

@@ -15,8 +15,6 @@ namespace ProEvoCanary.Repositories
         private const string PlayerListCacheKey = "PlayerCacheList";
         private readonly CacheItemPolicy _policy = new CacheItemPolicy();
 
-        public CachePlayerRepository() : this(new CachingManager()) { }
-
         public CachePlayerRepository(ICacheManager cacheManager)
         {
             _cacheManager = cacheManager;

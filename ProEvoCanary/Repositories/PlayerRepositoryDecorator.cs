@@ -17,8 +17,6 @@ namespace ProEvoCanary.Repositories
             _playerRepository = playerRepository;
         }
 
-        public PlayerRepositoryDecorator() : this(new CachePlayerRepository(), new PlayerRepository()) { }
-
         public List<PlayerModel> GetTopPlayers()
         {
             var players = _cacheRepository.GetTopPlayers();

@@ -15,8 +15,6 @@ namespace ProEvoCanary.Repositories
             _helper = helper;
         }
 
-        public EventRepository() : this(new DBHelper()) { }
-
         public List<EventModel> GetEvents()
         {
             var reader = _helper.ExecuteReader("sp_GetTournamentDetails");

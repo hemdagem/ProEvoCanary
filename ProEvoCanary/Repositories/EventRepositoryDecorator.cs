@@ -18,8 +18,6 @@ namespace ProEvoCanary.Repositories
             _eventRepository = eventRepository;
         }
 
-        public EventRepositoryDecorator() : this(new CacheEventRepository(), new EventRepository()) { }
-
         public List<EventModel> GetEvents()
         {
             var events = _cacheEventRepository.GetEvents();

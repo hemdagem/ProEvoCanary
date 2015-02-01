@@ -18,8 +18,6 @@ namespace ProEvoCanary.Repositories
             _helper = helper;
         }
 
-        public AdminEventRepository() : this(new DBHelper()) { }
-
         public List<EventModel> GetEvents()
         {
             var reader = _helper.ExecuteReader("sp_GetTournamentDetails");
@@ -38,7 +36,6 @@ namespace ProEvoCanary.Repositories
             }
             return lstTournament;
         }
-
 
         public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes? eventType, int ownerId)
         {
