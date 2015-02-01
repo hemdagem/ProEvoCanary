@@ -17,8 +17,6 @@ namespace ProEvoCanary.Repositories
             _cacheManager = cacheManager;
         }
 
-        public ResultsCacheRepository() : this(new CachingManager()) { }
-
         public List<ResultsModel> GetResults()
         {
             return _cacheManager.Get(RecentResultsKey) as List<ResultsModel>;
