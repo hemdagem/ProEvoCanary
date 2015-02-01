@@ -17,8 +17,6 @@ namespace ProEvoCanary.Controllers
             _eventRepository = eventRepository;
         }
 
-        public EventController() : this(new AdminEventRepository()) { }
-
         // GET: Admin/Event
         public ActionResult Create()
         {
@@ -26,7 +24,6 @@ namespace ProEvoCanary.Controllers
 
             return View("Create", model);
         }
-
 
         // POST: Authentication/Create
         [HttpPost]
@@ -40,7 +37,6 @@ namespace ProEvoCanary.Controllers
                 {
                     return RedirectToAction("Index", "Default");
                 }
-
             }
 
             return View(model);

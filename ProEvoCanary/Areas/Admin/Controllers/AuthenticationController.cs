@@ -16,8 +16,6 @@ namespace ProEvoCanary.Areas.Admin.Controllers
             _userRepository = userRepository;
         }
 
-        public AuthenticationController() : this(new UserRepository()) { }
-
         // GET: Authentication/Create
         public ActionResult Create()
         {

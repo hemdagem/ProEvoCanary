@@ -18,8 +18,6 @@ namespace ProEvoCanary.Controllers
             _resultRepository = resultRepository;
         }
 
-        public RecordsController() : this(new PlayerRepository(), new ResultsRepository()) { }
-
         public ActionResult HeadToHead()
         {
             var playerList = _playerRepository.GetAllPlayers();

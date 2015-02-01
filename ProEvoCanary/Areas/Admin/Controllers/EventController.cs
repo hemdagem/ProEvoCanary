@@ -20,8 +20,6 @@ namespace ProEvoCanary.Areas.Admin.Controllers
             _userRepository = userRepository;
         }
 
-        public EventController() : this(new AdminEventRepository(), new PlayerRepositoryDecorator()) { }
-
         // GET: Admin/Event
         public ActionResult Create()
         {

@@ -13,8 +13,6 @@ namespace ProEvoCanary.Helpers
             _cacheManager = cacheManager;
         }
 
-        public RssCacheLoader() : this(new CachingManager()) { }
-
         public List<RssFeedModel> Load(string url)
         {
             return _cacheManager.Get(url) as List<RssFeedModel>;

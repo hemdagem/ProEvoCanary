@@ -15,8 +15,6 @@ namespace ProEvoCanary.Repositories
             _helper = helper;
         }
 
-        public ResultsRepository() : this(new DBHelper()) { }
-
         public List<ResultsModel> GetResults()
         {
             _helper.ClearParameters();

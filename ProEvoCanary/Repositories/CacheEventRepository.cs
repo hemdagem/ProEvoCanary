@@ -11,8 +11,6 @@ namespace ProEvoCanary.Repositories
         private readonly ICacheManager _cacheManager;
         private const string EventsListCacheKey = "EventsListCache";
 
-        public CacheEventRepository() : this(new CachingManager()) { }
-
         public CacheEventRepository(ICacheManager cacheManager)
         {
             _cacheManager = cacheManager;
