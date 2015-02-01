@@ -10,7 +10,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
         // GET: Admin/Default
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
     }
 }
