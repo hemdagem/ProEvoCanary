@@ -15,7 +15,7 @@ namespace ProEvoCanary.Tests.ControllerTests.Admin
             //when
             var actionResult = defaultController.Index() as ViewResult;
             //then
-            Assert.That(actionResult.View,Is.EqualTo("Index"));
+            Assert.That(actionResult.ViewName,Is.EqualTo("Index"));
         }
     }
 }
