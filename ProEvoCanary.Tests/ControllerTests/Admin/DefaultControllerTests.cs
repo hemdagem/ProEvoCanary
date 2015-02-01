@@ -8,7 +8,7 @@ namespace ProEvoCanary.Tests.ControllerTests.Admin
     public class DefaultControllerTests
     {
         [Test]
-        public void Should()
+        public void ShouldSetDefaultViewName()
         {
             //given
             var defaultController = new DefaultController();
