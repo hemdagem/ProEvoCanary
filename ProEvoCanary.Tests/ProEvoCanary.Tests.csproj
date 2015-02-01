@@ -85,6 +85,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerTests\Admin\DefaultControllerTests.cs" />
     <Compile Include="ControllerTests\Admin\EventControllerTests.cs" />
     <Compile Include="ControllerTests\AuthenticationControllerTests.cs" />
     <Compile Include="ControllerTests\Admin\AuthenticationControllerTests.cs" />
