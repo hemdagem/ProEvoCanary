@@ -1,8 +1,9 @@
-﻿using System.Web.Mvc;
-using ProEvoCanary.Helpers;
+﻿using System.Web;
+using System.Web.Mvc;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Controllers
@@ -72,6 +73,15 @@ namespace ProEvoCanary.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Signout()
+        {
+            IOwinContext ctx = System.Web.HttpContext.Current.Request.GetOwinContext();
+            IAuthenticationManager authManager = ctx.Authentication;
+
+            authManager.SignOut();
+            return RedirectToAction("Index", "Default");
         }
 
 

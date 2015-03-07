@@ -1,3 +1,6 @@
+using System.Security.Claims;
+using System.Security.Principal;
+using ProEvoCanary.Controllers;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;
@@ -16,20 +19,20 @@ namespace ProEvoCanary.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -37,7 +40,7 @@ namespace ProEvoCanary.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -48,6 +51,8 @@ namespace ProEvoCanary.App_Start
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+                kernel.Bind<HttpContext>().ToMethod(ctx => HttpContext.Current).InTransientScope();
+                kernel.Bind<HttpContextBase>().ToMethod(ctx => new HttpContextWrapper(HttpContext.Current)).InTransientScope();
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
@@ -75,6 +80,7 @@ namespace ProEvoCanary.App_Start
             kernel.Bind<IRssLoader>().To<RssLoader>();
             kernel.Bind<IAuthenticationHandler>().To<AuthenticationHandler>();
             kernel.Bind<IPasswordHash>().To<PasswordHash>();
+            kernel.Bind<IAppUser>().To<CurrentAppUser>();
 
             // Repository interfaces
 
@@ -87,7 +93,6 @@ namespace ProEvoCanary.App_Start
             kernel.Bind<IResultRepository>().To<ResultsRepository>();
             kernel.Bind<IRssFeedRepository>().To<RssFeedRepositoryDecorator>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
-
-        }        
+        }
     }
 }
