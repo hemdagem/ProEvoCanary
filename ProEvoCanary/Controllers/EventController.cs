@@ -43,5 +43,9 @@ namespace ProEvoCanary.Controllers
             return View(model);
         }
 
+        public ActionResult GenerateFixtures(int eventId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

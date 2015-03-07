@@ -60,7 +60,6 @@ namespace ProEvoCanary.Helpers
 
             }
 
-
             return fixturesAreGenerated;
         }
     }

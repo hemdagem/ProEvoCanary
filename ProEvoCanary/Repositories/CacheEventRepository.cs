@@ -21,6 +21,11 @@ namespace ProEvoCanary.Repositories
             return _cacheManager.Get(EventsListCacheKey) as List<EventModel>;
         }
 
+        public EventModel GetEvent(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void AddToCache(string key, object value, int cacheHours)
         {
             _cacheManager.Add(key, value, cacheHours);

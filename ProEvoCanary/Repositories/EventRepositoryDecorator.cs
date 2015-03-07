@@ -31,5 +31,9 @@ namespace ProEvoCanary.Repositories
             return events;
         }
 
+        public EventModel GetEvent(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

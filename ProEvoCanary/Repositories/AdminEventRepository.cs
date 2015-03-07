@@ -20,6 +20,7 @@ namespace ProEvoCanary.Repositories
 
         public List<EventModel> GetEvents()
         {
+            _helper.ClearParameters();
             var reader = _helper.ExecuteReader("sp_GetTournamentDetails");
             var lstTournament = new List<EventModel>();
             while (reader.Read())
@@ -37,6 +38,11 @@ namespace ProEvoCanary.Repositories
             return lstTournament;
         }
 
+        public EventModel GetEvent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes? eventType, int ownerId)
         {
             if (string.IsNullOrEmpty(tournamentname))
@@ -48,7 +54,7 @@ namespace ProEvoCanary.Repositories
             {
                 throw new LessThanOneException("Owner Id must be greater than zero");
             }
-
+            _helper.ClearParameters();
             _helper.AddParameter("@TournamentName", tournamentname);
             _helper.AddParameter("@TournamentType", (int)eventType);
             _helper.AddParameter("@Date", utcNow);
