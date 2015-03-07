@@ -12,36 +12,34 @@ namespace ProEvoCanary.Helpers
         private readonly IDbCommand _sqlCommand;
         private readonly int _commandCommandTimeout = 30;
 
-
         public DBHelper(IConfiguration configuration, IDbConnection connection, IDbCommand command, int commandTimeout)
         {
             _connectionString = configuration;
             _connection = connection;
             _sqlCommand = command;
             _commandCommandTimeout = commandTimeout;
-
         }
 
         public DBHelper() : this(new Configuration(), new SqlConnection(), new SqlCommand(), 30)
         {
             _connection.ConnectionString = _connectionString.GetConfig();
             _sqlCommand = new SqlCommand { CommandTimeout = _commandCommandTimeout, Connection = _connection as SqlConnection, CommandType = CommandType.StoredProcedure };
-
         }
+
         private void CloseConnection()
         {
             if (_connection.State != ConnectionState.Closed) _connection.Close();
         }
+
         public int ExecuteScalar(string storedProcedure)
         {
-
             int identity;
+
             try
             {
                 _sqlCommand.CommandText = storedProcedure;
                 _connection.Open();
                 identity = Convert.ToInt32(_sqlCommand.ExecuteScalar());
-
             }
             catch (Exception e)
             {

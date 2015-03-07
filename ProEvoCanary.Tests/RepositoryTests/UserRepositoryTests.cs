@@ -65,7 +65,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
         [Test]
         public void ShouldGetStandardUser()
         {
-
             //given
             Setup();
 
@@ -80,7 +79,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(user.Forename, Is.EqualTo("Hemang"));
             Assert.That(user.Surname, Is.EqualTo("Rajyaguru"));
             Assert.That(user.Username, Is.EqualTo("hemdagem"));
-
         }
 
         [Test]
@@ -120,8 +118,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             Setup();
             _helper.Setup(x => x.ExecuteScalar("sp_AddNewUser")).Returns(0);
-
-
 
             //then
             _repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
