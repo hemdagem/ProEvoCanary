@@ -8,7 +8,7 @@ using ProEvoCanary.Repositories.Interfaces;
 namespace ProEvoCanary.Controllers
 {
     [AccessAuthorize(UserType.Standard)]
-    public class EventController : AppController
+    public class EventController : Controller
     {
         private readonly IAdminEventRepository _eventRepository;
         private readonly IAppUser _currentUser;

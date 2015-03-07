@@ -181,7 +181,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AdminAccess.cs" />
-    <Compile Include="Helpers\AppController.cs" />
     <Compile Include="Helpers\UserClaimsPrincipal.cs" />
     <Compile Include="Helpers\FixtureGenerator.cs" />
     <Compile Include="Helpers\Interfaces\ICacheRssLoader.cs" />
