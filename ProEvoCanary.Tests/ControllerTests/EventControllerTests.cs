@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
+using ProEvoCanary.Helpers;
+using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 
@@ -12,19 +16,28 @@ namespace ProEvoCanary.Tests.ControllerTests
     public class EventControllerTests
     {
         readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<EventTypes>(), It.IsAny<string>(), It.IsAny<DateTime>());
+        private Mock<IAdminEventRepository> _repo;
+        private Mock<IAppUser> _appUser;
+        private EventController _eventController;
+
+        private void Setup()
+        {
+            _repo = new Mock<IAdminEventRepository>();
+            _appUser = new Mock<IAppUser>();
+            _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(new ClaimsPrincipal()));
+            _eventController = new EventController(_repo.Object, _appUser.Object);
+        }
 
         [Test]
         public void ShouldSetDefaultViewName()
         {
             //given
-            var repo = new Mock<IAdminEventRepository>();
-            var authenticationController = new EventController(repo.Object);
+            Setup();
 
             //when
-            var viewResult = authenticationController.Create() as ViewResult;
+            var viewResult = _eventController.Create() as ViewResult;
 
             //then
-
             Assert.That(viewResult.ViewName, Is.EqualTo("Create"));
         }
 
@@ -32,11 +45,10 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetTournamentDateToToday()
         {
             //given
-            var repo = new Mock<IAdminEventRepository>(); 
-            var authenticationController = new EventController(repo.Object);
+            Setup();
 
             //when
-            var viewResult = authenticationController.Create() as ViewResult;
+            var viewResult = _eventController.Create() as ViewResult;
 
             //then
             Assert.That(((AddEventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
@@ -47,15 +59,12 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetDefaultModel()
         {
             //given
-            var repo = new Mock<IAdminEventRepository>();
-
-            var authenticationController = new EventController(repo.Object);
+            Setup();
 
             //when
-            var viewResult = authenticationController.Create() as ViewResult;
+            var viewResult = _eventController.Create() as ViewResult;
 
             //then
-
             Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
         }
 
@@ -63,16 +72,12 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetDefaultModelProperties()
         {
             //given
-            var repo = new Mock<IAdminEventRepository>();
-            var userrepo = new Mock<IPlayerRepository>();
-
-            var authenticationController = new EventController(repo.Object);
+            Setup();
 
             //when
-            var viewResult = authenticationController.Create() as ViewResult;
+            var viewResult = _eventController.Create() as ViewResult;
 
             //then
-
             Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
         }
 
@@ -80,17 +85,32 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldNotCallUserRepositoryWhenModelIsInValid()
         {
             //given
-            var repo = new Mock<IAdminEventRepository>();
-            var authenticationController = new EventController(repo.Object);
+            Setup();
 
             //when
-            authenticationController.ModelState.AddModelError("TournamentName", "Missing Tournament Name");
-            authenticationController.Create(_eventModel);
+            _eventController.ModelState.AddModelError("TournamentName", "Missing Tournament Name");
+            _eventController.Create(_eventModel);
 
             //then
-            repo.Verify(x => x.CreateEvent(_eventModel.TournamentName, _eventModel.Date, _eventModel.EventType, It.IsAny<int>()), Times.Never);
+            _repo.Verify(x => x.CreateEvent(_eventModel.TournamentName, _eventModel.Date, _eventModel.EventType, It.IsAny<int>()), Times.Never);
 
+        }
 
+        [Test]
+        public void ShouldRedirectToGenerateFixturesAction()
+        {
+            //given
+            Setup();
+            _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<EventTypes>(), It.IsAny<int>())).Returns(1);
+
+            //when
+            var viewResult = _eventController.Create(_eventModel) as RedirectToRouteResult;
+            var actionRoute = viewResult.RouteValues["action"];
+            var actionController = viewResult.RouteValues["controller"];
+
+            //then
+            Assert.AreEqual("GenerateFixtures", actionRoute);
+            Assert.AreEqual("Event", actionController);
         }
 
     }

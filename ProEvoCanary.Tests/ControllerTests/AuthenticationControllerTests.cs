@@ -34,7 +34,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             var viewResult = authenticationController.Login(It.IsAny<string>()) as ViewResult;
 
             //then
-
             Assert.That(viewResult.ViewName, Is.EqualTo("Login"));
         }
         [Test]
@@ -48,7 +47,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             var viewResult = authenticationController.Create() as ViewResult;
 
             //then
-
             Assert.That(viewResult.ViewName, Is.EqualTo("Create"));
         }
 
@@ -59,13 +57,12 @@ namespace ProEvoCanary.Tests.ControllerTests
             Setup();
             _repo.Setup(x => x.Login(_loginModel)).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            
             //when
             authenticationController.Login(_loginModel, It.IsAny<string>());
 
             //then
             _repo.Verify(x => x.Login(_loginModel), Times.Once);
-
-
         }
 
         [Test]
@@ -76,12 +73,12 @@ namespace ProEvoCanary.Tests.ControllerTests
             _repo.Setup(x => x.Login(_loginModel)).Returns((UserModel)null);
             _authenticationMock.Setup(x => x.SignIn(It.IsAny<UserModel>()));
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            
             //when
             authenticationController.Login(_loginModel, It.IsAny<string>());
 
             //then
             _authenticationMock.Verify(x => x.SignIn(It.IsAny<UserModel>()), Times.Never);
-
         }
 
         [Test]
@@ -90,14 +87,13 @@ namespace ProEvoCanary.Tests.ControllerTests
             //given
             Setup();
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
             authenticationController.Create(_createUserModel);
 
             //then
             _repo.Verify(x => x.CreateUser(_createUserModel.Username, _createUserModel.Forename, _createUserModel.Surname, _createUserModel.EmailAddress,_createUserModel.Password), Times.Never);
-
-
         }  
         
 
@@ -108,6 +104,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             //given
             Setup();
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            
             //when
             authenticationController.ModelState.AddModelError("forename", "Missing forename");
             var redirectToRouteResult = authenticationController.Create(_createUserModel) as RedirectToRouteResult;
@@ -116,7 +113,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             //then
             Assert.IsNull(redirectToRouteResult);
             Assert.IsInstanceOf<CreateUserModel>(view.Model);
-
         }
 
         [Test]

@@ -5,11 +5,11 @@ namespace ProEvoCanary.Helpers
 {
     public abstract class AppController : Controller
     {
-        public AppUser CurrentUser
+        public virtual UserClaimsPrincipal CurrentUser
         {
             get
             {
-                return new AppUser(this.User as ClaimsPrincipal);
+                return new UserClaimsPrincipal(this.User as ClaimsPrincipal);
             }
         }
     }

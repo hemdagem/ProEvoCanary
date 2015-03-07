@@ -3,9 +3,9 @@ using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Helpers
 {
-    public class AppUser : ClaimsPrincipal
+    public class UserClaimsPrincipal : ClaimsPrincipal
     {
-        public AppUser(ClaimsPrincipal principal) : base(principal) { }
+        public UserClaimsPrincipal(ClaimsPrincipal principal) : base(principal) { }
 
 
         public string Name
