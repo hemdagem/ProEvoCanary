@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
@@ -29,7 +28,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         }
 
         [Test]
-        public void ShouldSetDefaultViewName()
+        public void ShouldAddDefaultSettingsForCreateAction()
         {
             //given
             Setup();
@@ -39,45 +38,7 @@ namespace ProEvoCanary.Tests.ControllerTests
 
             //then
             Assert.That(viewResult.ViewName, Is.EqualTo("Create"));
-        }
-
-        [Test]
-        public void ShouldSetTournamentDateToToday()
-        {
-            //given
-            Setup();
-
-            //when
-            var viewResult = _eventController.Create() as ViewResult;
-
-            //then
             Assert.That(((AddEventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
-        }
-
-
-        [Test]
-        public void ShouldSetDefaultModel()
-        {
-            //given
-            Setup();
-
-            //when
-            var viewResult = _eventController.Create() as ViewResult;
-
-            //then
-            Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
-        }
-
-        [Test]
-        public void ShouldSetDefaultModelProperties()
-        {
-            //given
-            Setup();
-
-            //when
-            var viewResult = _eventController.Create() as ViewResult;
-
-            //then
             Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
         }
 
@@ -93,7 +54,6 @@ namespace ProEvoCanary.Tests.ControllerTests
 
             //then
             _repo.Verify(x => x.CreateEvent(_eventModel.TournamentName, _eventModel.Date, _eventModel.EventType, It.IsAny<int>()), Times.Never);
-
         }
 
         [Test]
@@ -111,6 +71,21 @@ namespace ProEvoCanary.Tests.ControllerTests
             //then
             Assert.AreEqual("GenerateFixtures", actionRoute);
             Assert.AreEqual("Event", actionController);
+        }
+
+        [Test]
+        public void ShouldAddDefaultSettingsForGenerateFixturesAction()
+        {
+            //given
+            Setup();
+
+            //when
+            var viewResult = _eventController.GenerateFixtures(It.IsAny<int>()) as ViewResult;
+
+            //then
+            Assert.That(viewResult.ViewName, Is.EqualTo("GenerateFixtures"));
+            Assert.That(((AddEventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
+            Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
         }
 
     }

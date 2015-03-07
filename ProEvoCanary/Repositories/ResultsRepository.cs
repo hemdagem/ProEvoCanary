@@ -19,7 +19,7 @@ namespace ProEvoCanary.Repositories
         {
             _helper.ClearParameters();
             var lstResults = new List<ResultsModel>();
-
+            _helper.ClearParameters();
             using (var reader = _helper.ExecuteReader("sp_RecentResults"))
             {
                 while (reader.Read())

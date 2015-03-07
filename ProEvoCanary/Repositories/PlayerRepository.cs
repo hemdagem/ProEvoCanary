@@ -52,6 +52,7 @@ namespace ProEvoCanary.Repositories
         public List<PlayerModel> GetTopPlayers()
         {
             var players = new List<PlayerModel>();
+            _helper.ClearParameters();
             var reader = _helper.ExecuteReader("sp_GetTopPlayers");
             while (reader.Read())
             {
@@ -73,6 +74,7 @@ namespace ProEvoCanary.Repositories
         public SelectListModel GetAllPlayers()
         {
             var playerListModel = new SelectListModel { ListItems = new List<SelectListItem>() };
+            _helper.ClearParameters();
             var reader = _helper.ExecuteReader("sp_GetUsers");
             var players = new List<ListItem>();
             while (reader.Read())
