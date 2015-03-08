@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetUsers")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetUsers",null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             //when
@@ -58,7 +59,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -91,7 +92,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -114,7 +115,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader(It.IsAny<string>())).Returns(
+            helper.Setup(x => x.ExecuteReader(It.IsAny<string>(), null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -136,7 +137,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -170,7 +171,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, true, true, false })));
 
             var repository = new PlayerRepository(helper.Object);
@@ -180,34 +181,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
         }    
         
-        [Test]
-        public void ShouldHaveRightParametersWhenGettingPlayersRange()
-        {
-            var dictionary = new Dictionary<string, object>
-            {
-                {"Id", 1},
-                {"Name", "Arsenal"},
-                {"GoalsPerGame", 3.2f},
-                {"PointsPerGame", 4.2f},
-                {"MatchesPlayed", 1}
-            };
-
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers")).Returns(
-                DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, false })));
-
-            var repository = new PlayerRepository(helper.Object);
-
-            //when
-            repository.GetTopPlayersRange(1, 2);
-
-            helper.Verify(x => x.AddParameter("@RowsPerPage", 2), Times.Once);
-            helper.Verify(x => x.AddParameter("@PageNumber", 1), Times.Once);
-          
-
-        }
-
-
     }
 }
 

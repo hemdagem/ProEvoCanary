@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_RecentResults")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_RecentResults",null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new ResultsRepository(helper.Object);
@@ -67,7 +68,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Id", 1},
             };
 
-            helper.Setup(x => x.ExecuteReader("sp_HeadToHeadRecord")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_HeadToHeadRecord", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary,new Queue<bool>(new[] { true, false, true, false })));
 
             var repository = new ResultsRepository(helper.Object);

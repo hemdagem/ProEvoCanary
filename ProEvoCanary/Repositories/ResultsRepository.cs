@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
@@ -17,9 +18,8 @@ namespace ProEvoCanary.Repositories
 
         public List<ResultsModel> GetResults()
         {
-            _helper.ClearParameters();
             var lstResults = new List<ResultsModel>();
-            _helper.ClearParameters();
+
             using (var reader = _helper.ExecuteReader("sp_RecentResults"))
             {
                 while (reader.Read())
@@ -42,11 +42,14 @@ namespace ProEvoCanary.Repositories
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
         {
-            _helper.ClearParameters();
-            _helper.AddParameter("@UserOneId", playerOne);
-            _helper.AddParameter("@UserTwoId", playerTwo);
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@UserOneId", playerOne },
+                { "@UserTwoId", playerTwo },
+            };
+
             var headToHeadRecordList = new RecordsModel {Results = new List<ResultsModel>()};
-            using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord"))
+            using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord", parameters))
             {
                 
                 while (reader.Read())

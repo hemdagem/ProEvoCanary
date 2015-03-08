@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
@@ -24,11 +24,14 @@ namespace ProEvoCanary.Repositories
                 throw new LessThanOneException();
             }
 
-            _helper.ClearParameters();
-            _helper.AddParameter("@RowsPerPage", playersPerPage);
-            _helper.AddParameter("@PageNumber", pageNumber);
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@RowsPerPage", playersPerPage },
+                { "@PageNumber", pageNumber },
+            };
+
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("sp_GetTopPlayers");
+            var reader = _helper.ExecuteReader("sp_GetTopPlayers",parameters);
             while (reader.Read())
             {
                 players.Add(new PlayerModel
@@ -52,7 +55,6 @@ namespace ProEvoCanary.Repositories
         public List<PlayerModel> GetTopPlayers()
         {
             var players = new List<PlayerModel>();
-            _helper.ClearParameters();
             var reader = _helper.ExecuteReader("sp_GetTopPlayers");
             while (reader.Read())
             {
@@ -69,12 +71,9 @@ namespace ProEvoCanary.Repositories
             return players;
         }
 
-
-
         public SelectListModel GetAllPlayers()
         {
             var playerListModel = new SelectListModel { ListItems = new List<SelectListItem>() };
-            _helper.ClearParameters();
             var reader = _helper.ExecuteReader("sp_GetUsers");
             var players = new List<ListItem>();
             while (reader.Read())
@@ -90,8 +89,5 @@ namespace ProEvoCanary.Repositories
 
             return playerListModel;
         }
-
-
-
     }
 }

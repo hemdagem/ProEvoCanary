@@ -38,9 +38,12 @@ namespace ProEvoCanary.Repositories
 
         public EventModel GetEvent(int id)
         {
-            _helper.ClearParameters();
-            _helper.AddParameter("@Id",id);
-            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit");
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Id", id }
+            };
+
+            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit",parameters);
             var tournament = new EventModel();
             while (reader.Read())
             {
@@ -54,7 +57,6 @@ namespace ProEvoCanary.Repositories
                     FixturesGenerated = (bool)reader["Completed"],
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
-
             }
             return tournament;
         }
