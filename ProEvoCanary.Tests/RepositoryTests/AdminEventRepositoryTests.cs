@@ -16,24 +16,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
     public class AdminEventRepositoryTests
     {
 
-
-        [Test]
-        public void ShouldHaveRightParametersWhenCreatingEvent()
-        {
-            var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament")).Returns(1);
-
-            var repository = new AdminEventRepository(helper.Object);
-
-            //then
-            repository.CreateEvent("test", It.IsAny<DateTime>(), It.IsAny<EventTypes>(), 1);
-
-            helper.Verify(x => x.AddParameter("@TournamentName", "test"), Times.Once);
-            helper.Verify(x => x.AddParameter("@TournamentType", (int)It.IsAny<EventTypes>()), Times.Once);
-            helper.Verify(x => x.AddParameter("@Date", It.IsAny<DateTime>()), Times.Once);
-            helper.Verify(x => x.AddParameter("@OwnerId", 1), Times.Once);
-        }
-
         [Test]
         [TestCase(null)]
         [TestCase("")]
@@ -42,7 +24,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament")).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("sp_AddTournament", null)).Returns(1);
 
             var repository = new AdminEventRepository(helper.Object);
 
@@ -59,7 +41,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament")).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("sp_AddTournament", null)).Returns(1);
 
             var repository = new AdminEventRepository(helper.Object);
 
@@ -73,7 +55,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament")).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("sp_AddTournament", It.IsAny<IDictionary<string,IConvertible>>())).Returns(1);
 
             var repository = new AdminEventRepository(helper.Object);
 
@@ -99,7 +81,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new EventRepository(helper.Object);

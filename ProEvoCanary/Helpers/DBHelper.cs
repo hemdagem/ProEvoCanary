@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using ProEvoCanary.Helpers.Interfaces;
@@ -31,7 +32,7 @@ namespace ProEvoCanary.Helpers
             if (_connection.State != ConnectionState.Closed) _connection.Close();
         }
 
-        public int ExecuteScalar(string storedProcedure)
+        public int ExecuteScalar(string storedProcedure, IDictionary<string, IConvertible> parameters =null)
         {
             int identity;
 
@@ -39,6 +40,7 @@ namespace ProEvoCanary.Helpers
             {
                 _sqlCommand.CommandText = storedProcedure;
                 _connection.Open();
+                AddParameters(parameters);
                 identity = Convert.ToInt32(_sqlCommand.ExecuteScalar());
             }
             catch (Exception e)
@@ -52,7 +54,7 @@ namespace ProEvoCanary.Helpers
             return identity;
         }
 
-        public int ExecuteNonQuery(string storedProcedure)
+        public int ExecuteNonQuery(string storedProcedure, IDictionary<string, IConvertible> parameters=null)
         {
             int iRowsAffected;
 
@@ -60,6 +62,7 @@ namespace ProEvoCanary.Helpers
             {
                 _connection.Open();
                 _sqlCommand.CommandText = storedProcedure;
+                AddParameters(parameters);
                 iRowsAffected = _sqlCommand.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -73,12 +76,13 @@ namespace ProEvoCanary.Helpers
             return iRowsAffected;
         }
 
-        public IDataReader ExecuteReader(string storedProcedure)
+        public IDataReader ExecuteReader(string storedProcedure, IDictionary<string, IConvertible> parameters=null)
         {
             try
             {
                 _connection.Open();
                 _sqlCommand.CommandText = storedProcedure;
+                AddParameters(parameters);
                 return _sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
             }
             catch (Exception e)
@@ -87,15 +91,20 @@ namespace ProEvoCanary.Helpers
             }
         }
 
-        public void AddParameter(string parameterName, object value)
-        {
-            _sqlCommand.Parameters.Add(new SqlParameter(parameterName, value));
-        }
-
-        public void ClearParameters()
+        private void AddParameters(IDictionary<string, IConvertible> parameters)
         {
             _sqlCommand.Parameters.Clear();
+
+            if (parameters != null && parameters.Count > 0)
+            {
+                foreach (var convertible in parameters)
+                {
+                    _sqlCommand.Parameters.Add(new SqlParameter(convertible.Key, convertible.Value));
+                    
+                }
+            }
         }
+
     }
 }
 

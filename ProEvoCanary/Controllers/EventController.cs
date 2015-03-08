@@ -32,7 +32,7 @@ namespace ProEvoCanary.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, _currentUser.CurrentUser.Id);
+                int createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, _currentUser.CurrentUser.Id);
 
                 if (createdEvent > 0)
                 {
@@ -45,7 +45,15 @@ namespace ProEvoCanary.Controllers
 
         public ActionResult GenerateFixtures(int eventId)
         {
-            throw new NotImplementedException();
+            if (eventId < 0)
+                throw new IndexOutOfRangeException();
+
+            EventModel model = _eventRepository.GetEvent(eventId);
+
+            if (model == null || (_currentUser.CurrentUser.Id != model.OwnerId))
+                throw new NullReferenceException();
+
+            return View("GenerateFixtures", model);
         }
     }
 }

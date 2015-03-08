@@ -73,20 +73,93 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.AreEqual("Event", actionController);
         }
 
+
         [Test]
-        public void ShouldAddDefaultSettingsForGenerateFixturesAction()
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void ShouldReturnExceptionWhenEventIdIsLessThenZero()
+        {
+            // given
+            Setup();
+
+            // when + then
+            _eventController.GenerateFixtures(-1);
+        }
+
+
+        [Test]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void ShouldReturnExceptionWhenEventDoesntExist()
         {
             //given
             Setup();
 
-            //when
-            var viewResult = _eventController.GenerateFixtures(It.IsAny<int>()) as ViewResult;
+            _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
+                .Returns((EventModel)null);
 
-            //then
-            Assert.That(viewResult.ViewName, Is.EqualTo("GenerateFixtures"));
-            Assert.That(((AddEventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
-            Assert.That(viewResult.Model, Is.TypeOf<AddEventModel>());
+            //when + then
+            _eventController.GenerateFixtures(It.IsAny<int>());
         }
 
+        [Test]
+        public void ShouldSetModelPropertiesForGenerateFixturesModel()
+        {
+            //given
+            Setup();
+
+            var date = DateTime.Now.ToString();
+
+            var claimsPrincipal = new ClaimsPrincipal();
+            claimsPrincipal.AddIdentity(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier,"4"), 
+            }));
+
+            _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
+
+            _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
+                .Returns(new EventModel
+                {
+                    Completed = true,
+                    Date = date,
+                    EventId = 10,
+                    EventTypes = EventTypes.Friendly,
+                    FixturesGenerated = true,
+                    EventName = "Test",
+                    OwnerId = 4
+                });
+            //when
+            var viewResult = _eventController.GenerateFixtures(It.IsAny<int>()) as ViewResult;
+            var model = viewResult.Model as EventModel;
+            //then
+            Assert.That(viewResult.ViewName, Is.EqualTo("GenerateFixtures"));
+            Assert.AreEqual(model.Completed, true);
+            Assert.AreEqual(model.FixturesGenerated, true);
+            Assert.AreEqual(model.EventName, "Test");
+            Assert.AreEqual(model.OwnerId, 4);
+            Assert.AreEqual(model.EventTypes, EventTypes.Friendly);
+            Assert.AreEqual(model.Date, date);
+            Assert.AreEqual(model.EventId, 10);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void ShouldThrowNullExceptionIfCurrentUserIsNotTheOwnerOfTheEvent()
+        {
+            //given
+            Setup();
+
+            _repo.Setup(x => x.GetEvent(10))
+                .Returns(new EventModel { OwnerId = 10 });
+            var claimsPrincipal = new ClaimsPrincipal();
+            claimsPrincipal.AddIdentity(new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier,"12"), 
+            }));
+
+            _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
+
+            //when + then
+            _eventController.GenerateFixtures(10);
+        }
     }
 }

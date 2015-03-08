@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -28,7 +29,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new EventRepository(helper.Object);
@@ -61,7 +62,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTournamentForEdit")).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTournamentForEdit", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new EventRepository(helper.Object);

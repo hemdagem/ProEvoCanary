@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
@@ -20,9 +21,11 @@ namespace ProEvoCanary.Repositories
 
         public IUser GetUser(string username)
         {
-            _dbHelper.AddParameter("@Username", username);
             IUser userModel = null;
-            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails"))
+
+            var parameters = new Dictionary<string, IConvertible> { { "@Username", username } };
+
+            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails", parameters))
             {
                 while (reader.Read())
                 {
@@ -49,6 +52,29 @@ namespace ProEvoCanary.Repositories
             return userModel;
         }
 
+        public List<IUser> GetUsers()
+        {
+            var userModel = new List<IUser>();
+            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails"))
+            {
+                while (reader.Read())
+                {
+                    userModel.Add(new UserModel
+                    {
+                        UserId =
+                            (int)reader["UserId"],
+                        Forename =
+                            reader["Forename"].ToString(),
+                        Surname =
+                            reader["Surname"].ToString()
+                    });
+
+                }
+            }
+
+            return userModel;
+        }
+
         public int CreateUser(string userName, string forename, string surname, string emailAddress, string password)
         {
             if (String.IsNullOrEmpty(userName))
@@ -66,19 +92,22 @@ namespace ProEvoCanary.Repositories
             if (String.IsNullOrEmpty(emailAddress))
             {
                 throw new NullReferenceException("Email Address cannot be empty");
-            } 
+            }
             if (String.IsNullOrEmpty(password))
             {
                 throw new NullReferenceException("Password cannot be empty");
             }
 
-            _dbHelper.AddParameter("@Username", userName);
-            _dbHelper.AddParameter("@Forename", forename);
-            _dbHelper.AddParameter("@Surname", surname);
-            _dbHelper.AddParameter("@Email", emailAddress);
-            _dbHelper.AddParameter("@Password", _passwordHash.CreateHash(password));
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Username", userName },
+                { "@Forename", forename },
+                { "@Surname", surname },
+                { "@Email", emailAddress },
+                { "@Password", _passwordHash.CreateHash(password) }
+            };
 
-            return _dbHelper.ExecuteScalar("sp_AddNewUser");
+            return _dbHelper.ExecuteScalar("sp_AddNewUser", parameters);
         }
 
 
@@ -89,10 +118,13 @@ namespace ProEvoCanary.Repositories
                 throw new NullReferenceException("Username or Password is empty");
             }
 
-            _dbHelper.AddParameter("@Username", loginModel.Username);
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                {"@Username", loginModel.Username}
+            };
 
             UserModel model = null;
-            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails"))
+            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails", parameters))
             {
                 while (reader.Read())
                 {

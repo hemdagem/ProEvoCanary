@@ -96,6 +96,7 @@
     <Compile Include="IntegrationTests\CacheEventRepositoryTests.cs" />
     <Compile Include="IntegrationTests\CachePlayerRepositoryTests.cs" />
     <Compile Include="IntegrationTests\CacheResultsRepositoryTests.cs" />
+    <Compile Include="ModelTests\EventModelTests.cs" />
     <Compile Include="RepositoryTests\AdminEventRepositoryTests.cs" />
     <Compile Include="RepositoryTests\EventRepositoryTests.cs" />
     <Compile Include="RepositoryTests\PlayerRepositoryTests.cs" />

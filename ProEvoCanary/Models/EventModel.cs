@@ -1,4 +1,6 @@
-﻿namespace ProEvoCanary.Models
+﻿using System.Collections.Generic;
+
+namespace ProEvoCanary.Models
 {
     public class EventModel
     {
@@ -10,5 +12,11 @@
         public bool Completed { get; set; }
         public bool FixturesGenerated { get; set; }
         public EventTypes EventTypes { get; set; }
+        public List<UserModel> Users { get; set; }
+
+        public EventModel()
+        {
+            Users = new List<UserModel>();
+        }
     }
 }
