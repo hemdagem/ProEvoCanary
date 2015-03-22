@@ -7,6 +7,6 @@ namespace ProEvoCanary.Repositories.Interfaces
     {
         List<PlayerModel> GetTopPlayers();
         List<PlayerModel> GetTopPlayersRange(int pageNumber, int playersPerPage);
-        SelectListModel GetAllPlayers();
+        List<PlayerModel> GetAllPlayers();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
@@ -12,11 +13,13 @@ namespace ProEvoCanary.Controllers
     {
         private readonly IAdminEventRepository _eventRepository;
         private readonly IAppUser _currentUser;
+        private readonly IPlayerRepository _playerRepository;
 
-        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser)
+        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository)
         {
             _eventRepository = eventRepository;
             _currentUser = currentUser;
+            _playerRepository = playerRepository;
         }
 
         // GET: Admin/Event
@@ -52,6 +55,8 @@ namespace ProEvoCanary.Controllers
 
             if (model == null || (_currentUser.CurrentUser.Id != model.OwnerId))
                 throw new NullReferenceException();
+
+            model.Users = _playerRepository.GetAllPlayers();
 
             return View("GenerateFixtures", model);
         }

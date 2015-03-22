@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ProEvoCanary.Models;
 
@@ -8,7 +9,7 @@ namespace ProEvoCanary.Areas.Admin.Models
     {
         public EventModel() { }
 
-        public EventModel(EventTypes eventType, string tournamentName, DateTime date, SelectListModel userSelectListModel)
+        public EventModel(EventTypes eventType, string tournamentName, DateTime date, List<PlayerModel> userSelectListModel)
         {
             EventType = eventType;
             TournamentName = tournamentName;
@@ -29,7 +30,10 @@ namespace ProEvoCanary.Areas.Admin.Models
         public DateTime Date { get; set; }
 
         [Required]
-        public SelectListModel UserSelectListModel { get; set; }
+        public List<PlayerModel> UserSelectListModel { get; set; }
+
+        [Required]
+        public PlayerModel SelectedUser { get; set; }
 
     }
 }

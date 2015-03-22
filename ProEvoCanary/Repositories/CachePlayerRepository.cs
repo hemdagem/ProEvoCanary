@@ -30,9 +30,9 @@ namespace ProEvoCanary.Repositories
             throw new NotImplementedException();
         }
 
-        public SelectListModel GetAllPlayers()
+        public List<PlayerModel> GetAllPlayers()
         {
-            return _cacheManager.Get(PlayerListCacheKey) as SelectListModel;
+            return _cacheManager.Get(PlayerListCacheKey) as List<PlayerModel>;
         }
 
         public void AddToCache(string key, object value, int cacheHours)

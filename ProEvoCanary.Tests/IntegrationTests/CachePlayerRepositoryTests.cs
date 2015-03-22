@@ -79,19 +79,17 @@ namespace ProEvoCanary.Tests.IntegrationTests
         public void ShouldGetCachedPlayerList()
         {
 
-           Setup();
+            Setup();
 
-            var playerListModel = new SelectListModel { ListItems = new List<SelectListItem>() };
-            var players = new List<ListItem>
+            var playerListModel = new List<PlayerModel>
             {
-                new ListItem
+                new PlayerModel
                 {
-                    Text = "Hemang",
-                    Value = "1"
+                    PlayerName = "Hemang",
+                    PlayerId = 1
                 }
             };
 
-            playerListModel.ListItems = new SelectList(players, "Value", "Text");
             _cache.Set("PlayerCacheList", playerListModel, _cacheItemPolicy);
 
             var repository = new CachePlayerRepository(new CachingManager(_cache));
@@ -101,9 +99,9 @@ namespace ProEvoCanary.Tests.IntegrationTests
 
             //then
             Assert.IsNotNull(selectListModel);
-            Assert.That(selectListModel.ListItems.Count(), Is.EqualTo(1));
-            Assert.That(selectListModel.ListItems.First().Text, Is.EqualTo(players.First().Text));
-            Assert.That(selectListModel.ListItems.First().Value, Is.EqualTo(players.First().Value));
+            Assert.That(selectListModel.Count(), Is.EqualTo(1));
+            Assert.That(selectListModel.First().PlayerName, Is.EqualTo(playerListModel.First().PlayerName));
+            Assert.That(selectListModel.First().PlayerId, Is.EqualTo(playerListModel.First().PlayerId));
             End();
         }
     }

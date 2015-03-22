@@ -20,15 +20,13 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
-            _playerRepository.Setup(x => x.GetAllPlayers()).Returns(new SelectListModel
+            _playerRepository.Setup(x => x.GetAllPlayers()).Returns(new List<PlayerModel>()
             {
-                ListItems = new List<SelectListItem>
+                new PlayerModel
                 {
-                    new SelectListItem{ Text = "Hemang", Value ="1" }
-                    
-                },
-                SelectedItem = "0"
-
+                    PlayerName = "Hemang",
+                    PlayerId = 1
+                }
             });
         }
 
@@ -61,10 +59,10 @@ namespace ProEvoCanary.Tests.ControllerTests
             var model = (ResultsListModel)result.Model;
 
             Assert.That(model, Is.Not.Null);
-            Assert.That(model.PlayerOneList.ListItems.First().Text, Is.EqualTo("Hemang"));
-            Assert.That(model.PlayerOneList.ListItems.First().Value, Is.EqualTo("1"));
-            Assert.That(model.PlayerTwoList.ListItems.First().Text, Is.EqualTo("Hemang"));
-            Assert.That(model.PlayerTwoList.ListItems.First().Value, Is.EqualTo("1"));
+            Assert.That(model.PlayerOneList.First().PlayerName, Is.EqualTo("Hemang"));
+            Assert.That(model.PlayerOneList.First().PlayerId, Is.EqualTo(1));
+            Assert.That(model.PlayerTwoList.First().PlayerName, Is.EqualTo("Hemang"));
+            Assert.That(model.PlayerTwoList.First().PlayerId, Is.EqualTo(1));
 
         }
 
@@ -108,8 +106,8 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.That(model.HeadToHead.Results.First().ResultId, Is.EqualTo(1));
             Assert.That(model.HeadToHead.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(model.HeadToHead.Results.First().AwayTeam, Is.EqualTo("Villa"));
-            Assert.That(model.PlayerOneList.SelectedItem, Is.EqualTo("1"));
-            Assert.That(model.PlayerTwoList.SelectedItem, Is.EqualTo("2"));
+            Assert.That(model.PlayerOne, Is.EqualTo(1));
+            Assert.That(model.PlayerTwo, Is.EqualTo(2));
             Assert.That(model.HeadToHead.TotalMatches, Is.EqualTo(1));
             Assert.That(model.HeadToHead.TotalDraws, Is.EqualTo(4));
             Assert.That(model.HeadToHead.PlayerOneWins, Is.EqualTo(2));

@@ -24,10 +24,8 @@ namespace ProEvoCanary.Controllers
             var model = new ResultsListModel
             {
                 PlayerOneList = playerList,
-                PlayerTwoList = new SelectListModel
-                {
-                    ListItems = playerList.ListItems
-                }
+                PlayerTwoList = playerList
+
             };
 
             return View("HeadToHead", model);
@@ -36,17 +34,14 @@ namespace ProEvoCanary.Controllers
         public ActionResult HeadToHeadResults(int playerOneId, int playerTwoId)
         {
             var playerOneList = _playerRepository.GetAllPlayers();
-            playerOneList.SelectedItem = playerOneId.ToString(CultureInfo.InvariantCulture);
 
 
             var model = new ResultsListModel
             {
                 PlayerOneList = playerOneList,
-                PlayerTwoList = new SelectListModel
-                {
-                    ListItems = playerOneList.ListItems,
-                    SelectedItem = playerTwoId.ToString(CultureInfo.InvariantCulture)
-                },
+                PlayerTwoList = playerOneList,
+                PlayerOne = playerOneId,
+                PlayerTwo = playerTwoId,
                 HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
             };
 
