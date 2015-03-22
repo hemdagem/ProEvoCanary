@@ -67,10 +67,10 @@ namespace ProEvoCanary.Tests.IntegrationTests
             var repository = new CachePlayerRepository(new CachingManager(MemoryCache.Default));
 
             //when
-            var selectListModel = repository.GetAllPlayers();
+            var allPlayers = repository.GetAllPlayers();
 
             //then
-            Assert.IsNull(selectListModel);
+            Assert.IsNull(allPlayers);
             End();
         }
 
@@ -95,13 +95,13 @@ namespace ProEvoCanary.Tests.IntegrationTests
             var repository = new CachePlayerRepository(new CachingManager(_cache));
 
             //when
-            var selectListModel = repository.GetAllPlayers();
+            var allPlayers = repository.GetAllPlayers();
 
             //then
-            Assert.IsNotNull(selectListModel);
-            Assert.That(selectListModel.Count(), Is.EqualTo(1));
-            Assert.That(selectListModel.First().PlayerName, Is.EqualTo(playerListModel.First().PlayerName));
-            Assert.That(selectListModel.First().PlayerId, Is.EqualTo(playerListModel.First().PlayerId));
+            Assert.IsNotNull(allPlayers);
+            Assert.That(allPlayers.Count(), Is.EqualTo(1));
+            Assert.That(allPlayers.First().PlayerName, Is.EqualTo(playerListModel.First().PlayerName));
+            Assert.That(allPlayers.First().PlayerId, Is.EqualTo(playerListModel.First().PlayerId));
             End();
         }
     }

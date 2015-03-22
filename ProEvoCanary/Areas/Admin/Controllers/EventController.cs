@@ -23,7 +23,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
         // GET: Admin/Event
         public ActionResult Create()
         {
-            var model = new EventModel { UserSelectListModel = _userRepository.GetAllPlayers(), Date = DateTime.Today };
+            var model = new EventModel { Players = _userRepository.GetAllPlayers(), Date = DateTime.Today };
 
             return View("Create", model);
         }
@@ -46,7 +46,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
 
             }
 
-            model.UserSelectListModel = _userRepository.GetAllPlayers();
+            model.Players = _userRepository.GetAllPlayers();
 
             return View(model);
         }

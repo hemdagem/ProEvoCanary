@@ -9,12 +9,12 @@ namespace ProEvoCanary.Areas.Admin.Models
     {
         public EventModel() { }
 
-        public EventModel(EventTypes eventType, string tournamentName, DateTime date, List<PlayerModel> userSelectListModel)
+        public EventModel(EventTypes eventType, string tournamentName, DateTime date, List<PlayerModel> players)
         {
             EventType = eventType;
             TournamentName = tournamentName;
             Date = date;
-            UserSelectListModel = userSelectListModel;
+            Players = players;
         }
 
 
@@ -30,7 +30,7 @@ namespace ProEvoCanary.Areas.Admin.Models
         public DateTime Date { get; set; }
 
         [Required]
-        public List<PlayerModel> UserSelectListModel { get; set; }
+        public List<PlayerModel> Players { get; set; }
 
         [Required]
         public PlayerModel SelectedUser { get; set; }

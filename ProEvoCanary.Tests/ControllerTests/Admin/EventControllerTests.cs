@@ -82,7 +82,7 @@ namespace ProEvoCanary.Tests.ControllerTests.Admin
             var model = viewResult.Model as EventModel;
          
             Assert.That(viewResult.Model, Is.TypeOf<EventModel>());
-            Assert.That(model.UserSelectListModel, Is.EqualTo(players));
+            Assert.That(model.Players, Is.EqualTo(players));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace ProEvoCanary.Tests.ControllerTests.Admin
 
         }
         [Test]
-        public void SelectListModelShouldBeRepopulatedIfModelPostIsInvalid()
+        public void ListModelShouldBeRepopulatedIfModelPostIsInvalid()
         {
             //given
             var repo = new Mock<IAdminEventRepository>();
@@ -118,7 +118,7 @@ namespace ProEvoCanary.Tests.ControllerTests.Admin
             var viewResult = authenticationController.Create(_eventModel) as ViewResult;
 
             //then
-            Assert.IsNotNull(((EventModel)viewResult.Model).UserSelectListModel);
+            Assert.IsNotNull(((EventModel)viewResult.Model).Players);
 
 
         }
