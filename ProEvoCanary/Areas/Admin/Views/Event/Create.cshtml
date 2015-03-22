@@ -15,38 +15,42 @@
         <div class="large-12 columns">
             <label>
                 Tournament Name
-                @Html.TextBoxFor(model => model.TournamentName, new { placeholder = "Enter Tournament name", required="required" })
+                @Html.TextBoxFor(model => model.TournamentName, new { placeholder = "Enter Tournament name", required = "required" })
             </label>
             <small class="error">Tournament Name is required</small>
         </div>
         <div class="large-12 columns">
             <label>
                 Date
-                @Html.TextBoxFor(model => model.Date, new { placeholder = "Enter the Tournament Date", required="required", type="date" })
+                @Html.TextBoxFor(model => model.Date, new { placeholder = "Enter the Tournament Date", required = "required", type = "date" })
             </label>
             <small class="error">Tournament Date is required</small>
         </div>
         <div class="large-12 columns">
             <label>
                 Select Owner
-                @Html.DropDownListFor(m => m.UserSelectListModel.SelectedItem, Model.UserSelectListModel.ListItems, new { id = "playerOne", required="required" })
+                <select id="playerOne" required="required">
+                    @foreach (var user in Model.Players)
+                    {
+                        <option value="@user.PlayerId">@user.PlayerName</option>
+                    }
+                </select>
             </label>
             <small class="error">Tournament Owner is required</small>
         </div>
         <div class="large-12 columns">
             <label>
                 Tournament Type
-                @Html.EnumDropDownListFor(model => model.EventType,"Please Select", new { required = "required", value="" })
+                @Html.EnumDropDownListFor(model => model.EventType, "Please Select", new { required = "required", value = "" })
             </label>
             <small class="error">Tournament Type is required</small>
         </div>
-    
+
         <div class="large-12 columns">
-   
+
             <button type="submit">Create Event</button>
         </div>
     </div>
 
 
 </form>
-

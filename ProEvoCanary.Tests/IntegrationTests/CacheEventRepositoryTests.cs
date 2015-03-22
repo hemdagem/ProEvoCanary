@@ -74,10 +74,10 @@ namespace ProEvoCanary.Tests.IntegrationTests
             var repository = new CacheEventRepository(new CachingManager(MemoryCache.Default));
 
             //when
-            var selectListModel = repository.GetEvents();
+            var getEventsModel = repository.GetEvents();
 
             //then
-            Assert.IsNull(selectListModel);
+            Assert.IsNull(getEventsModel);
             End();
         }
 
