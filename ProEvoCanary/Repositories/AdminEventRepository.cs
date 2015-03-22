@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
@@ -21,10 +20,10 @@ namespace ProEvoCanary.Repositories
         public List<EventModel> GetEvents()
         {
             var reader = _helper.ExecuteReader("sp_GetTournamentDetails");
-            var lstTournament = new List<EventModel>();
+            var getEvents = new List<EventModel>();
             while (reader.Read())
             {
-                lstTournament.Add(new EventModel
+                getEvents.Add(new EventModel
                 {
                     EventId = (int)reader["Id"],
                     EventName = reader["TournamentName"].ToString(),
@@ -34,7 +33,7 @@ namespace ProEvoCanary.Repositories
                 });
 
             }
-            return lstTournament;
+            return getEvents;
         }
 
         public EventModel GetEvent(int id)

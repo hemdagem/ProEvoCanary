@@ -38,7 +38,6 @@ namespace ProEvoCanary.Tests.IntegrationTests
                     EventId = 1,
                     EventName = "Event",
                     Name = "Arsenal",
-
                 }
             };
 
@@ -80,7 +79,5 @@ namespace ProEvoCanary.Tests.IntegrationTests
             Assert.IsNull(getEventsModel);
             End();
         }
-
-
     }
 }
