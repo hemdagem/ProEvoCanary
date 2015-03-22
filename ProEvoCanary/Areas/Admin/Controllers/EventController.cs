@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Areas.Admin.Models.EventModel;
 
@@ -12,22 +11,20 @@ namespace ProEvoCanary.Areas.Admin.Controllers
     public class EventController : Controller
     {
         private readonly IAdminEventRepository _eventRepository;
-        private readonly IPlayerRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public EventController(IAdminEventRepository eventRepository, IPlayerRepository userRepository)
+        public EventController(IAdminEventRepository eventRepository, IPlayerRepository playerRepository)
         {
             _eventRepository = eventRepository;
-            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         // GET: Admin/Event
         public ActionResult Create()
         {
-            var model = new EventModel { Players = _userRepository.GetAllPlayers(), Date = DateTime.Today };
-
+            var model = new EventModel { Players = _playerRepository.GetAllPlayers(), Date = DateTime.Today };
             return View("Create", model);
         }
-
 
         // POST: Authentication/Create
         [HttpPost]
@@ -35,7 +32,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ownerId = model.SelectedUser.PlayerId;
+                var ownerId = model.OwnerId;
 
                 var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, ownerId);
 
@@ -43,10 +40,9 @@ namespace ProEvoCanary.Areas.Admin.Controllers
                 {
                     return RedirectToAction("Index", "Default");
                 }
-
             }
 
-            model.Players = _userRepository.GetAllPlayers();
+            model.Players = _playerRepository.GetAllPlayers();
 
             return View(model);
         }

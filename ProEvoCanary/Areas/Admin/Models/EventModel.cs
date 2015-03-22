@@ -33,7 +33,7 @@ namespace ProEvoCanary.Areas.Admin.Models
         public List<PlayerModel> Players { get; set; }
 
         [Required]
-        public PlayerModel SelectedUser { get; set; }
+        public int OwnerId { get; set; }
 
     }
 }

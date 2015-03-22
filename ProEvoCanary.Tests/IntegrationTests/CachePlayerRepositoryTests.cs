@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Web.Mvc;
 using NUnit.Framework;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Models;
@@ -33,14 +32,10 @@ namespace ProEvoCanary.Tests.IntegrationTests
         [Test]
         public void ShouldGetCachedTopPlayers()
         {
+            //given
             Setup();
-            var playersExpected = new List<PlayerModel>
-            {
-                new PlayerModel
-                {
-                    GoalsPerGame = 3.2f
-                }
-            };
+
+            var playersExpected = new List<PlayerModel> { new PlayerModel { GoalsPerGame = 3.2f } };
 
             _cache.Set("TopPlayerCacheList", playersExpected, _cacheItemPolicy);
 
@@ -54,7 +49,6 @@ namespace ProEvoCanary.Tests.IntegrationTests
             Assert.That(players[0].GoalsPerGame, Is.EqualTo(playersExpected[0].GoalsPerGame));
 
             End();
-
         }
 
 
@@ -78,7 +72,6 @@ namespace ProEvoCanary.Tests.IntegrationTests
         [Test]
         public void ShouldGetCachedPlayerList()
         {
-
             Setup();
 
             var playerListModel = new List<PlayerModel>

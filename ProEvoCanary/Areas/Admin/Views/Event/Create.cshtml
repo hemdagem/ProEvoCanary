@@ -2,12 +2,9 @@
 @{
     ViewBag.Title = "Create Event";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
-
 <h1 class="text-center"><small>Add Event</small></h1>
-
 
 <form action="@Url.Action("Create","Event")" method="POST" data-abide>
 
@@ -29,7 +26,7 @@
         <div class="large-12 columns">
             <label>
                 Select Owner
-                <select id="playerOne" required="required">
+                <select id="OwnerId" name="OwnerId" required="required">
                     @foreach (var user in Model.Players)
                     {
                         <option value="@user.PlayerId">@user.PlayerName</option>
@@ -47,10 +44,7 @@
         </div>
 
         <div class="large-12 columns">
-
             <button type="submit">Create Event</button>
         </div>
     </div>
-
-
 </form>
