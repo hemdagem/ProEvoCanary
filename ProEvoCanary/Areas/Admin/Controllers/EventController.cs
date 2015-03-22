@@ -35,7 +35,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ownerId = int.Parse(model.UserSelectListModel.SelectedItem);
+                var ownerId = model.SelectedUser.PlayerId;
 
                 var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, ownerId);
 

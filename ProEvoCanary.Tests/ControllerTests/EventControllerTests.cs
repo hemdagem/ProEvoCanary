@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web.Mvc;
 using Moq;
@@ -18,13 +19,15 @@ namespace ProEvoCanary.Tests.ControllerTests
         private Mock<IAdminEventRepository> _repo;
         private Mock<IAppUser> _appUser;
         private EventController _eventController;
+        private Mock<IPlayerRepository> _mockPlayerRepository;
 
         private void Setup()
         {
             _repo = new Mock<IAdminEventRepository>();
+            _mockPlayerRepository = new Mock<IPlayerRepository>();
             _appUser = new Mock<IAppUser>();
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(new ClaimsPrincipal()));
-            _eventController = new EventController(_repo.Object, _appUser.Object);
+            _eventController = new EventController(_repo.Object, _appUser.Object, _mockPlayerRepository.Object);
         }
 
         [Test]
@@ -115,7 +118,19 @@ namespace ProEvoCanary.Tests.ControllerTests
             }));
 
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
-
+            _mockPlayerRepository.Setup(x => x.GetAllPlayers()).Returns(new List<PlayerModel>()
+            {
+                new PlayerModel
+                {
+                    PlayerName = "Test",
+                    PlayerId = 1
+                },
+                new PlayerModel
+                {
+                     PlayerName = "Test2",
+                    PlayerId = 2
+                }
+            });
             _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
                 .Returns(new EventModel
                 {
@@ -139,6 +154,8 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.AreEqual(model.EventTypes, EventTypes.Friendly);
             Assert.AreEqual(model.Date, date);
             Assert.AreEqual(model.EventId, 10);
+            Assert.AreEqual(2, model.Users.Count);
+
         }
 
         [Test]

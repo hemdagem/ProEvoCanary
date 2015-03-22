@@ -71,23 +71,21 @@ namespace ProEvoCanary.Repositories
             return players;
         }
 
-        public SelectListModel GetAllPlayers()
+        public List<PlayerModel> GetAllPlayers()
         {
-            var playerListModel = new SelectListModel { ListItems = new List<SelectListItem>() };
+            var players = new List<PlayerModel>();
             var reader = _helper.ExecuteReader("sp_GetUsers");
-            var players = new List<ListItem>();
+
             while (reader.Read())
             {
-                players.Add(new ListItem
+                players.Add(new PlayerModel
                 {
-                    Text = reader["Name"].ToString(),
-                    Value = reader["Id"].ToString()
+                    PlayerName = reader["Name"].ToString(),
+                    PlayerId = (int)reader["Id"]
                 });
             }
 
-            playerListModel.ListItems = new SelectList(players, "Value", "Text");
-
-            return playerListModel;
+            return players;
         }
     }
 }

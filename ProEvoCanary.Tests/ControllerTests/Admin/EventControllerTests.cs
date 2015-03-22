@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -7,12 +8,12 @@ using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Areas.Admin.Models.EventModel;
 
-namespace ProEvoCanary.Tests.Admin.ControllerTests
+namespace ProEvoCanary.Tests.ControllerTests.Admin
 {
     [TestFixture]
     public class EventControllerTests
     {
-        readonly EventModel _eventModel =new EventModel(It.IsAny<EventTypes>(),It.IsAny<string>(),It.IsAny<DateTime>(),It.IsAny<SelectListModel>());
+        readonly EventModel _eventModel =new EventModel(It.IsAny<EventTypes>(),It.IsAny<string>(),It.IsAny<DateTime>(),It.IsAny<List<PlayerModel>>());
 
         [Test]
         public void ShouldSetDefaultViewName()
@@ -69,7 +70,7 @@ namespace ProEvoCanary.Tests.Admin.ControllerTests
             //given
             var repo = new Mock<IAdminEventRepository>();
             var userrepo = new Mock<IPlayerRepository>();
-            var players = new SelectListModel();
+            var players = new List<PlayerModel>();
             userrepo.Setup(x => x.GetAllPlayers()).Returns(players);
 
             var authenticationController = new EventController(repo.Object, userrepo.Object);
@@ -108,7 +109,7 @@ namespace ProEvoCanary.Tests.Admin.ControllerTests
             var repo = new Mock<IAdminEventRepository>();
             var userrepo = new Mock<IPlayerRepository>();
 
-            userrepo.Setup(x => x.GetAllPlayers()).Returns(new SelectListModel());
+            userrepo.Setup(x => x.GetAllPlayers()).Returns(new List<PlayerModel>());
 
             var authenticationController = new EventController(repo.Object, userrepo.Object);
 

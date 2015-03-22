@@ -38,9 +38,9 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             Assert.That(resultsModels, Is.Not.Null);
-            Assert.That(resultsModels.ListItems.Count(), Is.EqualTo(1));
-            Assert.That(resultsModels.ListItems.First().Text, Is.EqualTo("Arsenal"));
-            Assert.That(resultsModels.ListItems.First().Value, Is.EqualTo("1"));
+            Assert.That(resultsModels.Count, Is.EqualTo(1));
+            Assert.That(resultsModels.First().PlayerName, Is.EqualTo("Arsenal"));
+            Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
 
         }
 

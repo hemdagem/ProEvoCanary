@@ -35,7 +35,7 @@ namespace ProEvoCanary.Repositories
             throw new System.NotImplementedException();
         }
 
-        public SelectListModel GetAllPlayers()
+        public List<PlayerModel> GetAllPlayers()
         {
             var players = _cacheRepository.GetAllPlayers();
 
