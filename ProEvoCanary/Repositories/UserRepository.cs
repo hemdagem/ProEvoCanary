@@ -4,7 +4,6 @@ using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
-using IUser = ProEvoCanary.Models.Interfaces.IUser;
 
 namespace ProEvoCanary.Repositories
 {
@@ -19,9 +18,9 @@ namespace ProEvoCanary.Repositories
             _passwordHash = passwordHash;
         }
 
-        public IUser GetUser(string username)
+        public UserModel GetUser(string username)
         {
-            IUser userModel = null;
+            UserModel userModel = null;
 
             var parameters = new Dictionary<string, IConvertible> { { "@Username", username } };
 
@@ -29,32 +28,21 @@ namespace ProEvoCanary.Repositories
             {
                 while (reader.Read())
                 {
-                    switch ((int)reader["UserType"])
-                    {
-                        case (int)UserType.Admin:
-                            userModel = new AdminModel((int)reader["UserId"],
-                                reader["Forename"].ToString(),
-                                reader["Surname"].ToString(),
-                                reader["Username"].ToString());
-                            break;
-                        case (int)UserType.Standard:
-                            userModel = new UserModel((int)reader["UserId"],
-                                reader["Forename"].ToString(),
-                                reader["Surname"].ToString(),
-                                reader["Username"].ToString(),
-                                (int)reader["UserType"]);
-                            break;
-                    }
-                }
+                    userModel = new UserModel((int)reader["UserId"],
+                        reader["Forename"].ToString(),
+                        reader["Surname"].ToString(),
+                        reader["Username"].ToString(),
+                        (int)reader["UserType"]);
 
+                }
             }
 
             return userModel;
         }
 
-        public List<IUser> GetUsers()
+        public List<UserModel> GetUsers()
         {
-            var userModel = new List<IUser>();
+            var userModel = new List<UserModel>();
             using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails"))
             {
                 while (reader.Read())

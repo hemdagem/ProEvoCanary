@@ -200,10 +200,8 @@
     <Compile Include="Helpers\Interfaces\ICacheManager.cs" />
     <Compile Include="Helpers\Interfaces\IRssLoader.cs" />
     <Compile Include="Helpers\RssLoader.cs" />
-    <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\Interfaces\IUser.cs" />
     <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\ResultsListModel.cs" />
