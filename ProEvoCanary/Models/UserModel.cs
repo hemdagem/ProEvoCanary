@@ -1,8 +1,6 @@
-﻿using ProEvoCanary.Models.Interfaces;
-
-namespace ProEvoCanary.Models
+﻿namespace ProEvoCanary.Models
 {
-    public class UserModel : IUser
+    public class UserModel
     {
         public int UserId { get; set; }
         public string Forename { get; set; }

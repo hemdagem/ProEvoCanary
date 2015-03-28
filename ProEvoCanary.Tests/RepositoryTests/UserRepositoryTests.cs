@@ -49,18 +49,17 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Setup();
             _passwordHash.Setup(x => x.ValidatePassword(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails", It.IsAny<IDictionary<string, IConvertible>>())).Returns(DataReaderTestHelper.Reader(_adminDictionary));
+            
             //when
-            var user = (AdminModel)_repository.GetUser(It.IsAny<string>());
+            var user = _repository.GetUser(It.IsAny<string>());
 
             //then
-            Assert.That(user, Is.TypeOf(typeof(AdminModel)));
             Assert.That(user.UserId, Is.EqualTo(1));
             Assert.That(user.Forename, Is.EqualTo("Hemang"));
             Assert.That(user.Surname, Is.EqualTo("Rajyaguru"));
             Assert.That(user.Username, Is.EqualTo("hemdagem"));
-
+            Assert.That(user.UserType,Is.EqualTo((int)UserType.Admin));
         }
-
 
         [Test]
         public void ShouldGetStandardUser()
@@ -71,7 +70,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             _helper.Setup(x => x.ExecuteReader("sp_GetLoginDetails", It.IsAny<IDictionary<string, IConvertible>>())).Returns(DataReaderTestHelper.Reader(_dictionary));
 
             //when
-            var user = (UserModel)_repository.GetUser(It.IsAny<string>());
+            var user = _repository.GetUser(It.IsAny<string>());
 
             //then
             Assert.That(user, Is.Not.Null);
@@ -79,6 +78,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(user.Forename, Is.EqualTo("Hemang"));
             Assert.That(user.Surname, Is.EqualTo("Rajyaguru"));
             Assert.That(user.Username, Is.EqualTo("hemdagem"));
+            Assert.That(user.UserType, Is.EqualTo((int)UserType.Standard));
         }
 
         [Test]
