@@ -23,9 +23,7 @@ namespace ProEvoCanary.Controllers
             var playerList = _playerRepository.GetAllPlayers();
             var model = new ResultsListModel
             {
-                PlayerOneList = playerList,
-                PlayerTwoList = playerList
-
+                PlayerList = playerList,
             };
 
             return View("HeadToHead", model);
@@ -38,8 +36,7 @@ namespace ProEvoCanary.Controllers
 
             var model = new ResultsListModel
             {
-                PlayerOneList = playerOneList,
-                PlayerTwoList = playerOneList,
+                PlayerList = playerOneList,
                 PlayerOne = playerOneId,
                 PlayerTwo = playerTwoId,
                 HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)

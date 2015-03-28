@@ -59,10 +59,8 @@ namespace ProEvoCanary.Tests.ControllerTests
             var model = (ResultsListModel)result.Model;
 
             Assert.That(model, Is.Not.Null);
-            Assert.That(model.PlayerOneList.First().PlayerName, Is.EqualTo("Hemang"));
-            Assert.That(model.PlayerOneList.First().PlayerId, Is.EqualTo(1));
-            Assert.That(model.PlayerTwoList.First().PlayerName, Is.EqualTo("Hemang"));
-            Assert.That(model.PlayerTwoList.First().PlayerId, Is.EqualTo(1));
+            Assert.That(model.PlayerList.First().PlayerName, Is.EqualTo("Hemang"));
+            Assert.That(model.PlayerList.First().PlayerId, Is.EqualTo(1));
 
         }
 
