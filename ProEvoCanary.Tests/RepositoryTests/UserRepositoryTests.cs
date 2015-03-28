@@ -34,7 +34,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"UserType", 1}
             };
 
-
         private void Setup()
         {
             _helper = new Mock<IDBHelper>();
@@ -106,7 +105,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             _repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
-
         }
 
         [Test]
@@ -121,7 +119,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             _repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
-
         }
 
         [Test]
@@ -136,7 +133,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             _repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress, _loginModel.Password);
-
         }
 
         [Test]
@@ -151,7 +147,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email, _loginModel.Password);
-
         }
     }
 }
