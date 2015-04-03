@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
@@ -25,40 +24,31 @@ namespace ProEvoCanary.Controllers
         // GET: Admin/Event
         public ActionResult Create()
         {
-            var model = new AddEventModel { Date = DateTime.Today };
-            return View("Create", model);
+            return View("Create", new AddEventModel());
         }
 
         // POST: Authentication/Create
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
-            if (ModelState.IsValid)
-            {
-                int createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, _currentUser.CurrentUser.Id);
-
-                if (createdEvent > 0)
-                {
-                    return RedirectToAction("GenerateFixtures", "Event");
-                }
-            }
-
-            return View(model);
+            _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, _currentUser.CurrentUser.Id);
+            return RedirectToAction("GenerateFixtures", "Event");
         }
 
         public ActionResult GenerateFixtures(int eventId)
         {
-            if (eventId < 0)
-                throw new IndexOutOfRangeException();
-
-            EventModel model = _eventRepository.GetEvent(eventId);
-
-            if (model == null || (_currentUser.CurrentUser.Id != model.OwnerId))
-                throw new NullReferenceException();
-
+            EventModel model = _eventRepository.GetEvent(eventId, _currentUser.CurrentUser.Id);
             model.Users = _playerRepository.GetAllPlayers();
 
             return View("GenerateFixtures", model);
+        }
+
+        // POST: Authentication/Create
+        [HttpPost]
+        public ActionResult GenerateFixtures(int eventId, List<int> userIds)
+        {
+            _eventRepository.GenerateFixtures(eventId, userIds);
+            return RedirectToAction("Details", "Event", new { EventId = eventId });
         }
     }
 }

@@ -36,14 +36,14 @@ namespace ProEvoCanary.Repositories
             return lstTournament;
         }
 
-        public EventModel GetEvent(int id)
+        public EventModel GetEvent(int id, int ownerId)
         {
             var parameters = new Dictionary<string, IConvertible>
             {
                 { "@Id", id }
             };
 
-            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit",parameters);
+            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
             var tournament = new EventModel();
             while (reader.Read())
             {
@@ -58,6 +58,10 @@ namespace ProEvoCanary.Repositories
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
+
+            if (ownerId != tournament.OwnerId)
+                throw new NullReferenceException();
+
             return tournament;
         }
     }

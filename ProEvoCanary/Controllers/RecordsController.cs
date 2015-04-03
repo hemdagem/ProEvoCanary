@@ -29,10 +29,24 @@ namespace ProEvoCanary.Controllers
             return View("HeadToHead", model);
         }
 
-        public ActionResult HeadToHeadResults(int playerOneId, int playerTwoId)
+        public JsonResult HeadToHeadResult(int playerOneId, int playerTwoId)
         {
             var playerOneList = _playerRepository.GetAllPlayers();
 
+            var model = new ResultsListModel
+            {
+                PlayerList = playerOneList,
+                PlayerOne = playerOneId,
+                PlayerTwo = playerTwoId,
+                HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
+            };
+
+            return Json(model);
+        }
+
+        public ActionResult HeadToHeadResults(int playerOneId, int playerTwoId)
+        {
+            var playerOneList = _playerRepository.GetAllPlayers();
 
             var model = new ResultsListModel
             {
