@@ -46,20 +46,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         }
 
         [Test]
-        public void ShouldNotCallUserRepositoryWhenModelIsInValid()
-        {
-            //given
-            Setup();
-
-            //when
-            _eventController.ModelState.AddModelError("TournamentName", "Missing Tournament Name");
-            _eventController.Create(_eventModel);
-
-            //then
-            _repo.Verify(x => x.CreateEvent(_eventModel.TournamentName, _eventModel.Date, _eventModel.EventType, It.IsAny<int>()), Times.Never);
-        }
-
-        [Test]
         public void ShouldRedirectToGenerateFixturesAction()
         {
             //given
@@ -78,25 +64,13 @@ namespace ProEvoCanary.Tests.ControllerTests
 
 
         [Test]
-        [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void ShouldReturnExceptionWhenEventIdIsLessThenZero()
-        {
-            // given
-            Setup();
-
-            // when + then
-            _eventController.GenerateFixtures(-1);
-        }
-
-
-        [Test]
         [ExpectedException(typeof(NullReferenceException))]
         public void ShouldReturnExceptionWhenEventDoesntExist()
         {
             //given
             Setup();
 
-            _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
+            _repo.Setup(x => x.GetEvent(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns((EventModel)null);
 
             //when + then
@@ -131,7 +105,7 @@ namespace ProEvoCanary.Tests.ControllerTests
                     PlayerId = 2
                 }
             });
-            _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
+            _repo.Setup(x => x.GetEvent(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new EventModel
                 {
                     Completed = true,
@@ -155,28 +129,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.AreEqual(model.Date, date);
             Assert.AreEqual(model.EventId, 10);
             Assert.AreEqual(2, model.Users.Count);
-
-        }
-
-        [Test]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void ShouldThrowNullExceptionIfCurrentUserIsNotTheOwnerOfTheEvent()
-        {
-            //given
-            Setup();
-
-            _repo.Setup(x => x.GetEvent(10))
-                .Returns(new EventModel { OwnerId = 10 });
-            var claimsPrincipal = new ClaimsPrincipal();
-            claimsPrincipal.AddIdentity(new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier,"12"), 
-            }));
-
-            _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
-
-            //when + then
-            _eventController.GenerateFixtures(10);
         }
     }
 }

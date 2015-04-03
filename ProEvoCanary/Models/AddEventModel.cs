@@ -4,7 +4,7 @@ namespace ProEvoCanary.Models
 {
     public class AddEventModel
     {
-        public AddEventModel() { }
+        public AddEventModel() { Date = DateTime.Today; }
         public AddEventModel(EventTypes eventType, string tournamentName, DateTime date)
         {
             EventType = eventType;

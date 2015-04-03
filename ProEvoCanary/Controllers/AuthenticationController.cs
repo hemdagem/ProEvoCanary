@@ -1,7 +1,4 @@
-﻿using System.Web;
-using System.Web.Mvc;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
+﻿using System.Web.Mvc;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
@@ -30,16 +27,8 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult Create(CreateUserModel model)
         {
-            if (ModelState.IsValid)
-            {
-                if (_userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress, model.Password) > 0)
-                {
-                    return RedirectToAction("Index", "Default");
-                }
-
-            }
-
-            return View(model);
+            _userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress, model.Password);
+            return RedirectToAction("Index", "Default");
         }
 
         // GET: Authentication
@@ -53,37 +42,20 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            UserModel login = _userRepository.Login(model);
+            _authenticationHandler.SignIn(login);
+
+            if (!string.IsNullOrEmpty(returnUrl))
             {
-                UserModel login = _userRepository.Login(model);
-
-                if (login != null)
-                {
-                    _authenticationHandler.SignIn(login);
-
-                    if (!string.IsNullOrEmpty(returnUrl))
-                    {
-                        Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        RedirectToAction("Index", "Default");
-                    }
-                }
+                return Redirect(returnUrl);
             }
-
-            return View();
+            return RedirectToAction("Index", "Default");
         }
 
         public ActionResult Signout()
         {
-            IOwinContext ctx = System.Web.HttpContext.Current.Request.GetOwinContext();
-            IAuthenticationManager authManager = ctx.Authentication;
-
-            authManager.SignOut();
+            _authenticationHandler.SignOut();
             return RedirectToAction("Index", "Default");
         }
-
-
     }
 }

@@ -6,6 +6,6 @@ namespace ProEvoCanary.Repositories.Interfaces
     public interface IEventRepository
     {
         List<EventModel> GetEvents();
-        EventModel GetEvent(int id);
+        EventModel GetEvent(int id, int ownerId);
     }
 }

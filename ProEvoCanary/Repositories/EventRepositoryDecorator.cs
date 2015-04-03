@@ -31,7 +31,7 @@ namespace ProEvoCanary.Repositories
             return events;
         }
 
-        public EventModel GetEvent(int id)
+        public EventModel GetEvent(int id, int ownerId)
         {
             throw new System.NotImplementedException();
         }

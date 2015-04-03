@@ -45,8 +45,8 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().Name, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().Completed, Is.EqualTo(true));
         }
-    
-    [Test]
+
+        [Test]
         public void ShouldGetEventInfoForGetEventMethod()
         {
             //given
@@ -62,13 +62,13 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTournamentForEdit", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("sp_GetTournamentForEdit", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new EventRepository(helper.Object);
 
             //when
-            var eventModel = repository.GetEvent(15);
+            var eventModel = repository.GetEvent(15, 10);
 
             //then
             Assert.IsNotNull(eventModel);
@@ -79,6 +79,33 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(eventModel.Completed, Is.EqualTo(true));
             Assert.That(eventModel.FixturesGenerated, Is.EqualTo(true));
             Assert.That(eventModel.EventTypes, Is.EqualTo(EventTypes.Friendly));
+        }
+
+
+        [Test]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void ShouldThrowExceptionIfOwnerIdDoesNotMatchEventOwnerId()
+        {
+            //given
+            var dictionary = new Dictionary<string, object>
+            {
+                {"OwnerId", 10},
+                {"TournamentName", "Event"},
+                {"Date", "10/10/2010"},
+                {"Completed", true},
+                {"FixturesGenerated", true},
+                {"TournamentType", EventTypes.Friendly},
+            };
+
+
+            var helper = new Mock<IDBHelper>();
+            helper.Setup(x => x.ExecuteReader("sp_GetTournamentForEdit", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
+                DataReaderTestHelper.Reader(dictionary));
+
+            var repository = new EventRepository(helper.Object);
+
+            //when + then
+            repository.GetEvent(15, 9);
         }
     }
 }

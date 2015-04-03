@@ -166,6 +166,7 @@
     <Compile Include="Areas\Admin\Controllers\EventController.cs" />
     <Compile Include="Areas\Admin\Models\EventModel.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Helpers\Exceptions\EmptyListException.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Helpers\AppViewPage.cs" />
     <Compile Include="Helpers\AuthenticationHandler.cs" />
@@ -202,12 +203,10 @@
     <Compile Include="Helpers\RssLoader.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\ListItem.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\ResultsListModel.cs" />
     <Compile Include="Models\ResultsModel.cs" />
     <Compile Include="Models\RssFeedModel.cs" />
-    <Compile Include="Models\SelectListModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,6 +257,7 @@
     <Content Include="Areas\Admin\Views\Default\Index.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\GeneratedFixtures.cshtml" />
+    <None Include="Properties\PublishProfiles\proevo.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

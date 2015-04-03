@@ -15,5 +15,12 @@ namespace ProEvoCanary.Helpers
             IAuthenticationManager authManager = ctx.Authentication;
             authManager.SignIn(identity);
         }
+
+        public void SignOut()
+        {
+            IOwinContext ctx = HttpContext.Current.Request.GetOwinContext();
+            IAuthenticationManager authManager = ctx.Authentication;
+            authManager.SignOut();
+        }
     }
 }

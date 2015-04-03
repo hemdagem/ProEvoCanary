@@ -22,12 +22,10 @@ namespace ProEvoCanary.Helpers
 
             var generatedTeamIds = new List<TeamIds>();
 
-            for (int i = 0; i < teamIds.Count; i++)
+            foreach (int teamOne in teamIds)
             {
-                for (int j = 0; j < teamIds.Count; j++)
+                foreach (int teamTwo in teamIds)
                 {
-                    int teamOne = teamIds[i];
-                    int teamTwo = teamIds[j];
                     if (teamOne != teamTwo)
                     {
                         if (!FixturesAreGenerated(teamOne, teamTwo, generatedTeamIds))

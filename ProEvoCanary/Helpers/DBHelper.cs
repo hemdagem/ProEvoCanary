@@ -95,16 +95,13 @@ namespace ProEvoCanary.Helpers
         {
             _sqlCommand.Parameters.Clear();
 
-            if (parameters != null && parameters.Count > 0)
+            if (parameters == null || parameters.Count <= 0) return;
+            
+            foreach (var convertible in parameters)
             {
-                foreach (var convertible in parameters)
-                {
-                    _sqlCommand.Parameters.Add(new SqlParameter(convertible.Key, convertible.Value));
-                    
-                }
+                _sqlCommand.Parameters.Add(new SqlParameter(convertible.Key, convertible.Value));
             }
         }
-
     }
 }
 

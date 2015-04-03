@@ -36,9 +36,36 @@ namespace ProEvoCanary.Repositories
             return getEvents;
         }
 
-        public EventModel GetEvent(int id)
+        public EventModel GetEvent(int id, int ownerId)
         {
-            throw new NotImplementedException();
+            if (id < 0)
+                throw new IndexOutOfRangeException();
+
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Id", id }
+            };
+
+            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var tournament = new EventModel();
+            while (reader.Read())
+            {
+                tournament = new EventModel
+                {
+                    EventId = id,
+                    OwnerId = (int)reader["OwnerId"],
+                    EventName = reader["TournamentName"].ToString(),
+                    Date = reader["Date"].ToString(),
+                    Completed = (bool)reader["Completed"],
+                    FixturesGenerated = (bool)reader["Completed"],
+                    EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
+                };
+            }
+
+            if (tournament.OwnerId != ownerId)
+                throw new IndexOutOfRangeException();
+
+            return tournament;
         }
 
         public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes? eventType, int ownerId)
@@ -62,6 +89,11 @@ namespace ProEvoCanary.Repositories
             };
 
             return _helper.ExecuteScalar("sp_AddTournament", parameters);
+        }
+
+        public void GenerateFixtures(int eventId, List<int> userIds)
+        {
+            throw new NotImplementedException();
         }
     }
 }
