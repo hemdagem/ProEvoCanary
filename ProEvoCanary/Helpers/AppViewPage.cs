@@ -9,7 +9,7 @@ namespace ProEvoCanary.Helpers
         {
             get
             {
-                return new UserClaimsPrincipal(this.User as ClaimsPrincipal);
+                return new UserClaimsPrincipal(User as ClaimsPrincipal);
             }
         }
 

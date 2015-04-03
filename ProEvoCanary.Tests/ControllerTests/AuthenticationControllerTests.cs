@@ -12,7 +12,6 @@ namespace ProEvoCanary.Tests.ControllerTests
     [TestFixture]
     public class AuthenticationControllerTests
     {
-        readonly CreateUserModel _createUserModel = new CreateUserModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>());
         readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>());
         private Mock<IUserRepository> _repo;
         private Mock<IAuthenticationHandler> _authenticationMock;

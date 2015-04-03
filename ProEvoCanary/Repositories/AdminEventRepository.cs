@@ -68,7 +68,7 @@ namespace ProEvoCanary.Repositories
             return tournament;
         }
 
-        public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes? eventType, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes eventType, int ownerId)
         {
             if (string.IsNullOrEmpty(tournamentname))
             {

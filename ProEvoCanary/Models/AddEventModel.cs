@@ -14,7 +14,7 @@ namespace ProEvoCanary.Models
 
         [Required]
         [Range(1, 3)]
-        public EventTypes? EventType { get; set; }
+        public EventTypes EventType { get; set; }
 
         [Required]
         public string TournamentName { get; set; }
