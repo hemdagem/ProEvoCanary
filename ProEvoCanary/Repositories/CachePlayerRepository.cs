@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;

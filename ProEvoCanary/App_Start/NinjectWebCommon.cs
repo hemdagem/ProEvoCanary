@@ -1,6 +1,3 @@
-using System.Security.Claims;
-using System.Security.Principal;
-using ProEvoCanary.Controllers;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories;

@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Web.Mvc;
-using ProEvoCanary.Repositories;
+﻿using System.Web.Mvc;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
 

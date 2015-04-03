@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;

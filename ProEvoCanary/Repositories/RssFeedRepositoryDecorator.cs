@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
 using ProEvoCanary.Repositories.Interfaces;
@@ -19,7 +18,7 @@ namespace ProEvoCanary.Repositories
 
         public List<RssFeedModel> GetFeed(string url)
         {
-            var rssFeedModel = _cacheRssLoader.Load(url);
+            List<RssFeedModel> rssFeedModel = _cacheRssLoader.Load(url);
 
             if (rssFeedModel != null) return rssFeedModel;
 
@@ -29,7 +28,5 @@ namespace ProEvoCanary.Repositories
 
             return rssFeedModel;
         }
-
-
     }
 }

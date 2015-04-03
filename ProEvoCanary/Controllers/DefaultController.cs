@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Repositories;
 using ProEvoCanary.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
@@ -31,9 +30,7 @@ namespace ProEvoCanary.Controllers
                 Events = _eventRepository.GetEvents(),
                 Results = _resultRepository.GetResults()
             };
-
             return View("Index", homeModel);
         }
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Models.EventModel;
