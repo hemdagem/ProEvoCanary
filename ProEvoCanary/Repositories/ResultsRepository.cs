@@ -50,7 +50,6 @@ namespace ProEvoCanary.Repositories
             var headToHeadRecordList = new RecordsModel {Results = new List<ResultsModel>()};
             using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord", parameters))
             {
-                
                 while (reader.Read())
                 {
                     headToHeadRecordList.TotalMatches = (int)reader["TotalMatches"];
@@ -76,6 +75,5 @@ namespace ProEvoCanary.Repositories
 
             return headToHeadRecordList;
         }
-
     }
 }

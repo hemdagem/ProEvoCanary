@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml;
-using System.Xml.Linq;
 using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
@@ -15,10 +12,12 @@ namespace ProEvoCanary.Repositories
     public class AdminEventRepository : IAdminEventRepository
     {
         private readonly IDBHelper _helper;
+        private readonly IXmlGenerator _xmlGenerator;
 
-        public AdminEventRepository(IDBHelper helper)
+        public AdminEventRepository(IDBHelper helper, IXmlGenerator xmlGenerator)
         {
             _helper = helper;
+            _xmlGenerator = xmlGenerator;
         }
 
         public List<EventModel> GetEvents()
@@ -141,26 +140,16 @@ namespace ProEvoCanary.Repositories
         public void GenerateFixtures(int eventId, List<int> userIds)
         {
             var generator = new FixtureGenerator();
-            var teamIdses = generator.Generate(userIds);
+            var teamIds = generator.Generate(userIds);
 
-            var doc = new XDocument(
-                new XDeclaration("1.0", "utf-8", "yes"),
-                new XElement("fixtures",
-                    teamIdses.Select(x => new XElement("fixture",
-               new XAttribute("TournamentId", eventId),
-               new XAttribute("HomeUserId", x.TeamOne),
-                  new XAttribute("AwayUserId", x.TeamTwo),
-                  new XAttribute("Round", 0)
-                  ))));
-
+            var documentString = _xmlGenerator.GenerateXmlDocument(teamIds, eventId);
 
             var parameters = new Dictionary<string, IConvertible>
             {
-                {"@XmlString", doc.ToString()}
+                {"@XmlString", documentString }
             };
 
             _helper.ExecuteNonQuery("sp_AddFixtures", parameters);
-
         }
     }
 }

@@ -123,32 +123,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\css\foundation.css" />
-    <Content Include="content\css\foundation.min.css" />
-    <Content Include="content\css\normalize.css" />
-    <Content Include="content\js\foundation.min.js" />
-    <Content Include="content\js\foundation\foundation.abide.js" />
-    <Content Include="content\js\foundation\foundation.accordion.js" />
-    <Content Include="content\js\foundation\foundation.alert.js" />
-    <Content Include="content\js\foundation\foundation.clearing.js" />
-    <Content Include="content\js\foundation\foundation.dropdown.js" />
-    <Content Include="content\js\foundation\foundation.equalizer.js" />
-    <Content Include="content\js\foundation\foundation.interchange.js" />
-    <Content Include="content\js\foundation\foundation.joyride.js" />
-    <Content Include="content\js\foundation\foundation.js" />
-    <Content Include="content\js\foundation\foundation.magellan.js" />
-    <Content Include="content\js\foundation\foundation.offcanvas.js" />
-    <Content Include="content\js\foundation\foundation.orbit.js" />
-    <Content Include="content\js\foundation\foundation.reveal.js" />
-    <Content Include="content\js\foundation\foundation.slider.js" />
-    <Content Include="content\js\foundation\foundation.tab.js" />
-    <Content Include="content\js\foundation\foundation.tooltip.js" />
-    <Content Include="content\js\foundation\foundation.topbar.js" />
-    <Content Include="content\js\vendor\fastclick.js" />
-    <Content Include="content\js\vendor\jquery.cookie.js" />
-    <Content Include="content\js\vendor\jquery.js" />
-    <Content Include="content\js\vendor\modernizr.js" />
-    <Content Include="content\js\vendor\placeholder.js" />
     <Content Include="Global.asax" />
     <Content Include="scripts\proevo.js" />
     <Content Include="Web.config">
@@ -226,6 +200,7 @@
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRssFeedRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Helpers\IXmlGenerator.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\PlayerRepositoryDecorator.cs" />
     <Compile Include="Repositories\ResultsCacheRepository.cs" />
@@ -233,6 +208,7 @@
     <Compile Include="Repositories\ResultsRepositoryDecorator.cs" />
     <Compile Include="Repositories\RssFeedRepositoryDecorator.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Helpers\XmlGenerator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +223,6 @@
     <Content Include="Views\Shared\Partials\_Players.cshtml" />
     <Content Include="Views\Shared\Partials\_Results.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="content\img\.gitkeep" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Authentication\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />

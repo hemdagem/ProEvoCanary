@@ -1,26 +1,29 @@
 ﻿@model ProEvoCanary.Models.HomeModel
 
-<div class="row">
-    <div class="large-4 columns">
-        <h2><small>Events</small></h2>
-        @Html.Partial("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
+
+<div class="demo-grid-1 mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col">
+
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <h2><small>Events</small></h2>
+            @Html.Partial("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <h2><small>Top Players</small></h2>
+            @Html.Partial("~/Views/Shared/Partials/_Players.cshtml", Model.Players)
+        </div>
+
+        <div class="mdl-cell mdl-cell--12-col">
+            <h2><small>Results</small></h2>
+            @Html.Partial("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
+        </div>
+
     </div>
-    <div class="large-4 columns">
+    <div class="mdl-cell mdl-cell--4-col">
         <h2><small>News</small></h2>
         @Html.Partial("~/Views/Shared/Partials/_News.cshtml", Model.News)
     </div>
-    <div class="large-4 columns">
-        <div class="row">
-            <div class="large-12 columns">
-                <h2><small>Top Players</small></h2>
-                @Html.Partial("~/Views/Shared/Partials/_Players.cshtml", Model.Players)
-            </div>
-        </div>
-        <div class="row">
-            <div class="large-12 columns">
-                <h2><small>Results</small></h2>
-                @Html.Partial("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
-            </div>
-        </div>
-    </div>
+
 </div>
