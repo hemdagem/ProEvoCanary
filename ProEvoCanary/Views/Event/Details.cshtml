@@ -1,0 +1,20 @@
+﻿@model ProEvoCanary.Models.EventModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @Model.EventId
+    </div>
+    
+    @foreach (var item in Model.Results)
+    {
+        <span>@item.AwayTeam</span>
+    }
+</body>
+</html>

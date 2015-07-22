@@ -4,35 +4,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center"><small>Add Event</small></h1>
-
-<form action="@Url.Action("Create","Event")" method="POST" data-abide>
-
-    <div class="row">
-        <div class="large-12 columns">
-            <label>
-                Tournament Name
-                @Html.TextBoxFor(model => model.TournamentName, new { placeholder = "Enter Tournament name", required = "required" })
-            </label>
-            <small class="error">Tournament Name is required</small>
+<div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-cell">
+        <h1><small>Add Event</small></h1>
+    </div>
+    <form action="@Url.Action("Create","Event")" method="POST">
+        <div class="mdl-cell">
+            @Html.TextBoxFor(model => model.TournamentName, new { placeholder = "Enter Tournament name", required = "required", @class = "mdl-textfield__input" })
         </div>
-        <div class="large-12 columns">
-            <label>
-                Date
-                @Html.TextBoxFor(model => model.Date, new { placeholder = "Enter the Tournament Date", required = "required", type = "date" })
-            </label>
-            <small class="error">Tournament Date is required</small>
+        <div class="mdl-cell">
+
+            @Html.TextBoxFor(model => model.Date, new { placeholder = "Enter the Tournament Date", required = "required", type = "date", @class = "mdl-textfield__input" })
         </div>
-        <div class="large-12 columns">
+        <div class="mdl-cell">
             <label>
                 Tournament Type
                 @Html.EnumDropDownListFor(model => model.EventType, "Please Select", new { required = "required", value = "" })
             </label>
-            <small class="error">Tournament Type is required</small>
         </div>
-
-        <div class="large-12 columns">
-            <button type="submit">Create Event</button>
+        <div class="mdl-cell">
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Create
+            </button>
         </div>
-    </div>
-</form>
+    </form>
+</div>

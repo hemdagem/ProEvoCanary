@@ -1,0 +1,38 @@
+﻿@model ProEvoCanary.Models.EventModel
+@{
+    ViewBag.Title = "GeneratedFixtures";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Generate Fixtures</h2>
+
+@if (Model.FixturesGenerated || Model.Completed)
+{
+    <h2>
+        The Fixtures have already been generated. Please go to the event:
+        <a href="@Url.Action("Details", "Event", new {@Id = Model.EventId})">@Model.EventName</a>
+    </h2>
+}
+else
+{
+    <form action="@Url.Action("GenerateFixtures","Event")" method="POST" data-abide>
+        <div class="row">
+            <div class="large-12 columns">
+                @Html.HiddenFor(x => x.EventId)
+
+                <label>
+                    Select Users
+                    
+                    
+                    <select multiple="multiple" name="userIds">
+                        @foreach (var user in Model.Users)
+                        {
+                            <option value="@user.PlayerId">@user.PlayerName</option>
+                        }
+                    </select>
+                </label>
+                <button type="submit">GenerateFixtures</button>
+            </div>
+        </div>
+    </form>
+}
