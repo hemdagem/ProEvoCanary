@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
@@ -36,7 +40,50 @@ namespace ProEvoCanary.Repositories
             return getEvents;
         }
 
-        public EventModel GetEvent(int id, int ownerId)
+        public EventModel GetEvent(int id)
+        {
+            if (id < 0)
+                throw new IndexOutOfRangeException();
+
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Id", id }
+            };
+
+            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var tournament = new EventModel();
+            while (reader.Read())
+            {
+                tournament = new EventModel
+                {
+                    EventId = id,
+                    OwnerId = (int)reader["OwnerId"],
+                    EventName = reader["TournamentName"].ToString(),
+                    Date = reader["Date"].ToString(),
+                    Completed = (bool)reader["Completed"],
+                    FixturesGenerated = (bool)reader["Completed"],
+                    EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
+                };
+            }
+            reader.NextResult();
+            while (reader.Read())
+            {
+                tournament.Results = new List<ResultsModel>
+                {
+                    new ResultsModel
+                    {
+                        AwayTeam = reader["AwayTeam"].ToString(),
+                        HomeTeam = reader["HomeTeam"].ToString(),
+                        AwayScore = (int)reader["AwayScore"],
+                        HomeScore = (int)reader["HomeScore"],
+                    }
+                };
+            }
+
+            return tournament;
+        }
+
+        public EventModel GetEventForEdit(int id, int ownerId)
         {
             if (id < 0)
                 throw new IndexOutOfRangeException();
@@ -93,7 +140,27 @@ namespace ProEvoCanary.Repositories
 
         public void GenerateFixtures(int eventId, List<int> userIds)
         {
-            throw new NotImplementedException();
+            var generator = new FixtureGenerator();
+            var teamIdses = generator.Generate(userIds);
+
+            var doc = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement("fixtures",
+                    teamIdses.Select(x => new XElement("fixture",
+               new XAttribute("TournamentId", eventId),
+               new XAttribute("HomeUserId", x.TeamOne),
+                  new XAttribute("AwayUserId", x.TeamTwo),
+                  new XAttribute("Round", 0)
+                  ))));
+
+
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                {"@XmlString", doc.ToString()}
+            };
+
+            _helper.ExecuteNonQuery("sp_AddFixtures", parameters);
+
         }
     }
 }

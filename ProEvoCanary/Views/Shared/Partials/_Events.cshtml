@@ -4,7 +4,7 @@
     @foreach (var item in Model)
     {
         <ul>
-            <li>Event Name: <a href="#">@item.Name</a></li>
+            <li>Event Name: <a href="@Url.Action("Details","Event",new{id =@item.EventId})">@item.Name</a></li>
             <li>Date: @item.Date</li>
             <li>Event Host: @item.Name</li>
         </ul>
