@@ -20,7 +20,12 @@ namespace ProEvoCanary.Repositories
             return _cacheManager.Get(EventsListCacheKey) as List<EventModel>;
         }
 
-        public EventModel GetEvent(int id, int ownerId)
+        public EventModel GetEvent(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public EventModel GetEventForEdit(int id, int ownerId)
         {
             throw new System.NotImplementedException();
         }

@@ -35,7 +35,7 @@ namespace ProEvoCanary.Repositories
             return lstTournament;
         }
 
-        public EventModel GetEvent(int id, int ownerId)
+        public EventModel GetEvent(int id)
         {
             var parameters = new Dictionary<string, IConvertible>
             {
@@ -57,6 +57,47 @@ namespace ProEvoCanary.Repositories
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
+            reader.NextResult();
+            while (reader.Read())
+            {
+                tournament.Results = new List<ResultsModel>
+                {
+                    new ResultsModel
+                    {
+                        AwayTeam = reader["AwayTeam"].ToString(),
+                        HomeTeam = reader["HomeTeam"].ToString(),
+                        AwayScore = (int)reader["AwayScore"],
+                        HomeScore = (int)reader["HomeScore"],
+                    }
+                };
+            }
+
+            return tournament;
+        }
+
+        public EventModel GetEventForEdit(int id, int ownerId)
+        {
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Id", id }
+            };
+
+            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var tournament = new EventModel();
+            while (reader.Read())
+            {
+                tournament = new EventModel
+                {
+                    EventId = id,
+                    OwnerId = (int)reader["OwnerId"],
+                    EventName = reader["TournamentName"].ToString(),
+                    Date = reader["Date"].ToString(),
+                    Completed = (bool)reader["Completed"],
+                    FixturesGenerated = (bool)reader["Completed"],
+                    EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
+                };
+            }
+        
 
             if (ownerId != tournament.OwnerId)
                 throw new NullReferenceException();

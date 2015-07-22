@@ -27,6 +27,13 @@ namespace ProEvoCanary.Controllers
             return View("Create", new AddEventModel());
         }
 
+        public ActionResult Details(int id)
+        {
+            var eventModel = _eventRepository.GetEvent(id);
+
+            return View("Details", eventModel);
+        }
+
         // POST: Authentication/Create
         [HttpPost]
         public ActionResult Create(AddEventModel model)
@@ -35,9 +42,9 @@ namespace ProEvoCanary.Controllers
             return RedirectToAction("GenerateFixtures", "Event");
         }
 
-        public ActionResult GenerateFixtures(int eventId)
+        public ActionResult GenerateFixtures(int id)
         {
-            EventModel model = _eventRepository.GetEvent(eventId, _currentUser.CurrentUser.Id);
+            EventModel model = _eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
             model.Users = _playerRepository.GetAllPlayers();
 
             return View("GenerateFixtures", model);
@@ -45,10 +52,10 @@ namespace ProEvoCanary.Controllers
 
         // POST: Authentication/Create
         [HttpPost]
-        public ActionResult GenerateFixtures(int eventId, List<int> userIds)
+        public ActionResult GenerateFixtures(int id, List<int> userIds)
         {
-            _eventRepository.GenerateFixtures(eventId, userIds);
-            return RedirectToAction("Details", "Event", new { EventId = eventId });
+            _eventRepository.GenerateFixtures(id, userIds);
+            return RedirectToAction("Details", "Event", new { Id = id });
         }
     }
 }

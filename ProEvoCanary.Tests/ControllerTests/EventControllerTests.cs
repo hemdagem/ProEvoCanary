@@ -70,7 +70,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             //given
             Setup();
 
-            _repo.Setup(x => x.GetEvent(It.IsAny<int>(), It.IsAny<int>()))
+            _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
                 .Returns((EventModel)null);
 
             //when + then
@@ -105,7 +105,7 @@ namespace ProEvoCanary.Tests.ControllerTests
                     PlayerId = 2
                 }
             });
-            _repo.Setup(x => x.GetEvent(It.IsAny<int>(), It.IsAny<int>()))
+            _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>(),It.IsAny<int>()))
                 .Returns(new EventModel
                 {
                     Completed = true,

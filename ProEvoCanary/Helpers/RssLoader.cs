@@ -27,7 +27,7 @@ namespace ProEvoCanary.Helpers
                         LinkTitle = syndicationItem.Title.Text,
                         LinkDescription = syndicationItem.Summary.Text,
                         LinkUrl = syndicationItem.Id,
-                        ImageUrl = syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last()
+                        ImageUrl = syndicationItem.ElementExtensions.Count > 0 ? syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last() : ""
                     };
 
                     rssFeedModelList.Add(rssFeedModel);
