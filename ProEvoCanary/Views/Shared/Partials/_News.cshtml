@@ -1,15 +1,20 @@
 ﻿@model List<ProEvoCanary.Models.RssFeedModel>
 
-<ul class="small-block-grid-1">
     @foreach (var item in Model.Take(5))
     {
-        <li>
-            <p> <img src="@item.ImageUrl" alt="" width="144" height="81" /></p>
-
-            <p> <a href="@item.LinkUrl">@item.LinkTitle</a></p>
-
-            <p> @item.LinkDescription</p>
-            <hr/>
-        </li>
+        <div class="mdl-card mdl-shadow--2dp demo-card-square mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__title mdl-card--expand">
+                <h2 class="mdl-card__title-text">@item.LinkTitle</h2>
+                <img src="@item.ImageUrl" alt="" width="144" height="81" />
+            </div>
+            <div class="mdl-card__supporting-text">
+                @item.LinkDescription
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="@item.LinkUrl" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                   View
+                </a>
+            </div>
+        </div>
     }
-</ul>
+

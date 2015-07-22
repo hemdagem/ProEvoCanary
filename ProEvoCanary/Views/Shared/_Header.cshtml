@@ -1,59 +1,21 @@
-﻿
-<nav class="top-bar" data-topbar="" data-options="sticky_on: large">
-    <ul class="title-area">
-        <!-- Title Area -->
-        <li class="name">
-            <h1><a href="/">Home</a></h1>
-        </li>
-        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-    </ul>
+﻿@if (CurrentUser.Identity.IsAuthenticated)
+{
+    if (CurrentUser.IsAdmin)
+    {
+        <a href="@Url.Action("Index", "Default", new {area = "Admin"})" class="mdl-navigation__link">Admin</a>
+        <a href="@Url.Action("Create", "Authentication", new {area = "Admin"})" class="mdl-navigation__link">Add User</a>
+        <a href="@Url.Action("Create", "Event", new {area = "Admin"})" class="mdl-navigation__link">Create Event</a>
+    }
+    else
+    {
+        <a href="@Url.Action("Create", "Event", new {area = ""})" class="mdl-navigation__link">Create Event</a>
 
-
-    <section class="top-bar-section">
-
-        <!-- Right Nav Section -->
-        <ul class="right">
-            <li class="divider hide-for-small"></li>
-
-            @if (CurrentUser.Identity.IsAuthenticated)
-            {
-                if (CurrentUser.IsAdmin)
-                {
-                    <li class="@IsActive("Index", "Default", "Admin")">
-                        <a href="@Url.Action("Index", "Default", new {area = "Admin"})">Admin</a>
-                    </li>
-                    <li class="@IsActive("Create", "Authentication", "Admin")">
-                        <a href="@Url.Action("Create", "Authentication", new {area = "Admin"})">Add User</a>
-                    </li>
-                    <li class="@IsActive("Create", "Event", "Admin")">
-                        <a href="@Url.Action("Create", "Event", new {area = "Admin"})">Create Event</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="@IsActive("Create", "Event")">
-                        <a href="@Url.Action("Create", "Event", new {area = ""})">Create Event</a>
-                    </li>
-                }
-                <li>
-                    <a href="@Url.Action("SignOut", "Authentication", new {area = ""})">Sign out</a>
-                </li>
-
-            }
-            else
-            {
-                <li class="@IsActive("Login", "Authentication")">
-                    <a href="@Url.Action("Login", "Authentication", new { area = "" })">Login</a>
-                </li>
-                <li class="@IsActive("Create", "Authentication")">
-                    <a href="@Url.Action("Create", "Authentication", new { area = "" })">Register</a>
-                </li>
-
-            }
-            <li class="@IsActive("HeadToHead", "Records")">
-                <a href="@Url.Action("HeadToHead", "Records", new { area = "" })">Records</a>
-            </li>
-        </ul>
-    </section>
-</nav>
+    }
+    <a href="@Url.Action("SignOut", "Authentication", new {area = ""})" class="mdl-navigation__link">Sign out</a>
+}
+else
+{
+    <a href="@Url.Action("Login", "Authentication", new { area = "" })" class="mdl-navigation__link">Login</a>
+    <a href="@Url.Action("Create", "Authentication", new { area = "" })" class="mdl-navigation__link">Register</a>
+}
+<a href="@Url.Action("HeadToHead", "Records", new { area = "" })" class="mdl-navigation__link">Records</a>
