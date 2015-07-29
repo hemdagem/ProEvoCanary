@@ -13,7 +13,7 @@ namespace ProEvoCanary.Helpers
             get
             {
                 Claim name = FindFirst(ClaimTypes.Name);
-                return name == null ? string.Empty : name.Value;
+                return name == null ? "Anonymous" : name.Value;
             }
         }
 

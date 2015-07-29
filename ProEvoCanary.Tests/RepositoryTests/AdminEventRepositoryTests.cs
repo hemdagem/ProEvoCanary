@@ -4,6 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Areas.Admin.Models;
+using ProEvoCanary.Helpers;
 using ProEvoCanary.Helpers.Exceptions;
 using ProEvoCanary.Helpers.Interfaces;
 using ProEvoCanary.Models;
@@ -24,9 +25,10 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
+            var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("sp_AddTournament", null)).Returns(1);
 
-            var repository = new AdminEventRepository(helper.Object);
+            var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
             repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<EventTypes>(), It.IsAny<int>());
@@ -41,9 +43,10 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
+            var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("sp_AddTournament", null)).Returns(1);
 
-            var repository = new AdminEventRepository(helper.Object);
+            var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
             repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<EventTypes>(), ownerId);
@@ -55,9 +58,10 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var helper = new Mock<IDBHelper>();
+            var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("sp_AddTournament", It.IsAny<IDictionary<string,IConvertible>>())).Returns(1);
 
-            var repository = new AdminEventRepository(helper.Object);
+            var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
             var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, EventTypes.Friendly, 1);
@@ -81,10 +85,11 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
 
             var helper = new Mock<IDBHelper>();
+             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
-            var repository = new EventRepository(helper.Object);
+            var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
             var resultsModels = repository.GetEvents();

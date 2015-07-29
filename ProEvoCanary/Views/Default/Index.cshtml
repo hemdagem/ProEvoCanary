@@ -22,8 +22,10 @@
 
     </div>
     <div class="mdl-cell mdl-cell--4-col">
-        <h2><small>News</small></h2>
-        @Html.Partial("~/Views/Shared/Partials/_News.cshtml", Model.News)
+        <div class="mdl-cell mdl-cell--12-col">
+            <h2><small>News</small></h2>
+        </div>
+            @Html.Partial("~/Views/Shared/Partials/_News.cshtml", Model.News)
+        
     </div>
-
 </div>
