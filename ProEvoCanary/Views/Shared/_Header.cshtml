@@ -1,4 +1,5 @@
-﻿@if (CurrentUser.Identity.IsAuthenticated)
+﻿<a href="/" class="mdl-navigation__link">Home</a>
+@if (CurrentUser.Identity.IsAuthenticated)
 {
     if (CurrentUser.IsAdmin)
     {
