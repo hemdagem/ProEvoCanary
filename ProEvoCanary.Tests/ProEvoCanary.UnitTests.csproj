@@ -107,6 +107,10 @@
     <Compile Include="RepositoryTests\UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProEvoCanary.Domain\ProEvoCanary.Domain.csproj">
+      <Project>{3d96c9c6-abb0-4fb2-af72-73d0873e0ac0}</Project>
+      <Name>ProEvoCanary.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProEvoCanary\ProEvoCanary.Web.csproj">
       <Project>{B2350B8A-62CB-4BB9-A9DB-C52EECE4FF77}</Project>
       <Name>ProEvoCanary.Web</Name>

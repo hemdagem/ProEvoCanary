@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,7 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="scripts\proevo.js" />
+    <Content Include="Scripts\proevo.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -139,42 +140,25 @@
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
     <Compile Include="Areas\Admin\Controllers\EventController.cs" />
     <Compile Include="Areas\Admin\Models\EventModel.cs" />
+    <Compile Include="Authentication\AdminAccess.cs" />
+    <Compile Include="Authentication\AppViewPage.cs" />
+    <Compile Include="Authentication\AuthenticationHandler.cs" />
+    <Compile Include="Authentication\ClaimsIdentityFactory.cs" />
+    <Compile Include="Authentication\CurrentAppUser.cs" />
+    <Compile Include="Authentication\IAppUser.cs" />
+    <Compile Include="Authentication\IAuthenticationHandler.cs" />
+    <Compile Include="Authentication\UserClaimsPrincipal.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Helpers\Exceptions\EmptyListException.cs" />
     <Compile Include="Controllers\EventController.cs" />
-    <Compile Include="Helpers\AppViewPage.cs" />
-    <Compile Include="Helpers\AuthenticationHandler.cs" />
-    <Compile Include="Helpers\ClaimsIdentityFactory.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Helpers\Configuration.cs" />
-    <Compile Include="Helpers\DBHelper.cs" />
-    <Compile Include="Helpers\Interfaces\CurrentAppUser.cs" />
-    <Compile Include="Helpers\Interfaces\IAppUser.cs" />
-    <Compile Include="Helpers\Interfaces\IAuthenticationHandler.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AdminAccess.cs" />
-    <Compile Include="Helpers\UserClaimsPrincipal.cs" />
-    <Compile Include="Helpers\FixtureGenerator.cs" />
-    <Compile Include="Helpers\Interfaces\ICacheRssLoader.cs" />
-    <Compile Include="Helpers\Exceptions\LessThanOneException.cs" />
-    <Compile Include="Helpers\Exceptions\NotUniqueException.cs" />
-    <Compile Include="Helpers\Interfaces\IConfiguration.cs" />
-    <Compile Include="Helpers\Interfaces\IDBHelper.cs" />
-    <Compile Include="Helpers\PasswordHash.cs" />
-    <Compile Include="Helpers\RssCacheLoader.cs" />
-    <Compile Include="Helpers\Exceptions\TooManyPlayersReturnedException.cs" />
-    <Compile Include="Helpers\StoredProcedureList.cs" />
     <Compile Include="Models\AddEventModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\EventTypes.cs" />
     <Compile Include="Models\TeamIds.cs" />
-    <Compile Include="Helpers\CachingManager.cs" />
-    <Compile Include="Helpers\Interfaces\ICacheManager.cs" />
-    <Compile Include="Helpers\Interfaces\IRssLoader.cs" />
-    <Compile Include="Helpers\RssLoader.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
@@ -186,29 +170,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\RecordsModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
-    <Compile Include="Repositories\AdminEventRepository.cs" />
-    <Compile Include="Repositories\CacheEventRepository.cs" />
-    <Compile Include="Repositories\CachePlayerRepository.cs" />
-    <Compile Include="Repositories\EventRepository.cs" />
-    <Compile Include="Repositories\EventRepositoryDecorator.cs" />
-    <Compile Include="Repositories\Interfaces\IAdminEventRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ICacheEventRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ICachePlayerRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ICacheResultsRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IEventRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IPlayerRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IRssFeedRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
-    <Compile Include="Helpers\IXmlGenerator.cs" />
-    <Compile Include="Repositories\PlayerRepository.cs" />
-    <Compile Include="Repositories\PlayerRepositoryDecorator.cs" />
-    <Compile Include="Repositories\ResultsCacheRepository.cs" />
-    <Compile Include="Repositories\ResultsRepository.cs" />
-    <Compile Include="Repositories\ResultsRepositoryDecorator.cs" />
-    <Compile Include="Repositories\RssFeedRepositoryDecorator.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Helpers\XmlGenerator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProEvoCanary.Domain\ProEvoCanary.Domain.csproj">
+      <Project>{3d96c9c6-abb0-4fb2-af72-73d0873e0ac0}</Project>
+      <Name>ProEvoCanary.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
