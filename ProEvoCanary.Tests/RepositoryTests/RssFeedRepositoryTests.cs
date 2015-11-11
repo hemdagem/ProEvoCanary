@@ -18,7 +18,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var loader = new Mock<IRssLoader>();
             var cacheLoader = new Mock<ICacheRssLoader>();
-            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
+            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<Domain.RssFeedModel>{new Domain.RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha",
@@ -52,15 +52,15 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var loader = new Mock<IRssLoader>();
             var cacheLoader = new Mock<ICacheRssLoader>();
 
-            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
+            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<Domain.RssFeedModel>{new Domain.RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
                 }});
 
-            cacheLoader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>
+            cacheLoader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<Domain.RssFeedModel>
             {
-                new RssFeedModel
+                new Domain.RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"

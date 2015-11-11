@@ -31,7 +31,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<EventTypes>(), It.IsAny<int>());
+            repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<Domain.EventTypes>(), It.IsAny<int>());
 
         }
 
@@ -49,7 +49,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<EventTypes>(), ownerId);
+            repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<Domain.EventTypes>(), ownerId);
         }
 
 
@@ -64,7 +64,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
-            var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, EventTypes.Friendly, 1);
+            var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, Domain.EventTypes.Friendly, 1);
 
             //then
             Assert.That(user, Is.EqualTo(1));

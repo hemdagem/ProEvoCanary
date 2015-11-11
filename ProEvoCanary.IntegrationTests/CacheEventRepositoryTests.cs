@@ -22,7 +22,6 @@ namespace ProEvoCanary.Tests.IntegrationTests
             };
         }
 
-
         [Test]
         public void ShouldGetCachedListOfEvents()
         {
@@ -58,7 +57,6 @@ namespace ProEvoCanary.Tests.IntegrationTests
            
             End();
         }
-
 
         private void End()
         {

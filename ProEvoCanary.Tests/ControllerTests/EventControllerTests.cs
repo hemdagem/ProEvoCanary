@@ -71,7 +71,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             Setup();
 
             _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
-                .Returns((EventModel)null);
+                .Returns((Domain.EventModel)null);
 
             //when + then
             _eventController.GenerateFixtures(It.IsAny<int>());

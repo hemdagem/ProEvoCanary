@@ -71,15 +71,15 @@ namespace ProEvoCanary.Tests.ControllerTests
             Setup();
 
             _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
-                new RecordsModel
+                new Domain.RecordsModel
                 {
                     TotalMatches = 1,
                     PlayerOneWins = 2,
                     PlayerTwoWins = 3,
                     TotalDraws = 4,
-                    Results = new List<ResultsModel>
+                    Results = new List<Domain.ResultsModel>
                     {
-                       new ResultsModel
+                       new Domain.ResultsModel
                 {
                     AwayScore = 0,
                     AwayTeam = "Villa",
