@@ -1,10 +1,8 @@
-﻿using ProEvoCanary.Models;
-
-namespace ProEvoCanary.Helpers.Interfaces
+﻿namespace ProEvoCanary.Authentication
 {
     public interface IAuthenticationHandler
     {
-        void SignIn(UserModel login);
+        void SignIn(string name, string role, int userId);
         void SignOut();
     }
 }

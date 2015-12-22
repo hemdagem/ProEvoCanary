@@ -1,4 +1,5 @@
-﻿<a href="/" class="mdl-navigation__link">Home</a>
+﻿@using ProEvoCanary.Authentication
+<a href="/" class="mdl-navigation__link">Home</a>
 @if (CurrentUser.Identity.IsAuthenticated)
 {
     if (CurrentUser.IsAdmin)

@@ -56,7 +56,7 @@
     <Compile Include="Helpers\Interfaces\IConfiguration.cs" />
     <Compile Include="Helpers\Interfaces\IDBHelper.cs" />
     <Compile Include="Helpers\Interfaces\IRssLoader.cs" />
-    <Compile Include="Helpers\IXmlGenerator.cs" />
+    <Compile Include="Helpers\Interfaces\IXmlGenerator.cs" />
     <Compile Include="Helpers\PasswordHash.cs" />
     <Compile Include="Helpers\RssCacheLoader.cs" />
     <Compile Include="Helpers\RssLoader.cs" />

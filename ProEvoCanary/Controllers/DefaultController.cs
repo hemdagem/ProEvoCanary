@@ -1,5 +1,6 @@
-﻿using System.Web.Mvc;
-using ProEvoCanary.Repositories.Interfaces;
+﻿using System.Linq;
+using System.Web.Mvc;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers
@@ -25,10 +26,11 @@ namespace ProEvoCanary.Controllers
         {
             var homeModel = new HomeModel
             {
-                Players = _playerRepository.GetTopPlayers(),
-                News = _rssFeedRepository.GetFeed(URL),
-                Events = _eventRepository.GetEvents(),
-                Results = _resultRepository.GetResults()
+                Players = _playerRepository.GetTopPlayers().Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList()
+,
+                News = _rssFeedRepository.GetFeed(URL).Select(x=> new RssFeedModel()).ToList(),
+                Events = _eventRepository.GetEvents().Select(x=> new EventModel()).ToList(),
+                Results = _resultRepository.GetResults().Select(x=> new ResultsModel()).ToList()
             };
             return View("Index", homeModel);
         }

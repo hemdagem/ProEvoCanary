@@ -19,7 +19,7 @@ namespace ProEvoCanary.Tests.HelperTests
                 moq.Setup(x => x[keyValuePairItem.Key]).Returns(() => keyValuePairItem.Value);
             }
             return moq.Object;
-        } 
+        }
 
         public static IDataReader MultipleResultsReader(Dictionary<string, object> dictionary, Queue<bool> readQueue)
         {

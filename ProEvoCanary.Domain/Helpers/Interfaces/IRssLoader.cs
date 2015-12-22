@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Domain;
+using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.Helpers.Interfaces
+namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
     public interface IRssLoader
     {

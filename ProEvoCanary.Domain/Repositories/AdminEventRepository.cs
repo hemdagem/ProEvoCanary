@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProEvoCanary.Domain;
-using ProEvoCanary.Helpers;
-using ProEvoCanary.Helpers.Exceptions;
-using ProEvoCanary.Helpers.Interfaces;
-using ProEvoCanary.Repositories.Interfaces;
+using ProEvoCanary.Domain.Helpers;
+using ProEvoCanary.Domain.Helpers.Exceptions;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Models;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.Repositories
+namespace ProEvoCanary.Domain.Repositories
 {
     public class AdminEventRepository : IAdminEventRepository
     {
@@ -113,7 +113,7 @@ namespace ProEvoCanary.Repositories
             return tournament;
         }
 
-        public int CreateEvent(string tournamentname, DateTime utcNow, EventTypes eventType, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId)
         {
             if (string.IsNullOrEmpty(tournamentname))
             {
@@ -128,7 +128,7 @@ namespace ProEvoCanary.Repositories
             var parameters = new Dictionary<string, IConvertible>
             {
                 { "@TournamentName", tournamentname },
-                { "@TournamentType", (int)eventType },
+                { "@TournamentType", eventType },
                 { "@Date", utcNow },
                 { "@OwnerId", ownerId },
             };

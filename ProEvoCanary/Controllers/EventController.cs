@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-using ProEvoCanary.Helpers;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Controllers
 {
@@ -38,14 +38,15 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
-            _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, _currentUser.CurrentUser.Id);
+            _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.EventType, _currentUser.CurrentUser.Id);
             return RedirectToAction("GenerateFixtures", "Event");
         }
 
         public ActionResult GenerateFixtures(int id)
         {
-            EventModel model = _eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
-            model.Users = _playerRepository.GetAllPlayers();
+            EventModel model = new EventModel(); //_eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
+            model.Users = _playerRepository.GetAllPlayers().Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList();
+            ;
 
             return View("GenerateFixtures", model);
         }

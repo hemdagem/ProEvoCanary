@@ -4,8 +4,11 @@ using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
+using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
+using RecordsModel = ProEvoCanary.Domain.Models.RecordsModel;
+using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {
@@ -71,15 +74,15 @@ namespace ProEvoCanary.Tests.ControllerTests
             Setup();
 
             _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
-                new Domain.RecordsModel
+                new RecordsModel
                 {
                     TotalMatches = 1,
                     PlayerOneWins = 2,
                     PlayerTwoWins = 3,
                     TotalDraws = 4,
-                    Results = new List<Domain.ResultsModel>
+                    Results = new List<ResultsModel>
                     {
-                       new Domain.ResultsModel
+                       new ResultsModel
                 {
                     AwayScore = 0,
                     AwayTeam = "Villa",

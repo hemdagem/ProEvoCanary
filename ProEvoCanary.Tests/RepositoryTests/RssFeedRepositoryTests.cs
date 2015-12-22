@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories;
+using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
 namespace ProEvoCanary.Tests.RepositoryTests
 {
@@ -18,7 +18,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var loader = new Mock<IRssLoader>();
             var cacheLoader = new Mock<ICacheRssLoader>();
-            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<Domain.RssFeedModel>{new Domain.RssFeedModel
+            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha",
@@ -52,15 +52,15 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var loader = new Mock<IRssLoader>();
             var cacheLoader = new Mock<ICacheRssLoader>();
 
-            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<Domain.RssFeedModel>{new Domain.RssFeedModel
+            loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
                 }});
 
-            cacheLoader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<Domain.RssFeedModel>
+            cacheLoader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>
             {
-                new Domain.RssFeedModel
+                new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"

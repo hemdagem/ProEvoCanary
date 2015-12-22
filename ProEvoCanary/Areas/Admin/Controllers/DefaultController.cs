@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Helpers;
+using ProEvoCanary.Authentication;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Areas.Admin.Controllers

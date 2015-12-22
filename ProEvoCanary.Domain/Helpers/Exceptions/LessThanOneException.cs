@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProEvoCanary.Helpers.Exceptions
+namespace ProEvoCanary.Domain.Helpers.Exceptions
 {
     public class LessThanOneException : Exception
     {

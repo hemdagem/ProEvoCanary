@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Helpers.Interfaces;
-using ProEvoCanary.Repositories.Interfaces;
-using EventModel = ProEvoCanary.Domain.EventModel;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Repositories.Interfaces;
+using EventModel = ProEvoCanary.Domain.Models.EventModel;
 
-namespace ProEvoCanary.Repositories
+namespace ProEvoCanary.Domain.Repositories
 {
     public class CacheEventRepository : ICacheEventRepository
     {

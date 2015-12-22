@@ -1,21 +1,18 @@
-﻿using System;
-using System.Globalization;
-using System.Security.Claims;
-using ProEvoCanary.Models;
+﻿using System.Security.Claims;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Authentication
 {
     public class ClaimsIdentityFactory
     {
         const string AuthenticationType = "ApplicationCookie";
 
-        public static ClaimsIdentity Create(UserModel login)
+        public static ClaimsIdentity Create(string name, string role, int userId)
         {
             var identity = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, login.Forename),
-                new Claim(ClaimTypes.Role, Enum.Parse(typeof (UserType), login.UserType.ToString(CultureInfo.InvariantCulture)).ToString()),
-                new Claim(ClaimTypes.NameIdentifier,login.UserId.ToString()) 
+                new Claim(ClaimTypes.Name, name),
+                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.NameIdentifier,userId.ToString()) 
             },
             AuthenticationType);
             return identity;

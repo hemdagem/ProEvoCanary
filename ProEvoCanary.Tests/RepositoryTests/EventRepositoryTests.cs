@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories;
 using ProEvoCanary.Tests.HelperTests;
 
 namespace ProEvoCanary.Tests.RepositoryTests
@@ -13,7 +13,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
     [TestFixture]
     public class EventRepositoryTests
     {
-
         [Test]
         public void ShouldGetListOfEventsForGetEventsMethod()
         {
@@ -26,8 +25,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Name", "Arsenal"},
                 {"Completed", true},
             };
-
-
+            
             var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
@@ -60,7 +58,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"TournamentType", EventTypes.Friendly},
             };
 
-
             var helper = new Mock<IDBHelper>();
             helper.Setup(x => x.ExecuteReader("sp_GetTournamentForEdit", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
@@ -78,7 +75,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(eventModel.Date, Is.EqualTo("10/10/2010"));
             Assert.That(eventModel.Completed, Is.EqualTo(true));
             Assert.That(eventModel.FixturesGenerated, Is.EqualTo(true));
-            Assert.That(eventModel.EventTypes, Is.EqualTo(EventTypes.Friendly));
+            Assert.That(eventModel.EventTypes, Is.EqualTo(Domain.Models.EventTypes.Friendly));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Controllers
 {
@@ -42,8 +42,8 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            UserModel login = _userRepository.Login(model);
-            _authenticationHandler.SignIn(login);
+            UserModel login = new UserModel(); //_userRepository.Login(new Domain.LoginModel());
+            _authenticationHandler.SignIn(login.Forename,login.UserType.ToString(),login.UserId);
 
             if (!string.IsNullOrEmpty(returnUrl))
             {

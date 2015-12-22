@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Domain;
+using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.Repositories.Interfaces
+namespace ProEvoCanary.Domain.Repositories.Interfaces
 {
     public interface IUserRepository 
     {

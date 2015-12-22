@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using ProEvoCanary.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Authentication
 {
     public class UserClaimsPrincipal : ClaimsPrincipal
     {

@@ -29,7 +29,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Domain.Helpers
 {
     /// <summary>
     /// Salted password hashing with PBKDF2-SHA1.

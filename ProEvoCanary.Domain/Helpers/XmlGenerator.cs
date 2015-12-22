@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProEvoCanary.Domain;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Domain.Helpers
 {
 	public class XmlGenerator : IXmlGenerator
 	{

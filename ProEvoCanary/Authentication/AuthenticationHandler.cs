@@ -1,16 +1,14 @@
 ﻿using System.Web;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using ProEvoCanary.Helpers.Interfaces;
-using ProEvoCanary.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Authentication
 {
     public class AuthenticationHandler : IAuthenticationHandler
     {
-        public void SignIn(UserModel login)
+        public void SignIn(string name, string role, int userId)
         {
-            var identity = ClaimsIdentityFactory.Create(login);
+            var identity = ClaimsIdentityFactory.Create(name, role,userId);
             IOwinContext ctx = HttpContext.Current.Request.GetOwinContext();
             IAuthenticationManager authManager = ctx.Authentication;
             authManager.SignIn(identity);

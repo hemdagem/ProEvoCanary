@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProEvoCanary.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Authentication
 {
     public class AccessAuthorize : AuthorizeAttribute
     {

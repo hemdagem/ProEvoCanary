@@ -93,9 +93,6 @@
     <Compile Include="HelperTests\DataReaderTestHelper.cs" />
     <Compile Include="ControllerTests\DefaultControllerTests.cs" />
     <Compile Include="HelperTests\FixtureGenaratorTests.cs" />
-    <Compile Include="IntegrationTests\CacheEventRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\CachePlayerRepositoryTests.cs" />
-    <Compile Include="IntegrationTests\CacheResultsRepositoryTests.cs" />
     <Compile Include="ModelTests\EventModelTests.cs" />
     <Compile Include="RepositoryTests\AdminEventRepositoryTests.cs" />
     <Compile Include="RepositoryTests\EventRepositoryTests.cs" />

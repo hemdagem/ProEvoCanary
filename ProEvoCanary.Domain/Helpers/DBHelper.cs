@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Domain.Helpers.Interfaces;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Domain.Helpers
 {
     public class DBHelper : IDBHelper
     {
@@ -96,7 +96,7 @@ namespace ProEvoCanary.Helpers
             _sqlCommand.Parameters.Clear();
 
             if (parameters == null || parameters.Count <= 0) return;
-            
+
             foreach (var convertible in parameters)
             {
                 _sqlCommand.Parameters.Add(new SqlParameter(convertible.Key, convertible.Value));

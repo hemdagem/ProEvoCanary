@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProEvoCanary.Domain;
-using ProEvoCanary.Helpers.Exceptions;
+using ProEvoCanary.Domain.Helpers.Exceptions;
+using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Domain.Helpers
 {
     public class FixtureGenerator
     {
