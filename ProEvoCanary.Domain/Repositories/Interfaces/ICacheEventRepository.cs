@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Repositories.Interfaces
+﻿namespace ProEvoCanary.Domain.Repositories.Interfaces
 {
     public interface ICacheEventRepository : IEventRepository
     {

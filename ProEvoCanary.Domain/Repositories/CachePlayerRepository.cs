@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
-using ProEvoCanary.Domain;
-using ProEvoCanary.Helpers.Interfaces;
-using ProEvoCanary.Repositories.Interfaces;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Models;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.Repositories
+namespace ProEvoCanary.Domain.Repositories
 {
     public class CachePlayerRepository : ICachePlayerRepository
     {

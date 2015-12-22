@@ -18,11 +18,9 @@ namespace ProEvoCanary.Models
 
         [Required]
         public string TournamentName { get; set; }
-
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
-
         public bool GeneratedFixtures { get; set; }
     }
 }

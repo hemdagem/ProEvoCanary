@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProEvoCanary.Domain;
 
-namespace ProEvoCanary.Repositories.Interfaces
+namespace ProEvoCanary.Domain.Repositories.Interfaces
 {
     public interface IAdminEventRepository : IEventRepository
     {
-        int CreateEvent(string tournamentname, DateTime utcNow, EventTypes eventType, int ownerId);
+        int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId);
         void GenerateFixtures(int eventId, List<int> userIds);
     }
 }

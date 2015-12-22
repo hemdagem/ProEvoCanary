@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
-using ProEvoCanary.Helpers;
+using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.ModelBuilders;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Areas.Admin.Models.EventModel;
 
 namespace ProEvoCanary.Areas.Admin.Controllers
@@ -12,17 +14,21 @@ namespace ProEvoCanary.Areas.Admin.Controllers
     {
         private readonly IAdminEventRepository _eventRepository;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IPlayerModelBuilder _playerModelBuilder;
 
-        public EventController(IAdminEventRepository eventRepository, IPlayerRepository playerRepository)
+        public EventController(IAdminEventRepository eventRepository, IPlayerRepository playerRepository, IPlayerModelBuilder playerModelBuilder)
         {
             _eventRepository = eventRepository;
             _playerRepository = playerRepository;
+            _playerModelBuilder = playerModelBuilder;
         }
 
         // GET: Admin/Event
         public ActionResult Create()
         {
-            var model = new EventModel { Players = _playerRepository.GetAllPlayers(), Date = DateTime.Today };
+            
+            var model = new EventModel { Players = _playerRepository.GetAllPlayers()
+                .Select(x=> _playerModelBuilder.BuildViewModel(x)).ToList(), Date = DateTime.Today };
             return View("Create", model);
         }
 
@@ -34,7 +40,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
             {
                 var ownerId = model.OwnerId;
 
-                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, model.EventType, ownerId);
+                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.EventType, ownerId);
 
                 if (createdEvent > 0)
                 {
@@ -42,7 +48,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
                 }
             }
 
-            model.Players = _playerRepository.GetAllPlayers();
+            model.Players = _playerRepository.GetAllPlayers().Select(x => _playerModelBuilder.BuildViewModel(x)).ToList();
 
             return View(model);
         }

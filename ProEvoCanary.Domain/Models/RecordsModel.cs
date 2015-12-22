@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProEvoCanary.Domain
+namespace ProEvoCanary.Domain.Models
 {
     public class RecordsModel
     {

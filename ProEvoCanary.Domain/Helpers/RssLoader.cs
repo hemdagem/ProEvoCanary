@@ -3,10 +3,10 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Xml;
 using System.Xml.Linq;
-using ProEvoCanary.Domain;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.Helpers
+namespace ProEvoCanary.Domain.Helpers
 {
     public class RssLoader : IRssLoader
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace ProEvoCanary.App_Start
+namespace ProEvoCanary
 {
     public class BundleConfig
     {

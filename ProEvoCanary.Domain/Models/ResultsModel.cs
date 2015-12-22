@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Domain
+﻿namespace ProEvoCanary.Domain.Models
 {
     public class ResultsModel
     {

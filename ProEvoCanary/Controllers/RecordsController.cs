@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
-using ProEvoCanary.Repositories.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
 namespace ProEvoCanary.Controllers
@@ -21,7 +23,7 @@ namespace ProEvoCanary.Controllers
             var playerList = _playerRepository.GetAllPlayers();
             var model = new ResultsListModel
             {
-                PlayerList = playerList,
+                PlayerList = playerList.Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList()
             };
 
             return View("HeadToHead", model);
@@ -33,10 +35,10 @@ namespace ProEvoCanary.Controllers
 
             var model = new ResultsListModel
             {
-                PlayerList = playerOneList,
+                PlayerList = playerOneList.Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList(),
                 PlayerOne = playerOneId,
                 PlayerTwo = playerTwoId,
-                HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
+                //HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
             };
 
             return Json(model);
@@ -48,10 +50,10 @@ namespace ProEvoCanary.Controllers
 
             var model = new ResultsListModel
             {
-                PlayerList = playerOneList,
+                PlayerList = playerOneList.Select(x=> new PlayerModel()).ToList(),
                 PlayerOne = playerOneId,
                 PlayerTwo = playerTwoId,
-                HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
+                //HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
             };
 
             return View("HeadToHead", model);

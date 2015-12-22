@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using EventModel = ProEvoCanary.Domain.EventModel;
+using EventModel = ProEvoCanary.Domain.Models.EventModel;
 
-namespace ProEvoCanary.Repositories.Interfaces
+namespace ProEvoCanary.Domain.Repositories.Interfaces
 {
     public interface IEventRepository
     {

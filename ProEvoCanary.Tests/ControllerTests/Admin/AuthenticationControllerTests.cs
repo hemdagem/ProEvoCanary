@@ -2,8 +2,8 @@
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Areas.Admin.Controllers;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Tests.ControllerTests.Admin
 {

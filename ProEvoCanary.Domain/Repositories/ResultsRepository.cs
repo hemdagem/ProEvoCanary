@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ProEvoCanary.Domain;
-using ProEvoCanary.Helpers.Interfaces;
-using ProEvoCanary.Repositories.Interfaces;
+using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Models;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.Repositories
+namespace ProEvoCanary.Domain.Repositories
 {
     public class ResultsRepository : IResultRepository
     {
@@ -17,13 +17,13 @@ namespace ProEvoCanary.Repositories
 
         public List<ResultsModel> GetResults()
         {
-            var lstResults = new List<ResultsModel>();
+            var resultsList = new List<ResultsModel>();
 
             using (var reader = _helper.ExecuteReader("sp_RecentResults"))
             {
                 while (reader.Read())
                 {
-                    lstResults.Add(new ResultsModel
+                    resultsList.Add(new ResultsModel
                     {
                         HomeTeam = reader["HomeTeam"].ToString(),
                         AwayTeam = reader["AwayTeam"].ToString(),
@@ -36,7 +36,7 @@ namespace ProEvoCanary.Repositories
                 }
             }
 
-            return lstResults;
+            return resultsList;
         }
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
@@ -47,7 +47,7 @@ namespace ProEvoCanary.Repositories
                 { "@UserTwoId", playerTwo },
             };
 
-            var headToHeadRecordList = new RecordsModel {Results = new List<ResultsModel>()};
+            var headToHeadRecordList = new RecordsModel { Results = new List<ResultsModel>() };
             using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord", parameters))
             {
                 while (reader.Read())
@@ -66,9 +66,9 @@ namespace ProEvoCanary.Repositories
                     {
                         HomeTeam = reader["HomeUser"].ToString(),
                         AwayTeam = reader["AwayUser"].ToString(),
-                        HomeScore = int.Parse(reader["HomeScore"].ToString()),
-                        AwayScore = int.Parse(reader["AwayScore"].ToString()),
-                        ResultId = int.Parse(reader["Id"].ToString())
+                        HomeScore = (int)reader["HomeScore"],
+                        AwayScore = (int)reader["AwayScore"],
+                        ResultId = (int)reader["Id"]
                     });
                 }
             }

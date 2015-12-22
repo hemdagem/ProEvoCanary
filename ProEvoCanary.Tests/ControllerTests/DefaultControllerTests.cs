@@ -4,8 +4,12 @@ using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
+using EventModel = ProEvoCanary.Domain.Models.EventModel;
+using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
+using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
+using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {

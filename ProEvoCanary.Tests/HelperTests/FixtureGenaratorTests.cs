@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
-using ProEvoCanary.Helpers.Exceptions;
+using ProEvoCanary.Domain.Helpers;
+using ProEvoCanary.Domain.Helpers.Exceptions;
 
 namespace ProEvoCanary.Tests.HelperTests
 {
@@ -74,9 +74,9 @@ namespace ProEvoCanary.Tests.HelperTests
             Assert.That(value3[2].TeamOne, Is.EqualTo(1));
             Assert.That(value3[2].TeamTwo, Is.EqualTo(4));
             Assert.That(value3[3].TeamOne, Is.EqualTo(2));
-            Assert.That(value3[3].TeamTwo, Is.EqualTo(3));   
+            Assert.That(value3[3].TeamTwo, Is.EqualTo(3));
             Assert.That(value3[4].TeamOne, Is.EqualTo(2));
-            Assert.That(value3[4].TeamTwo, Is.EqualTo(4)); 
+            Assert.That(value3[4].TeamTwo, Is.EqualTo(4));
             Assert.That(value3[5].TeamOne, Is.EqualTo(3));
             Assert.That(value3[5].TeamTwo, Is.EqualTo(4));
 

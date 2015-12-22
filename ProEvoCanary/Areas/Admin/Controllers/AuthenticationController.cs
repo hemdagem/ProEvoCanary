@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Helpers;
+using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
 
 namespace ProEvoCanary.Areas.Admin.Controllers
 {

@@ -4,11 +4,11 @@ using System.Security.Claims;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.Authentication;
 using ProEvoCanary.Controllers;
-using ProEvoCanary.Helpers;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
+using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {
@@ -50,7 +50,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<EventTypes>(), It.IsAny<int>())).Returns(1);
+            _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>())).Returns(1);
 
             //when
             var viewResult = _eventController.Create(_eventModel) as RedirectToRouteResult;
@@ -71,7 +71,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             Setup();
 
             _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
-                .Returns((Domain.EventModel)null);
+                .Returns((Domain.Models.EventModel)null);
 
             //when + then
             _eventController.GenerateFixtures(It.IsAny<int>());
@@ -88,7 +88,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             var claimsPrincipal = new ClaimsPrincipal();
             claimsPrincipal.AddIdentity(new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.NameIdentifier,"4"), 
+                new Claim(ClaimTypes.NameIdentifier,"4")
             }));
 
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
@@ -106,12 +106,12 @@ namespace ProEvoCanary.Tests.ControllerTests
                 }
             });
             _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>(),It.IsAny<int>()))
-                .Returns(new EventModel
+                .Returns(new Domain.Models.EventModel
                 {
                     Completed = true,
                     Date = date,
                     EventId = 10,
-                    EventTypes = EventTypes.Friendly,
+                    EventTypes = Domain.Models.EventTypes.Friendly,
                     FixturesGenerated = true,
                     EventName = "Test",
                     OwnerId = 4

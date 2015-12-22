@@ -1,18 +1,19 @@
 ﻿using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.Authentication;
 using ProEvoCanary.Controllers;
-using ProEvoCanary.Helpers.Interfaces;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories.Interfaces;
 using LoginModel = ProEvoCanary.Models.LoginModel;
+using UserModel = ProEvoCanary.Domain.Models.UserModel;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {
     [TestFixture]
     public class AuthenticationControllerTests
     {
-        readonly LoginModel _loginModel = new LoginModel(It.IsAny<string>(), It.IsAny<string>());
+        readonly Domain.Models.LoginModel _loginModel = new Domain.Models.LoginModel(It.IsAny<string>(), It.IsAny<string>());
         private Mock<IUserRepository> _repo;
         private Mock<IAuthenticationHandler> _authenticationMock;
 
@@ -56,9 +57,9 @@ namespace ProEvoCanary.Tests.ControllerTests
             Setup();
             _repo.Setup(x => x.Login(_loginModel)).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
-            
+
             //when
-            authenticationController.Login(_loginModel, It.IsAny<string>());
+            authenticationController.Login(new LoginModel(), It.IsAny<string>());
 
             //then
             _repo.Verify(x => x.Login(_loginModel), Times.Once);

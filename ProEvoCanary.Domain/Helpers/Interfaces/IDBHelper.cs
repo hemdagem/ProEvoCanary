@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace ProEvoCanary.Helpers.Interfaces
+namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
     public interface IDBHelper
     {

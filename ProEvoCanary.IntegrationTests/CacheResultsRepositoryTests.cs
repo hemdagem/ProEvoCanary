@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using NUnit.Framework;
-using ProEvoCanary.Helpers;
+using ProEvoCanary.Domain.Helpers;
+using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Models;
-using ProEvoCanary.Repositories;
 
-namespace ProEvoCanary.Tests.IntegrationTests
+namespace ProEvoCanary.IntegrationTests
 {
     public class CacheResultsRepositoryTests
     {
