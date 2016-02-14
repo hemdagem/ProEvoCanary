@@ -1,0 +1,19 @@
+C:\Code\ProEvoLeague\Database\bin\Debug\ProEvoCanary.Database.exe.config
+C:\Code\ProEvoLeague\Database\bin\Debug\ProEvoCanary.Database.exe
+C:\Code\ProEvoLeague\Database\bin\Debug\ProEvoCanary.Database.pdb
+C:\Code\ProEvoLeague\Database\bin\Debug\DbUp.dll
+C:\Code\ProEvoLeague\Database\bin\Debug\DbUp.pdb
+C:\Code\ProEvoLeague\Database\bin\Debug\DbUp.xml
+C:\Code\ProEvoLeague\Database\obj\Debug\ProEvoCanary.Database.exe
+C:\Code\ProEvoLeague\Database\obj\Debug\ProEvoCanary.Database.pdb
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0002_up_AddUser.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0003_up_AddFixture.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0001_CreateTables.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0004_up_AddResult.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0005_up_AddTournament.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0006_up_GetTopPlayers.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0007_up_GetTournamentDetails.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0008_up_RecentResults.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0009_up_GetHeadToHeadRecord.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0011_up_GetUsers.sql
+C:\Code\ProEvoLeague\Database\bin\Debug\Scripts\0010_vw_Standings - Copy.sql

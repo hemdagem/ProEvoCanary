@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using ProEvoCanary.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
+using UserType = ProEvoCanary.Authentication.UserType;
 
 namespace ProEvoCanary.Controllers
 {
@@ -24,7 +25,7 @@ namespace ProEvoCanary.Controllers
         // GET: Admin/Event
         public ActionResult Create()
         {
-            return View("Create", new AddEventModel());
+            return View("Create", new ProEvoCanary.Models.EventModel());
         }
 
         public ActionResult Details(int id)
@@ -44,9 +45,11 @@ namespace ProEvoCanary.Controllers
 
         public ActionResult GenerateFixtures(int id)
         {
-            EventModel model = new EventModel(); //_eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
+            EventModel model = new EventModel();
+            var eventForEdit = _eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
             model.Users = _playerRepository.GetAllPlayers().Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList();
-            ;
+            model.Completed = eventForEdit.Completed;
+            model.FixturesGenerated = eventForEdit.FixturesGenerated;
 
             return View("GenerateFixtures", model);
         }
