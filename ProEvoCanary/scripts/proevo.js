@@ -6,9 +6,7 @@ ProEvo.viewResult = function () {
     var playerTwo = document.getElementById("playerTwo");
 
     if (window.fetch !== undefined) {
-        window.fetch('/Records/HeadToHeadResult', {
-            body: "playerOne=" + playerOne + "&playerTwo=" + playerTwo
-        })
+        window.fetch('/Records/HeadToHeadResult/?' + 'playerOneId=' + playerOne.value + '&playerTwoId=' + playerTwo.value)
                   .then(
                     function (response) {
                         if (response.status !== 200) {
@@ -26,7 +24,8 @@ ProEvo.viewResult = function () {
                   .catch(function (err) {
                       console.log('Fetch Error :-S', err);
                   });
-    } else {
+    }
+    else {
         window.location = "/Records/HeadToHeadResults?playerOneId=" + playerOne.value + "&playertwoId=" + playerTwo.value;
     }
 

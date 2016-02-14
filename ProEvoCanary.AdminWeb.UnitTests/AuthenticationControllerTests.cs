@@ -5,13 +5,12 @@ using ProEvoCanary.AdminWeb.Controllers;
 using ProEvoCanary.AdminWeb.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.Tests.ControllerTests.Admin
+namespace ProEvoCanary.AdminWeb.UnitTests
 {
     [TestFixture]
     public class AuthenticationControllerTests
     {
         readonly CreateUserModel _loginModel = new CreateUserModel(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),It.IsAny<string>());
-
 
         [Test]
         public void ShouldSetDefaultViewName()

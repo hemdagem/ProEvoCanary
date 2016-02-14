@@ -29,6 +29,7 @@ namespace ProEvoCanary.Controllers
             return View("HeadToHead", model);
         }
 
+        [HttpGet]
         public JsonResult HeadToHeadResult(int playerOneId, int playerTwoId)
         {
             var playerOneList = _playerRepository.GetAllPlayers();
@@ -41,7 +42,7 @@ namespace ProEvoCanary.Controllers
                 //HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
             };
 
-            return Json(model);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult HeadToHeadResults(int playerOneId, int playerTwoId)
