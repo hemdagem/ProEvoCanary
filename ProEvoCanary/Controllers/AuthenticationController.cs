@@ -42,8 +42,8 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            UserModel login = new UserModel(); //_userRepository.Login(new Domain.LoginModel());
-            _authenticationHandler.SignIn(login.Forename,login.UserType.ToString(),login.UserId);
+            var userModel = _userRepository.Login(new Domain.Models.LoginModel(model.Username,model.Password));
+            _authenticationHandler.SignIn(userModel.Forename, userModel.UserType.ToString(), userModel.UserId);
 
             if (!string.IsNullOrEmpty(returnUrl))
             {

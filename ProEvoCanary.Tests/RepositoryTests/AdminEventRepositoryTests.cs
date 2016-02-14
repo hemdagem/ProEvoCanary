@@ -26,7 +26,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var helper = new Mock<IDBHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament", null)).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
 
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
@@ -44,7 +44,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var helper = new Mock<IDBHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament", null)).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
 
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
@@ -59,7 +59,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var helper = new Mock<IDBHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            helper.Setup(x => x.ExecuteScalar("sp_AddTournament", It.IsAny<IDictionary<string,IConvertible>>())).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("up_AddTournament", It.IsAny<IDictionary<string,IConvertible>>())).Returns(1);
 
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);
 
@@ -86,7 +86,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             var helper = new Mock<IDBHelper>();
              var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTournamentDetails", null)).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new AdminEventRepository(helper.Object, xmlGeneratorMock.Object);

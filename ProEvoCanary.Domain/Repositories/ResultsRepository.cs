@@ -19,7 +19,7 @@ namespace ProEvoCanary.Domain.Repositories
         {
             var resultsList = new List<ResultsModel>();
 
-            using (var reader = _helper.ExecuteReader("sp_RecentResults"))
+            using (var reader = _helper.ExecuteReader("up_RecentResults"))
             {
                 while (reader.Read())
                 {
@@ -48,7 +48,7 @@ namespace ProEvoCanary.Domain.Repositories
             };
 
             var headToHeadRecordList = new RecordsModel { Results = new List<ResultsModel>() };
-            using (var reader = _helper.ExecuteReader("sp_HeadToHeadRecord", parameters))
+            using (var reader = _helper.ExecuteReader("up_HeadToHeadRecord", parameters))
             {
                 while (reader.Read())
                 {
@@ -74,6 +74,18 @@ namespace ProEvoCanary.Domain.Repositories
             }
 
             return headToHeadRecordList;
+        }
+
+        public int AddResult(int id, int homeScore, int awayScore)
+        {
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Id", id },
+                { "@HomeScore", homeScore },
+                { "@AwayScore", awayScore }
+            };
+
+            return _helper.ExecuteScalar("up_AddResult", parameters);
         }
     }
 }

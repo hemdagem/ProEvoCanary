@@ -17,7 +17,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<EventModel> GetEvents()
         {
-            var reader = _helper.ExecuteReader("sp_GetTournamentDetails");
+            var reader = _helper.ExecuteReader("up_GetTournamentDetails");
             var lstTournament = new List<EventModel>();
             while (reader.Read())
             {
@@ -41,7 +41,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Id", id }
             };
 
-            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", parameters);
             var tournament = new EventModel();
             while (reader.Read())
             {
@@ -81,7 +81,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Id", id }
             };
 
-            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", parameters);
             var tournament = new EventModel();
             while (reader.Read())
             {

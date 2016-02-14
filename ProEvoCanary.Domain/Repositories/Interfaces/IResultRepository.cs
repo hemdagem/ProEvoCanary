@@ -7,5 +7,7 @@ namespace ProEvoCanary.Domain.Repositories.Interfaces
     {
         List<ResultsModel> GetResults();
         RecordsModel GetHeadToHeadRecord(int playerOne,int playerTwo);
+
+        int AddResult(int id, int homeScore, int awayScore);
     }
 }

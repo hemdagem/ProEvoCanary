@@ -47,5 +47,10 @@ namespace ProEvoCanary.Domain.Repositories
 
             return results;
         }
+
+        public int AddResult(int id, int homeScore, int awayScore)
+        {
+            return _resultRepository.AddResult(id, homeScore, awayScore);
+        }
     }
 }
