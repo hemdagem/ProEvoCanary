@@ -13,8 +13,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
     [TestFixture]
     public class PlayerRepositoryTests
     {
-
-
         [Test]
         public void ShouldGetPlayerList()
         {
@@ -29,7 +27,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetUsers",null)).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetUsers",null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             //when
@@ -41,10 +39,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.Count, Is.EqualTo(1));
             Assert.That(resultsModels.First().PlayerName, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
-
         }
-
-
 
         [Test]
         public void ShouldGetPlayers()
@@ -59,7 +54,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", null)).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -75,9 +70,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().MatchesPlayed, Is.EqualTo(1));
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
         }
-
-
-
+        
         [Test]
         [ExpectedException(typeof(LessThanOneException))]
         public void ShouldThrowExceptionIfPageNumberIsLessThanOne()
@@ -92,7 +85,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", null)).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -137,7 +130,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -153,10 +146,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().MatchesPlayed, Is.EqualTo(1));
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
         }
-
-
-
-
+        
         [Test]
         [ExpectedException(typeof(TooManyPlayersReturnedException))]
         public void ShouldThrowExceptionIfMorePlayersThenSpecifiedIsReturned()
@@ -171,16 +161,14 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_GetTopPlayers", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, true, true, false })));
 
             var repository = new PlayerRepository(helper.Object);
 
             //when
             repository.GetTopPlayersRange(1, 2);
-
-        }    
-        
+        }            
     }
 }
 

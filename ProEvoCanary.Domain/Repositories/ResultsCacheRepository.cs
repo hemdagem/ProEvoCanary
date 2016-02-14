@@ -27,6 +27,11 @@ namespace ProEvoCanary.Domain.Repositories
             return _cacheManager.Get(cachedKey) as RecordsModel;
         }
 
+        public int AddResult(int id, int homeScore, int awayScore)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void AddToCache(string key, object value, int cacheHours)
         {
             _cacheManager.Add(key, value, cacheHours);

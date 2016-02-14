@@ -30,7 +30,7 @@ namespace ProEvoCanary.Domain.Repositories
             };
 
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("sp_GetTopPlayers",parameters);
+            var reader = _helper.ExecuteReader("up_GetTopPlayers",parameters);
             while (reader.Read())
             {
                 players.Add(new PlayerModel
@@ -45,7 +45,7 @@ namespace ProEvoCanary.Domain.Repositories
 
             if (players.Count > playersPerPage)
             {
-                throw new TooManyPlayersReturnedException("Too many players return. A potential issue with the stored procedure sp_GetTopPlayers");
+                throw new TooManyPlayersReturnedException("Too many players return. A potential issue with the stored procedure up_GetTopPlayers");
             }
 
             return players;
@@ -54,7 +54,7 @@ namespace ProEvoCanary.Domain.Repositories
         public List<PlayerModel> GetTopPlayers()
         {
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("sp_GetTopPlayers");
+            var reader = _helper.ExecuteReader("up_GetTopPlayers");
             while (reader.Read())
             {
                 players.Add(new PlayerModel
@@ -73,7 +73,7 @@ namespace ProEvoCanary.Domain.Repositories
         public List<PlayerModel> GetAllPlayers()
         {
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("sp_GetUsers");
+            var reader = _helper.ExecuteReader("up_GetUsers");
 
             while (reader.Read())
             {

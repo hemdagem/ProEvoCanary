@@ -21,7 +21,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<EventModel> GetEvents()
         {
-            var reader = _helper.ExecuteReader("sp_GetTournamentDetails");
+            var reader = _helper.ExecuteReader("up_GetTournamentDetails");
             var getEvents = new List<EventModel>();
             while (reader.Read())
             {
@@ -48,7 +48,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Id", id }
             };
 
-            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", parameters);
             var tournament = new EventModel();
             while (reader.Read())
             {
@@ -91,7 +91,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Id", id }
             };
 
-            var reader = _helper.ExecuteReader("sp_GetTournamentForEdit", parameters);
+            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", parameters);
             var tournament = new EventModel();
             while (reader.Read())
             {
@@ -133,7 +133,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@OwnerId", ownerId },
             };
 
-            return _helper.ExecuteScalar("sp_AddTournament", parameters);
+            return _helper.ExecuteScalar("up_AddTournament", parameters);
         }
 
         public void GenerateFixtures(int eventId, List<int> userIds)
@@ -148,7 +148,7 @@ namespace ProEvoCanary.Domain.Repositories
                 {"@XmlString", documentString }
             };
 
-            _helper.ExecuteNonQuery("sp_AddFixtures", parameters);
+            _helper.ExecuteNonQuery("up_AddFixtures", parameters);
         }
     }
 }

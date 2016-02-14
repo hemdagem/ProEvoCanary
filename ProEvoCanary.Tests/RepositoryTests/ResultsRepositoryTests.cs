@@ -29,7 +29,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDBHelper>();
-            helper.Setup(x => x.ExecuteReader("sp_RecentResults",null)).Returns(
+            helper.Setup(x => x.ExecuteReader("up_RecentResults",null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new ResultsRepository(helper.Object);
@@ -68,7 +68,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Id", 1},
             };
 
-            helper.Setup(x => x.ExecuteReader("sp_HeadToHeadRecord", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("up_HeadToHeadRecord", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary,new Queue<bool>(new[] { true, false, true, false })));
 
             var repository = new ResultsRepository(helper.Object);

@@ -55,14 +55,14 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            _repo.Setup(x => x.Login(_loginModel)).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
+            _repo.Setup(x => x.Login(It.IsAny<Domain.Models.LoginModel>())).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 
             //when
-            authenticationController.Login(new LoginModel(), It.IsAny<string>());
+            authenticationController.Login(new LoginModel(string.Empty,string.Empty), It.IsAny<string>());
 
             //then
-            _repo.Verify(x => x.Login(_loginModel), Times.Once);
+            _repo.Verify(x => x.Login(It.IsAny<Domain.Models.LoginModel>()), Times.Once);
         }
     }
 }

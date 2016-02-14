@@ -24,7 +24,7 @@ namespace ProEvoCanary.Domain.Repositories
 
             var parameters = new Dictionary<string, IConvertible> { { "@Username", username } };
 
-            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails", parameters))
+            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails", parameters))
             {
                 while (reader.Read())
                 {
@@ -33,7 +33,6 @@ namespace ProEvoCanary.Domain.Repositories
                         reader["Surname"].ToString(),
                         reader["Username"].ToString(),
                         (int)reader["UserType"]);
-
                 }
             }
 
@@ -43,7 +42,7 @@ namespace ProEvoCanary.Domain.Repositories
         public List<UserModel> GetUsers()
         {
             var userModel = new List<UserModel>();
-            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails"))
+            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails"))
             {
                 while (reader.Read())
                 {
@@ -56,10 +55,8 @@ namespace ProEvoCanary.Domain.Repositories
                         Surname =
                             reader["Surname"].ToString()
                     });
-
                 }
             }
-
             return userModel;
         }
 
@@ -95,7 +92,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Password", _passwordHash.CreateHash(password) }
             };
 
-            return _dbHelper.ExecuteScalar("sp_AddNewUser", parameters);
+            return _dbHelper.ExecuteScalar("up_AddNewUser", parameters);
         }
 
 
@@ -112,7 +109,7 @@ namespace ProEvoCanary.Domain.Repositories
             };
 
             UserModel model = null;
-            using (var reader = _dbHelper.ExecuteReader("sp_GetLoginDetails", parameters))
+            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails", parameters))
             {
                 while (reader.Read())
                 {
