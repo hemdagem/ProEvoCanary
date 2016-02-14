@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.IntegrationTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.Database", "Database\ProEvoCanary.Database.csproj", "{DBD6A10E-2EA8-4FBF-B52D-3E99C265389F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.AdminWeb", "ProEvoCanary.AdminWeb\ProEvoCanary.AdminWeb.csproj", "{17744079-559B-4EEB-ADEB-A942CD2DF0E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.AdminWeb.UnitTests", "ProEvoCanary.AdminWeb.UnitTests\ProEvoCanary.AdminWeb.UnitTests.csproj", "{B484B246-6F73-4F14-A4DF-465F82E19195}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{DBD6A10E-2EA8-4FBF-B52D-3E99C265389F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBD6A10E-2EA8-4FBF-B52D-3E99C265389F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBD6A10E-2EA8-4FBF-B52D-3E99C265389F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17744079-559B-4EEB-ADEB-A942CD2DF0E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17744079-559B-4EEB-ADEB-A942CD2DF0E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17744079-559B-4EEB-ADEB-A942CD2DF0E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17744079-559B-4EEB-ADEB-A942CD2DF0E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B484B246-6F73-4F14-A4DF-465F82E19195}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B484B246-6F73-4F14-A4DF-465F82E19195}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B484B246-6F73-4F14-A4DF-465F82E19195}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B484B246-6F73-4F14-A4DF-465F82E19195}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +67,6 @@ Global
 		{65B2C6CD-57F3-41BA-90A9-6B05C8342B86} = {C2903F33-1A94-4DE6-A45F-D76BF13063E7}
 		{E9132108-AFA2-4D60-AA12-30EB2B92C2A4} = {C2903F33-1A94-4DE6-A45F-D76BF13063E7}
 		{2AA3AA57-83F7-4089-B7A3-0E864F9A33E8} = {C2903F33-1A94-4DE6-A45F-D76BF13063E7}
+		{B484B246-6F73-4F14-A4DF-465F82E19195} = {C2903F33-1A94-4DE6-A45F-D76BF13063E7}
 	EndGlobalSection
 EndGlobal

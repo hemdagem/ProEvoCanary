@@ -7,6 +7,7 @@ using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 using LoginModel = ProEvoCanary.Models.LoginModel;
 using UserModel = ProEvoCanary.Domain.Models.UserModel;
+using UserType = ProEvoCanary.Authentication.UserType;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {

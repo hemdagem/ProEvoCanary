@@ -1,5 +1,0 @@
-C:\Code\ProEvoLeague\ProEvoCanary.Domain\bin\Debug\ProEvoCanary.Domain.dll
-C:\Code\ProEvoLeague\ProEvoCanary.Domain\bin\Debug\ProEvoCanary.Domain.pdb
-C:\Code\ProEvoLeague\ProEvoCanary.Domain\obj\Debug\ProEvoCanary.Domain.dll
-C:\Code\ProEvoLeague\ProEvoCanary.Domain\obj\Debug\ProEvoCanary.Domain.pdb
-C:\Code\ProEvoLeague\ProEvoCanary.Domain\obj\Debug\ProEvoCanary.Domain.csprojResolveAssemblyReference.cache

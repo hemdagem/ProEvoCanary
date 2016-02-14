@@ -3,31 +3,37 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Login</h2>
+<div class="mdl-grid">
+    <h2>Login</h2>
+</div>
 @User.Identity.Name
 @using (Html.BeginForm("Login", "Authentication", FormMethod.Post, (new { returnUrl = ViewBag.ReturnUrl })))
 {
-    <div class="row">
-        <div class="large-12 columns">
-            <label>
-                Username
-                @Html.TextBoxFor(m => m.Username, new { @placeholder = "Enter your username" })
-            </label>
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                @Html.TextBoxFor(m => m.Username, new { @class = "mdl-textfield__input" })
+
+                <label class="mdl-textfield__label" for="sample4">Username</label>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <label>
-                Password
-                @Html.PasswordFor(m => m.Password, new { @placeholder = "Enter your username" })
-            </label>
+
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    @Html.PasswordFor(m => m.Password, new { @class = "mdl-textfield__input" })
+
+                    <label class="mdl-textfield__label" for="sample4">Password</label>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="large-12 columns">
-            <input type="submit" value="submit" class="button" />
+
+
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <input type="submit" value="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" />
+            </div>
         </div>
-    </div>
 }
 

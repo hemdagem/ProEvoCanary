@@ -1,0 +1,11 @@
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\phantomjs.exe
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\phantomjs-license.txt
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\ProEvoCanary.AcceptanceTests.dll.config
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\ProEvoCanary.AcceptanceTests.dll
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\ProEvoCanary.AcceptanceTests.pdb
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\nunit.framework.dll
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\WebDriver.dll
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\nunit.framework.xml
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\bin\WebDriver.xml
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\obj\Debug\ProEvoCanary.AcceptanceTests.dll
+C:\Code\ProEvoLeague\ProEvoCanary.AcceptanceTests\obj\Debug\ProEvoCanary.AcceptanceTests.pdb
