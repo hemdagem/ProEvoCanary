@@ -29,7 +29,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<ICachePlayerRepository>();
-            _playerRepository.Setup(x => x.GetTopPlayers()).Returns(new List<PlayerModel>
+            var domainPlayerModels = new List<PlayerModel>
             {
                 new PlayerModel
                 {
@@ -39,21 +39,45 @@ namespace ProEvoCanary.Tests.ControllerTests
                     MatchesPlayed = 3,
                     PointsPerGame = 3.2f
                 }
-            });
+            };
+
+            var playerModels = new List<Models.PlayerModel>
+            {
+                new Models.PlayerModel
+                {
+                    PlayerId = 1,
+                    PlayerName = "Hemang",
+                    GoalsPerGame = 2,
+                    MatchesPlayed = 3,
+                    PointsPerGame = 3.2f
+                }
+            };
+            _playerRepository.Setup(x => x.GetTopPlayers()).Returns(domainPlayerModels);
 
 
             _rssFeedRepository = new Mock<IRssFeedRepository>();
-            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(new List<RssFeedModel>
+            var domainRssFeedModels = new List<RssFeedModel>
             {
                 new RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
                 }
-            });
+            };
+
+            var rssFeedModels = new List<Models.RssFeedModel>
+            {
+                new Models.RssFeedModel
+                {
+                    LinkTitle = "hemang",
+                    LinkDescription = "ha"
+                }
+            };
+            _rssFeedRepository.Setup(x => x.GetFeed("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml")).Returns(domainRssFeedModels);
 
             _eventsRepository = new Mock<IEventRepository>();
-            _eventsRepository.Setup(x => x.GetEvents()).Returns(new List<EventModel>
+
+            var domainEventModels = new List<EventModel>
             {
                 new EventModel
                 {
@@ -63,10 +87,22 @@ namespace ProEvoCanary.Tests.ControllerTests
                     Name = "Hemang",
                     Completed = true
                 }
-            });
+            };
+            var eventModels = new List<Models.EventModel>
+            {
+                new Models.EventModel
+                {
+                    EventId = 1,
+                    EventName = "Hemang",
+                    Date = "10/10/2014",
+                    Name = "Hemang",
+                    Completed = true
+                }
+            };
+            _eventsRepository.Setup(x => x.GetEvents()).Returns(domainEventModels);
 
             _resultsRepository = new Mock<IResultRepository>();
-            _resultsRepository.Setup(x => x.GetResults()).Returns(new List<ResultsModel>
+            var domainResultsModels = new List<ResultsModel>
             {
                 new ResultsModel
                 {
@@ -78,7 +114,27 @@ namespace ProEvoCanary.Tests.ControllerTests
                     AwayTeam = "Aston Villa",
                     AwayScore = 2,
                 }
-            });
+            };
+
+            var resultsModels = new List<Models.ResultsModel>
+            {
+                new Models.ResultsModel
+                {
+                    ResultId = 1,
+                    HomeTeamId = 1,
+                    HomeTeam = "Arsenal",
+                    HomeScore = 5,
+                    AwayTeamId = 2,
+                    AwayTeam = "Aston Villa",
+                    AwayScore = 2,
+                }
+            };
+            _resultsRepository.Setup(x => x.GetResults()).Returns(domainResultsModels);
+
+            _mapper.Setup(x => x.Map<List<Models.EventModel>>(_eventsRepository.Object.GetEvents())).Returns(eventModels);
+            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(_playerRepository.Object.GetTopPlayers())).Returns(playerModels);
+            _mapper.Setup(x => x.Map<List<Models.RssFeedModel>>(_rssFeedRepository.Object.GetFeed("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml"))).Returns(rssFeedModels);
+            _mapper.Setup(x => x.Map<List<Models.ResultsModel>>(_resultsRepository.Object.GetResults())).Returns(resultsModels);
 
             _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object,
                 _eventsRepository.Object, _resultsRepository.Object, _mapper.Object);
