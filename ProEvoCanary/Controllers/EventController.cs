@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ProEvoCanary.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
@@ -14,25 +15,27 @@ namespace ProEvoCanary.Controllers
         private readonly IAdminEventRepository _eventRepository;
         private readonly IAppUser _currentUser;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IMapper _mapper;
 
-        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository)
+        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _currentUser = currentUser;
             _playerRepository = playerRepository;
+            _mapper = mapper;
         }
 
         // GET: Admin/Event
         public ActionResult Create()
         {
-            return View("Create", new ProEvoCanary.Models.EventModel());
+            return View("Create", new AddEventModel());
         }
 
         public ActionResult Details(int id)
         {
             var eventModel = _eventRepository.GetEvent(id);
 
-            return View("Details", eventModel);
+            return View("Details", _mapper.Map<EventModel>(eventModel));
         }
 
         // POST: Authentication/Create
@@ -45,11 +48,14 @@ namespace ProEvoCanary.Controllers
 
         public ActionResult GenerateFixtures(int id)
         {
-            EventModel model = new EventModel();
             var eventForEdit = _eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
-            model.Users = _playerRepository.GetAllPlayers().Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList();
-            model.Completed = eventForEdit.Completed;
-            model.FixturesGenerated = eventForEdit.FixturesGenerated;
+            EventModel model = new EventModel
+            {
+                Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers()),
+                Completed = eventForEdit.Completed,
+                FixturesGenerated = eventForEdit.FixturesGenerated
+            };
+
 
             return View("GenerateFixtures", model);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
@@ -20,11 +21,13 @@ namespace ProEvoCanary.Tests.ControllerTests
         private Mock<IRssFeedRepository> _rssFeedRepository;
         private Mock<IEventRepository> _eventsRepository;
         private Mock<IResultRepository> _resultsRepository;
+        private Mock<IMapper> _mapper;
         private DefaultController _defaultController;
         private ViewResult _result;
 
         private void Setup()
         {
+            _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<ICachePlayerRepository>();
             _playerRepository.Setup(x => x.GetTopPlayers()).Returns(new List<PlayerModel>
             {
@@ -78,7 +81,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             });
 
             _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object,
-                _eventsRepository.Object, _resultsRepository.Object);
+                _eventsRepository.Object, _resultsRepository.Object, _mapper.Object);
             _result = _defaultController.Index() as ViewResult;
         }
 
