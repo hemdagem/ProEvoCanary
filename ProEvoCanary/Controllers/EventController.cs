@@ -9,7 +9,7 @@ using UserType = ProEvoCanary.Authentication.UserType;
 
 namespace ProEvoCanary.Controllers
 {
-    [AccessAuthorize(UserType.Standard)]
+    
     public class EventController : Controller
     {
         private readonly IAdminEventRepository _eventRepository;
@@ -25,20 +25,19 @@ namespace ProEvoCanary.Controllers
             _mapper = mapper;
         }
 
-        // GET: Admin/Event
+        [AccessAuthorize(UserType.Standard)]
         public ActionResult Create()
         {
             return View("Create", new AddEventModel());
         }
-
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var eventModel = _eventRepository.GetEvent(id);
-
             return View("Details", _mapper.Map<EventModel>(eventModel));
         }
 
-        // POST: Authentication/Create
+        [AccessAuthorize(UserType.Standard)]
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
@@ -46,6 +45,7 @@ namespace ProEvoCanary.Controllers
             return RedirectToAction("GenerateFixtures", "Event");
         }
 
+        [AccessAuthorize(UserType.Standard)]
         public ActionResult GenerateFixtures(int id)
         {
             var eventForEdit = _eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
@@ -53,14 +53,20 @@ namespace ProEvoCanary.Controllers
             {
                 Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers()),
                 Completed = eventForEdit.Completed,
-                FixturesGenerated = eventForEdit.FixturesGenerated
+                FixturesGenerated = eventForEdit.FixturesGenerated,
+                EventName = eventForEdit.EventName,
+                Date = eventForEdit.Date,
+                EventId = eventForEdit.EventId,
+                OwnerId = eventForEdit.OwnerId,
+                Name = eventForEdit.Name,
+                EventTypes = _mapper.Map<EventTypes>(eventForEdit.EventTypes)
             };
 
 
             return View("GenerateFixtures", model);
         }
 
-        // POST: Authentication/Create
+        [AccessAuthorize(UserType.Standard)]
         [HttpPost]
         public ActionResult GenerateFixtures(int id, List<int> userIds)
         {

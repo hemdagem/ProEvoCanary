@@ -20,7 +20,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         private Mock<IAdminEventRepository> _repo;
         private Mock<IAppUser> _appUser;
         private EventController _eventController;
-
         private Mock<IMapper> _mapper;
         private Mock<IPlayerRepository> _mockPlayerRepository;
 
