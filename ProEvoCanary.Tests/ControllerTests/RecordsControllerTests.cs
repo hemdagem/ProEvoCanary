@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Controllers;
@@ -17,10 +18,11 @@ namespace ProEvoCanary.Tests.ControllerTests
     {
         Mock<IPlayerRepository> _playerRepository;
         Mock<IResultRepository> _resultRepository;
-
+        private Mock<IMapper> _mapper;
 
         private void Setup()
         {
+            _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
             _playerRepository.Setup(x => x.GetAllPlayers()).Returns(new List<PlayerModel>()
@@ -38,7 +40,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object,_mapper.Object);
 
             //when
             var result = recordsController.HeadToHead() as ViewResult;
@@ -53,7 +55,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when
             var result = recordsController.HeadToHead() as ViewResult;
@@ -93,7 +95,7 @@ namespace ProEvoCanary.Tests.ControllerTests
                     }
                 }
             );
-            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when
             var result = recordsController.HeadToHeadResults(1, 2) as ViewResult;

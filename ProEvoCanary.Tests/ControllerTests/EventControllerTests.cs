@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web.Mvc;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Authentication;
@@ -19,6 +20,8 @@ namespace ProEvoCanary.Tests.ControllerTests
         private Mock<IAdminEventRepository> _repo;
         private Mock<IAppUser> _appUser;
         private EventController _eventController;
+
+        private Mock<IMapper> _mapper;
         private Mock<IPlayerRepository> _mockPlayerRepository;
 
         private void Setup()
@@ -26,8 +29,9 @@ namespace ProEvoCanary.Tests.ControllerTests
             _repo = new Mock<IAdminEventRepository>();
             _mockPlayerRepository = new Mock<IPlayerRepository>();
             _appUser = new Mock<IAppUser>();
+            _mapper = new Mock<IMapper>();
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(new ClaimsPrincipal()));
-            _eventController = new EventController(_repo.Object, _appUser.Object, _mockPlayerRepository.Object);
+            _eventController = new EventController(_repo.Object, _appUser.Object, _mockPlayerRepository.Object, _mapper.Object);
         }
 
         [Test]

@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
@@ -11,14 +13,16 @@ namespace ProEvoCanary.Controllers
         private readonly IRssFeedRepository _rssFeedRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IResultRepository _resultRepository;
+        private readonly IMapper _mapper;
         private const string URL = "http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml";
 
-        public DefaultController(IPlayerRepository playerRepository, IRssFeedRepository rssFeedRepository, IEventRepository eventRepository, IResultRepository resultRepository)
+        public DefaultController(IPlayerRepository playerRepository, IRssFeedRepository rssFeedRepository, IEventRepository eventRepository, IResultRepository resultRepository, IMapper mapper)
         {
             _playerRepository = playerRepository;
             _rssFeedRepository = rssFeedRepository;
             _eventRepository = eventRepository;
             _resultRepository = resultRepository;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -26,11 +30,10 @@ namespace ProEvoCanary.Controllers
         {
             var homeModel = new HomeModel
             {
-                Players = _playerRepository.GetTopPlayers().Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList()
-,
-                News = _rssFeedRepository.GetFeed(URL).Select(x=> new RssFeedModel()).ToList(),
-                Events = _eventRepository.GetEvents().Select(x=> new EventModel()).ToList(),
-                Results = _resultRepository.GetResults().Select(x=> new ResultsModel()).ToList()
+                Players = _mapper.Map<List<PlayerModel>>(_playerRepository.GetTopPlayers()),
+                News = _mapper.Map<List<RssFeedModel>>(_rssFeedRepository.GetFeed(URL)),
+                Events = _mapper.Map<List<EventModel>>(_eventRepository.GetEvents()),
+                Results = _mapper.Map<List<ResultsModel>>(_resultRepository.GetResults())
             };
             return View("Index", homeModel);
         }

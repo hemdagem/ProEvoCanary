@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 
@@ -11,11 +11,13 @@ namespace ProEvoCanary.Controllers
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IResultRepository _resultRepository;
+        private readonly IMapper _mapper;
 
-        public RecordsController(IPlayerRepository playerRepository, IResultRepository resultRepository)
+        public RecordsController(IPlayerRepository playerRepository, IResultRepository resultRepository, IMapper mapper)
         {
             _playerRepository = playerRepository;
             _resultRepository = resultRepository;
+            _mapper = mapper;
         }
 
         public ActionResult HeadToHead()
@@ -23,7 +25,7 @@ namespace ProEvoCanary.Controllers
             var playerList = _playerRepository.GetAllPlayers();
             var model = new ResultsListModel
             {
-                PlayerList = playerList.Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList()
+                PlayerList = _mapper.Map<List<PlayerModel>>(playerList)
             };
 
             return View("HeadToHead", model);
@@ -36,10 +38,10 @@ namespace ProEvoCanary.Controllers
 
             var model = new ResultsListModel
             {
-                PlayerList = playerOneList.Select(x => new PlayerModel { GoalsPerGame = x.GoalsPerGame, MatchesPlayed = x.MatchesPlayed, PlayerId = x.PlayerId, PlayerName = x.PlayerName, PointsPerGame = x.PointsPerGame }).ToList(),
+                PlayerList = _mapper.Map<List<PlayerModel>>(playerOneList),
                 PlayerOne = playerOneId,
                 PlayerTwo = playerTwoId,
-                //HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
+                HeadToHead = _mapper.Map<RecordsModel>(_resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId))
             };
 
             return Json(model, JsonRequestBehavior.AllowGet);
@@ -51,10 +53,10 @@ namespace ProEvoCanary.Controllers
 
             var model = new ResultsListModel
             {
-                PlayerList = playerOneList.Select(x=> new PlayerModel()).ToList(),
+                PlayerList = _mapper.Map<List<PlayerModel>>(playerOneList),
                 PlayerOne = playerOneId,
                 PlayerTwo = playerTwoId,
-                //HeadToHead = _resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId)
+                HeadToHead = _mapper.Map<RecordsModel>(_resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId))
             };
 
             return View("HeadToHead", model);
