@@ -106,7 +106,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\0010_vw_Standings - Copy.sql">
+    <EmbeddedResource Include="Scripts\0010_vw_Standings.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
