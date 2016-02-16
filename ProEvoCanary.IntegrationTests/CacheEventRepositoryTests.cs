@@ -4,7 +4,6 @@ using System.Runtime.Caching;
 using NUnit.Framework;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Models;
 
 namespace ProEvoCanary.IntegrationTests
 {
@@ -28,9 +27,9 @@ namespace ProEvoCanary.IntegrationTests
             //given
             Setup();
 
-            var expectedEvents = new List<EventModel>
+            var expectedEvents = new List<Domain.Models.EventModel>
             {
-                new EventModel
+                new Domain.Models.EventModel
                 {
                     Completed = true,
                     Date = "10/10/2010",

@@ -25,14 +25,67 @@ namespace ProEvoCanary.Tests.ControllerTests
             _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
-            _playerRepository.Setup(x => x.GetAllPlayers()).Returns(new List<PlayerModel>()
+            var playerModels = new List<Models.PlayerModel>()
+            {
+                new Models.PlayerModel
+                {
+                    PlayerName = "Hemang",
+                    PlayerId = 1
+                }
+            };
+
+            var domainPlayerModels = new List<PlayerModel>()
             {
                 new PlayerModel
                 {
                     PlayerName = "Hemang",
                     PlayerId = 1
                 }
-            });
+            };
+            _playerRepository.Setup(x => x.GetAllPlayers()).Returns(domainPlayerModels);
+
+            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+
+            var recordsModel = new Models.RecordsModel
+            {
+                TotalMatches = 1,
+                PlayerOneWins = 2,
+                PlayerTwoWins = 3,
+                TotalDraws = 4,
+                Results = new List<Models.ResultsModel>
+                {
+                    new Models.ResultsModel
+                    {
+                        AwayScore = 0,
+                        AwayTeam = "Villa",
+                        HomeScore = 3,
+                        HomeTeam = "Arsenal",
+                        ResultId = 1
+                    }
+                }
+            };
+
+            var domainRecordsModel = new RecordsModel
+            {
+                TotalMatches = 1,
+                PlayerOneWins = 2,
+                PlayerTwoWins = 3,
+                TotalDraws = 4,
+                Results = new List<ResultsModel>
+                {
+                    new ResultsModel
+                    {
+                        AwayScore = 0,
+                        AwayTeam = "Villa",
+                        HomeScore = 3,
+                        HomeTeam = "Arsenal",
+                        ResultId = 1
+                    }
+                }
+            };
+            _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(domainRecordsModel);
+
+            _mapper.Setup(x => x.Map<Models.RecordsModel>(domainRecordsModel)).Returns(recordsModel);
         }
 
         [Test]
@@ -40,7 +93,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object,_mapper.Object);
+            var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when
             var result = recordsController.HeadToHead() as ViewResult;
@@ -48,7 +101,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             //then
             Assert.That(result.ViewName, Is.EqualTo("HeadToHead"));
         }
-
 
         [Test]
         public void ShouldSetModelWithRightPropertiesForHeadToHead()
@@ -66,7 +118,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.That(model, Is.Not.Null);
             Assert.That(model.PlayerList.First().PlayerName, Is.EqualTo("Hemang"));
             Assert.That(model.PlayerList.First().PlayerId, Is.EqualTo(1));
-
         }
 
         [Test]
@@ -74,27 +125,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             Setup();
-
-            _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(
-                new RecordsModel
-                {
-                    TotalMatches = 1,
-                    PlayerOneWins = 2,
-                    PlayerTwoWins = 3,
-                    TotalDraws = 4,
-                    Results = new List<ResultsModel>
-                    {
-                       new ResultsModel
-                {
-                    AwayScore = 0,
-                    AwayTeam = "Villa",
-                    HomeScore = 3,
-                    HomeTeam = "Arsenal",
-                    ResultId = 1
-                }
-                    }
-                }
-            );
+            
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when
@@ -115,8 +146,6 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.That(model.HeadToHead.TotalDraws, Is.EqualTo(4));
             Assert.That(model.HeadToHead.PlayerOneWins, Is.EqualTo(2));
             Assert.That(model.HeadToHead.PlayerTwoWins, Is.EqualTo(3));
-
         }
-
     }
 }

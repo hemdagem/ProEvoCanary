@@ -5,7 +5,7 @@ using System.Runtime.Caching;
 using NUnit.Framework;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Models;
+using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.IntegrationTests
 {

@@ -13,7 +13,6 @@ namespace ProEvoCanary.Models
         public bool FixturesGenerated { get; set; }
         public EventTypes EventTypes { get; set; }
         public List<PlayerModel> Users { get; set; }
-
         public List<ResultsModel> Results { get; set; }
 
         public EventModel()
