@@ -22,7 +22,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldThrowExceptionIfTournamentNameIsEmptyOrNullWhenCreatingEvent(string tournamentName)
         {
             //given
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
 
@@ -40,7 +40,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldThrowExceptionIfOwnerIdIsLessThanZeroWhenCreatingEvent(int ownerId)
         {
             //given
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
 
@@ -55,7 +55,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldCreateNewTournament()
         {
             //given
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("up_AddTournament", It.IsAny<IDictionary<string,IConvertible>>())).Returns(1);
 
@@ -82,7 +82,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
              var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteReader("up_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));

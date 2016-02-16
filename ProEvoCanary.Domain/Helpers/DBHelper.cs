@@ -6,14 +6,14 @@ using ProEvoCanary.Domain.Helpers.Interfaces;
 
 namespace ProEvoCanary.Domain.Helpers
 {
-    public class DBHelper : IDBHelper
+    public class DbHelper : IDbHelper
     {
         private readonly IConfiguration _connectionString;
         private readonly IDbConnection _connection;
         private readonly IDbCommand _sqlCommand;
-        private readonly int _commandCommandTimeout = 30;
+        private readonly int _commandCommandTimeout;
 
-        public DBHelper(IConfiguration configuration, IDbConnection connection, IDbCommand command, int commandTimeout)
+        public DbHelper(IConfiguration configuration, IDbConnection connection, IDbCommand command, int commandTimeout)
         {
             _connectionString = configuration;
             _connection = connection;
@@ -21,7 +21,7 @@ namespace ProEvoCanary.Domain.Helpers
             _commandCommandTimeout = commandTimeout;
         }
 
-        public DBHelper() : this(new Configuration(), new SqlConnection(), new SqlCommand(), 30)
+        public DbHelper() : this(new Configuration(), new SqlConnection(), new SqlCommand(), 30)
         {
             _connection.ConnectionString = _connectionString.GetConfig();
             _sqlCommand = new SqlCommand { CommandTimeout = _commandCommandTimeout, Connection = _connection as SqlConnection, CommandType = CommandType.StoredProcedure };

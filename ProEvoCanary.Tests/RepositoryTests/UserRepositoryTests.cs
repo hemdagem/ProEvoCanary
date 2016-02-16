@@ -14,7 +14,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
     public class UserRepositoryTests
     {
         readonly CreateUserModel _loginModel = new CreateUserModel("Hemang", "Rajyaguru", "Hemang", "test@test.com", "password");
-        Mock<IDBHelper> _helper;
+        Mock<IDbHelper> _helper;
         Mock<IPasswordHash> _passwordHash;
         private UserRepository _repository;
         readonly Dictionary<string, object> _dictionary = new Dictionary<string, object>
@@ -36,7 +36,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
         private void Setup()
         {
-            _helper = new Mock<IDBHelper>();
+            _helper = new Mock<IDbHelper>();
             _passwordHash = new Mock<IPasswordHash>();
             _repository = new UserRepository(_helper.Object, _passwordHash.Object);
         }

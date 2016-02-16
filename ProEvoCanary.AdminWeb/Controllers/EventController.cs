@@ -25,10 +25,12 @@ namespace ProEvoCanary.AdminWeb.Controllers
         // GET: Admin/Event
         public ActionResult Create()
         {
-            var model = new EventModel();
+            var model = new EventModel
+            {
+                Players = _mapper.Map<List<Models.PlayerModel>>(_playerRepository.GetAllPlayers()),
+                Date = DateTime.Today
+            };
 
-            model.Players = _mapper.Map<List<Models.PlayerModel>>(_playerRepository.GetAllPlayers());
-            model.Date = DateTime.Today;
             return View("Create", model);
         }
 

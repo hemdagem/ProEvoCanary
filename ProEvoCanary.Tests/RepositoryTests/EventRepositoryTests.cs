@@ -26,7 +26,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Completed", true},
             };
             
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -57,7 +57,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"TournamentType", EventTypes.Friendly},
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTournamentForEdit", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 

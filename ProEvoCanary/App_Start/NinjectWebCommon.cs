@@ -74,7 +74,7 @@ namespace ProEvoCanary
             kernel.Bind<ICacheManager>().To<CachingManager>();
             kernel.Bind<ICacheRssLoader>().To<RssCacheLoader>();
             kernel.Bind<IConfiguration>().To<Configuration>();
-            kernel.Bind<IDBHelper>().To<DBHelper>();
+            kernel.Bind<IDbHelper>().To<DbHelper>();
             kernel.Bind<IRssLoader>().To<RssLoader>();
             kernel.Bind<IAuthenticationHandler>().To<AuthenticationHandler>();
             kernel.Bind<IPasswordHash>().To<PasswordHash>();

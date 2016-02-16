@@ -28,7 +28,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Id", 1},
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_RecentResults",null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -52,7 +52,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         [Test]
         public void ShouldGetHeadToHeadRecord()
         {
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
 
             //given
             var dictionary = new Dictionary<string, object>

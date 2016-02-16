@@ -9,9 +9,9 @@ namespace ProEvoCanary.Domain.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly IDBHelper _helper;
+        private readonly IDbHelper _helper;
 
-        public PlayerRepository(IDBHelper helper)
+        public PlayerRepository(IDbHelper helper)
         {
             _helper = helper;
         }

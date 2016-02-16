@@ -9,10 +9,10 @@ namespace ProEvoCanary.Domain.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IDBHelper _dbHelper;
+        private readonly IDbHelper _dbHelper;
         private readonly IPasswordHash _passwordHash;
 
-        public UserRepository(IDBHelper dbHelper, IPasswordHash passwordHash)
+        public UserRepository(IDbHelper dbHelper, IPasswordHash passwordHash)
         {
             _dbHelper = dbHelper;
             _passwordHash = passwordHash;

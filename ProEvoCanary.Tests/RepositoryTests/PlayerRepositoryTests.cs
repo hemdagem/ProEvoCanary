@@ -26,7 +26,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"UserType", 2}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetUsers",null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -53,7 +53,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -84,7 +84,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -107,7 +107,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader(It.IsAny<string>(), null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -129,7 +129,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
@@ -160,7 +160,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"MatchesPlayed", 1}
             };
 
-            var helper = new Mock<IDBHelper>();
+            var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, true, true, false })));
 

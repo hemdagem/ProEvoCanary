@@ -4,7 +4,7 @@ using System.Data;
 
 namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
-    public interface IDBHelper
+    public interface IDbHelper
     {
         int ExecuteScalar(string commandText, IDictionary<string, IConvertible> parameters = null);
         int ExecuteNonQuery(string storedProcedure, IDictionary<string, IConvertible> parameters = null);
