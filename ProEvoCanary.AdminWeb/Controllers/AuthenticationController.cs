@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using ProEvoCanary.AdminWeb.Models;
-using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
 namespace ProEvoCanary.AdminWeb.Controllers

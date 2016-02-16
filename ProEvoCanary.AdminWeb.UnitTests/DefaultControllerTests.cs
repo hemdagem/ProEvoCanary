@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using NUnit.Framework;
-using ProEvoCanary.Areas.Admin.Controllers;
+using ProEvoCanary.AdminWeb.Controllers;
 
-namespace ProEvoCanary.Tests.ControllerTests.Admin
+namespace ProEvoCanary.AdminWeb.UnitTests
 {
     [TestFixture]
     public class DefaultControllerTests

@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Web;
 
-namespace ProEvoCanary.Authentication
+namespace ProEvoCanary.Domain.Authentication
 {
     public class CurrentAppUser : IAppUser
     {

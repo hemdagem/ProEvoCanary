@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 

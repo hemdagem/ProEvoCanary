@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Web.Mvc;
 
-namespace ProEvoCanary.Authentication
+namespace ProEvoCanary.Domain.Authentication
 {
     public abstract class AppViewPage<TModel> : WebViewPage<TModel>
     {

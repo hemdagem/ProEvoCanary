@@ -1,16 +1,19 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(ProEvoCanary.AdminWeb.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(ProEvoCanary.AdminWeb.App_Start.NinjectWebCommon), "Stop")]
+using System;
+using System.Web;
+using AutoMapper;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+using ProEvoCanary.AdminWeb;
+using ProEvoCanary.AdminWeb.Models;
+using ProEvoCanary.Domain.Repositories;
+using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.AdminWeb.App_Start
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
+
+namespace ProEvoCanary.AdminWeb
 {
-    using System;
-    using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -61,6 +64,18 @@ namespace ProEvoCanary.AdminWeb.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+            kernel.Bind<IAdminEventRepository>().To<AdminEventRepository>();
+            kernel.Bind<IPlayerRepository>().To<PlayerRepository>();
+            kernel.Bind<IUserRepository>().To<UserRepository>();
+
+            //Auto mapper
+            var mapperConfiguration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Domain.Models.PlayerModel, PlayerModel>();
+            });
+
+            kernel.Bind<IMapper>().ToConstant(mapperConfiguration.CreateMapper());
+
+        }
     }
 }

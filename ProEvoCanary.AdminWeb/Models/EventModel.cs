@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.Areas.Admin.Models
+namespace ProEvoCanary.AdminWeb.Models
 {
     public class EventModel
     {

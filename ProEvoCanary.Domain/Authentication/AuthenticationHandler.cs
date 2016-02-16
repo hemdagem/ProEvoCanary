@@ -2,7 +2,7 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace ProEvoCanary.Authentication
+namespace ProEvoCanary.Domain.Authentication
 {
     public class AuthenticationHandler : IAuthenticationHandler
     {
