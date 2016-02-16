@@ -1,0 +1,13 @@
+syntax: glob
+dll
+.dll
+obj
+packages/
+Database/bin/
+ProEvoCanary.AdminWeb.UnitTests/bin/
+ProEvoCanary/bin/
+ProEvoCanary.Tests/bin/
+ProEvoCanary.AdminWeb/bin/
+ProEvoCanary.Domain/bin/
+ProEvoCanary.IntegrationTests/bin/
+ProEvoCanary.AcceptanceTests/bin/

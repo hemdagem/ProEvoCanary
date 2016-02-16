@@ -73,7 +73,7 @@ namespace ProEvoCanary.Tests.ControllerTests
                     LinkDescription = "ha"
                 }
             };
-            _rssFeedRepository.Setup(x => x.GetFeed("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml")).Returns(domainRssFeedModels);
+            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(domainRssFeedModels);
 
             _eventsRepository = new Mock<IEventRepository>();
 
@@ -131,10 +131,10 @@ namespace ProEvoCanary.Tests.ControllerTests
             };
             _resultsRepository.Setup(x => x.GetResults()).Returns(domainResultsModels);
 
-            _mapper.Setup(x => x.Map<List<Models.EventModel>>(_eventsRepository.Object.GetEvents())).Returns(eventModels);
-            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(_playerRepository.Object.GetTopPlayers())).Returns(playerModels);
-            _mapper.Setup(x => x.Map<List<Models.RssFeedModel>>(_rssFeedRepository.Object.GetFeed("http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml"))).Returns(rssFeedModels);
-            _mapper.Setup(x => x.Map<List<Models.ResultsModel>>(_resultsRepository.Object.GetResults())).Returns(resultsModels);
+            _mapper.Setup(x => x.Map<List<Models.EventModel>>(domainEventModels)).Returns(eventModels);
+            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+            _mapper.Setup(x => x.Map<List<Models.RssFeedModel>>(domainRssFeedModels)).Returns(rssFeedModels);
+            _mapper.Setup(x => x.Map<List<Models.ResultsModel>>(domainResultsModels)).Returns(resultsModels);
 
             _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object,
                 _eventsRepository.Object, _resultsRepository.Object, _mapper.Object);

@@ -30,7 +30,9 @@ namespace ProEvoCanary.Tests.ControllerTests
             _appUser = new Mock<IAppUser>();
             _mapper = new Mock<IMapper>();
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(new ClaimsPrincipal()));
+
             _eventController = new EventController(_repo.Object, _appUser.Object, _mockPlayerRepository.Object, _mapper.Object);
+
         }
 
         [Test]
@@ -95,30 +97,53 @@ namespace ProEvoCanary.Tests.ControllerTests
             }));
 
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
-            _mockPlayerRepository.Setup(x => x.GetAllPlayers()).Returns(new List<PlayerModel>()
+
+            var playerModels = new List<Models.PlayerModel>()
+            {
+                new Models.PlayerModel
+                {
+                    PlayerName = "Test",
+                    PlayerId = 1
+                }
+            };
+            var domainPlayerModels = new List<PlayerModel>()
             {
                 new PlayerModel
                 {
                     PlayerName = "Test",
                     PlayerId = 1
-                },
-                new PlayerModel
-                {
-                     PlayerName = "Test2",
-                    PlayerId = 2
                 }
-            });
-            _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>(),It.IsAny<int>()))
-                .Returns(new Domain.Models.EventModel
-                {
-                    Completed = true,
-                    Date = date,
-                    EventId = 10,
-                    EventTypes = Domain.Models.EventTypes.Friendly,
-                    FixturesGenerated = true,
-                    EventName = "Test",
-                    OwnerId = 4
-                });
+            };
+            _mockPlayerRepository.Setup(x => x.GetAllPlayers()).Returns(domainPlayerModels);
+
+            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+
+            var eventModel = new Models.EventModel
+            {
+                Completed = true,
+                Date = date,
+                EventId = 10,
+               EventTypes = Models.EventTypes.Friendly,
+                FixturesGenerated = true,
+                EventName = "Test",
+                OwnerId = 4
+            };
+
+            var domainEventModel = new Domain.Models.EventModel
+            {
+                Completed = true,
+                Date = date,
+                EventId = 10,
+               EventTypes = Domain.Models.EventTypes.Friendly,
+                FixturesGenerated = true,
+                EventName = "Test",
+                OwnerId = 4
+            };
+            _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(domainEventModel);
+
+            _mapper.Setup(x => x.Map<EventModel>(domainEventModel)).Returns(eventModel);
+
             //when
             var viewResult = _eventController.GenerateFixtures(It.IsAny<int>()) as ViewResult;
             var model = viewResult.Model as EventModel;
@@ -128,10 +153,10 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.AreEqual(model.FixturesGenerated, true);
             Assert.AreEqual(model.EventName, "Test");
             Assert.AreEqual(model.OwnerId, 4);
-            Assert.AreEqual(model.EventTypes, EventTypes.Friendly);
             Assert.AreEqual(model.Date, date);
             Assert.AreEqual(model.EventId, 10);
-            Assert.AreEqual(2, model.Users.Count);
+            Assert.AreEqual(1, model.Users.Count);
+            Assert.AreEqual(model.EventTypes, EventTypes.Friendly);
         }
     }
 }

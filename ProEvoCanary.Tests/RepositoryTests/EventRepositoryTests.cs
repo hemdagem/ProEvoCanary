@@ -53,8 +53,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"OwnerId", 10},
                 {"TournamentName", "Event"},
                 {"Date", "10/10/2010"},
-                {"Completed", true},
-                {"FixturesGenerated", true},
+                {"Completed", false},
                 {"TournamentType", EventTypes.Friendly},
             };
 
@@ -73,8 +72,8 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(eventModel.OwnerId, Is.EqualTo(10));
             Assert.That(eventModel.EventName, Is.EqualTo("Event"));
             Assert.That(eventModel.Date, Is.EqualTo("10/10/2010"));
-            Assert.That(eventModel.Completed, Is.EqualTo(true));
-            Assert.That(eventModel.FixturesGenerated, Is.EqualTo(true));
+            Assert.That(eventModel.Completed, Is.EqualTo(false));
+            Assert.That(eventModel.FixturesGenerated, Is.EqualTo(false));
             Assert.That(eventModel.EventTypes, Is.EqualTo(Domain.Models.EventTypes.Friendly));
         }
     }

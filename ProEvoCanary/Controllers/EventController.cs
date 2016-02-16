@@ -48,20 +48,8 @@ namespace ProEvoCanary.Controllers
         [AccessAuthorize(UserType.Standard)]
         public ActionResult GenerateFixtures(int id)
         {
-            var eventForEdit = _eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id);
-            EventModel model = new EventModel
-            {
-                Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers()),
-                Completed = eventForEdit.Completed,
-                FixturesGenerated = eventForEdit.FixturesGenerated,
-                EventName = eventForEdit.EventName,
-                Date = eventForEdit.Date,
-                EventId = eventForEdit.EventId,
-                OwnerId = eventForEdit.OwnerId,
-                Name = eventForEdit.Name,
-                EventTypes = _mapper.Map<EventTypes>(eventForEdit.EventTypes)
-            };
-
+            EventModel model = _mapper.Map<EventModel>(_eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id));
+            model.Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
 
             return View("GenerateFixtures", model);
         }

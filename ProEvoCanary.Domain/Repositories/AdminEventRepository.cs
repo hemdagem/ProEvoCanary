@@ -106,6 +106,20 @@ namespace ProEvoCanary.Domain.Repositories
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
+            reader.NextResult();
+            while (reader.Read())
+            {
+                tournament.Results = new List<ResultsModel>
+                {
+                    new ResultsModel
+                    {
+                        AwayTeam = reader["AwayTeam"].ToString(),
+                        HomeTeam = reader["HomeTeam"].ToString(),
+                        AwayScore = (int)reader["AwayScore"],
+                        HomeScore = (int)reader["HomeScore"],
+                    }
+                };
+            }
 
             if (tournament.OwnerId != ownerId)
                 throw new IndexOutOfRangeException();

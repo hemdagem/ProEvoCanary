@@ -68,8 +68,8 @@ namespace ProEvoCanary.Domain.Repositories
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
                     });
-            }
-            
+            };
+
             tournament.FixturesGenerated = tournament.Results.Count > 0;
 
             return tournament;
