@@ -1,31 +1,34 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using ProEvoCanary.Authentication;
+using AutoMapper;
+using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.ModelBuilders;
-using EventModel = ProEvoCanary.Areas.Admin.Models.EventModel;
+using EventModel = ProEvoCanary.AdminWeb.Models.EventModel;
 
-namespace ProEvoCanary.Areas.Admin.Controllers
+namespace ProEvoCanary.AdminWeb.Controllers
 {
     [AccessAuthorize(UserType.Admin)]
     public class EventController : Controller
     {
         private readonly IAdminEventRepository _eventRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IPlayerModelBuilder _playerModelBuilder;
-        public EventController(IAdminEventRepository eventRepository, IPlayerRepository playerRepository, IPlayerModelBuilder playerModelBuilder)
+        private readonly IMapper _mapper;
+
+        public EventController(IAdminEventRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _playerRepository = playerRepository;
-            _playerModelBuilder = playerModelBuilder;
+            _mapper = mapper;
         }
 
         // GET: Admin/Event
         public ActionResult Create()
         {
-            var model = new EventModel { Players = _playerRepository.GetAllPlayers()
-                .Select(x=> _playerModelBuilder.BuildViewModel(x)).ToList(), Date = DateTime.Today };
+            var model = new EventModel();
+
+            model.Players = _mapper.Map<List<Models.PlayerModel>>(_playerRepository.GetAllPlayers());
+            model.Date = DateTime.Today;
             return View("Create", model);
         }
 
@@ -45,7 +48,7 @@ namespace ProEvoCanary.Areas.Admin.Controllers
                 }
             }
 
-            model.Players = _playerRepository.GetAllPlayers().Select(x => _playerModelBuilder.BuildViewModel(x)).ToList();
+            model.Players = _mapper.Map<List<Models.PlayerModel>>(_playerRepository.GetAllPlayers());
 
             return View(model);
         }

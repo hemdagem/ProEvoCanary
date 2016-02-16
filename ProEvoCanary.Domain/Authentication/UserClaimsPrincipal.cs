@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace ProEvoCanary.Authentication
+namespace ProEvoCanary.Domain.Authentication
 {
     public class UserClaimsPrincipal : ClaimsPrincipal
     {

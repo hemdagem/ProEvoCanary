@@ -5,7 +5,7 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 using ProEvoCanary;
-using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;

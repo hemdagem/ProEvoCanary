@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Authentication
+﻿namespace ProEvoCanary.Domain.Authentication
 {
     public interface IAppUser
     {

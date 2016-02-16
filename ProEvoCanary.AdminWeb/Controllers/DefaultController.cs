@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Authentication;
 
-namespace ProEvoCanary.Areas.Admin.Controllers
+namespace ProEvoCanary.AdminWeb.Controllers
 {
     [AccessAuthorize(UserType.Admin)]
     public class DefaultController : Controller

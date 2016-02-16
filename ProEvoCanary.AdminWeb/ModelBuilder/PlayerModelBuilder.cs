@@ -1,6 +1,6 @@
 ﻿using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.ModelBuilders
+namespace ProEvoCanary.AdminWeb.ModelBuilder
 {
     public interface IPlayerModelBuilder
     {

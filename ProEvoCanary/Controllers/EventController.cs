@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using ProEvoCanary.Authentication;
+using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
-using UserType = ProEvoCanary.Authentication.UserType;
+using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
 namespace ProEvoCanary.Controllers
 {

@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 
-namespace ProEvoCanary.Authentication
+namespace ProEvoCanary.Domain.Authentication
 {
     public class AccessAuthorize : AuthorizeAttribute
     {
