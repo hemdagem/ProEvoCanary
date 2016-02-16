@@ -52,24 +52,25 @@ namespace ProEvoCanary.Domain.Repositories
                     EventName = reader["TournamentName"].ToString(),
                     Date = reader["Date"].ToString(),
                     Completed = (bool)reader["Completed"],
-                    FixturesGenerated = (bool)reader["Completed"],
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
             reader.NextResult();
+
+            tournament.Results = new List<ResultsModel>();
             while (reader.Read())
             {
-                tournament.Results = new List<ResultsModel>
-                {
+                tournament.Results.Add(
                     new ResultsModel
                     {
                         AwayTeam = reader["AwayTeam"].ToString(),
                         HomeTeam = reader["HomeTeam"].ToString(),
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
-                    }
-                };
+                    });
             }
+            
+            tournament.FixturesGenerated = tournament.Results.Count > 0;
 
             return tournament;
         }
@@ -96,7 +97,7 @@ namespace ProEvoCanary.Domain.Repositories
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
-        
+
 
             if (ownerId != tournament.OwnerId)
                 throw new NullReferenceException();

@@ -84,7 +84,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         public void ShouldCreateUser()
         {
             Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddNewUser", It.IsAny<IDictionary<string, IConvertible>>())).Returns(1);
+            _helper.Setup(x => x.ExecuteScalar("up_AddUser", It.IsAny<IDictionary<string, IConvertible>>())).Returns(1);
 
             //when
             var user = _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
@@ -101,7 +101,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddNewUser", null)).Returns(0);
+            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
 
             //then
             _repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
@@ -115,7 +115,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddNewUser", null)).Returns(0);
+            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
 
             //then
             _repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
@@ -129,7 +129,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddNewUser", null)).Returns(0);
+            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
 
             //then
             _repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress, _loginModel.Password);
@@ -143,7 +143,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddNewUser", null)).Returns(0);
+            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
 
             //then
             _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email, _loginModel.Password);

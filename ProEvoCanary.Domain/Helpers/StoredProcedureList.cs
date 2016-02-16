@@ -27,7 +27,7 @@ namespace ProEvoCanary.Domain.Helpers
             {StoredProcedureList.RecentResults, "up_RecentResults"},
             {StoredProcedureList.HeadToHeadRecord, "up_HeadToHeadRecord"},
             {StoredProcedureList.LoginDetails, "up_GetLoginDetails"},
-            {StoredProcedureList.AddNewUser, "up_AddNewUser"}
+            {StoredProcedureList.AddNewUser, "up_AddUser"}
         };
 
 
