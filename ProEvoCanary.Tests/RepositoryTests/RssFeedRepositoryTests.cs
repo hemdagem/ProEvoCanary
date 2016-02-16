@@ -3,7 +3,6 @@ using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Models;
 using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
 namespace ProEvoCanary.Tests.RepositoryTests

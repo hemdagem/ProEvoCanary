@@ -4,13 +4,13 @@ namespace ProEvoCanary.AdminWeb.ModelBuilder
 {
     public interface IPlayerModelBuilder
     {
-        PlayerModel BuildViewModel(Domain.Models.PlayerModel domainPlayerModel);
-        Domain.Models.PlayerModel BuildCoreModel(PlayerModel playerViewModel);
+        PlayerModel BuildViewModel(PlayerModel domainPlayerModel);
+        PlayerModel BuildCoreModel(PlayerModel playerViewModel);
     }
 
     public class PlayerModelBuilder
     {
-        public PlayerModel BuildViewModel(Domain.Models.PlayerModel domainPlayerModel)
+        public PlayerModel BuildViewModel(PlayerModel domainPlayerModel)
         {
             return new PlayerModel
             {
@@ -22,9 +22,9 @@ namespace ProEvoCanary.AdminWeb.ModelBuilder
             };
         }
 
-        public Domain.Models.PlayerModel BuildCoreModel(PlayerModel playerViewModel)
+        public PlayerModel BuildCoreModel(PlayerModel playerViewModel)
         {
-            return new Domain.Models.PlayerModel
+            return new PlayerModel
             {
                 GoalsPerGame = playerViewModel.GoalsPerGame,
                 MatchesPlayed = playerViewModel.MatchesPlayed,

@@ -4,7 +4,6 @@ using NUnit.Framework;
 using ProEvoCanary.Controllers;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.Models;
 using LoginModel = ProEvoCanary.Models.LoginModel;
 using UserModel = ProEvoCanary.Domain.Models.UserModel;
 using UserType = ProEvoCanary.Domain.Authentication.UserType;
@@ -14,7 +13,6 @@ namespace ProEvoCanary.Tests.ControllerTests
     [TestFixture]
     public class AuthenticationControllerTests
     {
-        readonly Domain.Models.LoginModel _loginModel = new Domain.Models.LoginModel(It.IsAny<string>(), It.IsAny<string>());
         private Mock<IUserRepository> _repo;
         private Mock<IAuthenticationHandler> _authenticationMock;
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using ProEvoCanary.Domain.Repositories.Interfaces;
@@ -14,7 +13,7 @@ namespace ProEvoCanary.Controllers
         private readonly IEventRepository _eventRepository;
         private readonly IResultRepository _resultRepository;
         private readonly IMapper _mapper;
-        private const string URL = "http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml";
+        private const string FeedUrl = "http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/football/rss.xml";
 
         public DefaultController(IPlayerRepository playerRepository, IRssFeedRepository rssFeedRepository, IEventRepository eventRepository, IResultRepository resultRepository, IMapper mapper)
         {
@@ -31,7 +30,7 @@ namespace ProEvoCanary.Controllers
             var homeModel = new HomeModel
             {
                 Players = _mapper.Map<List<PlayerModel>>(_playerRepository.GetTopPlayers()),
-                News = _mapper.Map<List<RssFeedModel>>(_rssFeedRepository.GetFeed(URL)),
+                News = _mapper.Map<List<RssFeedModel>>(_rssFeedRepository.GetFeed(FeedUrl)),
                 Events = _mapper.Map<List<EventModel>>(_eventRepository.GetEvents()),
                 Results = _mapper.Map<List<ResultsModel>>(_resultRepository.GetResults())
             };

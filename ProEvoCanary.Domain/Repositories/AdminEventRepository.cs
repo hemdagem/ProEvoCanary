@@ -10,10 +10,10 @@ namespace ProEvoCanary.Domain.Repositories
 {
     public class AdminEventRepository : IAdminEventRepository
     {
-        private readonly IDBHelper _helper;
+        private readonly IDbHelper _helper;
         private readonly IXmlGenerator _xmlGenerator;
 
-        public AdminEventRepository(IDBHelper helper, IXmlGenerator xmlGenerator)
+        public AdminEventRepository(IDbHelper helper, IXmlGenerator xmlGenerator)
         {
             _helper = helper;
             _xmlGenerator = xmlGenerator;

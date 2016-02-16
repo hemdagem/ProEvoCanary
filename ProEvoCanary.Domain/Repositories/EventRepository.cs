@@ -8,9 +8,9 @@ namespace ProEvoCanary.Domain.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly IDBHelper _helper;
+        private readonly IDbHelper _helper;
 
-        public EventRepository(IDBHelper helper)
+        public EventRepository(IDbHelper helper)
         {
             _helper = helper;
         }
@@ -68,7 +68,7 @@ namespace ProEvoCanary.Domain.Repositories
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
                     });
-            };
+            }
 
             tournament.FixturesGenerated = tournament.Results.Count > 0;
 
