@@ -92,7 +92,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Password", _passwordHash.CreateHash(password) }
             };
 
-            return _dbHelper.ExecuteScalar("up_AddNewUser", parameters);
+            return _dbHelper.ExecuteScalar("up_AddUser", parameters);
         }
 
 
