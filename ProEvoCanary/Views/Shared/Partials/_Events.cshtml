@@ -1,21 +1,17 @@
 ﻿@model List<ProEvoCanary.Models.EventModel>
-<table class="highlight responsive-table">
-    <thead>
-        <tr>
-            <th>Event Name:</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <a href="@Url.Action("Details", "Event", new {id = @item.EventId})">@item.Name</a>
-                    <p>Hosted By: @item.Name</p>
-                </td>
-                <td>@item.Date</td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@foreach (var item in Model)
+{
+
+    <ul class="collection">
+        <li class="collection-item avatar">
+            <i class="material-icons circle green">perm_contact_calendar</i>
+            <span class="title"><a href="@Url.Action("Details", "Event", new {id = @item.EventId})">@item.Name</a></span>
+            <p>
+                Hosted By: @item.Name <br>
+                @item.Date
+            </p>
+            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+        </li>
+    </ul>
+}
