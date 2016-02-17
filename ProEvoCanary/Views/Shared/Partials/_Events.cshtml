@@ -1,16 +1,16 @@
 ﻿@model List<ProEvoCanary.Models.EventModel>
-<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+<table class="highlight responsive-table">
     <thead>
         <tr>
-            <th class="mdl-data-table__cell--non-numeric">Event Name:</th>
-            <th class="mdl-data-table__cell--non-numeric">Date</th>
+            <th>Event Name:</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td class="mdl-data-table__cell--non-numeric">
+                <td>
                     <a href="@Url.Action("Details", "Event", new {id = @item.EventId})">@item.Name</a>
                     <p>Hosted By: @item.Name</p>
                 </td>
