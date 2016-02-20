@@ -32,6 +32,11 @@ namespace ProEvoCanary.Domain.Repositories
             throw new System.NotImplementedException();
         }
 
+        public ResultsModel GetResult(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void AddToCache(string key, object value, int cacheHours)
         {
             _cacheManager.Add(key, value, cacheHours);

@@ -8,7 +8,7 @@ namespace ProEvoCanary.AcceptanceTests
     public class HomePageTests
     {
         private IWebDriver _driver;
-        const string URL = "http://www.proevoleague.hem/";
+        const string Url = "http://www.proevoleague.hem/";
 
         [SetUp]
         public void Setup()
@@ -19,7 +19,7 @@ namespace ProEvoCanary.AcceptanceTests
         [Test]
         public void ShouldHaveTheMainFourHeadingsOnTheHomePage()
         {
-            _driver.Navigate().GoToUrl(URL);
+            _driver.Navigate().GoToUrl(Url);
             var query = _driver.FindElements(By.TagName("h2"));
 
             Assert.That(query[0].Text, Is.EqualTo("Events"));
@@ -31,7 +31,7 @@ namespace ProEvoCanary.AcceptanceTests
         [Test]
         public void ShouldHaveALinkToRecordsPage()
         {
-            _driver.Navigate().GoToUrl(URL);
+            _driver.Navigate().GoToUrl(Url);
             IWebElement query = _driver.FindElement(By.CssSelector("body > nav > section > ul > li:last-child > a"));
 
             Assert.That(query.GetAttribute("href"), Contains.Substring("/Records/HeadToHead"));

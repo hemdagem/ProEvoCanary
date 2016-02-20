@@ -74,6 +74,7 @@ namespace ProEvoCanary.Domain.Repositories
                         HomeTeam = reader["HomeTeam"].ToString(),
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
+                        ResultId = (int)reader["Id"]
                     }
                 };
             }
@@ -116,6 +117,8 @@ namespace ProEvoCanary.Domain.Repositories
                         HomeTeam = reader["HomeTeam"].ToString(),
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
+                        EventId = (int)reader["TournamentId"],
+                        ResultId = (int)reader["Id"],
                     }
                 };
             }

@@ -17,6 +17,10 @@
                 <td>@item.HomeScore</td>
                 <td>@item.AwayScore</td>
                 <td>@item.AwayTeam</td>
+                @if (CurrentUser.Identity.IsAuthenticated)
+                {
+                    <td>@Html.ActionLink("Edit", "Update", "Results", new { id = item.ResultId }, null)</td>
+                }
             </tr>
         }
     </table>
