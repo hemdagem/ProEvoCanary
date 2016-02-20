@@ -15,22 +15,23 @@
 }
 else
 {
-    <form action="@Url.Action("GenerateFixtures","Event")" method="POST" data-abide>
+    <form action="@Url.Action("GenerateFixtures","Event")" method="POST" >
         <div class="row">
-            <div class="large-12 columns">
-                @Html.HiddenFor(x => x.EventId)
+            @Html.HiddenFor(x => x.EventId)
+            <div class="input-field col s12">
+                <select multiple="multiple" name="userIds">
+                    @foreach (var user in Model.Users)
+                    {
+                        <option value="@user.PlayerId">@user.PlayerName</option>
+                    }
+                </select>
+                <label> Select Users</label>
 
-                <label>
-                    Select Users
-                    <select multiple="multiple" name="userIds">
-                        @foreach (var user in Model.Users)
-                        {
-                            <option value="@user.PlayerId">@user.PlayerName</option>
-                        }
-                    </select>
-                </label>
-                <button type="submit">GenerateFixtures</button>
             </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Generate Fixtures
+                <i class="material-icons right">send</i>
+            </button>
         </div>
     </form>
 }

@@ -102,7 +102,6 @@ namespace ProEvoCanary.Domain.Repositories
                     EventName = reader["TournamentName"].ToString(),
                     Date = reader["Date"].ToString(),
                     Completed = (bool)reader["Completed"],
-                    FixturesGenerated = (bool)reader["Completed"],
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
@@ -123,6 +122,8 @@ namespace ProEvoCanary.Domain.Repositories
 
             if (tournament.OwnerId != ownerId)
                 throw new IndexOutOfRangeException();
+
+            tournament.FixturesGenerated = tournament.Results.Count > 0;
 
             return tournament;
         }
