@@ -88,7 +88,6 @@ namespace ProEvoCanary
             kernel.Bind<ICacheEventRepository>().To<CacheEventRepository>();
             kernel.Bind<ICachePlayerRepository>().To<CachePlayerRepository>();
             kernel.Bind<ICacheResultsRepository>().To<ResultsCacheRepository>();
-            kernel.Bind<IEventRepository>().To<EventRepository>();
             kernel.Bind<IPlayerRepository>().To<PlayerRepository>();
             kernel.Bind<IResultRepository>().To<ResultsRepository>();
             kernel.Bind<IRssFeedRepository>().To<RssFeedRepositoryDecorator>();
