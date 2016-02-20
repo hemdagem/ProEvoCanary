@@ -11,11 +11,11 @@ namespace ProEvoCanary.AdminWeb.Controllers
     [AccessAuthorize(UserType.Admin)]
     public class EventController : Controller
     {
-        private readonly IAdminEventRepository _eventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IMapper _mapper;
 
-        public EventController(IAdminEventRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper)
+        public EventController(IEventRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _playerRepository = playerRepository;

@@ -13,13 +13,13 @@ namespace ProEvoCanary.Controllers
     
     public class EventController : Controller
     {
-        private readonly IAdminEventRepository _eventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IAppUser _currentUser;
         private readonly IPlayerRepository _playerRepository;
         private readonly IMapper _mapper;
         private readonly IResultRepository _resultRepository;
 
-        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository)
+        public EventController(IEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository)
         {
             _eventRepository = eventRepository;
             _currentUser = currentUser;

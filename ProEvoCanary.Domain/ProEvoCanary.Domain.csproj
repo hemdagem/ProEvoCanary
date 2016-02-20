@@ -119,12 +119,10 @@
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\AdminEventRepository.cs" />
     <Compile Include="Repositories\CacheEventRepository.cs" />
     <Compile Include="Repositories\CachePlayerRepository.cs" />
     <Compile Include="Repositories\EventRepository.cs" />
     <Compile Include="Repositories\EventRepositoryDecorator.cs" />
-    <Compile Include="Repositories\Interfaces\IAdminEventRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICacheEventRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICachePlayerRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICacheResultsRepository.cs" />

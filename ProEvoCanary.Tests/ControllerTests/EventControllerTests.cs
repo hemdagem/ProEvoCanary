@@ -17,7 +17,7 @@ namespace ProEvoCanary.Tests.ControllerTests
     public class EventControllerTests
     {
         readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<EventTypes>(), It.IsAny<string>(), It.IsAny<DateTime>());
-        private Mock<IAdminEventRepository> _repo;
+        private Mock<IEventRepository> _repo;
         private Mock<IResultRepository> _resultRepositoryMock;
         private Mock<IAppUser> _appUser;
         private EventController _eventController;
@@ -26,7 +26,7 @@ namespace ProEvoCanary.Tests.ControllerTests
 
         private void Setup()
         {
-            _repo = new Mock<IAdminEventRepository>();
+            _repo = new Mock<IEventRepository>();
             _mockPlayerRepository = new Mock<IPlayerRepository>();
             _appUser = new Mock<IAppUser>();
             _mapper = new Mock<IMapper>();

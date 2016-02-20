@@ -64,7 +64,7 @@ namespace ProEvoCanary.AdminWeb
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IAdminEventRepository>().To<AdminEventRepository>();
+            kernel.Bind<IEventRepository>().To<EventRepository>();
             kernel.Bind<IPlayerRepository>().To<PlayerRepository>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
 
