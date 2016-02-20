@@ -31,3 +31,9 @@ ProEvo.viewResult = function () {
 
 
 };
+
+ProEvo.updateResult = function(eventId, resultId, homeScore, awayScore) {
+    $.post("/Event/UpdateResult", { eventId: eventId, resultId: resultId, homeScore: homeScore, awayScore: awayScore }, function(data) {
+        console.log(data);
+    });
+}

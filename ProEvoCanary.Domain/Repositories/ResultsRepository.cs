@@ -81,11 +81,38 @@ namespace ProEvoCanary.Domain.Repositories
             var parameters = new Dictionary<string, IConvertible>
             {
                 { "@Id", id },
-                { "@HomeScore", homeScore },
-                { "@AwayScore", awayScore }
+                { "@HomeScore", homeScore < 0 ? 0 : homeScore },
+                { "@AwayScore", awayScore < 0 ? 0 : awayScore }
             };
 
             return _helper.ExecuteScalar("up_AddResult", parameters);
+        }
+
+        public ResultsModel GetResult(int id)
+        {
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@Id", id },
+            };
+            ResultsModel model = null;
+
+            using (var reader = _helper.ExecuteReader("up_GetResult", parameters))
+            {
+                while (reader.Read())
+                {
+                    model = new ResultsModel
+                    {
+                        HomeTeam = reader["HomeTeam"].ToString(),
+                        AwayTeam = reader["AwayTeam"].ToString(),
+                        HomeScore = int.Parse(reader["HomeScore"].ToString()),
+                        AwayScore = int.Parse(reader["AwayScore"].ToString()),
+                        ResultId = int.Parse(reader["Id"].ToString()),
+                        EventId = int.Parse(reader["TournamentId"].ToString()),
+                    };
+                }
+            }
+
+            return model;
         }
     }
 }

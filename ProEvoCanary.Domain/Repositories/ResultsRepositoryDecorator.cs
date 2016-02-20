@@ -52,5 +52,10 @@ namespace ProEvoCanary.Domain.Repositories
         {
             return _resultRepository.AddResult(id, homeScore, awayScore);
         }
+
+        public ResultsModel GetResult(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

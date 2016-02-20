@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using ProEvoCanary.Domain.Authentication;
+using ProEvoCanary.Domain.Helpers;
+using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 using UserType = ProEvoCanary.Domain.Authentication.UserType;
@@ -15,13 +19,15 @@ namespace ProEvoCanary.Controllers
         private readonly IAppUser _currentUser;
         private readonly IPlayerRepository _playerRepository;
         private readonly IMapper _mapper;
+        private readonly IResultRepository _resultRepository;
 
-        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository, IMapper mapper)
+        public EventController(IAdminEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository)
         {
             _eventRepository = eventRepository;
             _currentUser = currentUser;
             _playerRepository = playerRepository;
             _mapper = mapper;
+            _resultRepository = resultRepository;
         }
 
         [AccessAuthorize(UserType.Standard)]
@@ -59,6 +65,22 @@ namespace ProEvoCanary.Controllers
         {
             _eventRepository.GenerateFixtures(id, userIds);
             return RedirectToAction("Details", "Event", new { Id = id });
+        }
+
+        [AccessAuthorize(UserType.Standard)]
+        [HttpPost]
+        public JsonResult UpdateResult(int eventId,int resultId, ushort homeScore, ushort awayScore)
+        {
+            var eventModel = _eventRepository.GetEventForEdit(eventId,_currentUser.CurrentUser.Id);
+
+            if (eventModel.Results.FirstOrDefault(x => x.ResultId == resultId) != null)
+            {
+                var addResult = _resultRepository.AddResult(resultId, homeScore, awayScore);
+
+                return Json(addResult);
+            }
+
+           throw new IndexOutOfRangeException("An error occurred");
         }
     }
 }

@@ -92,62 +92,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //then
             Assert.That(user, Is.EqualTo(1));
         }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void ShouldThrowExceptionIfUsernameIsEmptyWhenCreatingAUser(string username)
-        {
-            //given
-            Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
-
-            //then
-            _repository.CreateUser(username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void ShouldThrowExceptionIfForenameIsEmptyWhenCreatingAUser(string forename)
-        {
-            //given
-            Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
-
-            //then
-            _repository.CreateUser(_loginModel.Username, forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void ShouldThrowExceptionIfSurnameIsEmptyWhenCreatingAUser(string surname)
-        {
-            //given
-            Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
-
-            //then
-            _repository.CreateUser(_loginModel.Username, _loginModel.Forename, surname, _loginModel.EmailAddress, _loginModel.Password);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [ExpectedException(typeof(NullReferenceException))]
-        public void ShouldThrowExceptionIfEmailIsEmptyWhenCreatingAUser(string email)
-        {
-            //given
-            Setup();
-            _helper.Setup(x => x.ExecuteScalar("up_AddUser", null)).Returns(0);
-
-            //then
-            _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, email, _loginModel.Password);
-        }
     }
 }
 

@@ -150,6 +150,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -190,6 +191,7 @@
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\GenerateFixtures.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Results\Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
