@@ -93,7 +93,6 @@ namespace ProEvoCanary.Domain.Repositories
                     EventName = reader["TournamentName"].ToString(),
                     Date = reader["Date"].ToString(),
                     Completed = (bool)reader["Completed"],
-                    FixturesGenerated = (bool)reader["Completed"],
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }

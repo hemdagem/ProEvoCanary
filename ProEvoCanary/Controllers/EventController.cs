@@ -40,8 +40,8 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
-            _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.EventType, _currentUser.CurrentUser.Id);
-            return RedirectToAction("GenerateFixtures", "Event");
+            var eventId = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.EventType, _currentUser.CurrentUser.Id);
+            return RedirectToAction("GenerateFixtures", "Event",new {id= eventId });
         }
 
         [AccessAuthorize(UserType.Standard)]

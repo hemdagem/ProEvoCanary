@@ -4,8 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    
-    @foreach (var item in Model.Results)
-    {
-        <span>@item.AwayTeam</span>
-    }
+<h2>@Model.EventName</h2>
+
+@Model.Date
+
+@if(Model.Results.Count > 0) {
+    <table>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>@item.HomeTeam</td>
+                <td>@item.HomeScore</td>
+                <td>@item.AwayScore</td>
+                <td>@item.AwayTeam</td>
+            </tr>
+        }
+    </table>
+}

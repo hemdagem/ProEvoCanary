@@ -62,26 +62,6 @@ namespace ProEvoCanary.Domain.Repositories
 
         public int CreateUser(string userName, string forename, string surname, string emailAddress, string password)
         {
-            if (String.IsNullOrEmpty(userName))
-            {
-                throw new NullReferenceException("Username cannot be empty");
-            }
-            if (String.IsNullOrEmpty(forename))
-            {
-                throw new NullReferenceException("Forename cannot be empty");
-            }
-            if (String.IsNullOrEmpty(surname))
-            {
-                throw new NullReferenceException("Surname cannot be empty");
-            }
-            if (String.IsNullOrEmpty(emailAddress))
-            {
-                throw new NullReferenceException("Email Address cannot be empty");
-            }
-            if (String.IsNullOrEmpty(password))
-            {
-                throw new NullReferenceException("Password cannot be empty");
-            }
 
             var parameters = new Dictionary<string, IConvertible>
             {
