@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using ProEvoCanary.Domain.Authentication;
-using ProEvoCanary.Domain.Helpers;
-using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Models;
 using UserType = ProEvoCanary.Domain.Authentication.UserType;
