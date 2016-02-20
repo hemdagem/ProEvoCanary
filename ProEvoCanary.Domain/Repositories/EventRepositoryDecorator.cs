@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProEvoCanary.Domain.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
@@ -41,5 +42,14 @@ namespace ProEvoCanary.Domain.Repositories
             throw new System.NotImplementedException();
         }
 
+        public int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GenerateFixtures(int eventId, List<int> userIds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

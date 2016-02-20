@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Domain.Models.EventModel;
@@ -28,6 +29,16 @@ namespace ProEvoCanary.Domain.Repositories
         public EventModel GetEventForEdit(int id, int ownerId)
         {
             throw new System.NotImplementedException();
+        }
+
+        public int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GenerateFixtures(int eventId, List<int> userIds)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddToCache(string key, object value, int cacheHours)

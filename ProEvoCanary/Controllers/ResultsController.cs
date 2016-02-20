@@ -9,12 +9,12 @@ namespace ProEvoCanary.Controllers
 {
     public class ResultsController : Controller
     {
-        private readonly IAdminEventRepository _eventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IResultRepository _resultRepository;
         private readonly IAppUser _currentUser;
         private readonly IMapper _mapper;
 
-        public ResultsController(IAdminEventRepository eventRepository, IResultRepository resultRepository, IAppUser appUser, IMapper mapper)
+        public ResultsController(IEventRepository eventRepository, IResultRepository resultRepository, IAppUser appUser, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _resultRepository = resultRepository;

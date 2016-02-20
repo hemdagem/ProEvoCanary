@@ -16,7 +16,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
     public class EventControllerTests
     {
         readonly EventModel _eventModel = new EventModel(It.IsAny<EventTypes>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<List<PlayerModel>>());
-        Mock<IAdminEventRepository> _adminEventRepo;
+        Mock<IEventRepository> _adminEventRepo;
         Mock<IPlayerRepository> _playerRepositoryMock;
         Mock<IMapper> _mapper;
         private EventController _eventController;
@@ -24,7 +24,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
         [SetUp]
         public void Setup()
         {
-            _adminEventRepo = new Mock<IAdminEventRepository>();
+            _adminEventRepo = new Mock<IEventRepository>();
             _playerRepositoryMock = new Mock<IPlayerRepository>();
             _mapper = new Mock<IMapper>();
             _eventController = new EventController(_adminEventRepo.Object, _playerRepositoryMock.Object, _mapper.Object);
