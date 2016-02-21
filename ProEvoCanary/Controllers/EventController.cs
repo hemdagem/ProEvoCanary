@@ -10,7 +10,6 @@ using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
 namespace ProEvoCanary.Controllers
 {
-    
     public class EventController : Controller
     {
         private readonly IEventRepository _eventRepository;
