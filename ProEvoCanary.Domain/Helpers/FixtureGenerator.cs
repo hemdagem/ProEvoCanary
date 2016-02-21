@@ -6,7 +6,7 @@ using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Domain.Helpers
 {
-    public class FixtureGenerator
+    public class FixtureGenerator :IFixtureGenerator
     {
         public List<TeamIds> Generate(List<int> teamIds)
         {
@@ -60,5 +60,10 @@ namespace ProEvoCanary.Domain.Helpers
 
             return fixturesAreGenerated;
         }
+    }
+
+    public interface IFixtureGenerator
+    {
+        List<TeamIds> Generate(List<int> teamIds);
     }
 }

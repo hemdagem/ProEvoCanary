@@ -41,6 +41,11 @@ namespace ProEvoCanary.Domain.Repositories
             throw new NotImplementedException();
         }
 
+        public int AddTournamentUsers(int eventId, List<int> userIds)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddToCache(string key, object value, int cacheHours)
         {
             _cacheManager.Add(key, value, cacheHours);

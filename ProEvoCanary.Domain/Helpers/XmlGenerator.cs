@@ -7,7 +7,7 @@ namespace ProEvoCanary.Domain.Helpers
 {
     public class XmlGenerator : IXmlGenerator
     {
-        public string GenerateXmlDocument(List<TeamIds> teamIds, int eventId)
+        public string GenerateFixtures(List<TeamIds> teamIds, int eventId)
         {
             if (teamIds.Count == 0)
             {
@@ -40,6 +40,36 @@ namespace ProEvoCanary.Domain.Helpers
                                   "<value>0</value>" +
                               "</row>", eventId, teamId.TeamOne, teamId.TeamTwo);
 
+            }
+
+            return string.Format(template, teamValues);
+        }
+
+        public string GenerateTournamentUsers(List<int> userIds, int eventId)
+        {
+            if (userIds.Count == 0)
+            {
+                throw new Exception("No users");
+            }
+
+            var template = "<dataset>" +
+                              "<metadata>" +
+                                  "<item name=\"UserId\" type=\"xs:int\" />" +
+                                  "<item name=\"TournamentId\" type=\"xs:int\"  />" +
+                                  "<item name=\"PreviousPosition\" type=\"xs:int\"  />" +
+                              "</metadata>" +
+                              "<data>{0}</data>" +
+                          "</dataset> ";
+
+            var teamValues = "";
+
+            foreach (var id in userIds)
+            {
+                teamValues += string.Format("<row>" +
+                                  "<value>{0}</value>" +
+                                  "<value>{1}</value>" +
+                                  "<value>0</value>" +
+                              "</row>", id, eventId);
             }
 
             return string.Format(template, teamValues);

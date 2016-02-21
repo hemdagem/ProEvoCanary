@@ -71,6 +71,8 @@ namespace ProEvoCanary.Domain.Repositories
                         HomeTeam = reader["HomeTeam"].ToString(),
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
+                        ResultId = (int)reader["Id"],
+                        EventId = (int)reader["TournamentId"]
                     });
             }
 
@@ -100,6 +102,24 @@ namespace ProEvoCanary.Domain.Repositories
                     EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
                 };
             }
+            reader.NextResult();
+
+            tournament.Results = new List<ResultsModel>();
+            while (reader.Read())
+            {
+                tournament.Results.Add(
+                    new ResultsModel
+                    {
+                        AwayTeam = reader["AwayTeam"].ToString(),
+                        HomeTeam = reader["HomeTeam"].ToString(),
+                        AwayScore = (int)reader["AwayScore"],
+                        HomeScore = (int)reader["HomeScore"],
+                        ResultId = (int)reader["Id"],
+                        EventId = (int)reader["TournamentId"]
+                    });
+            }
+
+            tournament.FixturesGenerated = tournament.Results.Count > 0;
 
 
             if (ownerId != tournament.OwnerId)
@@ -136,7 +156,7 @@ namespace ProEvoCanary.Domain.Repositories
             var generator = new FixtureGenerator();
             var teamIds = generator.Generate(userIds);
 
-            var documentString = _xmlGenerator.GenerateXmlDocument(teamIds, eventId);
+            var documentString = _xmlGenerator.GenerateFixtures(teamIds, eventId);
 
             var parameters = new Dictionary<string, IConvertible>
             {
@@ -144,6 +164,18 @@ namespace ProEvoCanary.Domain.Repositories
             };
 
             _helper.ExecuteNonQuery("up_AddFixtures", parameters);
+        }
+
+        public int AddTournamentUsers(int eventId, List<int> userIds)
+        {
+            var documentString = _xmlGenerator.GenerateTournamentUsers(userIds, eventId);
+
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                {"@XmlString", documentString }
+            };
+
+           return  _helper.ExecuteNonQuery("up_AddTournamentUsers", parameters);
         }
     }
 }

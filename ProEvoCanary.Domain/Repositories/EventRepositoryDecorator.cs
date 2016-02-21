@@ -51,5 +51,10 @@ namespace ProEvoCanary.Domain.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public int AddTournamentUsers(int eventId, List<int> userIds)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
