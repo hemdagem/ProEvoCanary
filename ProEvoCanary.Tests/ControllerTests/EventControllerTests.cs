@@ -70,7 +70,6 @@ namespace ProEvoCanary.Tests.ControllerTests
 
 
         [Test]
-        [ExpectedException(typeof(NullReferenceException))]
         public void ShouldReturnExceptionWhenEventDoesntExist()
         {
             //given
@@ -80,7 +79,7 @@ namespace ProEvoCanary.Tests.ControllerTests
                 .Returns((Domain.Models.EventModel)null);
 
             //when + then
-            _eventController.GenerateFixtures(It.IsAny<int>());
+            Assert.Throws<NullReferenceException>(() => _eventController.GenerateFixtures(It.IsAny<int>()));
         }
 
         [Test]

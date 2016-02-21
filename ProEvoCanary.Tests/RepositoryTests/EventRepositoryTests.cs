@@ -81,7 +81,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        [ExpectedException(typeof(NullReferenceException))]
         public void ShouldThrowExceptionIfTournamentNameIsEmptyOrNullWhenCreatingEvent(string tournamentName)
         {
             //given
@@ -92,14 +91,12 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>());
-
+            Assert.Throws<NullReferenceException>(() => repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>()));
         }
 
         [Test]
         [TestCase(0)]
         [TestCase(-10)]
-        [ExpectedException(typeof(LessThanOneException))]
         public void ShouldThrowExceptionIfOwnerIdIsLessThanZeroWhenCreatingEvent(int ownerId)
         {
             //given
@@ -110,7 +107,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>(), ownerId);
+            Assert.Throws<LessThanOneException>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>(), ownerId));
         }
 
         [Test]

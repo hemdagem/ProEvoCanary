@@ -14,17 +14,16 @@ namespace ProEvoCanary.Tests.HelperTests
         [Test]
         [TestCase(null)]
         [TestCaseSource("_teamIds")]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ShouldThrowAnExceptionIfTeamsAreMissingOrNull(List<int> teamIds)
         {
             //given
             var fixtureGenerator = new FixtureGenerator();
             //then
-            fixtureGenerator.Generate(teamIds);
+            
+            Assert.Throws<ArgumentNullException>(() => fixtureGenerator.Generate(teamIds));
         }
 
         [Test]
-        [ExpectedException(typeof(NotUniqueException))]
         public void ShouldThrowExceptionIfTeamIdsAreNotUnique()
         {
             //given
@@ -35,7 +34,7 @@ namespace ProEvoCanary.Tests.HelperTests
                 1,
             };
             //then
-            fixtureGenerator.Generate(teamIds);
+            Assert.Throws<NotUniqueException>(() => fixtureGenerator.Generate(teamIds));
         }
 
         [Test]
