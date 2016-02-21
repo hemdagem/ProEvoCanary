@@ -5,46 +5,43 @@
 }
 
 <h1 class="text-center"><small>Add Event</small></h1>
-
-<form action="@Url.Action("Create","Event")" method="POST" data-abide>
-
+@using (Html.BeginForm("Create", "Event", FormMethod.Post))
+{
     <div class="row">
-        <div class="large-12 columns">
-            <label>
-                Tournament Name
-                @Html.TextBoxFor(model => model.TournamentName, new { placeholder = "Enter Tournament name", required = "required" })
-            </label>
-            <small class="error">Tournament Name is required</small>
+        <div class="input-field col s12 m6">
+            @Html.LabelFor(m => m.TournamentName)
+            @Html.TextBoxFor(model => model.TournamentName, new {placeholder = "Enter Tournament name", required = "required"})
         </div>
-        <div class="large-12 columns">
-            <label>
-                Date
-                @Html.TextBoxFor(model => model.Date, new { placeholder = "Enter the Tournament Date", required = "required", type = "date" })
-            </label>
-            <small class="error">Tournament Date is required</small>
-        </div>
-        <div class="large-12 columns">
-            <label>
-                Select Owner
-                <select id="OwnerId" name="OwnerId" required="required">
-                    @foreach (var user in Model.Players)
-                    {
-                        <option value="@user.PlayerId">@user.PlayerName</option>
-                    }
-                </select>
-            </label>
-            <small class="error">Tournament Owner is required</small>
-        </div>
-        <div class="large-12 columns">
-            <label>
-                Tournament Type
-                @Html.EnumDropDownListFor(model => model.EventType, "Please Select", new { required = "required", value = "" })
-            </label>
-            <small class="error">Tournament Type is required</small>
-        </div>
-
-        <div class="large-12 columns">
-            <button type="submit">Create Event</button>
+        <div class="input-field col s12 m6">
+            @Html.LabelFor(m => m.Date)
+            <input id="Date" name="Date" type="date" class="datepicker" required placeholder="Enter the Tournament Date" value="@Model.Date.ToString("yyyy-MM-dd")"/>
         </div>
     </div>
-</form>
+    <div class="row">
+        <div class="input-field col s12 m6">
+            <select id="OwnerId" name="OwnerId" required="required">
+                @foreach (var user in Model.Players)
+                {
+                    <option value="@user.PlayerId">@user.PlayerName</option>
+                }
+            </select>
+
+            @Html.LabelFor(m => m.OwnerId)
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12 m6">
+            @Html.EnumDropDownListFor(model => model.EventType, "Please Select", new {required = "required", value = ""})
+            @Html.LabelFor(m => m.EventType)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="input-field col s12">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+}

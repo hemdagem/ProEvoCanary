@@ -162,10 +162,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelBuilders\PlayerModelBuilder.cs" />
     <Compile Include="Models\AddEventModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\EventTypes.cs" />
+    <Compile Include="Models\Standings.cs" />
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Models\EventModel.cs" />
     <Compile Include="Models\HomeModel.cs" />

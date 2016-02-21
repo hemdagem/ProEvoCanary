@@ -36,6 +36,7 @@ namespace ProEvoCanary.Controllers
         public ActionResult Details(int id)
         {
             var eventModel = _eventRepository.GetEvent(id);
+            eventModel.Standings = _eventRepository.GetStandings(id);
             return View("Details", _mapper.Map<EventModel>(eventModel));
         }
 

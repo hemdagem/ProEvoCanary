@@ -155,9 +155,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Authentication\Create.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
@@ -173,6 +170,9 @@
       <Project>{3d96c9c6-abb0-4fb2-af72-73d0873e0ac0}</Project>
       <Name>ProEvoCanary.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_Header.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
