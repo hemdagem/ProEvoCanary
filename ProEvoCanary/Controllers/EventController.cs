@@ -61,6 +61,7 @@ namespace ProEvoCanary.Controllers
         [HttpPost]
         public ActionResult GenerateFixtures(int id, List<int> userIds)
         {
+            _eventRepository.AddTournamentUsers(id, userIds);
             _eventRepository.GenerateFixtures(id, userIds);
             return RedirectToAction("Details", "Event", new { Id = id });
         }

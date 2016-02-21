@@ -5,6 +5,7 @@ namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
     public interface IXmlGenerator
     {
-        string GenerateXmlDocument(List<TeamIds> teamIds, int eventId);
+        string GenerateFixtures(List<TeamIds> teamIds, int eventId);
+        string GenerateTournamentUsers(List<int> userIds, int eventId);
     }
 }

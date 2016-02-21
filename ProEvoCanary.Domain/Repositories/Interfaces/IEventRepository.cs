@@ -11,5 +11,6 @@ namespace ProEvoCanary.Domain.Repositories.Interfaces
         EventModel GetEventForEdit(int id, int ownerId);
         int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId);
         void GenerateFixtures(int eventId, List<int> userIds);
+        int AddTournamentUsers(int eventId, List<int> userIds);
     }
 }
