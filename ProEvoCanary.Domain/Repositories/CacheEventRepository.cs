@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.Domain.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using EventModel = ProEvoCanary.Domain.Models.EventModel;
 
@@ -24,6 +25,11 @@ namespace ProEvoCanary.Domain.Repositories
         public EventModel GetEvent(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public List<Standings> GetStandings(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public EventModel GetEventForEdit(int id, int ownerId)

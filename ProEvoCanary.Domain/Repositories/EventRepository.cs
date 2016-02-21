@@ -78,7 +78,38 @@ namespace ProEvoCanary.Domain.Repositories
 
             tournament.FixturesGenerated = tournament.Results.Count > 0;
 
+            reader.Close();
+
             return tournament;
+        }
+
+        public List<Standings> GetStandings(int id)
+        {
+            var parameters = new Dictionary<string, IConvertible>
+            {
+                { "@TournamentID", id }
+            };
+
+            var reader = _helper.ExecuteReader("up_GetStandings", parameters);
+            var standings = new List<Standings>();
+            while (reader.Read())
+            {
+                standings.Add(new Standings
+                {
+                    TeamName = reader["Name"].ToString(),
+                    UserId = (int)reader["UserID"],
+                    Played = (int)reader["Played"],
+                    Won = (int)reader["Won"],
+                    Draw = (int)reader["Draw"],
+                    Lost = (int)reader["Lost"],
+                    For = (int)reader["For"],
+                    Against = (int)reader["Against"],
+                    GoalDifference = (int)reader["GoalDifference"],
+                    Points = (int)reader["Points"],
+                });
+            }
+
+            return standings;
         }
 
         public EventModel GetEventForEdit(int id, int ownerId)

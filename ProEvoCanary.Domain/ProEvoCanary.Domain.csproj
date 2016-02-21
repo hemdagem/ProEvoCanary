@@ -131,6 +131,7 @@
     <Compile Include="Repositories\Interfaces\IResultRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRssFeedRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Models\Standings.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\PlayerRepositoryDecorator.cs" />
     <Compile Include="Repositories\ResultsCacheRepository.cs" />

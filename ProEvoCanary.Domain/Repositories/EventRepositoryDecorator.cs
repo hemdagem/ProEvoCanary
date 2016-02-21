@@ -37,6 +37,11 @@ namespace ProEvoCanary.Domain.Repositories
             throw new System.NotImplementedException();
         }
 
+        public List<Standings> GetStandings(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public EventModel GetEventForEdit(int id, int ownerId)
         {
             throw new System.NotImplementedException();

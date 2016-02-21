@@ -101,6 +101,7 @@ namespace ProEvoCanary
                 cfg.CreateMap<Domain.Models.ResultsModel, Models.ResultsModel>();
                 cfg.CreateMap<Domain.Models.RssFeedModel, Models.RssFeedModel>();
                 cfg.CreateMap<Domain.Models.EventTypes, Models.EventTypes>();
+                cfg.CreateMap<Domain.Models.Standings, Models.Standings>();
             });
 
             kernel.Bind<IMapper>().ToConstant(mapperConfiguration.CreateMapper());
