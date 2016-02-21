@@ -72,7 +72,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
         }
         
         [Test]
-        [ExpectedException(typeof(LessThanOneException))]
         public void ShouldThrowExceptionIfPageNumberIsLessThanOne()
         {
             var dictionary = new Dictionary<string, object>
@@ -91,11 +90,12 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-            repository.GetTopPlayersRange(0);
+           
+
+            Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(0));
         }
 
         [Test]
-        [ExpectedException(typeof(LessThanOneException))]
         public void ShouldThrowExceptionIfRowsPerPageIsLessThanOne()
         {
             var dictionary = new Dictionary<string, object>
@@ -114,7 +114,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-            repository.GetTopPlayersRange(1,0);
+            Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(1,0));
         }
 
         [Test]
@@ -148,7 +148,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
         }
         
         [Test]
-        [ExpectedException(typeof(TooManyPlayersReturnedException))]
         public void ShouldThrowExceptionIfMorePlayersThenSpecifiedIsReturned()
         {
             var dictionary = new Dictionary<string, object>
@@ -167,7 +166,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-            repository.GetTopPlayersRange(1, 2);
+            Assert.Throws<TooManyPlayersReturnedException>(() => repository.GetTopPlayersRange(1, 2));
         }            
     }
 }
