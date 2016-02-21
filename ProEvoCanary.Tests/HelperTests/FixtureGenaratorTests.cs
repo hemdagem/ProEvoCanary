@@ -9,7 +9,7 @@ namespace ProEvoCanary.Tests.HelperTests
     [TestFixture]
     public class FixtureGenaratorTests
     {
-        private readonly List<int> _teamIds = new List<int>();
+        private static List<int> _teamIds = new List<int>();
 
         [Test]
         [TestCase(null)]
