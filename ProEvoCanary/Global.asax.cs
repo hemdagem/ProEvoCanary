@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {

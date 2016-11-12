@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ProEvoCanary.Models;
+using ProEvoCanary.Web.Models;
 
 namespace ProEvoCanary.Tests.ModelTests
 {

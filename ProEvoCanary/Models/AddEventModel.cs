@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-namespace ProEvoCanary.Models
+
+namespace ProEvoCanary.Web.Models
 {
     public class AddEventModel
     {

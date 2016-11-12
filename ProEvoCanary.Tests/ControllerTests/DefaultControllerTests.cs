@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Controllers;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.Models;
+using ProEvoCanary.Web.Controllers;
+using ProEvoCanary.Web.Models;
 using EventModel = ProEvoCanary.Domain.Models.EventModel;
 using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
@@ -41,9 +41,9 @@ namespace ProEvoCanary.Tests.ControllerTests
                 }
             };
 
-            var playerModels = new List<Models.PlayerModel>
+            var playerModels = new List<Web.Models.PlayerModel>
             {
-                new Models.PlayerModel
+                new Web.Models.PlayerModel
                 {
                     PlayerId = 1,
                     PlayerName = "Hemang",
@@ -65,9 +65,9 @@ namespace ProEvoCanary.Tests.ControllerTests
                 }
             };
 
-            var rssFeedModels = new List<Models.RssFeedModel>
+            var rssFeedModels = new List<Web.Models.RssFeedModel>
             {
-                new Models.RssFeedModel
+                new Web.Models.RssFeedModel
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
@@ -88,9 +88,9 @@ namespace ProEvoCanary.Tests.ControllerTests
                     Completed = true
                 }
             };
-            var eventModels = new List<Models.EventModel>
+            var eventModels = new List<Web.Models.EventModel>
             {
-                new Models.EventModel
+                new Web.Models.EventModel
                 {
                     EventId = 1,
                     EventName = "Hemang",
@@ -116,9 +116,9 @@ namespace ProEvoCanary.Tests.ControllerTests
                 }
             };
 
-            var resultsModels = new List<Models.ResultsModel>
+            var resultsModels = new List<Web.Models.ResultsModel>
             {
-                new Models.ResultsModel
+                new Web.Models.ResultsModel
                 {
                     ResultId = 1,
                     HomeTeamId = 1,
@@ -131,10 +131,10 @@ namespace ProEvoCanary.Tests.ControllerTests
             };
             _resultsRepository.Setup(x => x.GetResults()).Returns(domainResultsModels);
 
-            _mapper.Setup(x => x.Map<List<Models.EventModel>>(domainEventModels)).Returns(eventModels);
-            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
-            _mapper.Setup(x => x.Map<List<Models.RssFeedModel>>(domainRssFeedModels)).Returns(rssFeedModels);
-            _mapper.Setup(x => x.Map<List<Models.ResultsModel>>(domainResultsModels)).Returns(resultsModels);
+            _mapper.Setup(x => x.Map<List<Web.Models.EventModel>>(domainEventModels)).Returns(eventModels);
+            _mapper.Setup(x => x.Map<List<Web.Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+            _mapper.Setup(x => x.Map<List<Web.Models.RssFeedModel>>(domainRssFeedModels)).Returns(rssFeedModels);
+            _mapper.Setup(x => x.Map<List<Web.Models.ResultsModel>>(domainResultsModels)).Returns(resultsModels);
 
             _defaultController = new DefaultController(_playerRepository.Object, _rssFeedRepository.Object,
                 _eventsRepository.Object, _resultsRepository.Object, _mapper.Object);

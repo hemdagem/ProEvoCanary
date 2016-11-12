@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Controllers;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using LoginModel = ProEvoCanary.Models.LoginModel;
+using ProEvoCanary.Web.Controllers;
+using LoginModel = ProEvoCanary.Web.Models.LoginModel;
 using UserModel = ProEvoCanary.Domain.Models.UserModel;
 using UserType = ProEvoCanary.Domain.Authentication.UserType;
 

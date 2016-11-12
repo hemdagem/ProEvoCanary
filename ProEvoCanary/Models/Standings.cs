@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ProEvoCanary.Models
+﻿namespace ProEvoCanary.Web.Models
 {
     public class Standings
     {

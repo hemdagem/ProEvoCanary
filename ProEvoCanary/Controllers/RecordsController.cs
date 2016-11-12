@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using AutoMapper;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.Models;
+using ProEvoCanary.Web.Models;
 
-namespace ProEvoCanary.Controllers
+namespace ProEvoCanary.Web.Controllers
 {
     [AllowAnonymous]
     public class RecordsController : Controller

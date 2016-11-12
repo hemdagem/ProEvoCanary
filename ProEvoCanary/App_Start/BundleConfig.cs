@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Web
 {
     public class BundleConfig
     {

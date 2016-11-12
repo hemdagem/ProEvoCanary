@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProEvoCanary.Models
+namespace ProEvoCanary.Web.Models
 {
     public class EventModel
     {

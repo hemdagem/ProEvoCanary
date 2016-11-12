@@ -5,8 +5,8 @@ using NUnit.Framework;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Models;
 using ProEvoCanary.Tests.HelperTests;
+using ProEvoCanary.Web.Models;
 
 namespace ProEvoCanary.Tests.RepositoryTests
 {

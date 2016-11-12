@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Web
 {
     public class FilterConfig
     {

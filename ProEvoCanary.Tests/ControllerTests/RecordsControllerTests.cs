@@ -4,9 +4,9 @@ using System.Web.Mvc;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Controllers;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.Models;
+using ProEvoCanary.Web.Controllers;
+using ProEvoCanary.Web.Models;
 using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 using RecordsModel = ProEvoCanary.Domain.Models.RecordsModel;
 using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
@@ -25,9 +25,9 @@ namespace ProEvoCanary.Tests.ControllerTests
             _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
-            var playerModels = new List<Models.PlayerModel>()
+            var playerModels = new List<Web.Models.PlayerModel>()
             {
-                new Models.PlayerModel
+                new Web.Models.PlayerModel
                 {
                     PlayerName = "Hemang",
                     PlayerId = 1
@@ -44,17 +44,17 @@ namespace ProEvoCanary.Tests.ControllerTests
             };
             _playerRepository.Setup(x => x.GetAllPlayers()).Returns(domainPlayerModels);
 
-            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+            _mapper.Setup(x => x.Map<List<Web.Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
 
-            var recordsModel = new Models.RecordsModel
+            var recordsModel = new Web.Models.RecordsModel
             {
                 TotalMatches = 1,
                 PlayerOneWins = 2,
                 PlayerTwoWins = 3,
                 TotalDraws = 4,
-                Results = new List<Models.ResultsModel>
+                Results = new List<Web.Models.ResultsModel>
                 {
-                    new Models.ResultsModel
+                    new Web.Models.ResultsModel
                     {
                         AwayScore = 0,
                         AwayTeam = "Villa",
@@ -85,7 +85,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             };
             _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(domainRecordsModel);
 
-            _mapper.Setup(x => x.Map<Models.RecordsModel>(domainRecordsModel)).Returns(recordsModel);
+            _mapper.Setup(x => x.Map<Web.Models.RecordsModel>(domainRecordsModel)).Returns(recordsModel);
         }
 
         [Test]

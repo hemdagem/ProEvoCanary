@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Web
 {
     public class RouteConfig
     {

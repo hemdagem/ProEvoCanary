@@ -5,10 +5,10 @@ using System.Web.Mvc;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Controllers;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.Models;
+using ProEvoCanary.Web.Controllers;
+using ProEvoCanary.Web.Models;
 using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 
 namespace ProEvoCanary.Tests.ControllerTests
@@ -98,9 +98,9 @@ namespace ProEvoCanary.Tests.ControllerTests
 
             _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
 
-            var playerModels = new List<Models.PlayerModel>()
+            var playerModels = new List<Web.Models.PlayerModel>()
             {
-                new Models.PlayerModel
+                new Web.Models.PlayerModel
                 {
                     PlayerName = "Test",
                     PlayerId = 1
@@ -116,14 +116,14 @@ namespace ProEvoCanary.Tests.ControllerTests
             };
             _mockPlayerRepository.Setup(x => x.GetAllPlayers()).Returns(domainPlayerModels);
 
-            _mapper.Setup(x => x.Map<List<Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+            _mapper.Setup(x => x.Map<List<Web.Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
 
-            var eventModel = new Models.EventModel
+            var eventModel = new EventModel
             {
                 Completed = true,
                 Date = date,
                 EventId = 10,
-               EventTypes = Models.EventTypes.Friendly,
+               EventTypes = EventTypes.Friendly,
                 FixturesGenerated = true,
                 EventName = "Test",
                 OwnerId = 4

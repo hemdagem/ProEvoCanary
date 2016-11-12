@@ -4,18 +4,18 @@ using AutoMapper;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
-using ProEvoCanary;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.Web;
 using IConfiguration = ProEvoCanary.Domain.Helpers.Interfaces.IConfiguration;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
 
-namespace ProEvoCanary
+namespace ProEvoCanary.Web
 {
     public static class NinjectWebCommon
     {

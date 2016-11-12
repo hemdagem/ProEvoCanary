@@ -5,7 +5,7 @@ using AutoMapper;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.Controllers
+namespace ProEvoCanary.Web.Controllers
 {
     public class ResultsController : Controller
     {

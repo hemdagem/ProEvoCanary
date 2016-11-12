@@ -5,10 +5,10 @@ using System.Web.Mvc;
 using AutoMapper;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using ProEvoCanary.Models;
+using ProEvoCanary.Web.Models;
 using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
-namespace ProEvoCanary.Controllers
+namespace ProEvoCanary.Web.Controllers
 {
     public class EventController : Controller
     {
