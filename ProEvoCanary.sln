@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.Web", "ProEvoCanary\ProEvoCanary.Web.csproj", "{B2350B8A-62CB-4BB9-A9DB-C52EECE4FF77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.Web", "ProEvoCanary.Web\ProEvoCanary.Web.csproj", "{B2350B8A-62CB-4BB9-A9DB-C52EECE4FF77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.UnitTests", "ProEvoCanary.Tests\ProEvoCanary.UnitTests.csproj", "{65B2C6CD-57F3-41BA-90A9-6B05C8342B86}"
 EndProject

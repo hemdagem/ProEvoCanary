@@ -1,0 +1,14 @@
+﻿@model List<ProEvoCanary.Web.Models.RssFeedModel>
+
+@foreach (var item in Model.Take(5))
+{
+    <div class="card-panel red lighten-2">
+        <img class="activator" src="@item.ImageUrl">
+        <i class="material-icons circle right">forum</i>
+        <p>
+            <a class="white-text" href="@item.LinkUrl">@item.LinkTitle</a>
+        </p>
+        <p class="white-text">@item.LinkDescription</p>
+    </div>
+}
+
