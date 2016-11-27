@@ -16,7 +16,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         private Mock<IUserRepository> _repo;
         private Mock<IAuthenticationHandler> _authenticationMock;
 
-        private void Setup()
+        public AuthenticationControllerTests()
         {
             _repo = new Mock<IUserRepository>();
             _authenticationMock = new Mock<IAuthenticationHandler>();
@@ -26,7 +26,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetDefaultViewNameToLoginForLoginPage()
         {
             //given
-            Setup();
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 
             //when
@@ -39,7 +38,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetDefaultViewNameToCreateForCreatePage()
         {
             //given
-            Setup();
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 
             //when
@@ -53,7 +51,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldCallUserRepositoryWhenModelIsValid()
         {
             //given
-            Setup();
             _repo.Setup(x => x.Login(It.IsAny<Domain.Models.LoginModel>())).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
             var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
 

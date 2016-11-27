@@ -9,10 +9,10 @@ namespace ProEvoCanary.IntegrationTests
 {
     public class CacheEventRepositoryTests
     {
-        private MemoryCache _cache;
-        private CacheItemPolicy _cacheItemPolicy;
+        private readonly MemoryCache _cache;
+        private readonly CacheItemPolicy _cacheItemPolicy;
 
-        private void Setup()
+        public CacheEventRepositoryTests()
         {
             _cache = MemoryCache.Default;
             _cacheItemPolicy = new CacheItemPolicy
@@ -25,8 +25,6 @@ namespace ProEvoCanary.IntegrationTests
         public void ShouldGetCachedListOfEvents()
         {
             //given
-            Setup();
-
             var expectedEvents = new List<Domain.Models.EventModel>
             {
                 new Domain.Models.EventModel
@@ -57,16 +55,10 @@ namespace ProEvoCanary.IntegrationTests
             End();
         }
 
-        private void End()
-        {
-            _cache.Remove("EventsListCache");
-        }
-
         [Test]
         public void ShouldNotGetCachedEvents()
         {
             //given
-            Setup();
             var repository = new CacheEventRepository(new CachingManager(MemoryCache.Default));
 
             //when
@@ -75,6 +67,11 @@ namespace ProEvoCanary.IntegrationTests
             //then
             Assert.IsNull(getEventsModel);
             End();
+        }
+
+        private void End()
+        {
+            _cache.Remove("EventsListCache");
         }
     }
 }

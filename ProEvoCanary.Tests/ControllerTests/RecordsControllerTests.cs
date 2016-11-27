@@ -20,7 +20,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         Mock<IResultRepository> _resultRepository;
         private Mock<IMapper> _mapper;
 
-        private void Setup()
+        public RecordsControllerTests()
         {
             _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<IPlayerRepository>();
@@ -92,7 +92,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldGetRightViewForHeadToHeadView()
         {
             //given
-            Setup();
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when
@@ -106,7 +105,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetModelWithRightPropertiesForHeadToHead()
         {
             //given
-            Setup();
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when
@@ -124,8 +122,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldGetHeadToHeadRecord()
         {
             //given
-            Setup();
-            
             var recordsController = new RecordsController(_playerRepository.Object, _resultRepository.Object, _mapper.Object);
 
             //when

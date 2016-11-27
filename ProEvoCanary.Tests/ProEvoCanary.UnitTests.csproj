@@ -111,7 +111,7 @@
       <Project>{3d96c9c6-abb0-4fb2-af72-73d0873e0ac0}</Project>
       <Name>ProEvoCanary.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProEvoCanary\ProEvoCanary.Web.csproj">
+    <ProjectReference Include="..\ProEvoCanary.Web\ProEvoCanary.Web.csproj">
       <Project>{B2350B8A-62CB-4BB9-A9DB-C52EECE4FF77}</Project>
       <Name>ProEvoCanary.Web</Name>
     </ProjectReference>
@@ -120,10 +120,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ControllerTests\Admin\" />
-    <Folder Include="ControllerTests\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

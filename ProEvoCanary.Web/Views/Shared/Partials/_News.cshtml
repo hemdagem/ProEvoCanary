@@ -3,11 +3,10 @@
 @foreach (var item in Model.Take(5))
 {
     <div class="card-panel red lighten-2">
-        <img class="activator" src="@item.ImageUrl">
-        <i class="material-icons circle right">forum</i>
-        <p>
+        <img class="activator responsive-img" src="@item.ImageUrl">
+        <h5>
             <a class="white-text" href="@item.LinkUrl">@item.LinkTitle</a>
-        </p>
+        </h5>
         <p class="white-text">@item.LinkDescription</p>
     </div>
 }

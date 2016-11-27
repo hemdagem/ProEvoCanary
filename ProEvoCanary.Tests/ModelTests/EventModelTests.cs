@@ -14,7 +14,6 @@ namespace ProEvoCanary.Tests.ModelTests
 
             //then
             Assert.IsNotNull(eventModel.Users);
-
         }
     }
 }

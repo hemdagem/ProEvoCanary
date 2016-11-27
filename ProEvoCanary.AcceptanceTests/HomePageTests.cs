@@ -31,7 +31,6 @@ namespace ProEvoCanary.AcceptanceTests
         [Test]
         public void ShouldHaveALinkToRecordsPage()
         {
-            _driver.Navigate().GoToUrl(Url);
             IWebElement query = _driver.FindElement(By.CssSelector("body > nav > section > ul > li:last-child > a"));
 
             Assert.That(query.GetAttribute("href"), Contains.Substring("/Records/HeadToHead"));

@@ -25,7 +25,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         private DefaultController _defaultController;
         private ViewResult _result;
 
-        private void Setup()
+        public DefaultControllerTests()
         {
             _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<ICachePlayerRepository>();
@@ -144,10 +144,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         [Test]
         public void ShouldSetEventsModel()
         {
-            //given
-            Setup();
-
-            //when
+            //given + when
             var model = _result.Model as HomeModel;
 
             //then
@@ -162,10 +159,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         [Test]
         public void ShouldSetPlayerModel()
         {
-            //given
-            Setup();
-
-            //when
+            //given + when
             var model = _result.Model as HomeModel;
 
             //then
@@ -180,10 +174,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         [Test]
         public void ShouldSetResultsModel()
         {
-            //given
-            Setup();
-
-            //when
+            //given + when
             var model = _result.Model as HomeModel;
 
             //then
@@ -200,10 +191,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         [Test]
         public void ShouldSetRssFeedModel()
         {
-            //given
-            Setup();
-
-            //when
+            //given + when
             var model = _result.Model as HomeModel;
 
             //then
@@ -215,10 +203,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         [Test]
         public void ShouldSetViewToDefault()
         {
-            //given
-            Setup();
-
-            //then
+            //given + when + then
             Assert.That(_result.ViewName, Is.EqualTo("Index"));
         }
     }

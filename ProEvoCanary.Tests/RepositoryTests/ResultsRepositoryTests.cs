@@ -12,7 +12,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
     [TestFixture]
     public class ResultsRepositoryTests
     {
-
         [Test]
         public void ShouldGetResults()
         {
@@ -48,7 +47,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().ResultId, Is.EqualTo(1));
         }
 
-    
         [Test]
         public void ShouldGetHeadToHeadRecord()
         {
@@ -88,8 +86,5 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.Results.First().ResultId, Is.EqualTo(1));
         }
-
-
-      
     }
 }

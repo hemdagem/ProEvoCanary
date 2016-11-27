@@ -14,7 +14,7 @@ namespace ProEvoCanary.IntegrationTests
         private MemoryCache _cache;
         private CacheItemPolicy _cacheItemPolicy;
 
-        private void Setup()
+        public CacheResultsRepositoryTests()
         {
             _cache = MemoryCache.Default;
             _cacheItemPolicy = new CacheItemPolicy
@@ -29,12 +29,10 @@ namespace ProEvoCanary.IntegrationTests
             _cache.Remove("PlayerCacheList");
         }
 
-
         [Test]
         public void ShouldGetCachedResults()
         {
             //given
-            Setup();
             var resultsModel = new List<ResultsModel>
             {
                 new ResultsModel
@@ -57,12 +55,10 @@ namespace ProEvoCanary.IntegrationTests
             End();
         }
 
-
         [Test]
         public void ShouldGetCachedHeadToHeadRecord()
         {
             //given
-            Setup();
             var resultsModel = new RecordsModel
             {
                 PlayerOneWins = 1,
@@ -91,8 +87,5 @@ namespace ProEvoCanary.IntegrationTests
 
             End();
         }
-
     }
-
-
 }

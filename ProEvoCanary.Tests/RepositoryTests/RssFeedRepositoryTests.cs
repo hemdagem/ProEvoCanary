@@ -9,8 +9,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 {
     class RssFeedRepositoryTests
     {
-
-
         [Test]
         public void ShouldGetNews()
         {
@@ -30,11 +28,10 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //when
             var repository = new RssFeedRepositoryDecorator(cacheLoader.Object, loader.Object);
-           var feed = repository.GetFeed("Yes");
-           
+            var feed = repository.GetFeed("Yes");
 
             //then
-            Assert.That(feed[0].LinkTitle,Is.EqualTo("hemang"));
+            Assert.That(feed[0].LinkTitle, Is.EqualTo("hemang"));
             Assert.That(feed[0].LinkDescription, Is.EqualTo("ha"));
             Assert.That(feed[0].ImageHeight, Is.EqualTo("200"));
             Assert.That(feed[0].ImageUrl, Is.EqualTo("http://google.com"));
@@ -42,8 +39,8 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(feed[0].LinkUrl, Is.EqualTo("http://arsenal.com"));
             Assert.That(feed[0].PublishDate, Is.EqualTo("10/10/2010"));
 
-        }  
-        
+        }
+
         [Test]
         public void ShouldGetCachedNews()
         {
@@ -66,7 +63,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 }
             });
 
-       
             //when
             var repository = new RssFeedRepositoryDecorator(cacheLoader.Object, loader.Object);
             repository.GetFeed(It.IsAny<string>());
@@ -74,7 +70,6 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             loader.Verify(x => x.Load(It.IsAny<string>()), Times.Never);
-
         }
     }
 }

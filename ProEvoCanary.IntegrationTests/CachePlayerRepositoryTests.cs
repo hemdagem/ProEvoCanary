@@ -51,8 +51,6 @@ namespace ProEvoCanary.IntegrationTests
             End();
         }
 
-
-
         [Test]
         public void ShouldNotGetCachedPlayers()
         {
@@ -67,7 +65,6 @@ namespace ProEvoCanary.IntegrationTests
             Assert.IsNull(allPlayers);
             End();
         }
-
 
         [Test]
         public void ShouldGetCachedPlayerList()

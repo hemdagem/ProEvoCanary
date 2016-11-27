@@ -24,7 +24,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Surname", "Rajyaguru"},
                 {"Username", "hemdagem"},
                 {"UserType", 2}
-            };  
+            };
         readonly Dictionary<string, object> _adminDictionary = new Dictionary<string, object>
             {
                 {"UserId", 1},
@@ -48,7 +48,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Setup();
             _passwordHash.Setup(x => x.ValidatePassword(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             _helper.Setup(x => x.ExecuteReader("up_GetLoginDetails", It.IsAny<IDictionary<string, IConvertible>>())).Returns(DataReaderTestHelper.Reader(_adminDictionary));
-            
+
             //when
             var user = _repository.GetUser(It.IsAny<string>());
 
@@ -57,7 +57,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(user.Forename, Is.EqualTo("Hemang"));
             Assert.That(user.Surname, Is.EqualTo("Rajyaguru"));
             Assert.That(user.Username, Is.EqualTo("hemdagem"));
-            Assert.That(user.UserType,Is.EqualTo((int)UserType.Admin));
+            Assert.That(user.UserType, Is.EqualTo((int)UserType.Admin));
         }
 
         [Test]

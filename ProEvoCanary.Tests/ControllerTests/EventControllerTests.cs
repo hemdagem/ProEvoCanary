@@ -24,7 +24,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         private Mock<IMapper> _mapper;
         private Mock<IPlayerRepository> _mockPlayerRepository;
 
-        private void Setup()
+        public EventControllerTests()
         {
             _repo = new Mock<IEventRepository>();
             _mockPlayerRepository = new Mock<IPlayerRepository>();
@@ -39,10 +39,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         [Test]
         public void ShouldAddDefaultSettingsForCreateAction()
         {
-            //given
-            Setup();
-
-            //when
+            //given + when
             var viewResult = _eventController.Create() as ViewResult;
 
             //then
@@ -55,7 +52,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldRedirectToGenerateFixturesAction()
         {
             //given
-            Setup();
             _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>())).Returns(1);
 
             //when
@@ -73,8 +69,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldReturnExceptionWhenEventDoesntExist()
         {
             //given
-            Setup();
-
             _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
                 .Returns((Domain.Models.EventModel)null);
 
@@ -86,8 +80,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetModelPropertiesForGenerateFixturesModel()
         {
             //given
-            Setup();
-
             var date = DateTime.Now.ToString();
 
             var claimsPrincipal = new ClaimsPrincipal();

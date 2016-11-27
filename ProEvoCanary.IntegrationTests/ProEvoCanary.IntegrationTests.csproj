@@ -60,7 +60,7 @@
       <Project>{3D96C9C6-ABB0-4FB2-AF72-73D0873E0AC0}</Project>
       <Name>ProEvoCanary.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProEvoCanary\ProEvoCanary.Web.csproj">
+    <ProjectReference Include="..\ProEvoCanary.Web\ProEvoCanary.Web.csproj">
       <Project>{b2350b8a-62cb-4bb9-a9db-c52eece4ff77}</Project>
       <Name>ProEvoCanary.Web</Name>
     </ProjectReference>

@@ -23,7 +23,6 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             var viewResult = authenticationController.Create() as ViewResult;
 
             //then
-
             Assert.That(viewResult.ViewName, Is.EqualTo("Create"));
         }
 
@@ -38,8 +37,6 @@ namespace ProEvoCanary.AdminWeb.UnitTests
 
             //then
             repo.Verify(x => x.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress,_loginModel.Password), Times.Once);
-
-
         }
 
         [Test]
@@ -54,12 +51,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
 
             //then
             repo.Verify(x => x.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password), Times.Never);
-
-
         }
-
-
-
 
         [Test]
         public void ShouldNotRedirectToHomePageOnFailedModelEntry()
@@ -75,7 +67,6 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             //then
             Assert.IsNull(redirectToRouteResult);
             Assert.IsInstanceOf<CreateUserModel>(view.Model);
-
         }
 
         [Test]
