@@ -30,7 +30,7 @@ namespace ProEvoCanary.Domain.Repositories
             };
 
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("up_GetTopPlayers",parameters);
+            var reader = _helper.ExecuteReader("up_GetTopPlayers", parameters);
             while (reader.Read())
             {
                 players.Add(new PlayerModel
@@ -54,20 +54,22 @@ namespace ProEvoCanary.Domain.Repositories
         public List<PlayerModel> GetTopPlayers()
         {
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("up_GetTopPlayers");
-            while (reader.Read())
+            using (var reader = _helper.ExecuteReader("up_GetTopPlayers"))
             {
-                players.Add(new PlayerModel
+                while (reader.Read())
                 {
-                    PlayerId = (int)reader["Id"],
-                    PlayerName = reader["Name"].ToString(),
-                    GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
-                    PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
-                    MatchesPlayed = (int)reader["MatchesPlayed"]
-                });
-            }
+                    players.Add(new PlayerModel
+                    {
+                        PlayerId = (int)reader["Id"],
+                        PlayerName = reader["Name"].ToString(),
+                        GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
+                        PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
+                        MatchesPlayed = (int)reader["MatchesPlayed"]
+                    });
+                }
 
-            return players;
+                return players;
+            }
         }
 
         public List<PlayerModel> GetAllPlayers()

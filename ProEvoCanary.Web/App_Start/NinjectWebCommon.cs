@@ -1,4 +1,6 @@
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Web;
 using AutoMapper;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -10,7 +12,6 @@ using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web;
-using IConfiguration = ProEvoCanary.Domain.Helpers.Interfaces.IConfiguration;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
@@ -74,6 +75,8 @@ namespace ProEvoCanary.Web
             kernel.Bind<ICacheRssLoader>().To<RssCacheLoader>();
             kernel.Bind<IConfiguration>().To<Configuration>();
             kernel.Bind<IDbHelper>().To<DbHelper>();
+
+
             kernel.Bind<IRssLoader>().To<RssLoader>();
             kernel.Bind<IAuthenticationHandler>().To<AuthenticationHandler>();
             kernel.Bind<IPasswordHash>().To<PasswordHash>();
