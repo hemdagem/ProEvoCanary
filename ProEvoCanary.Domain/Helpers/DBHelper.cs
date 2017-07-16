@@ -16,12 +16,12 @@ namespace ProEvoCanary.Domain.Helpers
             _connection = connection.GetConfig();
 
         }
-        public int ExecuteScalar(string storedProcedure, IDictionary<string, IConvertible> parameters = null)
+        public int ExecuteScalar(string storedProcedure, object param = null)
         {
             using (SqlConnection db = new SqlConnection(_connection))
             {
                 db.Open();
-                return Convert.ToInt32(db.ExecuteScalar(storedProcedure, parameters, null, 30, CommandType.StoredProcedure));
+                return Convert.ToInt32(db.ExecuteScalar(storedProcedure, param, null, 30, CommandType.StoredProcedure));
             }
         }
 
@@ -34,11 +34,11 @@ namespace ProEvoCanary.Domain.Helpers
             }
         }
 
-        public IDataReader ExecuteReader(string storedProcedure, IDictionary<string, IConvertible> parameters = null)
+        public IDataReader ExecuteReader(string storedProcedure, object param = null)
         {
             SqlConnection db = new SqlConnection(_connection);
             db.Open();
-            return db.ExecuteReader(storedProcedure, parameters, null, 30, CommandType.StoredProcedure);
+            return db.ExecuteReader(storedProcedure, param, null, 30, CommandType.StoredProcedure);
         }
         public SqlMapper.GridReader ExecuteReaderMultiple(string storedProcedure, object param =null)
         {

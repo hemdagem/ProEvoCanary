@@ -37,7 +37,7 @@ namespace ProEvoCanary.Domain.Repositories
             throw new System.NotImplementedException();
         }
 
-        public int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime Date, int eventType, int ownerId)
         {
             throw new NotImplementedException();
         }

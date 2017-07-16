@@ -10,7 +10,7 @@ namespace ProEvoCanary.Database
         static int Main(string[] args)
         {
             var connectionString = ConfigurationManager.ConnectionStrings["ProEvoLeagueConnectionString"].ConnectionString;
-
+            EnsureDatabase.For.SqlDatabase(connectionString);
             var upgrader =
                 DeployChanges.To
                     .SqlDatabase(connectionString)
@@ -25,9 +25,10 @@ namespace ProEvoCanary.Database
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result.Error);
                 Console.ResetColor();
-#if DEBUG
-                Console.ReadLine();
-#endif
+                #if DEBUG
+                    Console.ReadLine();
+                #endif
+
                 return -1;
             }
 

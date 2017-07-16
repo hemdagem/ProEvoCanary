@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
@@ -72,7 +73,7 @@ namespace ProEvoCanary.Domain.Repositories
                 { "@Password", _passwordHash.CreateHash(password) }
             };
 
-            return _dbHelper.ExecuteScalar("up_AddUser", parameters);
+            return _dbHelper.ExecuteScalar("up_AddUser", new { Username = userName, Forename = forename, Surname = surname, Email = emailAddress, Password = _passwordHash.CreateHash(password) });
         }
 
 
@@ -83,13 +84,9 @@ namespace ProEvoCanary.Domain.Repositories
                 throw new NullReferenceException("Username or Password is empty");
             }
 
-            var parameters = new Dictionary<string, IConvertible>
-            {
-                {"@Username", loginModel.Username}
-            };
 
             UserModel model = null;
-            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails", parameters))
+            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails", new { Username = loginModel.Username }))
             {
                 while (reader.Read())
                 {
@@ -97,7 +94,7 @@ namespace ProEvoCanary.Domain.Repositories
 
                     if (_passwordHash.ValidatePassword(loginModel.Password, hash))
                     {
-                        model = new UserModel((int)reader["Id"], reader["Forename"].ToString(), reader["Surname"].ToString(), loginModel.Username, (int)reader["UserType"]);
+                        model = new UserModel((int)reader["UserId"], reader["Forename"].ToString(), reader["Surname"].ToString(), loginModel.Username, (int)reader["UserType"]);
                     }
                 }
             }

@@ -42,19 +42,17 @@ namespace ProEvoCanary.Domain.Repositories
         public EventModel GetEvent(int id)
         {
             var reader = _helper.ExecuteReaderMultiple("up_GetTournamentForEdit", new { id });
-           var eventModel = reader.ReadFirst();
+            var eventModel = reader.ReadFirst();
             EventModel tournament = new EventModel
             {
                 TournamentId = eventModel.Id,
                 Completed = eventModel.Completed,
                 Date = eventModel.Date.ToString(),
                 TournamentName = eventModel.TournamentName,
-                TournamentType =
-                    (TournamentType) Enum.Parse(typeof(TournamentType), eventModel.TournamentType.ToString())
-
+                TournamentType = (TournamentType)Enum.Parse(typeof(TournamentType), eventModel.TournamentType.ToString()),
+                Results = reader.Read<ResultsModel>().ToList()
             };
 
-            tournament.Results = reader.Read<ResultsModel>().ToList();
 
 
             tournament.FixturesGenerated = tournament.Results.Count > 0;
@@ -64,12 +62,8 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<Standings> GetStandings(int id)
         {
-            var parameters = new Dictionary<string, IConvertible>
-            {
-                { "@TournamentID", id }
-            };
 
-            var reader = _helper.ExecuteReader("up_GetStandings", parameters);
+            var reader = _helper.ExecuteReader("up_GetStandings", new { TournamentId = id });
             var standings = new List<Standings>();
             while (reader.Read())
             {
@@ -93,12 +87,8 @@ namespace ProEvoCanary.Domain.Repositories
 
         public EventModel GetEventForEdit(int id, int ownerId)
         {
-            var parameters = new Dictionary<string, IConvertible>
-            {
-                { "@Id", id }
-            };
 
-            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", parameters);
+            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", new { TournamentId = id });
             var tournament = new EventModel();
             while (reader.Read())
             {
@@ -138,7 +128,7 @@ namespace ProEvoCanary.Domain.Repositories
             return tournament;
         }
 
-        public int CreateEvent(string tournamentname, DateTime utcNow, int eventType, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime date, int eventType, int ownerId)
         {
             if (string.IsNullOrEmpty(tournamentname))
             {
@@ -150,15 +140,7 @@ namespace ProEvoCanary.Domain.Repositories
                 throw new LessThanOneException("Owner Id must be greater than zero");
             }
 
-            var parameters = new Dictionary<string, IConvertible>
-            {
-                { "@TournamentName", tournamentname },
-                { "@TournamentType", eventType },
-                { "@Date", utcNow },
-                { "@OwnerId", ownerId },
-            };
-
-            return _helper.ExecuteScalar("up_AddTournament", parameters);
+            return _helper.ExecuteScalar("up_AddTournament", new { TournamentName = tournamentname, TournamentType = eventType, Date = date, ownerId });
         }
 
         public void GenerateFixtures(int eventId, List<int> userIds)

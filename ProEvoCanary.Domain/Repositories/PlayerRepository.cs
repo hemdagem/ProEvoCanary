@@ -82,7 +82,7 @@ namespace ProEvoCanary.Domain.Repositories
                 players.Add(new PlayerModel
                 {
                     PlayerName = reader["Name"].ToString(),
-                    PlayerId = (int)reader["Id"]
+                    PlayerId = (int)reader["UserId"]
                 });
             }
 
