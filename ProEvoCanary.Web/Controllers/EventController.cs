@@ -44,7 +44,7 @@ namespace ProEvoCanary.Web.Controllers
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
-            var eventId = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.EventType, _currentUser.CurrentUser.Id);
+            var eventId = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType, _currentUser.CurrentUser.Id);
             return RedirectToAction("GenerateFixtures", "Event",new {id= eventId });
         }
 

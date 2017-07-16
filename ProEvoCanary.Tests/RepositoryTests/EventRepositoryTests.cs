@@ -38,8 +38,8 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             Assert.That(resultsModels.Count, Is.EqualTo(1));
-            Assert.That(resultsModels.First().EventId, Is.EqualTo(0));
-            Assert.That(resultsModels.First().EventName, Is.EqualTo("Event"));
+            Assert.That(resultsModels.First().TournamentId, Is.EqualTo(0));
+            Assert.That(resultsModels.First().TournamentName, Is.EqualTo("Event"));
             Assert.That(resultsModels.First().Date, Is.EqualTo("10/10/2010"));
             Assert.That(resultsModels.First().Name, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().Completed, Is.EqualTo(true));
@@ -55,7 +55,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"TournamentName", "Event"},
                 {"Date", "10/10/2010"},
                 {"Completed", false},
-                {"TournamentType", EventTypes.Friendly},
+                {"TournamentType", TournamentType.Friendly},
             };
 
             var helper = new Mock<IDbHelper>();
@@ -69,13 +69,13 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //then
             Assert.IsNotNull(eventModel);
-            Assert.That(eventModel.EventId, Is.EqualTo(15));
+            Assert.That(eventModel.TournamentId, Is.EqualTo(15));
             Assert.That(eventModel.OwnerId, Is.EqualTo(10));
-            Assert.That(eventModel.EventName, Is.EqualTo("Event"));
+            Assert.That(eventModel.TournamentName, Is.EqualTo("Event"));
             Assert.That(eventModel.Date, Is.EqualTo("10/10/2010"));
             Assert.That(eventModel.Completed, Is.EqualTo(false));
             Assert.That(eventModel.FixturesGenerated, Is.EqualTo(false));
-            Assert.That(eventModel.EventTypes, Is.EqualTo(Domain.Models.EventTypes.Friendly));
+            Assert.That(eventModel.TournamentType, Is.EqualTo(Domain.Models.TournamentType.Friendly));
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
-            var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, (int)EventTypes.Friendly, 1);
+            var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, (int)TournamentType.Friendly, 1);
 
             //then
             Assert.That(user, Is.EqualTo(1));

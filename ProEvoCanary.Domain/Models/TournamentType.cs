@@ -1,6 +1,6 @@
-﻿namespace ProEvoCanary.Web.Models
+﻿namespace ProEvoCanary.Domain.Models
 {
-    public enum EventTypes
+    public enum TournamentType
     {
         League = 1,
         Friendly = 2,

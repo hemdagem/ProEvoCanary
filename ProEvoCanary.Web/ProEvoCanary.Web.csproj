@@ -158,7 +158,7 @@
     </Compile>
     <Compile Include="Models\AddEventModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
-    <Compile Include="Models\EventTypes.cs" />
+    <Compile Include="Models\TournamentType.cs" />
     <Compile Include="Models\Standings.cs" />
     <Compile Include="Models\TeamIds.cs" />
     <Compile Include="Models\EventModel.cs" />

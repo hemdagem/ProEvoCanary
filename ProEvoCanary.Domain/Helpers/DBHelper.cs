@@ -39,9 +39,13 @@ namespace ProEvoCanary.Domain.Helpers
             SqlConnection db = new SqlConnection(_connection);
             db.Open();
             return db.ExecuteReader(storedProcedure, parameters, null, 30, CommandType.StoredProcedure);
-
         }
-
+        public SqlMapper.GridReader ExecuteReaderMultiple(string storedProcedure, object param =null)
+        {
+            SqlConnection db = new SqlConnection(_connection);
+            db.Open();
+            return db.QueryMultiple(storedProcedure, param, null, 30, CommandType.StoredProcedure);
+        }
     }
 }
 

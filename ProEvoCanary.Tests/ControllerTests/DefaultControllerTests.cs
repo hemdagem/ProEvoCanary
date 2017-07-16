@@ -81,8 +81,8 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 new EventModel
                 {
-                    EventId = 1,
-                    EventName = "Hemang",
+                    TournamentId = 1,
+                    TournamentName = "Hemang",
                     Date = "10/10/2014",
                     Name = "Hemang",
                     Completed = true
@@ -92,8 +92,8 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 new Web.Models.EventModel
                 {
-                    EventId = 1,
-                    EventName = "Hemang",
+                    TournamentId = 1,
+                    TournamentName = "Hemang",
                     Date = "10/10/2014",
                     Name = "Hemang",
                     Completed = true
@@ -149,8 +149,8 @@ namespace ProEvoCanary.Tests.ControllerTests
 
             //then
             Assert.That(model.Events.Count(), Is.EqualTo(1));
-            Assert.That(model.Events.First().EventId, Is.EqualTo(1));
-            Assert.That(model.Events.First().EventName, Is.EqualTo("Hemang"));
+            Assert.That(model.Events.First().TournamentId, Is.EqualTo(1));
+            Assert.That(model.Events.First().TournamentName, Is.EqualTo("Hemang"));
             Assert.That(model.Events.First().Date, Is.EqualTo("10/10/2014"));
             Assert.That(model.Events.First().Name, Is.EqualTo("Hemang"));
             Assert.That(model.Events.First().Completed, Is.EqualTo(true));

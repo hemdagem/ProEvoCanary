@@ -42,7 +42,7 @@ namespace ProEvoCanary.AdminWeb.Controllers
             {
                 var ownerId = model.OwnerId;
 
-                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.EventType, ownerId);
+                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType, ownerId);
 
                 if (createdEvent > 0)
                 {

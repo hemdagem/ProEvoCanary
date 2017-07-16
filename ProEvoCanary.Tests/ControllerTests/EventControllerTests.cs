@@ -16,7 +16,7 @@ namespace ProEvoCanary.Tests.ControllerTests
     [TestFixture]
     public class EventControllerTests
     {
-        readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<EventTypes>(), It.IsAny<string>(), It.IsAny<DateTime>());
+        readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>());
         private Mock<IEventRepository> _repo;
         private Mock<IResultRepository> _resultRepositoryMock;
         private Mock<IAppUser> _appUser;
@@ -114,10 +114,10 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 Completed = true,
                 Date = date,
-                EventId = 10,
-               EventTypes = EventTypes.Friendly,
+                TournamentId = 10,
+               TournamentType = TournamentType.Friendly,
                 FixturesGenerated = true,
-                EventName = "Test",
+                TournamentName = "Test",
                 OwnerId = 4
             };
 
@@ -125,10 +125,10 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 Completed = true,
                 Date = date,
-                EventId = 10,
-               EventTypes = Domain.Models.EventTypes.Friendly,
+                TournamentId = 10,
+               TournamentType = Domain.Models.TournamentType.Friendly,
                 FixturesGenerated = true,
-                EventName = "Test",
+                TournamentName = "Test",
                 OwnerId = 4
             };
             _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>(), It.IsAny<int>()))
@@ -143,12 +143,12 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.That(viewResult.ViewName, Is.EqualTo("GenerateFixtures"));
             Assert.AreEqual(model.Completed, true);
             Assert.AreEqual(model.FixturesGenerated, true);
-            Assert.AreEqual(model.EventName, "Test");
+            Assert.AreEqual(model.TournamentName, "Test");
             Assert.AreEqual(model.OwnerId, 4);
             Assert.AreEqual(model.Date, date);
-            Assert.AreEqual(model.EventId, 10);
+            Assert.AreEqual(model.TournamentId, 10);
             Assert.AreEqual(1, model.Users.Count);
-            Assert.AreEqual(model.EventTypes, EventTypes.Friendly);
+            Assert.AreEqual(model.TournamentType, TournamentType.Friendly);
         }
     }
 }

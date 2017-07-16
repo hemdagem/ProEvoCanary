@@ -9,9 +9,9 @@ namespace ProEvoCanary.AdminWeb.Models
     {
         public EventModel() { }
 
-        public EventModel(EventTypes eventType, string tournamentName, DateTime date, List<PlayerModel> players)
+        public EventModel(TournamentType tournamentType, string tournamentName, DateTime date, List<PlayerModel> players)
         {
-            EventType = eventType;
+            TournamentType = tournamentType;
             TournamentName = tournamentName;
             Date = date;
             Players = players;
@@ -20,7 +20,7 @@ namespace ProEvoCanary.AdminWeb.Models
 
         [Required]
         [Range(1, 3)]
-        public EventTypes EventType { get; set; }
+        public TournamentType TournamentType { get; set; }
 
         [Required]
         public string TournamentName { get; set; }

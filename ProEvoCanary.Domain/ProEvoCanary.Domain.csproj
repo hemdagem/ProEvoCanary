@@ -111,7 +111,7 @@
     <Compile Include="Helpers\StoredProcedureList.cs" />
     <Compile Include="Helpers\XmlGenerator.cs" />
     <Compile Include="Models\EventModel.cs" />
-    <Compile Include="Models\EventTypes.cs" />
+    <Compile Include="Models\TournamentType.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\RecordsModel.cs" />

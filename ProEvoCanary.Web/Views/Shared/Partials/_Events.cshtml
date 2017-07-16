@@ -6,7 +6,7 @@
     <ul class="collection">
         <li class="collection-item avatar">
             <i class="material-icons circle green">perm_contact_calendar</i>
-            <span class="title"><a href="@Url.Action("Details", "Event", new {id = @item.EventId})">@item.EventName</a></span>
+            <span class="title"><a href="@Url.Action("Details", "Event", new {id = @item.TournamentId})">@item.TournamentName</a></span>
             <p>
                 Hosted By: @item.Name <br>
                 @item.Date

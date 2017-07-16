@@ -18,7 +18,7 @@ namespace ProEvoCanary.Domain.Repositories
         public List<ResultsModel> GetResults()
         {
             var resultsList = new List<ResultsModel>();
-
+            
             using (var reader = _helper.ExecuteReader("up_RecentResults"))
             {
                 while (reader.Read())
@@ -107,7 +107,7 @@ namespace ProEvoCanary.Domain.Repositories
                         HomeScore = int.Parse(reader["HomeScore"].ToString()),
                         AwayScore = int.Parse(reader["AwayScore"].ToString()),
                         ResultId = int.Parse(reader["Id"].ToString()),
-                        EventId = int.Parse(reader["TournamentId"].ToString()),
+                        TournamentId = int.Parse(reader["TournamentId"].ToString()),
                     };
                 }
             }

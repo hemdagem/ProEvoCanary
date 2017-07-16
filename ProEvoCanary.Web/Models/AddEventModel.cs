@@ -6,16 +6,16 @@ namespace ProEvoCanary.Web.Models
     public class AddEventModel
     {
         public AddEventModel() { Date = DateTime.Today; }
-        public AddEventModel(EventTypes eventType, string tournamentName, DateTime date)
+        public AddEventModel(TournamentType tournamentType, string tournamentName, DateTime date)
         {
-            EventType = eventType;
+            TournamentType = tournamentType;
             TournamentName = tournamentName;
             Date = date;
         }
 
         [Required]
         [Range(1, 3)]
-        public EventTypes EventType { get; set; }
+        public TournamentType TournamentType { get; set; }
 
         [Required]
         public string TournamentName { get; set; }

@@ -15,7 +15,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
     [TestFixture]
     public class EventControllerTests
     {
-        readonly EventModel _eventModel = new EventModel(It.IsAny<EventTypes>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<List<PlayerModel>>());
+        readonly EventModel _eventModel = new EventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<List<PlayerModel>>());
         Mock<IEventRepository> _adminEventRepo;
         Mock<IPlayerRepository> _playerRepositoryMock;
         Mock<IMapper> _mapper;
@@ -86,7 +86,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             _eventController.Create(_eventModel);
 
             //then
-            _adminEventRepo.Verify(x => x.CreateEvent(_eventModel.TournamentName, _eventModel.Date, (int)_eventModel.EventType, It.IsAny<int>()), Times.Never);
+            _adminEventRepo.Verify(x => x.CreateEvent(_eventModel.TournamentName, _eventModel.Date, (int)_eventModel.TournamentType, It.IsAny<int>()), Times.Never);
         }
         [Test]
         public void ListModelShouldBeRepopulatedIfModelPostIsInvalid()

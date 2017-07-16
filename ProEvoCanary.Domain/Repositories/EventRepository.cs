@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.Domain.Helpers.Interfaces;
@@ -27,8 +28,8 @@ namespace ProEvoCanary.Domain.Repositories
             {
                 lstTournament.Add(new EventModel
                 {
-                    EventId = (int)reader["Id"],
-                    EventName = reader["TournamentName"].ToString(),
+                    TournamentId = (int)reader["Id"],
+                    TournamentName = reader["TournamentName"].ToString(),
                     Date = reader["Date"].ToString(),
                     Name = reader["Name"].ToString(),
                     Completed = (bool)reader["Completed"]
@@ -40,45 +41,23 @@ namespace ProEvoCanary.Domain.Repositories
 
         public EventModel GetEvent(int id)
         {
-            var parameters = new Dictionary<string, IConvertible>
+            var reader = _helper.ExecuteReaderMultiple("up_GetTournamentForEdit", new { id });
+           var eventModel = reader.ReadFirst();
+            EventModel tournament = new EventModel
             {
-                { "@Id", id }
+                TournamentId = eventModel.Id,
+                Completed = eventModel.Completed,
+                Date = eventModel.Date.ToString(),
+                TournamentName = eventModel.TournamentName,
+                TournamentType =
+                    (TournamentType) Enum.Parse(typeof(TournamentType), eventModel.TournamentType.ToString())
+
             };
 
-            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", parameters);
-            var tournament = new EventModel();
-            while (reader.Read())
-            {
-                tournament = new EventModel
-                {
-                    EventId = id,
-                    OwnerId = (int)reader["OwnerId"],
-                    EventName = reader["TournamentName"].ToString(),
-                    Date = reader["Date"].ToString(),
-                    Completed = (bool)reader["Completed"],
-                    EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
-                };
-            }
-            reader.NextResult();
+            tournament.Results = reader.Read<ResultsModel>().ToList();
 
-            tournament.Results = new List<ResultsModel>();
-            while (reader.Read())
-            {
-                tournament.Results.Add(
-                    new ResultsModel
-                    {
-                        AwayTeam = reader["AwayTeam"].ToString(),
-                        HomeTeam = reader["HomeTeam"].ToString(),
-                        AwayScore = (int)reader["AwayScore"],
-                        HomeScore = (int)reader["HomeScore"],
-                        ResultId = (int)reader["Id"],
-                        EventId = (int)reader["TournamentId"]
-                    });
-            }
 
             tournament.FixturesGenerated = tournament.Results.Count > 0;
-
-            reader.Close();
 
             return tournament;
         }
@@ -125,12 +104,12 @@ namespace ProEvoCanary.Domain.Repositories
             {
                 tournament = new EventModel
                 {
-                    EventId = id,
+                    TournamentId = id,
                     OwnerId = (int)reader["OwnerId"],
-                    EventName = reader["TournamentName"].ToString(),
+                    TournamentName = reader["TournamentName"].ToString(),
                     Date = reader["Date"].ToString(),
                     Completed = (bool)reader["Completed"],
-                    EventTypes = (EventTypes)Enum.Parse(typeof(EventTypes), reader["TournamentType"].ToString()),
+                    TournamentType = (TournamentType)Enum.Parse(typeof(TournamentType), reader["TournamentType"].ToString()),
                 };
             }
             reader.NextResult();
@@ -146,7 +125,7 @@ namespace ProEvoCanary.Domain.Repositories
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
                         ResultId = (int)reader["Id"],
-                        EventId = (int)reader["TournamentId"]
+                        TournamentId = (int)reader["TournamentId"]
                     });
             }
 
@@ -206,7 +185,7 @@ namespace ProEvoCanary.Domain.Repositories
                 {"@XmlString", documentString }
             };
 
-           return  _helper.ExecuteNonQuery("up_AddTournamentUsers", parameters);
+            return _helper.ExecuteNonQuery("up_AddTournamentUsers", parameters);
         }
     }
 }

@@ -31,8 +31,8 @@ namespace ProEvoCanary.IntegrationTests
                 {
                     Completed = true,
                     Date = "10/10/2010",
-                    EventId = 1,
-                    EventName = "Event",
+                    TournamentId = 1,
+                    TournamentName = "Event",
                     Name = "Arsenal",
                 }
             };
@@ -48,8 +48,8 @@ namespace ProEvoCanary.IntegrationTests
             Assert.That(eventModels.Count,Is.EqualTo(1));
             Assert.That(eventModels[0].Completed, Is.EqualTo(expectedEvents[0].Completed));
             Assert.That(eventModels[0].Date, Is.EqualTo(expectedEvents[0].Date));
-            Assert.That(eventModels[0].EventId, Is.EqualTo(expectedEvents[0].EventId));
-            Assert.That(eventModels[0].EventName, Is.EqualTo(expectedEvents[0].EventName));
+            Assert.That(eventModels[0].TournamentId, Is.EqualTo(expectedEvents[0].TournamentId));
+            Assert.That(eventModels[0].TournamentName, Is.EqualTo(expectedEvents[0].TournamentName));
             Assert.That(eventModels[0].Name, Is.EqualTo(expectedEvents[0].Name));
            
             End();

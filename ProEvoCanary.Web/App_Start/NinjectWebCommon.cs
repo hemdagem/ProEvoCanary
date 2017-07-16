@@ -103,7 +103,7 @@ namespace ProEvoCanary.Web
                 cfg.CreateMap<Domain.Models.EventModel, Models.EventModel>();
                 cfg.CreateMap<Domain.Models.ResultsModel, Models.ResultsModel>();
                 cfg.CreateMap<Domain.Models.RssFeedModel, Models.RssFeedModel>();
-                cfg.CreateMap<Domain.Models.EventTypes, Models.EventTypes>();
+                cfg.CreateMap<Domain.Models.TournamentType, Models.TournamentType>();
                 cfg.CreateMap<Domain.Models.Standings, Models.Standings>();
             });
 
