@@ -41,19 +41,36 @@ namespace ProEvoCanary.Domain.Repositories
 
         public EventModel GetEvent(int id)
         {
-            var reader = _helper.ExecuteReaderMultiple("up_GetTournamentForEdit", new { TournamentId = id });
-            var eventModel = reader.ReadFirst();
-            EventModel tournament = new EventModel
+            var reader = _helper.ExecuteReader("up_GetTournamentForEdit", new { TournamentId = id });
+            var tournament = new EventModel();
+            while (reader.Read())
             {
-                TournamentId = eventModel.TournamentId,
-                Completed = eventModel.Completed,
-                Date = eventModel.Date.ToString(),
-                TournamentName = eventModel.TournamentName,
-                TournamentType = (TournamentType)Enum.Parse(typeof(TournamentType), eventModel.TournamentType.ToString()),
-                Results = reader.Read<ResultsModel>().ToList()
-            };
+                tournament = new EventModel
+                {
+                    TournamentId = id,
+                    OwnerId = (int)reader["OwnerId"],
+                    TournamentName = reader["TournamentName"].ToString(),
+                    Date = reader["Date"].ToString(),
+                    Completed = (bool)reader["Completed"],
+                    TournamentType = (TournamentType)Enum.Parse(typeof(TournamentType), reader["TournamentType"].ToString()),
+                };
+            }
+            reader.NextResult();
 
-
+            tournament.Results = new List<ResultsModel>();
+            while (reader.Read())
+            {
+                tournament.Results.Add(
+                    new ResultsModel
+                    {
+                        AwayTeam = reader["AwayTeam"].ToString(),
+                        HomeTeam = reader["HomeTeam"].ToString(),
+                        AwayScore = (int)reader["AwayScore"],
+                        HomeScore = (int)reader["HomeScore"],
+                        ResultId = (int)reader["ResultId"],
+                        TournamentId = (int)reader["TournamentId"]
+                    });
+            }
 
             tournament.FixturesGenerated = tournament.Results.Count > 0;
 

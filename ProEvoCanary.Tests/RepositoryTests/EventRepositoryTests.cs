@@ -20,13 +20,13 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var dictionary = new Dictionary<string, object>
             {
-                {"Id", 0},
+                {"TournamentId", 0},
                 {"TournamentName", "Event"},
                 {"Date", "10/10/2010"},
                 {"Name", "Arsenal"},
                 {"Completed", true},
             };
-            
+
             var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
@@ -62,7 +62,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             helper.Setup(x => x.ExecuteReader("up_GetTournamentForEdit", It.IsAny<object>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            var repository = new EventRepository(helper.Object,xmlGeneratorMock.Object);
+            var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
             var eventModel = repository.GetEvent(15);

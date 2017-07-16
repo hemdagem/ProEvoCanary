@@ -19,7 +19,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var dictionary = new Dictionary<string, object>
             {
-                {"Id", 1},
+                {"UserId", 1},
                 {"Name", "Arsenal"},
                 {"Surname", "Rajyaguru"},
                 {"Username", "hemdagem"},
@@ -27,7 +27,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDbHelper>();
-            helper.Setup(x => x.ExecuteReader("up_GetUsers",null)).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetUsers", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             //when
@@ -46,7 +46,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"Id", 1},
+                {"UserId", 1},
                 {"Name", "Arsenal"},
                 {"GoalsPerGame", 3.2f},
                 {"PointsPerGame", 4.2f},
@@ -70,7 +70,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().MatchesPlayed, Is.EqualTo(1));
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
         }
-        
+
         [Test]
         public void ShouldThrowExceptionIfPageNumberIsLessThanOne()
         {
@@ -90,7 +90,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-           
+
 
             Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(0));
         }
@@ -114,7 +114,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-            Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(1,0));
+            Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(1, 0));
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"Id", 1},
+                {"UserId", 1},
                 {"Name", "Arsenal"},
                 {"GoalsPerGame", 3.2f},
                 {"PointsPerGame", 4.2f},
@@ -130,7 +130,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDbHelper>();
-            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<IDictionary<string,IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<object>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
 
             var repository = new PlayerRepository(helper.Object);
@@ -146,13 +146,13 @@ namespace ProEvoCanary.Tests.RepositoryTests
             Assert.That(resultsModels.First().MatchesPlayed, Is.EqualTo(1));
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
         }
-        
+
         [Test]
         public void ShouldThrowExceptionIfMorePlayersThenSpecifiedIsReturned()
         {
             var dictionary = new Dictionary<string, object>
             {
-                {"Id", 1},
+                {"UserId", 1},
                 {"Name", "Arsenal"},
                 {"GoalsPerGame", 3.2f},
                 {"PointsPerGame", 4.2f},
@@ -167,7 +167,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
 
             //when
             Assert.Throws<TooManyPlayersReturnedException>(() => repository.GetTopPlayersRange(1, 2));
-        }            
+        }
     }
 }
 

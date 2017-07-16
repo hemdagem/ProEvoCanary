@@ -24,7 +24,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"AwayScore", 0},
                 {"HomeTeamId", 1},
                 {"AwayTeamId", 2},
-                {"Id", 1},
+                {"ResultId", 1},
             };
 
             var helper = new Mock<IDbHelper>();
@@ -63,7 +63,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"AwayUser", "Villa"},
                 {"HomeScore", 3},
                 {"AwayScore", 0},
-                {"Id", 1},
+                {"ResultId", 1},
             };
 
             helper.Setup(x => x.ExecuteReader("up_HeadToHeadRecord", It.IsAny<object>())).Returns(
