@@ -87,10 +87,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProEvoCanary.AdminWeb\ProEvoCanary.AdminWeb.csproj">
-      <Project>{17744079-559b-4eeb-adeb-a942cd2df0e7}</Project>
-      <Name>ProEvoCanary.AdminWeb</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProEvoCanary.Domain\ProEvoCanary.Domain.csproj">
       <Project>{3d96c9c6-abb0-4fb2-af72-73d0873e0ac0}</Project>
       <Name>ProEvoCanary.Domain</Name>

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ProEvoCanary.Domain.Models;
 
-namespace ProEvoCanary.AdminWeb.Models
+namespace ProEvoCanary.Web.Models
 {
-    public class EventModel
+    public class AdminEventModel
     {
-        public EventModel() { }
+        public AdminEventModel() { }
 
-        public EventModel(TournamentType tournamentType, string tournamentName, DateTime date, List<PlayerModel> players)
+        public AdminEventModel(TournamentType tournamentType, string tournamentName, DateTime date, List<PlayerModel> players)
         {
             TournamentType = tournamentType;
             TournamentName = tournamentName;

@@ -157,6 +157,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AddEventModel.cs" />
+    <Compile Include="Models\AdminEventModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\TournamentType.cs" />
     <Compile Include="Models\Standings.cs" />
@@ -194,6 +195,8 @@
     <Content Include="Views\Event\GenerateFixtures.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Results\Update.cshtml" />
+    <Content Include="Views\Event\AdminCreate.cshtml" />
+    <Content Include="Views\Authentication\AdminCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

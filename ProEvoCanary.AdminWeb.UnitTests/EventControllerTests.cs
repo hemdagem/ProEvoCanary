@@ -7,7 +7,7 @@ using NUnit.Framework;
 using ProEvoCanary.AdminWeb.Controllers;
 using ProEvoCanary.Domain.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using EventModel = ProEvoCanary.AdminWeb.Models.EventModel;
+using AdminEventModel = ProEvoCanary.AdminWeb.Models.AdminEventModel;
 using PlayerModel = ProEvoCanary.AdminWeb.Models.PlayerModel;
 
 namespace ProEvoCanary.AdminWeb.UnitTests
@@ -15,7 +15,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
     [TestFixture]
     public class EventControllerTests
     {
-        readonly EventModel _eventModel = new EventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<List<PlayerModel>>());
+        readonly AdminEventModel _eventModel = new AdminEventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<List<PlayerModel>>());
         Mock<IEventRepository> _adminEventRepo;
         Mock<IPlayerRepository> _playerRepositoryMock;
         Mock<IMapper> _mapper;
@@ -47,7 +47,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             var viewResult = _eventController.Create() as ViewResult;
 
             //then
-            Assert.That(((EventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
+            Assert.That(((AdminEventModel)viewResult.Model).Date, Is.EqualTo(DateTime.Today));
         }
 
 
@@ -58,7 +58,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             var viewResult = _eventController.Create() as ViewResult;
 
             //then
-            Assert.That(viewResult.Model, Is.TypeOf<EventModel>());
+            Assert.That(viewResult.Model, Is.TypeOf<AdminEventModel>());
         }
 
         [Test]
@@ -72,9 +72,9 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             var viewResult = _eventController.Create() as ViewResult;
 
             //then
-            var model = viewResult.Model as EventModel;
+            var model = viewResult.Model as AdminEventModel;
 
-            Assert.That(viewResult.Model, Is.TypeOf<EventModel>());
+            Assert.That(viewResult.Model, Is.TypeOf<AdminEventModel>());
             Assert.That(model.Players, Is.EqualTo(players));
         }
 
@@ -100,7 +100,7 @@ namespace ProEvoCanary.AdminWeb.UnitTests
             var viewResult = _eventController.Create(_eventModel) as ViewResult;
 
             //then
-            Assert.IsNotNull(((EventModel)viewResult.Model).Players);
+            Assert.IsNotNull(((AdminEventModel)viewResult.Model).Players);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ProEvoCanary.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            AreaRegistration.RegisterAllAreas();
             routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",

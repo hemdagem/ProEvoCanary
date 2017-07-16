@@ -81,5 +81,40 @@ namespace ProEvoCanary.Web.Controllers
 
            throw new IndexOutOfRangeException("An error occurred");
         }
+
+        [AccessAuthorize(UserType.Admin)]
+        public ActionResult AdminCreate()
+        {
+            var model = new AdminEventModel
+            {
+                Players = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers()),
+                Date = DateTime.Today
+            };
+
+            return View("AdminCreate", model);
+        }
+
+
+        // POST: Authentication/Create
+        [AccessAuthorize(UserType.Admin)]
+        [HttpPost]
+        public ActionResult AdminCreate(AdminEventModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var ownerId = model.OwnerId;
+
+                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType, ownerId);
+
+                if (createdEvent > 0)
+                {
+                    return RedirectToAction("Index", "Default");
+                }
+            }
+
+            model.Players = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
+
+            return View(model);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
+using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
 namespace ProEvoCanary.Web.Controllers
 {
@@ -29,6 +30,28 @@ namespace ProEvoCanary.Web.Controllers
         {
             _userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress, model.Password);
             return RedirectToAction("Index", "Default");
+        }
+
+        [AccessAuthorize(UserType.Admin)]
+        public ActionResult AdminCreate()
+        {
+            return View("AdminCreate");
+        }
+
+        [AccessAuthorize(UserType.Admin)]
+        // POST: Authentication/Create
+        [HttpPost]
+        public ActionResult AdminCreate(CreateUserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress, model.Password) > 0)
+                {
+                    return RedirectToAction("Index", "Default");
+                }
+            }
+
+            return View(model);
         }
 
         // GET: Authentication
