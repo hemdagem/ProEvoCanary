@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.Domain.Helpers.Interfaces;

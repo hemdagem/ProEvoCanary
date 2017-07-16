@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using Dapper;
+﻿using System.Data;
 
 namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
