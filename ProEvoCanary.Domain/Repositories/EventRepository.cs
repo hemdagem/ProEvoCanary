@@ -28,7 +28,7 @@ namespace ProEvoCanary.Domain.Repositories
             {
                 lstTournament.Add(new EventModel
                 {
-                    TournamentId = (int)reader["Id"],
+                    TournamentId = (int)reader["TournamentId"],
                     TournamentName = reader["TournamentName"].ToString(),
                     Date = reader["Date"].ToString(),
                     Name = reader["Name"].ToString(),
@@ -41,11 +41,11 @@ namespace ProEvoCanary.Domain.Repositories
 
         public EventModel GetEvent(int id)
         {
-            var reader = _helper.ExecuteReaderMultiple("up_GetTournamentForEdit", new { id });
+            var reader = _helper.ExecuteReaderMultiple("up_GetTournamentForEdit", new { TournamentId = id });
             var eventModel = reader.ReadFirst();
             EventModel tournament = new EventModel
             {
-                TournamentId = eventModel.Id,
+                TournamentId = eventModel.TournamentId,
                 Completed = eventModel.Completed,
                 Date = eventModel.Date.ToString(),
                 TournamentName = eventModel.TournamentName,
@@ -114,7 +114,7 @@ namespace ProEvoCanary.Domain.Repositories
                         HomeTeam = reader["HomeTeam"].ToString(),
                         AwayScore = (int)reader["AwayScore"],
                         HomeScore = (int)reader["HomeScore"],
-                        ResultId = (int)reader["Id"],
+                        ResultId = (int)reader["ResultId"],
                         TournamentId = (int)reader["TournamentId"]
                     });
             }
@@ -150,9 +150,9 @@ namespace ProEvoCanary.Domain.Repositories
 
             var documentString = _xmlGenerator.GenerateFixtures(teamIds, eventId);
 
-            var parameters = new Dictionary<string, IConvertible>
+            var parameters = new
             {
-                {"@XmlString", documentString }
+                XmlString = documentString
             };
 
             _helper.ExecuteNonQuery("up_AddFixtures", parameters);
@@ -162,9 +162,9 @@ namespace ProEvoCanary.Domain.Repositories
         {
             var documentString = _xmlGenerator.GenerateTournamentUsers(userIds, eventId);
 
-            var parameters = new Dictionary<string, IConvertible>
+            var parameters = new
             {
-                {"@XmlString", documentString }
+                XmlString = documentString
             };
 
             return _helper.ExecuteNonQuery("up_AddTournamentUsers", parameters);

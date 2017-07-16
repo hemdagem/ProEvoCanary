@@ -66,7 +66,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                 {"Id", 1},
             };
 
-            helper.Setup(x => x.ExecuteReader("up_HeadToHeadRecord", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("up_HeadToHeadRecord", It.IsAny<object>())).Returns(
                 DataReaderTestHelper.MultipleResultsReader(dictionary,new Queue<bool>(new[] { true, false, true, false })));
 
             var repository = new ResultsRepository(helper.Object);

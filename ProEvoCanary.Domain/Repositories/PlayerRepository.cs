@@ -23,22 +23,16 @@ namespace ProEvoCanary.Domain.Repositories
                 throw new LessThanOneException();
             }
 
-            var parameters = new Dictionary<string, IConvertible>
-            {
-                { "@RowsPerPage", playersPerPage },
-                { "@PageNumber", pageNumber },
-            };
-
             var players = new List<PlayerModel>();
-            var reader = _helper.ExecuteReader("up_GetTopPlayers", parameters);
+            var reader = _helper.ExecuteReader("up_GetTopPlayers", new{RowsPerPage = playersPerPage, PageNumber = pageNumber});
             while (reader.Read())
             {
                 players.Add(new PlayerModel
                 {
-                    PlayerId = (int)reader["Id"],
+                    PlayerId = (int)reader["UserId"],
                     PlayerName = reader["Name"].ToString(),
-                    GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
-                    PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
+                    GoalsPerGame = float.Parse(reader["GoalsPerGame"] ==DBNull.Value ? "0" : reader["GoalsPerGame"].ToString()),
+                    PointsPerGame = float.Parse(reader["PointsPerGame"] == DBNull.Value ? "0" : reader["PointsPerGame"].ToString()),
                     MatchesPlayed = (int)reader["MatchesPlayed"]
                 });
             }
@@ -60,10 +54,10 @@ namespace ProEvoCanary.Domain.Repositories
                 {
                     players.Add(new PlayerModel
                     {
-                        PlayerId = (int)reader["Id"],
+                        PlayerId = (int)reader["UserId"],
                         PlayerName = reader["Name"].ToString(),
-                        GoalsPerGame = float.Parse(reader["GoalsPerGame"].ToString()),
-                        PointsPerGame = float.Parse(reader["PointsPerGame"].ToString()),
+                        GoalsPerGame = float.Parse(reader["GoalsPerGame"] == DBNull.Value ? "0" : reader["GoalsPerGame"].ToString()),
+                        PointsPerGame = float.Parse(reader["PointsPerGame"] == DBNull.Value ? "0" : reader["PointsPerGame"].ToString()),
                         MatchesPlayed = (int)reader["MatchesPlayed"]
                     });
                 }

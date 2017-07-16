@@ -59,7 +59,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             };
 
             var helper = new Mock<IDbHelper>();
-            helper.Setup(x => x.ExecuteReader("up_GetTournamentForEdit", It.IsAny<IDictionary<string, IConvertible>>())).Returns(
+            helper.Setup(x => x.ExecuteReader("up_GetTournamentForEdit", It.IsAny<object>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             var repository = new EventRepository(helper.Object,xmlGeneratorMock.Object);
@@ -116,7 +116,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             //given
             var helper = new Mock<IDbHelper>();
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            helper.Setup(x => x.ExecuteScalar("up_AddTournament", It.IsAny<IDictionary<string, IConvertible>>())).Returns(1);
+            helper.Setup(x => x.ExecuteScalar("up_AddTournament", It.IsAny<object>())).Returns(1);
 
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 

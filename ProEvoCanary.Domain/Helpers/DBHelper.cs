@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
@@ -25,12 +24,12 @@ namespace ProEvoCanary.Domain.Helpers
             }
         }
 
-        public int ExecuteNonQuery(string storedProcedure, IDictionary<string, IConvertible> parameters = null)
+        public int ExecuteNonQuery(string storedProcedure, object param = null)
         {
             using (SqlConnection db = new SqlConnection(_connection))
             {
                 db.Open();
-                return db.Execute(storedProcedure, parameters, null, 30, CommandType.StoredProcedure);
+                return db.Execute(storedProcedure, param, null, 30, CommandType.StoredProcedure);
             }
         }
 

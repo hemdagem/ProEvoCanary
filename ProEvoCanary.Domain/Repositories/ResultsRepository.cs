@@ -18,7 +18,7 @@ namespace ProEvoCanary.Domain.Repositories
         public List<ResultsModel> GetResults()
         {
             var resultsList = new List<ResultsModel>();
-            
+
             using (var reader = _helper.ExecuteReader("up_RecentResults"))
             {
                 while (reader.Read())
@@ -31,7 +31,7 @@ namespace ProEvoCanary.Domain.Repositories
                         AwayScore = int.Parse(reader["AwayScore"].ToString()),
                         HomeTeamId = int.Parse(reader["HomeTeamId"].ToString()),
                         AwayTeamId = int.Parse(reader["AwayTeamId"].ToString()),
-                        ResultId = int.Parse(reader["Id"].ToString())
+                        ResultId = int.Parse(reader["ResultId"].ToString())
                     });
                 }
             }
@@ -41,10 +41,10 @@ namespace ProEvoCanary.Domain.Repositories
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
         {
-            var parameters = new Dictionary<string, IConvertible>
+            var parameters = new 
             {
-                { "@UserOneId", playerOne },
-                { "@UserTwoId", playerTwo },
+                UserOneId =playerOne,
+                UserTwoId =playerTwo,
             };
 
             var headToHeadRecordList = new RecordsModel { Results = new List<ResultsModel>() };
@@ -68,7 +68,7 @@ namespace ProEvoCanary.Domain.Repositories
                         AwayTeam = reader["AwayUser"].ToString(),
                         HomeScore = (int)reader["HomeScore"],
                         AwayScore = (int)reader["AwayScore"],
-                        ResultId = (int)reader["Id"]
+                        ResultId = (int)reader["ResultId"]
                     });
                 }
             }
@@ -78,11 +78,11 @@ namespace ProEvoCanary.Domain.Repositories
 
         public int AddResult(int id, int homeScore, int awayScore)
         {
-            var parameters = new Dictionary<string, IConvertible>
+            var parameters = new
             {
-                { "@Id", id },
-                { "@HomeScore", homeScore < 0 ? 0 : homeScore },
-                { "@AwayScore", awayScore < 0 ? 0 : awayScore }
+                ResultId = id,
+                HomeScore = homeScore < 0 ? 0 : homeScore,
+                AwayScore = awayScore < 0 ? 0 : awayScore
             };
 
             return _helper.ExecuteScalar("up_AddResult", parameters);
@@ -90,13 +90,10 @@ namespace ProEvoCanary.Domain.Repositories
 
         public ResultsModel GetResult(int id)
         {
-            var parameters = new Dictionary<string, IConvertible>
-            {
-                { "@Id", id },
-            };
+
             ResultsModel model = null;
 
-            using (var reader = _helper.ExecuteReader("up_GetResult", parameters))
+            using (var reader = _helper.ExecuteReader("up_GetResult", new { ResultId = id }))
             {
                 while (reader.Read())
                 {
@@ -106,7 +103,7 @@ namespace ProEvoCanary.Domain.Repositories
                         AwayTeam = reader["AwayTeam"].ToString(),
                         HomeScore = int.Parse(reader["HomeScore"].ToString()),
                         AwayScore = int.Parse(reader["AwayScore"].ToString()),
-                        ResultId = int.Parse(reader["Id"].ToString()),
+                        ResultId = int.Parse(reader["ResultId"].ToString()),
                         TournamentId = int.Parse(reader["TournamentId"].ToString()),
                     };
                 }
