@@ -1,6 +1,4 @@
-﻿
-
-<div class="row">
+﻿<div class="row">
     <div class="nav-wrapper">
         <div class="col s12">
             <a href="/" class="brand-logo">Pro Evo League</a>
@@ -9,22 +7,21 @@
                 {
                     if (CurrentUser.IsAdmin)
                     {
-                        <li> <a href="@Url.Action("Index", "Default", new {area = "Admin"})" class="mdl-navigation__link">Admin</a></li>
-                        <li><a href="@Url.Action("Create", "Authentication", new {area = "Admin"})" class="mdl-navigation__link">Add User</a></li>
-                        <li> <a href="@Url.Action("Create", "Event", new {area = "Admin"})" class="mdl-navigation__link">Create Event</a></li>
+                        <li><a href="@Url.Action("AdminCreate", "Authentication")" class="mdl-navigation__link">Add User</a></li>
+                        <li> <a href="@Url.Action("AdminCreate", "Event")" class="mdl-navigation__link">Create Event</a></li>
                     }
                     else
                     {
-                        <li><a href="@Url.Action("Create", "Event", new {area = ""})" class="mdl-navigation__link">Create Event</a></li>
+                        <li><a href="@Url.Action("Create", "Event")" class="mdl-navigation__link">Create Event</a></li>
                     }
-                    <li><a href="@Url.Action("SignOut", "Authentication", new {area = ""})" class="mdl-navigation__link">Sign out</a></li>
+                    <li><a href="@Url.Action("SignOut", "Authentication")" class="mdl-navigation__link">Sign out</a></li>
                 }
                 else
                 {
-                    <li><a href="@Url.Action("Login", "Authentication", new {area = ""})" class="mdl-navigation__link">Login</a></li>
-                    <li><a href="@Url.Action("Create", "Authentication", new {area = ""})" class="mdl-navigation__link">Register</a></li>
+                    <li><a href="@Url.Action("Login", "Authentication")" class="mdl-navigation__link">Login</a></li>
+                    <li><a href="@Url.Action("Create", "Authentication")" class="mdl-navigation__link">Register</a></li>
                 }
-                <li> <a href="@Url.Action("HeadToHead", "Records", new {area = ""})" class="mdl-navigation__link">Records</a></li>
+                <li> <a href="@Url.Action("HeadToHead", "Records")" class="mdl-navigation__link">Records</a></li>
             </ul>
         </div>
     </div>
