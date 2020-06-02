@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
@@ -32,13 +33,11 @@ namespace ProEvoCanary.Web.Controllers
             return RedirectToAction("Index", "Default");
         }
 
-        [AccessAuthorize(UserType.Admin)]
         public ActionResult AdminCreate()
         {
             return View("AdminCreate");
         }
 
-        [AccessAuthorize(UserType.Admin)]
         // POST: Authentication/Create
         [HttpPost]
         public ActionResult AdminCreate(CreateUserModel model)

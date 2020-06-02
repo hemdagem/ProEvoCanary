@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
 

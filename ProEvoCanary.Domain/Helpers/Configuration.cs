@@ -8,7 +8,8 @@ namespace ProEvoCanary.Domain.Helpers
 
         public string GetConfig()
         {
-            return System.Configuration.ConfigurationManager.ConnectionStrings[ProEvoLeagueConnectionString].ToString();
+	        return
+		        ""; //System.Configuration.ConfigurationManager.ConnectionStrings[ProEvoLeagueConnectionString].ToString();
         }
     }
 }

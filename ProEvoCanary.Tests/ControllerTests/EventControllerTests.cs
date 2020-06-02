@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;

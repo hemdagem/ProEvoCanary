@@ -1,15 +1,23 @@
 ﻿using System.Security.Claims;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace ProEvoCanary.Domain.Authentication
 {
-    public abstract class AppViewPage<TModel> : WebViewPage<TModel>
+    public abstract class AppViewPage<TModel> : RazorPage<TModel>
     {
+	    private readonly HttpContext _context;
+
+	    public AppViewPage(HttpContext context)
+	    {
+		    _context = context;
+	    }
         protected UserClaimsPrincipal CurrentUser
         {
             get
             {
-                return new UserClaimsPrincipal(User as ClaimsPrincipal);
+                return new UserClaimsPrincipal(_context.User);
             }
         }
 
@@ -32,5 +40,8 @@ namespace ProEvoCanary.Domain.Authentication
 
     public abstract class AppViewPage : AppViewPage<dynamic>
     {
+	    protected AppViewPage(HttpContext context) : base(context)
+	    {
+	    }
     }
 }

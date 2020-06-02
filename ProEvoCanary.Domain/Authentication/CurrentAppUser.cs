@@ -1,13 +1,14 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 using System.Web;
 
 namespace ProEvoCanary.Domain.Authentication
 {
     public class CurrentAppUser : IAppUser
     {
-        private readonly HttpContextBase _context;
+        private readonly HttpContext _context;
 
-        public CurrentAppUser(HttpContextBase context)
+        public CurrentAppUser(HttpContext context)
         {
             _context = context;
         }

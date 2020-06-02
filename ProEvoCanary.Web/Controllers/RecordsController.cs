@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
 
@@ -44,7 +45,7 @@ namespace ProEvoCanary.Web.Controllers
                 HeadToHead = _mapper.Map<RecordsModel>(_resultRepository.GetHeadToHeadRecord(playerOneId, playerTwoId))
             };
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return Json(model);
         }
 
         public ActionResult HeadToHeadResults(int playerOneId, int playerTwoId)

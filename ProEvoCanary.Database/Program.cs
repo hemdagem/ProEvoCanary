@@ -9,7 +9,7 @@ namespace ProEvoCanary.Database
     {
         static int Main(string[] args)
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["ProEvoLeagueConnectionString"].ConnectionString;
+            var connectionString = "";
             EnsureDatabase.For.SqlDatabase(connectionString);
             var upgrader =
                 DeployChanges.To

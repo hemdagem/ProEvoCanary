@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 

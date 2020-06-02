@@ -1,18 +1,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.Web", "ProEvoCanary.Web\ProEvoCanary.Web.csproj", "{B2350B8A-62CB-4BB9-A9DB-C52EECE4FF77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEvoCanary.Web", "ProEvoCanary.Web\ProEvoCanary.Web.csproj", "{B2350B8A-62CB-4BB9-A9DB-C52EECE4FF77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.UnitTests", "ProEvoCanary.Tests\ProEvoCanary.UnitTests.csproj", "{65B2C6CD-57F3-41BA-90A9-6B05C8342B86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.Domain", "ProEvoCanary.Domain\ProEvoCanary.Domain.csproj", "{3D96C9C6-ABB0-4FB2-AF72-73D0873E0AC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEvoCanary.Domain", "ProEvoCanary.Domain\ProEvoCanary.Domain.csproj", "{3D96C9C6-ABB0-4FB2-AF72-73D0873E0AC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C2903F33-1A94-4DE6-A45F-D76BF13063E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.IntegrationTests", "ProEvoCanary.IntegrationTests\ProEvoCanary.IntegrationTests.csproj", "{2AA3AA57-83F7-4089-B7A3-0E864F9A33E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEvoCanary.IntegrationTests", "ProEvoCanary.IntegrationTests\ProEvoCanary.IntegrationTests.csproj", "{2AA3AA57-83F7-4089-B7A3-0E864F9A33E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEvoCanary.Database", "ProEvoCanary.Database\ProEvoCanary.Database.csproj", "{DBD6A10E-2EA8-4FBF-B52D-3E99C265389F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEvoCanary.Database", "ProEvoCanary.Database\ProEvoCanary.Database.csproj", "{DBD6A10E-2EA8-4FBF-B52D-3E99C265389F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,5 +47,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{65B2C6CD-57F3-41BA-90A9-6B05C8342B86} = {C2903F33-1A94-4DE6-A45F-D76BF13063E7}
 		{2AA3AA57-83F7-4089-B7A3-0E864F9A33E8} = {C2903F33-1A94-4DE6-A45F-D76BF13063E7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10BC6E45-CA46-40AB-8B88-011C56D178F4}
 	EndGlobalSection
 EndGlobal

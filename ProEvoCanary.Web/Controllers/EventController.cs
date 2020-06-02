@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
@@ -27,7 +28,6 @@ namespace ProEvoCanary.Web.Controllers
             _resultRepository = resultRepository;
         }
 
-        [AccessAuthorize(UserType.Standard)]
         public ActionResult Create()
         {
             return View("Create", new AddEventModel());
@@ -40,7 +40,6 @@ namespace ProEvoCanary.Web.Controllers
             return View("Details", _mapper.Map<EventModel>(eventModel));
         }
 
-        [AccessAuthorize(UserType.Standard)]
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
@@ -48,7 +47,6 @@ namespace ProEvoCanary.Web.Controllers
             return RedirectToAction("GenerateFixtures", "Event",new {id= eventId });
         }
 
-        [AccessAuthorize(UserType.Standard)]
         public ActionResult GenerateFixtures(int id)
         {
             EventModel model = _mapper.Map<EventModel>(_eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id));
@@ -57,7 +55,6 @@ namespace ProEvoCanary.Web.Controllers
             return View("GenerateFixtures", model);
         }
 
-        [AccessAuthorize(UserType.Standard)]
         [HttpPost]
         public ActionResult GenerateFixtures(int id, List<int> userIds)
         {
@@ -66,7 +63,6 @@ namespace ProEvoCanary.Web.Controllers
             return RedirectToAction("Details", "Event", new { Id = id });
         }
 
-        [AccessAuthorize(UserType.Standard)]
         [HttpPost]
         public JsonResult UpdateResult(int eventId,int resultId, ushort homeScore, ushort awayScore)
         {
@@ -82,7 +78,6 @@ namespace ProEvoCanary.Web.Controllers
            throw new IndexOutOfRangeException("An error occurred");
         }
 
-        [AccessAuthorize(UserType.Admin)]
         public ActionResult AdminCreate()
         {
             var model = new AdminEventModel
@@ -96,7 +91,6 @@ namespace ProEvoCanary.Web.Controllers
 
 
         // POST: Authentication/Create
-        [AccessAuthorize(UserType.Admin)]
         [HttpPost]
         public ActionResult AdminCreate(AdminEventModel model)
         {

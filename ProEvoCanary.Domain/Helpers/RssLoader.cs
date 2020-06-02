@@ -13,29 +13,29 @@ namespace ProEvoCanary.Domain.Helpers
         public List<RssFeedModel> Load(string url)
         {
 
-            var reader = XmlReader.Create(url);
-            var feed = SyndicationFeed.Load(reader);
-            reader.Close();
-            var rssFeedModelList = new List<RssFeedModel>();
-            if (feed != null)
-            {
-                foreach (SyndicationItem syndicationItem in feed.Items)
-                {
+            //var reader = XmlReader.Create(url);
+            //var feed = SyndicationFeed.Load(reader);
+            //reader.Close();
+            return new List<RssFeedModel>();
+            //if (feed != null)
+            //{
+            //    foreach (SyndicationItem syndicationItem in feed.Items)
+            //    {
 
-                    var rssFeedModel = new RssFeedModel
-                    {
-                        LinkTitle = syndicationItem.Title.Text,
-                        LinkDescription = syndicationItem.Summary.Text,
-                        LinkUrl = syndicationItem.Id,
-                        ImageUrl = syndicationItem.ElementExtensions.Count > 0 ? syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last() : ""
-                    };
+            //        var rssFeedModel = new RssFeedModel
+            //        {
+            //            LinkTitle = syndicationItem.Title.Text,
+            //            LinkDescription = syndicationItem.Summary.Text,
+            //            LinkUrl = syndicationItem.Id,
+            //            ImageUrl = syndicationItem.ElementExtensions.Count > 0 ? syndicationItem.ElementExtensions.Select(e => e.GetObject<XElement>().Attribute("url").Value).Last() : ""
+            //        };
 
-                    rssFeedModelList.Add(rssFeedModel);
-                }
-            }
+            //        rssFeedModelList.Add(rssFeedModel);
+            //    }
+            //}
 
 
-            return rssFeedModelList;
+            //return rssFeedModelList;
         }
     }
 }
