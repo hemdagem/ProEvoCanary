@@ -14,19 +14,17 @@ namespace ProEvoCanary.Tests.ControllerTests
     public class AuthenticationControllerTests
     {
         private Mock<IUserRepository> _repo;
-        private Mock<IAuthenticationHandler> _authenticationMock;
 
         public AuthenticationControllerTests()
         {
             _repo = new Mock<IUserRepository>();
-            _authenticationMock = new Mock<IAuthenticationHandler>();
         }
 
         [Test]
         public void ShouldSetDefaultViewNameToLoginForLoginPage()
         {
             //given
-            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object);
 
             //when
             var viewResult = authenticationController.Login(It.IsAny<string>()) as ViewResult;
@@ -38,7 +36,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldSetDefaultViewNameToCreateForCreatePage()
         {
             //given
-            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object);
 
             //when
             var viewResult = authenticationController.Create() as ViewResult;
@@ -52,7 +50,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             //given
             _repo.Setup(x => x.Login(It.IsAny<Domain.Models.LoginModel>())).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
-            var authenticationController = new AuthenticationController(_repo.Object, _authenticationMock.Object);
+            var authenticationController = new AuthenticationController(_repo.Object);
 
             //when
             authenticationController.Login(new LoginModel(string.Empty,string.Empty), It.IsAny<string>());

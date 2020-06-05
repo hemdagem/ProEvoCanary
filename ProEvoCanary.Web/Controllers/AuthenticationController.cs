@@ -6,16 +6,13 @@ using ProEvoCanary.Web.Models;
 
 namespace ProEvoCanary.Web.Controllers
 {
-	[AllowAnonymous]
     public class AuthenticationController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly IAuthenticationHandler _authenticationHandler;
 
-        public AuthenticationController(IUserRepository userRepository, IAuthenticationHandler authenticationHandler)
+        public AuthenticationController(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _authenticationHandler = authenticationHandler;
         }
 
         // GET: Authentication/Create
@@ -64,7 +61,6 @@ namespace ProEvoCanary.Web.Controllers
         public ActionResult Login(LoginModel model, string returnUrl)
         {
             var userModel = _userRepository.Login(new Domain.Models.LoginModel(model.Username,model.Password));
-            _authenticationHandler.SignIn(userModel.Forename, userModel.UserType.ToString(), userModel.UserId);
 
             if (!string.IsNullOrEmpty(returnUrl))
             {
@@ -75,7 +71,6 @@ namespace ProEvoCanary.Web.Controllers
 
         public ActionResult Signout()
         {
-            _authenticationHandler.SignOut();
             return RedirectToAction("Index", "Default");
         }
     }

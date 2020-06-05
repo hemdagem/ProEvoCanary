@@ -1,6 +1,6 @@
 ﻿namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
-    public interface IConfiguration
+    public interface IDBConfiguration
     {
         string GetConfig();
     }

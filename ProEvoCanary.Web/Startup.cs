@@ -8,7 +8,6 @@ using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Domain.Repositories.Interfaces;
-using IConfiguration = ProEvoCanary.Domain.Helpers.Interfaces.IConfiguration;
 
 namespace ProEvoCanary.Web
 {
@@ -46,11 +45,11 @@ namespace ProEvoCanary.Web
 
 			services.AddTransient<ICacheManager, CachingManager>();
 			services.AddTransient<ICacheRssLoader, RssCacheLoader>();
-			services.AddTransient<IConfiguration, Configuration>();
+			services.AddTransient<IDBConfiguration, DbConfiguration>();
 			services.AddTransient<IDbHelper, DbHelper>();
 
 			services.AddTransient<IRssLoader, RssLoader>();
-			services.AddTransient<IAuthenticationHandler, AuthenticationHandler>();
+			//services.AddTransient<IAuthenticationHandler, AuthenticationHandler>();
 			services.AddTransient<IPasswordHash, PasswordHash>();
 			services.AddTransient<IAppUser, CurrentAppUser>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
