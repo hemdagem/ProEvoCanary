@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Xml;
-using System.Xml.Linq;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Domain.Helpers
 {
-    public class RssLoader : IRssLoader
+	public class RssLoader : IRssLoader
     {
         public List<RssFeedModel> Load(string url)
         {

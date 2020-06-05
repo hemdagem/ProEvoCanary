@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace ProEvoCanary.Domain.Authentication
 {

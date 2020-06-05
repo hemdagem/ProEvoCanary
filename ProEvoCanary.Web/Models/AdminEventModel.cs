@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Web.Models
 {
-    public class AdminEventModel
+	public class AdminEventModel
     {
         public AdminEventModel() { }
 

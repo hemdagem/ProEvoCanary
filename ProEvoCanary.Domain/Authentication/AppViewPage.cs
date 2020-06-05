@@ -1,11 +1,9 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace ProEvoCanary.Domain.Authentication
 {
-    public abstract class AppViewPage<TModel> : RazorPage<TModel>
+	public abstract class AppViewPage<TModel> : RazorPage<TModel>
     {
 	    private readonly HttpContext _context;
 

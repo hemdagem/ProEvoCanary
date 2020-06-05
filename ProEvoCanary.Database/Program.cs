@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Configuration;
 using System.Reflection;
 using DbUp;
 
 namespace ProEvoCanary.Database
 {
-    class Program
+	class Program
     {
         static int Main(string[] args)
         {

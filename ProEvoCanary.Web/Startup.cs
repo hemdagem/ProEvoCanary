@@ -1,12 +1,8 @@
-﻿using System;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Owin;
-using Owin;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
@@ -41,7 +37,7 @@ namespace ProEvoCanary.Web
 			{
 				endpoints.MapControllerRoute(
 					name: "default",
-					pattern: "{controller=Home}/{action=Index}/{id?}");
+					pattern: "{controller=Default}/{action=Index}/{id?}");
 			});
 		}
 		public void ConfigureServices(IServiceCollection services)

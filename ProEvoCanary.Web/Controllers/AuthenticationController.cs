@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
-using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
 namespace ProEvoCanary.Web.Controllers
 {
-    [AllowAnonymous]
+	[AllowAnonymous]
     public class AuthenticationController : Controller
     {
         private readonly IUserRepository _userRepository;

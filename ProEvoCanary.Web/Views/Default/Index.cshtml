@@ -6,7 +6,7 @@
         {
             <div class="col s12">
                 <h2>Events</h2>
-                @Html.Partial("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
+                @Html.PartialAsync("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
             </div>
         }
 
@@ -14,7 +14,7 @@
         {
             <div class="col s12">
                 <h2>Top Players</h2>
-                @Html.Partial("~/Views/Shared/Partials/_Players.cshtml", Model.Players)
+                @Html.PartialAsync("~/Views/Shared/Partials/_Players.cshtml", Model.Players)
             </div>
         }
 
@@ -22,12 +22,12 @@
         {
             <div class="col s12">
                 <h2>Results</h2>
-                @Html.Partial("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
+                @Html.PartialAsync("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
             </div>
         }
     </div>
     <div class="col s12 m4">
         <h2>News</h2>
-        @Html.Partial("~/Views/Shared/Partials/_News.cshtml", Model.News)
+        @Html.PartialAsync("~/Views/Shared/Partials/_News.cshtml", Model.News)
     </div>
 </div>

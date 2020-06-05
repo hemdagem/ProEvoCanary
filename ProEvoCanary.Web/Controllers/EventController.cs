@@ -7,11 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
-using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
 namespace ProEvoCanary.Web.Controllers
 {
-    public class EventController : Controller
+	public class EventController : Controller
     {
         private readonly IEventRepository _eventRepository;
         private readonly IAppUser _currentUser;
