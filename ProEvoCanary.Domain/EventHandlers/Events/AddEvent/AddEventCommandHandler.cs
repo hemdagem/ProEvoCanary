@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ProEvoCanary.Domain.Commands;
+using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
-namespace ProEvoCanary.Domain.EventHandlers
+namespace ProEvoCanary.Domain.EventHandlers.Events.AddEvent
 {
-	public class AddEventCommandHandler
+	public class AddEventCommandHandler : ICommandHandlerBase<AddEventCommand, Guid>
 	{
 		private readonly IEventRepository _eventRepository;
 
@@ -17,8 +15,9 @@ namespace ProEvoCanary.Domain.EventHandlers
 
 		public Guid Handle(AddEventCommand addEventCommand)
 		{
-			var eventCreated = _eventRepository.CreateEvent(addEventCommand.Name, addEventCommand.DateOfEvent, 1);
+			_eventRepository.CreateEvent(addEventCommand.Name, addEventCommand.DateOfEvent, 1);
 			return addEventCommand.Id;
 		}
+
 	}
 }

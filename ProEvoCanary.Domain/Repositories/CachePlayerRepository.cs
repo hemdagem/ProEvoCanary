@@ -21,7 +21,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<PlayerModel> GetTopPlayers()
         {
-            return _cacheManager.Get(TopPlayerListCacheKey) as List<PlayerModel>;
+            return _cacheManager.Get<List<PlayerModel>>(TopPlayerListCacheKey) as List<PlayerModel>;
         }
 
         public List<PlayerModel> GetTopPlayersRange(int pageNumber, int playersPerPage)
@@ -31,7 +31,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<PlayerModel> GetAllPlayers()
         {
-            return _cacheManager.Get(PlayerListCacheKey) as List<PlayerModel>;
+            return _cacheManager.Get<List<PlayerModel>>(PlayerListCacheKey) as List<PlayerModel>;
         }
 
         public void AddToCache(string key, object value, int cacheHours)

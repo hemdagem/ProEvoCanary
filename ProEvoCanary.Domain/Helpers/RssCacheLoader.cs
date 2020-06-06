@@ -15,7 +15,7 @@ namespace ProEvoCanary.Domain.Helpers
 
         public List<RssFeedModel> Load(string url)
         {
-            return _cacheManager.Get(url) as List<RssFeedModel>;
+            return _cacheManager.Get<List<RssFeedModel>>(url);
         }
 
         public void AddToCache(string key, object value, int cacheHours)

@@ -21,6 +21,11 @@ namespace ProEvoCanary.Domain.Helpers
             _memoryCache.Add(key, value, _policy);
         }
 
+        public T Get<T>(string key)
+        {
+	        return (T)_memoryCache.Get(key);
+        }
+
         public object Get(string key)
         {
             return _memoryCache.Contains(key) ? _memoryCache.Get(key) : null;

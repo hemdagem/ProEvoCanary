@@ -18,13 +18,13 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<ResultsModel> GetResults()
         {
-            return _cacheManager.Get(RecentResultsKey) as List<ResultsModel>;
+            return _cacheManager.Get<List<ResultsModel>>(RecentResultsKey) as List<ResultsModel>;
         }
 
         public RecordsModel GetHeadToHeadRecord(int playerOne, int playerTwo)
         {
             var cachedKey = string.Format(HeadToHeadRecordsKey, playerOne, playerTwo);
-            return _cacheManager.Get(cachedKey) as RecordsModel;
+            return _cacheManager.Get<RecordsModel>(cachedKey) as RecordsModel;
         }
 
         public int AddResult(int id, int homeScore, int awayScore)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProEvoCanary.Domain.Commands
+namespace ProEvoCanary.Domain.EventHandlers.Events.AddEvent
 {
 	public class AddEventCommand
 	{

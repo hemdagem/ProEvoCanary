@@ -19,7 +19,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<EventModel> GetEvents()
         {
-            return _cacheManager.Get(EventsListCacheKey) as List<EventModel>;
+            return _cacheManager.Get<List<EventModel>>(EventsListCacheKey);
         }
 
         public EventModel GetEvent(int id)

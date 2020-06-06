@@ -3,7 +3,7 @@
     public interface ICacheManager
     {
         void Add(string key, object value, int cacheHours);
-        object Get(string key);
+        T Get<T>(string key);
  
     }
 }
