@@ -22,6 +22,5 @@ namespace ProEvoCanary.Web.Models
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
-        public bool GeneratedFixtures { get; set; }
     }
 }

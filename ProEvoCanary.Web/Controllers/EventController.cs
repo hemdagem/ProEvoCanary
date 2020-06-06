@@ -4,7 +4,6 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
 
@@ -13,15 +12,13 @@ namespace ProEvoCanary.Web.Controllers
 	public class EventController : Controller
     {
         private readonly IEventRepository _eventRepository;
-        private readonly IAppUser _currentUser;
         private readonly IPlayerRepository _playerRepository;
         private readonly IMapper _mapper;
         private readonly IResultRepository _resultRepository;
 
-        public EventController(IEventRepository eventRepository, IAppUser currentUser, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository)
+        public EventController(IEventRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository)
         {
             _eventRepository = eventRepository;
-            _currentUser = currentUser;
             _playerRepository = playerRepository;
             _mapper = mapper;
             _resultRepository = resultRepository;
@@ -42,13 +39,13 @@ namespace ProEvoCanary.Web.Controllers
         [HttpPost]
         public ActionResult Create(AddEventModel model)
         {
-            var eventId = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType, _currentUser.CurrentUser.Id);
+            var eventId = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType);
             return RedirectToAction("GenerateFixtures", "Event",new {id= eventId });
         }
 
         public ActionResult GenerateFixtures(int id)
         {
-            EventModel model = _mapper.Map<EventModel>(_eventRepository.GetEventForEdit(id, _currentUser.CurrentUser.Id));
+            EventModel model = _mapper.Map<EventModel>(_eventRepository.GetEventForEdit(id));
             model.Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
 
             return View("GenerateFixtures", model);
@@ -65,7 +62,7 @@ namespace ProEvoCanary.Web.Controllers
         [HttpPost]
         public JsonResult UpdateResult(int eventId,int resultId, ushort homeScore, ushort awayScore)
         {
-            var eventModel = _eventRepository.GetEventForEdit(eventId,_currentUser.CurrentUser.Id);
+            var eventModel = _eventRepository.GetEventForEdit(eventId);
 
             if (eventModel.Results.FirstOrDefault(x => x.ResultId == resultId) != null)
             {
@@ -95,9 +92,8 @@ namespace ProEvoCanary.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var ownerId = model.OwnerId;
 
-                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType, ownerId);
+                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType);
 
                 if (createdEvent > 0)
                 {

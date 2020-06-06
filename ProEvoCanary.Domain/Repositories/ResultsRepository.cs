@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 

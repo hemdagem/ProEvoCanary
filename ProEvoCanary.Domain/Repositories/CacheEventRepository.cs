@@ -32,12 +32,12 @@ namespace ProEvoCanary.Domain.Repositories
             throw new NotImplementedException();
         }
 
-        public EventModel GetEventForEdit(int id, int ownerId)
+        public EventModel GetEventForEdit(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public int CreateEvent(string tournamentname, DateTime Date, int eventType, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime Date, int eventType)
         {
             throw new NotImplementedException();
         }

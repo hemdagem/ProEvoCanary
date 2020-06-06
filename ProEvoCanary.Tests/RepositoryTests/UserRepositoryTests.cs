@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers;
-using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Tests.HelperTests;
 using ProEvoCanary.Web.Models;

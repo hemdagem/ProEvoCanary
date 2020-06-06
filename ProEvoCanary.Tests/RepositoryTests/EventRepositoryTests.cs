@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
@@ -91,7 +92,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            Assert.Throws<NullReferenceException>(() => repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>()));
+            Assert.Throws<NullReferenceException>(() => repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<int>()));
         }
 
         [Test]
@@ -107,7 +108,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            Assert.Throws<LessThanOneException>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>(), ownerId));
+            Assert.Throws<LessThanOneException>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>()));
         }
 
         [Test]
@@ -121,7 +122,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
-            var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, (int)TournamentType.Friendly, 1);
+            var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, (int)TournamentType.Friendly);
 
             //then
             Assert.That(user, Is.EqualTo(1));

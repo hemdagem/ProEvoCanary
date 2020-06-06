@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
@@ -19,7 +18,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>());
         private Mock<IEventRepository> _repo;
         private Mock<IResultRepository> _resultRepositoryMock;
-        private Mock<IAppUser> _appUser;
         private EventController _eventController;
         private Mock<IMapper> _mapper;
         private Mock<IPlayerRepository> _mockPlayerRepository;
@@ -28,12 +26,10 @@ namespace ProEvoCanary.Tests.ControllerTests
         {
             _repo = new Mock<IEventRepository>();
             _mockPlayerRepository = new Mock<IPlayerRepository>();
-            _appUser = new Mock<IAppUser>();
             _mapper = new Mock<IMapper>();
             _resultRepositoryMock = new Mock<IResultRepository>();
-            _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(new ClaimsPrincipal()));
 
-            _eventController = new EventController(_repo.Object, _appUser.Object, _mockPlayerRepository.Object, _mapper.Object, _resultRepositoryMock.Object);
+            _eventController = new EventController(_repo.Object, _mockPlayerRepository.Object, _mapper.Object, _resultRepositoryMock.Object);
         }
 
         [Test]
@@ -52,7 +48,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldRedirectToGenerateFixturesAction()
         {
             //given
-            _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>())).Returns(1);
+            _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<int>())).Returns(1);
 
             //when
             var viewResult = _eventController.Create(_eventModel) as RedirectToRouteResult;
@@ -88,7 +84,6 @@ namespace ProEvoCanary.Tests.ControllerTests
                 new Claim(ClaimTypes.NameIdentifier,"4")
             }));
 
-            _appUser.Setup(x => x.CurrentUser).Returns(new UserClaimsPrincipal(claimsPrincipal));
 
             var playerModels = new List<Web.Models.PlayerModel>()
             {
@@ -131,7 +126,7 @@ namespace ProEvoCanary.Tests.ControllerTests
                 TournamentName = "Test",
                 OwnerId = 4
             };
-            _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>(), It.IsAny<int>()))
+            _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>()))
                 .Returns(domainEventModel);
 
             _mapper.Setup(x => x.Map<EventModel>(domainEventModel)).Returns(eventModel);

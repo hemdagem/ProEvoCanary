@@ -6,64 +6,61 @@ using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Domain.Helpers
 {
-    public class FixtureGenerator :IFixtureGenerator
-    {
-        public List<TeamIds> Generate(List<int> teamIds)
-        {
-            if (teamIds == null || teamIds.Count == 0)
-            {
-                throw new ArgumentNullException();
-            }
+	public class FixtureGenerator : IFixtureGenerator
+	{
+		public List<TeamIds> Generate(List<int> teamIds)
+		{
+			if (teamIds == null || teamIds.Count == 0)
+			{
+				throw new ArgumentNullException();
+			}
 
-            if (teamIds.Distinct().Count() != teamIds.Count)
-            {
-                throw new NotUniqueException();
-            }
+			if (teamIds.Distinct().Count() != teamIds.Count)
+			{
+				throw new NotUniqueException();
+			}
 
-            var generatedTeamIds = new List<TeamIds>();
+			var generatedTeamIds = new List<TeamIds>();
 
-            foreach (int teamOne in teamIds)
-            {
-                foreach (int teamTwo in teamIds)
-                {
-                    if (teamOne != teamTwo)
-                    {
-                        if (!FixturesAreGenerated(teamOne, teamTwo, generatedTeamIds))
-                        {
-                            generatedTeamIds.Add(new TeamIds
-                            {
-                                TeamOne = teamOne,
-                                TeamTwo = teamTwo
-                            });
-                        }
-                    }
-                }
-            }
+			foreach (int teamOne in teamIds)
+			{
+				foreach (int teamTwo in teamIds.Where(x => x != teamOne))
+				{
+					if (!FixturesAreGenerated(teamOne, teamTwo, generatedTeamIds))
+					{
+						generatedTeamIds.Add(new TeamIds
+						{
+							TeamOne = teamOne,
+							TeamTwo = teamTwo
+						});
+					}
+				}
+			}
 
-            return generatedTeamIds;
-        }
+			return generatedTeamIds;
+		}
 
-        private bool FixturesAreGenerated(int teamOne, int teamTwo, IEnumerable<TeamIds> generatedIds)
-        {
-            var fixturesAreGenerated = false;
+		private bool FixturesAreGenerated(int teamOne, int teamTwo, IEnumerable<TeamIds> generatedIds)
+		{
+			var fixturesAreGenerated = false;
 
-            foreach (var generatedId in generatedIds)
-            {
-                if ((generatedId.TeamOne == teamOne && generatedId.TeamTwo == teamTwo) ||
-                    (generatedId.TeamTwo == teamOne && generatedId.TeamOne == teamTwo))
-                {
-                    fixturesAreGenerated = true;
-                    break;
-                }
+			foreach (var generatedId in generatedIds)
+			{
+				if ((generatedId.TeamOne == teamOne && generatedId.TeamTwo == teamTwo) ||
+					(generatedId.TeamTwo == teamOne && generatedId.TeamOne == teamTwo))
+				{
+					fixturesAreGenerated = true;
+					break;
+				}
 
-            }
+			}
 
-            return fixturesAreGenerated;
-        }
-    }
+			return fixturesAreGenerated;
+		}
+	}
 
-    public interface IFixtureGenerator
-    {
-        List<TeamIds> Generate(List<int> teamIds);
-    }
+	public interface IFixtureGenerator
+	{
+		List<TeamIds> Generate(List<int> teamIds);
+	}
 }

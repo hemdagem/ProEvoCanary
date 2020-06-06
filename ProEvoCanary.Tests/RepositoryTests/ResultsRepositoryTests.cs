@@ -2,7 +2,7 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.Helpers.Interfaces;
+using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.Tests.HelperTests;
 

@@ -2,7 +2,6 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
 namespace ProEvoCanary.Web.Controllers
@@ -11,14 +10,12 @@ namespace ProEvoCanary.Web.Controllers
     {
         private readonly IEventRepository _eventRepository;
         private readonly IResultRepository _resultRepository;
-        private readonly IAppUser _currentUser;
         private readonly IMapper _mapper;
 
-        public ResultsController(IEventRepository eventRepository, IResultRepository resultRepository, IAppUser appUser, IMapper mapper)
+        public ResultsController(IEventRepository eventRepository, IResultRepository resultRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _resultRepository = resultRepository;
-            _currentUser = appUser;
             _mapper = mapper;
         }
 
@@ -32,7 +29,7 @@ namespace ProEvoCanary.Web.Controllers
         [HttpPost]
         public ActionResult Update(Models.ResultsModel model)
         {
-            var eventModel = _eventRepository.GetEventForEdit(model.EventId, _currentUser.CurrentUser.Id);
+            var eventModel = _eventRepository.GetEventForEdit(model.EventId);
 
             if (eventModel.Results.FirstOrDefault(x => x.ResultId == model.ResultId) != null)
             {

@@ -1,7 +1,6 @@
 ﻿using System.Data;
-using System.Threading.Tasks;
 
-namespace ProEvoCanary.Domain.Helpers.Interfaces
+namespace ProEvoCanary.DataAccess
 {
     public interface IDbHelper
     {

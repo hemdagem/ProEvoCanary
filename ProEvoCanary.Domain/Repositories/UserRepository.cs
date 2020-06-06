@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers;
-using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 

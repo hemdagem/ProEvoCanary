@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.Authentication;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
-using LoginModel = ProEvoCanary.Web.Models.LoginModel;
-using UserModel = ProEvoCanary.Domain.Models.UserModel;
-using UserType = ProEvoCanary.Domain.Authentication.UserType;
 
 namespace ProEvoCanary.Tests.ControllerTests
 {
@@ -21,18 +17,6 @@ namespace ProEvoCanary.Tests.ControllerTests
         }
 
         [Test]
-        public void ShouldSetDefaultViewNameToLoginForLoginPage()
-        {
-            //given
-            var authenticationController = new AuthenticationController(_repo.Object);
-
-            //when
-            var viewResult = authenticationController.Login(It.IsAny<string>()) as ViewResult;
-
-            //then
-            Assert.That(viewResult.ViewName, Is.EqualTo("Login"));
-        }
-        [Test]
         public void ShouldSetDefaultViewNameToCreateForCreatePage()
         {
             //given
@@ -45,18 +29,5 @@ namespace ProEvoCanary.Tests.ControllerTests
             Assert.That(viewResult.ViewName, Is.EqualTo("Create"));
         }
 
-        [Test]
-        public void ShouldCallUserRepositoryWhenModelIsValid()
-        {
-            //given
-            _repo.Setup(x => x.Login(It.IsAny<Domain.Models.LoginModel>())).Returns(new UserModel(1, "test", "test", "test", (int)UserType.Standard));
-            var authenticationController = new AuthenticationController(_repo.Object);
-
-            //when
-            authenticationController.Login(new LoginModel(string.Empty,string.Empty), It.IsAny<string>());
-
-            //then
-            _repo.Verify(x => x.Login(It.IsAny<Domain.Models.LoginModel>()), Times.Once);
-        }
     }
 }

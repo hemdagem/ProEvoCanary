@@ -10,8 +10,8 @@ namespace ProEvoCanary.Domain.Repositories.Interfaces
         List<EventModel> GetEvents();
         EventModel GetEvent(int id);
         List<Standings> GetStandings(int id);
-        EventModel GetEventForEdit(int id, int ownerId);
-        int CreateEvent(string tournamentname, DateTime Date, int eventType, int ownerId);
+        EventModel GetEventForEdit(int id);
+        int CreateEvent(string tournamentname, DateTime Date, int eventType);
         void GenerateFixtures(int eventId, List<int> userIds);
         int AddTournamentUsers(int eventId, List<int> userIds);
     }

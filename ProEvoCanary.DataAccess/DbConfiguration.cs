@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 
 namespace ProEvoCanary.Domain.Helpers

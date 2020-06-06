@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.Domain.Helpers.Interfaces;
@@ -101,7 +102,7 @@ namespace ProEvoCanary.Domain.Repositories
             return standings;
         }
 
-        public EventModel GetEventForEdit(int id, int ownerId)
+        public EventModel GetEventForEdit(int id)
         {
 
             var reader = _helper.ExecuteReader("up_GetTournamentForEdit", new { TournamentId = id });
@@ -138,25 +139,17 @@ namespace ProEvoCanary.Domain.Repositories
             tournament.FixturesGenerated = tournament.Results.Count > 0;
 
 
-            if (ownerId != tournament.OwnerId)
-                throw new NullReferenceException();
-
             return tournament;
         }
 
-        public int CreateEvent(string tournamentname, DateTime date, int eventType, int ownerId)
+        public int CreateEvent(string tournamentname, DateTime date, int eventType)
         {
             if (string.IsNullOrEmpty(tournamentname))
             {
                 throw new NullReferenceException("Tournament Name is null or empty");
             }
 
-            if (ownerId < 1)
-            {
-                throw new LessThanOneException("Owner Id must be greater than zero");
-            }
-
-            return _helper.ExecuteScalar("up_AddTournament", new { TournamentName = tournamentname, TournamentType = eventType, Date = date, ownerId });
+            return _helper.ExecuteScalar("up_AddTournament", new { TournamentName = tournamentname, TournamentType = eventType, Date = date });
         }
 
         public void GenerateFixtures(int eventId, List<int> userIds)

@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProEvoCanary.Domain.Authentication;
+using ProEvoCanary.DataAccess;
+using ProEvoCanary.DataAccess.Helpers;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
@@ -51,7 +52,6 @@ namespace ProEvoCanary.Web
 			services.AddTransient<IRssLoader, RssLoader>();
 			//services.AddTransient<IAuthenticationHandler, AuthenticationHandler>();
 			services.AddTransient<IPasswordHash, PasswordHash>();
-			services.AddTransient<IAppUser, CurrentAppUser>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
 
 			services.AddTransient<IEventRepository, EventRepository>();
