@@ -4,10 +4,10 @@ using NUnit.Framework;
 using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Tests.HelperTests;
+using ProEvoCanary.UnitTests.HelperTests;
 using ProEvoCanary.Web.Models;
 
-namespace ProEvoCanary.Tests.RepositoryTests
+namespace ProEvoCanary.UnitTests.RepositoryTests
 {
     [TestFixture]
     public class UserRepositoryTests

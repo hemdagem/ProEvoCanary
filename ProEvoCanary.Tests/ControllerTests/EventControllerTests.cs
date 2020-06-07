@@ -1,35 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.Domain.EventHandlers.Configuration;
+using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
+using ProEvoCanary.Domain.EventHandlers.Events.GetEvent;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
 using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 
-namespace ProEvoCanary.Tests.ControllerTests
+namespace ProEvoCanary.UnitTests.ControllerTests
 {
     [TestFixture]
     public class EventControllerTests
     {
         readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>());
-        private Mock<IEventRepository> _repo;
+        private Mock<IEventReadRepository> _eventReadRepositoryMock;
+        private Mock<IEventWriteRepository> _eventWriteRepositoryMock;
         private Mock<IResultRepository> _resultRepositoryMock;
         private EventController _eventController;
         private Mock<IMapper> _mapper;
         private Mock<IPlayerRepository> _mockPlayerRepository;
+        private Mock<IQueryHandlerBase<GetEventQuery, EventModelDto>> eventQueryHandlerBaseMock;
+        private Mock<ICommandHandlerBase<AddEventCommand, Guid>> eventCommandHandlerBaseMock;
 
         public EventControllerTests()
         {
-            _repo = new Mock<IEventRepository>();
+            _eventReadRepositoryMock = new Mock<IEventReadRepository>();
+            _eventWriteRepositoryMock = new Mock<IEventWriteRepository>();
             _mockPlayerRepository = new Mock<IPlayerRepository>();
             _mapper = new Mock<IMapper>();
             _resultRepositoryMock = new Mock<IResultRepository>();
+            eventQueryHandlerBaseMock = new Mock<IQueryHandlerBase<GetEventQuery, EventModelDto>>();
 
-            _eventController = new EventController(_repo.Object, _mockPlayerRepository.Object, _mapper.Object, _resultRepositoryMock.Object);
+            _eventController = new EventController(_eventReadRepositoryMock.Object, _mockPlayerRepository.Object, _mapper.Object, _resultRepositoryMock.Object, _eventWriteRepositoryMock.Object, eventQueryHandlerBaseMock.Object, eventCommandHandlerBaseMock.Object);
         }
 
         [Test]
@@ -48,7 +56,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldRedirectToGenerateFixturesAction()
         {
             //given
-            _repo.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<int>())).Returns(1);
+            _eventWriteRepositoryMock.Setup(x => x.CreateEvent(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<int>())).Returns(1);
 
             //when
             var viewResult = _eventController.Create(_eventModel) as RedirectToRouteResult;
@@ -65,11 +73,11 @@ namespace ProEvoCanary.Tests.ControllerTests
         public void ShouldReturnExceptionWhenEventDoesntExist()
         {
             //given
-            _repo.Setup(x => x.GetEvent(It.IsAny<int>()))
+            _eventReadRepositoryMock.Setup(x => x.GetEvent(It.IsAny<Guid>()))
                 .Returns((Domain.Models.EventModel)null);
 
             //when + then
-            Assert.Throws<NullReferenceException>(() => _eventController.GenerateFixtures(It.IsAny<int>()));
+            Assert.Throws<NullReferenceException>(() => _eventController.GenerateFixtures(It.IsAny<Guid>()));
         }
 
         [Test]
@@ -109,7 +117,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 Completed = true,
                 Date = date,
-                TournamentId = 10,
+                TournamentId = Guid.NewGuid(),
                TournamentType = TournamentType.Friendly,
                 FixturesGenerated = true,
                 TournamentName = "Test",
@@ -120,19 +128,19 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 Completed = true,
                 Date = date,
-                TournamentId = 10,
+                TournamentId = Guid.NewGuid(),
                TournamentType = Domain.Models.TournamentType.Friendly,
                 FixturesGenerated = true,
                 TournamentName = "Test",
                 OwnerId = 4
             };
-            _repo.Setup(x => x.GetEventForEdit(It.IsAny<int>()))
+            _eventReadRepositoryMock.Setup(x => x.GetEvent(It.IsAny<Guid>()))
                 .Returns(domainEventModel);
 
             _mapper.Setup(x => x.Map<EventModel>(domainEventModel)).Returns(eventModel);
 
             //when
-            var viewResult = _eventController.GenerateFixtures(It.IsAny<int>()) as ViewResult;
+            var viewResult = _eventController.GenerateFixtures(It.IsAny<Guid>()) as ViewResult;
             var model = viewResult.Model as EventModel;
             //then
             Assert.That(viewResult.ViewName, Is.EqualTo("GenerateFixtures"));

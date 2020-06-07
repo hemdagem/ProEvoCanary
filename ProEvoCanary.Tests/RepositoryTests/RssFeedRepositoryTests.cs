@@ -5,7 +5,7 @@ using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
 using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
-namespace ProEvoCanary.Tests.RepositoryTests
+namespace ProEvoCanary.UnitTests.RepositoryTests
 {
     class RssFeedRepositoryTests
     {
@@ -14,7 +14,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var loader = new Mock<IRssLoader>();
-            var cacheLoader = new Mock<ICacheRssLoader>();
+            var cacheLoader = new Mock<ICacheManager>();
             loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
                     LinkTitle = "hemang",
@@ -46,7 +46,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
         {
             //given
             var loader = new Mock<IRssLoader>();
-            var cacheLoader = new Mock<ICacheRssLoader>();
+            var cacheLoader = new Mock<ICacheManager>();
 
             loader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>{new RssFeedModel
                 {
@@ -54,7 +54,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
                     LinkDescription = "ha"
                 }});
 
-            cacheLoader.Setup(x => x.Load(It.IsAny<string>())).Returns(new List<RssFeedModel>
+            cacheLoader.Setup(x => x.AddOrGetExisting(It.IsAny<string>(),()=>loader.Object.Load(It.IsAny<string>()))).Returns(new List<RssFeedModel>
             {
                 new RssFeedModel
                 {

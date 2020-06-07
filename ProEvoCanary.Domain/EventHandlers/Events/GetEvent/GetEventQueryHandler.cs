@@ -4,20 +4,20 @@ using ProEvoCanary.Domain.Repositories.Interfaces;
 
 namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvent
 {
-	public class GetEventQueryHandler : IQueryHandlerBase<GetEventQuery, EventModel>
+	public class GetEventQueryHandler : IQueryHandlerBase<GetEventQuery, EventModelDto>
 	{
-		private readonly IEventRepository _eventRepository;
+		private readonly IEventReadRepository _eventRepository;
 
-		public GetEventQueryHandler(IEventRepository eventRepository)
+		public GetEventQueryHandler(IEventReadRepository eventRepository)
 		{
 			_eventRepository = eventRepository;
 		}
 
-		public EventModel Handle(GetEventQuery getEventQuery)
+		public EventModelDto Handle(GetEventQuery getEventQuery)
 		{
 			
-			var eventModel = _eventRepository.GetEvent(1);
-			return new EventModel
+			var eventModel = _eventRepository.GetEvent(getEventQuery.Id);
+			return new EventModelDto
 			{
 				Completed = eventModel.Completed,
 				Date = eventModel.Date,
@@ -26,4 +26,5 @@ namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvent
 			};
 		}
 	}
+
 }

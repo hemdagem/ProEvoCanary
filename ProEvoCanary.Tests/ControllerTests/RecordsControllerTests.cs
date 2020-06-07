@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Domain.Repositories.Interfaces;
@@ -11,7 +11,7 @@ using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 using RecordsModel = ProEvoCanary.Domain.Models.RecordsModel;
 using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
 
-namespace ProEvoCanary.Tests.ControllerTests
+namespace ProEvoCanary.UnitTests.ControllerTests
 {
     [TestFixture]
     public class RecordsControllerTests

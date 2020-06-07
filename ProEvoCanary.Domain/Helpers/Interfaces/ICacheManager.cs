@@ -1,9 +1,9 @@
-﻿namespace ProEvoCanary.Domain.Helpers.Interfaces
+﻿using System;
+
+namespace ProEvoCanary.Domain.Helpers.Interfaces
 {
     public interface ICacheManager
     {
-        void Add(string key, object value, int cacheHours);
-        T Get<T>(string key);
- 
+        T AddOrGetExisting<T>(string key, Func<T> getItemFromSource);
     }
 }

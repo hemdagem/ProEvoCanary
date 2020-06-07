@@ -7,10 +7,10 @@ using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Tests.HelperTests;
+using ProEvoCanary.UnitTests.HelperTests;
 using ProEvoCanary.Web.Models;
 
-namespace ProEvoCanary.Tests.RepositoryTests
+namespace ProEvoCanary.UnitTests.RepositoryTests
 {
     [TestFixture]
     public class EventRepositoryTests
@@ -31,8 +31,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTournamentDetails", null)).Returns(
                 DataReaderTestHelper.Reader(dictionary));
-            var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
+            var repository = new EventReadRepository(helper.Object);
 
             //when
             var resultsModels = repository.GetEvents();
@@ -62,15 +61,15 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var helper = new Mock<IDbHelper>();
             helper.Setup(x => x.ExecuteReader("up_GetTournamentForEdit", It.IsAny<object>())).Returns(
                 DataReaderTestHelper.Reader(dictionary));
-            var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
+            var repository = new EventReadRepository(helper.Object);
 
             //when
-            var eventModel = repository.GetEvent(15);
+            var eventId = Guid.NewGuid();
+            var eventModel = repository.GetEvent(eventId);
 
             //then
             Assert.IsNotNull(eventModel);
-            Assert.That(eventModel.TournamentId, Is.EqualTo(15));
+            Assert.That(eventModel.TournamentId, Is.EqualTo(eventId));
             Assert.That(eventModel.OwnerId, Is.EqualTo(10));
             Assert.That(eventModel.TournamentName, Is.EqualTo("Event"));
             Assert.That(eventModel.Date, Is.EqualTo("10/10/2010"));
@@ -89,7 +88,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
 
-            var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
+            var repository = new EventWriteRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
             Assert.Throws<NullReferenceException>(() => repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<int>()));
@@ -105,7 +104,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
 
-            var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
+            var repository = new EventWriteRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
             Assert.Throws<LessThanOneException>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>()));
@@ -119,7 +118,7 @@ namespace ProEvoCanary.Tests.RepositoryTests
             var xmlGeneratorMock = new Mock<IXmlGenerator>();
             helper.Setup(x => x.ExecuteScalar("up_AddTournament", It.IsAny<object>())).Returns(1);
 
-            var repository = new EventRepository(helper.Object, xmlGeneratorMock.Object);
+            var repository = new EventWriteRepository(helper.Object, xmlGeneratorMock.Object);
 
             //when
             var user = repository.CreateEvent("TournamentName", DateTime.UtcNow, (int)TournamentType.Friendly);

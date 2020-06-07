@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Models;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 
@@ -6,12 +7,12 @@ namespace ProEvoCanary.Domain.Repositories
 {
     public class PlayerRepositoryDecorator : IPlayerRepository
     {
-        private readonly ICachePlayerRepository _cacheRepository;
+        private readonly ICacheManager _cacheRepository;
         private readonly IPlayerRepository _playerRepository;
         private const string TopPlayerListCacheKey = "TopPlayerCacheList";
         private const string PlayerListCacheKey = "PlayerCacheList";
 
-        public PlayerRepositoryDecorator(ICachePlayerRepository cacheRepository, IPlayerRepository playerRepository)
+        public PlayerRepositoryDecorator(ICacheManager cacheRepository, IPlayerRepository playerRepository)
         {
             _cacheRepository = cacheRepository;
             _playerRepository = playerRepository;
@@ -19,15 +20,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<PlayerModel> GetTopPlayers()
         {
-            var players = _cacheRepository.GetTopPlayers();
-
-            if (players != null) return players;
-            
-            players = _playerRepository.GetTopPlayers();
-            
-            _cacheRepository.AddToCache(TopPlayerListCacheKey, players, 30);
-
-            return players;
+            return _cacheRepository.AddOrGetExisting(TopPlayerListCacheKey, () => _playerRepository.GetTopPlayers());
         }
 
         public List<PlayerModel> GetTopPlayersRange(int pageNumber, int playersPerPage)
@@ -37,15 +30,7 @@ namespace ProEvoCanary.Domain.Repositories
 
         public List<PlayerModel> GetAllPlayers()
         {
-            var players = _cacheRepository.GetAllPlayers();
-
-            if (players != null) return players;
-
-            players = _playerRepository.GetAllPlayers();
-            
-            _cacheRepository.AddToCache(PlayerListCacheKey, players, 30);
-
-            return players;
+	        return _cacheRepository.AddOrGetExisting(PlayerListCacheKey, () => _playerRepository.GetAllPlayers());
         }
 
 

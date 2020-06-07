@@ -4,9 +4,9 @@ using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Tests.HelperTests;
+using ProEvoCanary.UnitTests.HelperTests;
 
-namespace ProEvoCanary.Tests.RepositoryTests
+namespace ProEvoCanary.UnitTests.RepositoryTests
 {
     [TestFixture]
     public class ResultsRepositoryTests

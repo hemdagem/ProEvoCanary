@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using ProEvoCanary.Web.Models;
 
-namespace ProEvoCanary.Tests.ModelTests
+namespace ProEvoCanary.UnitTests.ModelTests
 {
     [TestFixture]
     public class EventModelTests

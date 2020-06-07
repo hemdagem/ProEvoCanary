@@ -2,9 +2,8 @@
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
-using ProEvoCanary.Domain.Helpers.Interfaces;
 
-namespace ProEvoCanary.DataAccess.Helpers
+namespace ProEvoCanary.DataAccess
 {
 	public class DbHelper : IDbHelper
 	{

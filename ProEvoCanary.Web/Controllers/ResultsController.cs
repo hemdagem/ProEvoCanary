@@ -8,11 +8,11 @@ namespace ProEvoCanary.Web.Controllers
 {
     public class ResultsController : Controller
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly IEventReadRepository _eventRepository;
         private readonly IResultRepository _resultRepository;
         private readonly IMapper _mapper;
 
-        public ResultsController(IEventRepository eventRepository, IResultRepository resultRepository, IMapper mapper)
+        public ResultsController(IEventReadRepository eventRepository, IResultRepository resultRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _resultRepository = resultRepository;
@@ -29,7 +29,7 @@ namespace ProEvoCanary.Web.Controllers
         [HttpPost]
         public ActionResult Update(Models.ResultsModel model)
         {
-            var eventModel = _eventRepository.GetEventForEdit(model.EventId);
+            var eventModel = _eventRepository.GetEvent(model.EventId);
 
             if (eventModel.Results.FirstOrDefault(x => x.ResultId == model.ResultId) != null)
             {

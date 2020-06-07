@@ -7,7 +7,7 @@ namespace ProEvoCanary.Domain.Helpers
 {
     public class XmlGenerator : IXmlGenerator
     {
-        public string GenerateFixtures(List<TeamIds> teamIds, int eventId)
+        public string GenerateFixtures(List<TeamIds> teamIds, Guid eventId)
         {
             if (teamIds.Count == 0)
             {
@@ -45,7 +45,7 @@ namespace ProEvoCanary.Domain.Helpers
             return string.Format(template, teamValues);
         }
 
-        public string GenerateTournamentUsers(List<int> userIds, int eventId)
+        public string GenerateTournamentUsers(List<int> userIds, Guid eventId)
         {
             if (userIds.Count == 0)
             {

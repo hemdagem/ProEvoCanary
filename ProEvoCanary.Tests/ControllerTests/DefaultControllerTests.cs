@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
@@ -12,14 +14,14 @@ using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
 using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
 using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
-namespace ProEvoCanary.Tests.ControllerTests
+namespace ProEvoCanary.UnitTests.ControllerTests
 {
     [TestFixture]
     public class DefaultControllerTests
     {
-        private Mock<ICachePlayerRepository> _playerRepository;
+        private Mock<IPlayerRepository> _playerRepository;
         private Mock<IRssFeedRepository> _rssFeedRepository;
-        private Mock<IEventRepository> _eventsRepository;
+        private Mock<IEventReadRepository> _eventsRepository;
         private Mock<IResultRepository> _resultsRepository;
         private Mock<IMapper> _mapper;
         private DefaultController _defaultController;
@@ -28,7 +30,7 @@ namespace ProEvoCanary.Tests.ControllerTests
         public DefaultControllerTests()
         {
             _mapper = new Mock<IMapper>();
-            _playerRepository = new Mock<ICachePlayerRepository>();
+            _playerRepository = new Mock<IPlayerRepository>();
             var domainPlayerModels = new List<PlayerModel>
             {
                 new PlayerModel
@@ -75,13 +77,13 @@ namespace ProEvoCanary.Tests.ControllerTests
             };
             _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(domainRssFeedModels);
 
-            _eventsRepository = new Mock<IEventRepository>();
+            _eventsRepository = new Mock<IEventReadRepository>();
 
             var domainEventModels = new List<EventModel>
             {
                 new EventModel
                 {
-                    TournamentId = 1,
+                    TournamentId = Guid.NewGuid(),
                     TournamentName = "Hemang",
                     Date = "10/10/2014",
                     Name = "Hemang",
@@ -92,7 +94,7 @@ namespace ProEvoCanary.Tests.ControllerTests
             {
                 new Web.Models.EventModel
                 {
-                    TournamentId = 1,
+                    TournamentId = Guid.NewGuid(),
                     TournamentName = "Hemang",
                     Date = "10/10/2014",
                     Name = "Hemang",

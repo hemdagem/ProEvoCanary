@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using ProEvoCanary.Domain.Helpers.Interfaces;
 
-namespace ProEvoCanary.Domain.Helpers
+namespace ProEvoCanary.DataAccess
 {
     public class DbConfiguration : IDBConfiguration
     {

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProEvoCanary.DataAccess;
-using ProEvoCanary.DataAccess.Helpers;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Interfaces;
 using ProEvoCanary.Domain.Repositories;
@@ -45,23 +44,19 @@ namespace ProEvoCanary.Web
 			services.AddRazorPages();
 
 			services.AddTransient<ICacheManager, CachingManager>();
-			services.AddTransient<ICacheRssLoader, RssCacheLoader>();
 			services.AddTransient<IDBConfiguration, DbConfiguration>();
 			services.AddTransient<IDbHelper, DbHelper>();
 
 			services.AddTransient<IRssLoader, RssLoader>();
-			//services.AddTransient<IAuthenticationHandler, AuthenticationHandler>();
 			services.AddTransient<IPasswordHash, PasswordHash>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
 
-			services.AddTransient<IEventRepository, EventRepository>();
-			services.AddTransient<ICacheEventRepository, CacheEventRepository>();
-			services.AddTransient<ICachePlayerRepository, CachePlayerRepository>();
-			services.AddTransient<ICacheResultsRepository, ResultsCacheRepository>();
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
 			services.AddTransient<IResultRepository, ResultsRepository>();
 			services.AddTransient<IRssFeedRepository, RssFeedRepositoryDecorator>();
 			services.AddTransient<IUserRepository, UserRepository>();
+			services.AddTransient<IEventWriteRepository, EventWriteRepository>();
+			services.AddTransient<IEventReadRepository, EventReadRepository>();
 
 			//Auto mapper
 			var mapperConfiguration = new MapperConfiguration(cfg =>

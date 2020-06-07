@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProEvoCanary.Domain.Models
 {
     public class EventModel
     {
-        public int TournamentId { get; set; }
+        public Guid TournamentId { get; set; }
         public int OwnerId { get; set; }
         public string TournamentName { get; set; }
         public string Date { get; set; }

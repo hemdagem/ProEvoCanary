@@ -4,7 +4,7 @@ using NUnit.Framework;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 
-namespace ProEvoCanary.Tests.ControllerTests
+namespace ProEvoCanary.UnitTests.ControllerTests
 {
     [TestFixture]
     public class AuthenticationControllerTests

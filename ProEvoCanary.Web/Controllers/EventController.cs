@@ -2,108 +2,89 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProEvoCanary.Domain.EventHandlers.Configuration;
+using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
+using ProEvoCanary.Domain.EventHandlers.Events.GetEvent;
 using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
+using EventModel = ProEvoCanary.Web.Models.EventModel;
 
 namespace ProEvoCanary.Web.Controllers
 {
 	public class EventController : Controller
-    {
-        private readonly IEventRepository _eventRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IMapper _mapper;
-        private readonly IResultRepository _resultRepository;
+	{
+		private readonly IEventReadRepository _eventRepository;
+		private readonly IPlayerRepository _playerRepository;
+		private readonly IMapper _mapper;
+		private readonly IResultRepository _resultRepository;
+		private readonly IEventWriteRepository _eventWriteRepository;
+		private readonly IQueryHandlerBase<GetEventQuery, Domain.EventHandlers.Events.GetEvent.EventModelDto> _eventQueryBase;
+		private readonly ICommandHandlerBase<AddEventCommand, Guid> _eventCommandBase;
 
-        public EventController(IEventRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository)
-        {
-            _eventRepository = eventRepository;
-            _playerRepository = playerRepository;
-            _mapper = mapper;
-            _resultRepository = resultRepository;
-        }
+		public EventController(IEventReadRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository, IEventWriteRepository eventWriteRepository, IQueryHandlerBase<GetEventQuery, EventModelDto> eventQueryBase, ICommandHandlerBase<AddEventCommand, Guid> eventCommandBase)
+		{
+			_eventRepository = eventRepository;
+			_playerRepository = playerRepository;
+			_mapper = mapper;
+			_resultRepository = resultRepository;
+			_eventWriteRepository = eventWriteRepository;
+			_eventQueryBase = eventQueryBase;
+			_eventCommandBase = eventCommandBase;
+		}
 
-        public ActionResult Create()
-        {
-            return View("Create", new AddEventModel());
-        }
-        [AllowAnonymous]
-        public ActionResult Details(int id)
-        {
-            var eventModel = _eventRepository.GetEvent(id);
-            eventModel.Standings = _eventRepository.GetStandings(id);
-            return View("Details", _mapper.Map<EventModel>(eventModel));
-        }
+		public ActionResult Create()
+		{
+			return View("Create", new AddEventModel());
+		}
 
-        [HttpPost]
-        public ActionResult Create(AddEventModel model)
-        {
-            var eventId = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType);
-            return RedirectToAction("GenerateFixtures", "Event",new {id= eventId });
-        }
+		[HttpPost]
+		public ActionResult Create(AddEventModel model)
+		{
+			var addEventCommand = new AddEventCommand(model.TournamentName, model.Date);
+			var id = _eventCommandBase.Handle(addEventCommand);
 
-        public ActionResult GenerateFixtures(int id)
-        {
-            EventModel model = _mapper.Map<EventModel>(_eventRepository.GetEventForEdit(id));
-            model.Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
+			return RedirectToAction("GenerateFixtures", "Event", new { id });
+		}
 
-            return View("GenerateFixtures", model);
-        }
+		public ActionResult Details(Guid id)
+		{
+			var eventQuery = new GetEventQuery(id);
+			var model = _eventQueryBase.Handle(eventQuery);
+			return View("Details", _mapper.Map<EventModel>(model));
+		}
 
-        [HttpPost]
-        public ActionResult GenerateFixtures(int id, List<int> userIds)
-        {
-            _eventRepository.AddTournamentUsers(id, userIds);
-            _eventRepository.GenerateFixtures(id, userIds);
-            return RedirectToAction("Details", "Event", new { Id = id });
-        }
+		public ActionResult GenerateFixtures(Guid id)
+		{
+			var eventQuery = new GetEventQuery(id);
+			var eventModel = _eventQueryBase.Handle(eventQuery);
+			EventModel model = _mapper.Map<EventModel>(eventModel);
+			model.Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
 
-        [HttpPost]
-        public JsonResult UpdateResult(int eventId,int resultId, ushort homeScore, ushort awayScore)
-        {
-            var eventModel = _eventRepository.GetEventForEdit(eventId);
+			return View("GenerateFixtures", model);
+		}
 
-            if (eventModel.Results.FirstOrDefault(x => x.ResultId == resultId) != null)
-            {
-                var addResult = _resultRepository.AddResult(resultId, homeScore, awayScore);
+		[HttpPost]
+		public ActionResult GenerateFixtures(Guid id, List<int> userIds)
+		{
+			_eventWriteRepository.AddTournamentUsers(id, userIds);
+			_eventWriteRepository.GenerateFixtures(id, userIds);
+			return RedirectToAction("Details", "Event", new { Id = id });
+		}
 
-                return Json(addResult);
-            }
+		[HttpPost]
+		public JsonResult UpdateResult(Guid eventId, int resultId, ushort homeScore, ushort awayScore)
+		{
+			var eventModel = _eventRepository.GetEvent(eventId);
 
-           throw new IndexOutOfRangeException("An error occurred");
-        }
+			if (eventModel.Results.FirstOrDefault(x => x.ResultId == resultId) != null)
+			{
+				var addResult = _resultRepository.AddResult(resultId, homeScore, awayScore);
 
-        public ActionResult AdminCreate()
-        {
-            var model = new AdminEventModel
-            {
-                Players = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers()),
-                Date = DateTime.Today
-            };
+				return Json(addResult);
+			}
 
-            return View("AdminCreate", model);
-        }
-
-
-        // POST: Authentication/Create
-        [HttpPost]
-        public ActionResult AdminCreate(AdminEventModel model)
-        {
-            if (ModelState.IsValid)
-            {
-
-                var createdEvent = _eventRepository.CreateEvent(model.TournamentName, model.Date, (int)model.TournamentType);
-
-                if (createdEvent > 0)
-                {
-                    return RedirectToAction("Index", "Default");
-                }
-            }
-
-            model.Players = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
-
-            return View(model);
-        }
-    }
+			throw new IndexOutOfRangeException("An error occurred");
+		}
+	}
 }

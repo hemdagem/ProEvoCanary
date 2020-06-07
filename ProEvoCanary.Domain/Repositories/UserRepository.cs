@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProEvoCanary.DataAccess;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Models;
@@ -61,30 +60,6 @@ namespace ProEvoCanary.Domain.Repositories
         public int CreateUser(string userName, string forename, string surname, string emailAddress, string password)
         {
             return _dbHelper.ExecuteScalar("up_AddUser", new { Username = userName, Forename = forename, Surname = surname, Email = emailAddress, Password = _passwordHash.CreateHash(password) });
-        }
-
-        public UserModel Login(LoginModel loginModel)
-        {
-            if (String.IsNullOrEmpty(loginModel.Username) || String.IsNullOrEmpty(loginModel.Password))
-            {
-                throw new NullReferenceException("Username or Password is empty");
-            }
-
-            UserModel model = null;
-            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails", new { Username = loginModel.Username }))
-            {
-                while (reader.Read())
-                {
-                    var hash = reader["Hash"].ToString();
-
-                    if (_passwordHash.ValidatePassword(loginModel.Password, hash))
-                    {
-                        model = new UserModel((int)reader["UserId"], reader["Forename"].ToString(), reader["Surname"].ToString(), loginModel.Username, (int)reader["UserType"]);
-                    }
-                }
-            }
-
-            return model;
         }
     }
 }

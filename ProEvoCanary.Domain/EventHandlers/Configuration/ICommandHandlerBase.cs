@@ -2,6 +2,6 @@
 {
 	public interface ICommandHandlerBase<in TCommand, out TResult>
 	{
-		TResult Handle(TCommand command);
+		TResult Handle(TCommand generateFixturesForEventCommand);
 	}
 }

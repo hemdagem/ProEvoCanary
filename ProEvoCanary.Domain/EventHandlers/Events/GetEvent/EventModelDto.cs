@@ -3,7 +3,7 @@ using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvent
 {
-    public class EventModel
+    public class EventModelDto
     {
         public int TournamentId { get; set; }
         public int OwnerId { get; set; }
@@ -17,7 +17,7 @@ namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvent
         public List<ResultsModel> Results { get; set; }
         public List<Standings> Standings { get; set; }
 
-        public EventModel()
+        public EventModelDto()
         {
             Users = new List<PlayerModel>();
             Results = new List<ResultsModel>();

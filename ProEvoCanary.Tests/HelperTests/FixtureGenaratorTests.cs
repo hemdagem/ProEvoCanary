@@ -4,7 +4,7 @@ using NUnit.Framework;
 using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.Domain.Helpers.Exceptions;
 
-namespace ProEvoCanary.Tests.HelperTests
+namespace ProEvoCanary.UnitTests.HelperTests
 {
     [TestFixture]
     public class FixtureGenaratorTests

@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Domain.Helpers.Interfaces
+﻿namespace ProEvoCanary.DataAccess
 {
     public interface IDBConfiguration
     {
