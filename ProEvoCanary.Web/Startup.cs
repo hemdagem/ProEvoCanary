@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProEvoCanary.DataAccess;
+using ProEvoCanary.DataAccess.Helpers;
+using ProEvoCanary.DataAccess.Repositories;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.Helpers;
-using ProEvoCanary.Domain.Helpers.Interfaces;
-using ProEvoCanary.Domain.Repositories;
-using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Web
 {
@@ -43,17 +44,15 @@ namespace ProEvoCanary.Web
 		{
 			services.AddRazorPages();
 
-			services.AddTransient<ICacheManager, CachingManager>();
+			services.AddTransient<ICacheManager, CacheManager>();
 			services.AddTransient<IDBConfiguration, DbConfiguration>();
 			services.AddTransient<IDbHelper, DbHelper>();
 
 			services.AddTransient<IRssLoader, RssLoader>();
-			services.AddTransient<IPasswordHash, PasswordHash>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
 
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
 			services.AddTransient<IResultRepository, ResultsRepository>();
-			services.AddTransient<IRssFeedRepository, RssFeedRepositoryDecorator>();
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IEventWriteRepository, EventWriteRepository>();
 			services.AddTransient<IEventReadRepository, EventReadRepository>();
@@ -61,13 +60,13 @@ namespace ProEvoCanary.Web
 			//Auto mapper
 			var mapperConfiguration = new MapperConfiguration(cfg =>
 			{
-				cfg.CreateMap<Domain.Models.RecordsModel, Models.RecordsModel>();
-				cfg.CreateMap<Domain.Models.PlayerModel, Models.PlayerModel>();
-				cfg.CreateMap<Domain.Models.EventModel, Models.EventModel>();
-				cfg.CreateMap<Domain.Models.ResultsModel, Models.ResultsModel>();
-				cfg.CreateMap<Domain.Models.RssFeedModel, Models.RssFeedModel>();
-				cfg.CreateMap<Domain.Models.TournamentType, Models.TournamentType>();
-				cfg.CreateMap<Domain.Models.Standings, Models.Standings>();
+				cfg.CreateMap<RecordsModel, Models.RecordsModel>();
+				cfg.CreateMap<PlayerModel, Models.PlayerModel>();
+				cfg.CreateMap<EventModel, Models.EventModel>();
+				cfg.CreateMap<ResultsModel, Models.ResultsModel>();
+				cfg.CreateMap<RssFeedModel, Models.RssFeedModel>();
+				cfg.CreateMap<TournamentType, Models.TournamentType>();
+				cfg.CreateMap<Standings, Models.Standings>();
 			});
 
 			services.AddTransient<IMapper>(x => mapperConfiguration.CreateMapper());

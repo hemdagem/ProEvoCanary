@@ -6,9 +6,8 @@ namespace ProEvoCanary.Web.Models
     {
         public CreateUserModel() { }
 
-        public CreateUserModel(string forename, string surname, string username, string emailAddress, string password)
+        public CreateUserModel(string forename, string surname, string username, string emailAddress)
         {
-            Password = password;
             Forename = forename;
             Surname = surname;
             Username = username;
@@ -25,9 +24,6 @@ namespace ProEvoCanary.Web.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
 
     }
 }

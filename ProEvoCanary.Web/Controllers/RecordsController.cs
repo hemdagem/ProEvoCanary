@@ -2,7 +2,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
 
 namespace ProEvoCanary.Web.Controllers

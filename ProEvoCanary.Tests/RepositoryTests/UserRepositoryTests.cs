@@ -2,8 +2,8 @@
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
+using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.Domain.Helpers;
-using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.UnitTests.HelperTests;
 using ProEvoCanary.Web.Models;
 
@@ -12,9 +12,8 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
     [TestFixture]
     public class UserRepositoryTests
     {
-        readonly CreateUserModel _loginModel = new CreateUserModel("Hemang", "Rajyaguru", "Hemang", "test@test.com", "password");
+        readonly CreateUserModel _loginModel = new CreateUserModel("Hemang", "Rajyaguru", "Hemang", "test@test.com");
         Mock<IDbHelper> _helper;
-        Mock<IPasswordHash> _passwordHash;
         private UserRepository _repository;
         readonly Dictionary<string, object> _dictionary = new Dictionary<string, object>
             {
@@ -36,8 +35,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
         private void Setup()
         {
             _helper = new Mock<IDbHelper>();
-            _passwordHash = new Mock<IPasswordHash>();
-            _repository = new UserRepository(_helper.Object, _passwordHash.Object);
+            _repository = new UserRepository(_helper.Object);
         }
 
         [Test]
@@ -45,7 +43,6 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
         {
             //given
             Setup();
-            _passwordHash.Setup(x => x.ValidatePassword(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             _helper.Setup(x => x.ExecuteReader("up_GetLoginDetails", It.IsAny<object>())).Returns(DataReaderTestHelper.Reader(_adminDictionary));
 
             //when
@@ -86,7 +83,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             _helper.Setup(x => x.ExecuteScalar("up_AddUser", It.IsAny<object>())).Returns(1);
 
             //when
-            var user = _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress, _loginModel.Password);
+            var user = _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress);
 
             //then
             Assert.That(user, Is.EqualTo(1));

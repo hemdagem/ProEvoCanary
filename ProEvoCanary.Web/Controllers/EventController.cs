@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
+using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;
 using ProEvoCanary.Domain.EventHandlers.Events.GetEvent;
-using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Models;
 using EventModel = ProEvoCanary.Web.Models.EventModel;
 
@@ -14,23 +16,23 @@ namespace ProEvoCanary.Web.Controllers
 {
 	public class EventController : Controller
 	{
-		private readonly IEventReadRepository _eventRepository;
-		private readonly IPlayerRepository _playerRepository;
+		private readonly IQuery<List<PlayerModelDto>> _getPlayersQuery;
 		private readonly IMapper _mapper;
-		private readonly IResultRepository _resultRepository;
-		private readonly IEventWriteRepository _eventWriteRepository;
-		private readonly IQueryHandlerBase<GetEventQuery, Domain.EventHandlers.Events.GetEvent.EventModelDto> _eventQueryBase;
-		private readonly ICommandHandlerBase<AddEventCommand, Guid> _eventCommandBase;
+		private readonly IQueryHandler<GetEvent, EventModelDto> _eventQuery;
+		private readonly ICommandHandler<AddEventCommand, Guid> _eventCommand;
+		private readonly ICommandHandler<GenerateFixturesForEventCommand, Guid> _geneQueryHandler;
 
-		public EventController(IEventReadRepository eventRepository, IPlayerRepository playerRepository, IMapper mapper, IResultRepository resultRepository, IEventWriteRepository eventWriteRepository, IQueryHandlerBase<GetEventQuery, EventModelDto> eventQueryBase, ICommandHandlerBase<AddEventCommand, Guid> eventCommandBase)
+		public EventController(IQuery<List<PlayerModelDto>> getPlayersQuery, 
+			IMapper mapper, 
+			IQueryHandler<GetEvent, EventModelDto> eventQuery,
+			ICommandHandler<AddEventCommand, Guid> eventCommand,
+			ICommandHandler<GenerateFixturesForEventCommand, Guid> geneQueryHandler)
 		{
-			_eventRepository = eventRepository;
-			_playerRepository = playerRepository;
+			_getPlayersQuery = getPlayersQuery;
 			_mapper = mapper;
-			_resultRepository = resultRepository;
-			_eventWriteRepository = eventWriteRepository;
-			_eventQueryBase = eventQueryBase;
-			_eventCommandBase = eventCommandBase;
+			_eventQuery = eventQuery;
+			_eventCommand = eventCommand;
+			_geneQueryHandler = geneQueryHandler;
 		}
 
 		public ActionResult Create()
@@ -42,24 +44,24 @@ namespace ProEvoCanary.Web.Controllers
 		public ActionResult Create(AddEventModel model)
 		{
 			var addEventCommand = new AddEventCommand(model.TournamentName, model.Date);
-			var id = _eventCommandBase.Handle(addEventCommand);
+			var id = _eventCommand.Handle(addEventCommand);
 
 			return RedirectToAction("GenerateFixtures", "Event", new { id });
 		}
 
 		public ActionResult Details(Guid id)
 		{
-			var eventQuery = new GetEventQuery(id);
-			var model = _eventQueryBase.Handle(eventQuery);
+			var eventQuery = new GetEvent(id);
+			var model = _eventQuery.Handle(eventQuery);
 			return View("Details", _mapper.Map<EventModel>(model));
 		}
 
 		public ActionResult GenerateFixtures(Guid id)
 		{
-			var eventQuery = new GetEventQuery(id);
-			var eventModel = _eventQueryBase.Handle(eventQuery);
+			var eventQuery = new GetEvent(id);
+			var eventModel = _eventQuery.Handle(eventQuery);
 			EventModel model = _mapper.Map<EventModel>(eventModel);
-			model.Users = _mapper.Map<List<PlayerModel>>(_playerRepository.GetAllPlayers());
+			model.Users = _mapper.Map<List<PlayerModel>>(_getPlayersQuery.Handle());
 
 			return View("GenerateFixtures", model);
 		}
@@ -67,24 +69,9 @@ namespace ProEvoCanary.Web.Controllers
 		[HttpPost]
 		public ActionResult GenerateFixtures(Guid id, List<int> userIds)
 		{
-			_eventWriteRepository.AddTournamentUsers(id, userIds);
-			_eventWriteRepository.GenerateFixtures(id, userIds);
+			var eventCommand = new GenerateFixturesForEventCommand(id,userIds);
+			_geneQueryHandler.Handle(eventCommand);
 			return RedirectToAction("Details", "Event", new { Id = id });
-		}
-
-		[HttpPost]
-		public JsonResult UpdateResult(Guid eventId, int resultId, ushort homeScore, ushort awayScore)
-		{
-			var eventModel = _eventRepository.GetEvent(eventId);
-
-			if (eventModel.Results.FirstOrDefault(x => x.ResultId == resultId) != null)
-			{
-				var addResult = _resultRepository.AddResult(resultId, homeScore, awayScore);
-
-				return Json(addResult);
-			}
-
-			throw new IndexOutOfRangeException("An error occurred");
 		}
 	}
 }

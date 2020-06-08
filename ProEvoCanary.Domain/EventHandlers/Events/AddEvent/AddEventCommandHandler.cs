@@ -1,10 +1,10 @@
 ﻿using System;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.Repositories.Interfaces;
 
 namespace ProEvoCanary.Domain.EventHandlers.Events.AddEvent
 {
-	public class AddEventCommandHandler : ICommandHandlerBase<AddEventCommand, Guid>
+	public class AddEventCommandHandler : ICommandHandler<AddEventCommand, Guid>
 	{
 		private readonly IEventWriteRepository _eventRepository;
 
@@ -13,10 +13,10 @@ namespace ProEvoCanary.Domain.EventHandlers.Events.AddEvent
 			_eventRepository = eventRepository;
 		}
 
-		public Guid Handle(AddEventCommand generateFixturesForEventCommand)
+		public Guid Handle(AddEventCommand command)
 		{
-			_eventRepository.CreateEvent(generateFixturesForEventCommand.Name, generateFixturesForEventCommand.DateOfEvent, 1);
-			return generateFixturesForEventCommand.Id;
+			_eventRepository.CreateEvent(command.Name, command.DateOfEvent, 1);
+			return command.Id;
 		}
 
 	}

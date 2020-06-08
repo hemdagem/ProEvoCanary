@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Domain.Helpers
@@ -17,7 +16,7 @@ namespace ProEvoCanary.Domain.Helpers
 
 			if (teamIds.Distinct().Count() != teamIds.Count)
 			{
-				throw new NotUniqueException();
+				throw new Exception("Not Unique");
 			}
 
 			var generatedTeamIds = new List<TeamIds>();

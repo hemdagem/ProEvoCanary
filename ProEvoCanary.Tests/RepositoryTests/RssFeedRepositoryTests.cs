@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.Helpers.Interfaces;
-using ProEvoCanary.Domain.Repositories;
+using ProEvoCanary.DataAccess.Repositories;
+using ProEvoCanary.Domain.Helpers;
 using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
 namespace ProEvoCanary.UnitTests.RepositoryTests

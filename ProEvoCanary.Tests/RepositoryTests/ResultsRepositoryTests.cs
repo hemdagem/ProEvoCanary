@@ -3,7 +3,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
-using ProEvoCanary.Domain.Repositories;
+using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.UnitTests.HelperTests;
 
 namespace ProEvoCanary.UnitTests.RepositoryTests

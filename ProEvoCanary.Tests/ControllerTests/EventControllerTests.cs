@@ -5,13 +5,17 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
+using ProEvoCanary.DataAccess.Repositories;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
+using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;
 using ProEvoCanary.Domain.EventHandlers.Events.GetEvent;
-using ProEvoCanary.Domain.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
+using EventModel = ProEvoCanary.Web.Models.EventModel;
 using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
+using TournamentType = ProEvoCanary.Web.Models.TournamentType;
 
 namespace ProEvoCanary.UnitTests.ControllerTests
 {
@@ -21,12 +25,13 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>());
         private Mock<IEventReadRepository> _eventReadRepositoryMock;
         private Mock<IEventWriteRepository> _eventWriteRepositoryMock;
-        private Mock<IResultRepository> _resultRepositoryMock;
         private EventController _eventController;
         private Mock<IMapper> _mapper;
         private Mock<IPlayerRepository> _mockPlayerRepository;
-        private Mock<IQueryHandlerBase<GetEventQuery, EventModelDto>> eventQueryHandlerBaseMock;
-        private Mock<ICommandHandlerBase<AddEventCommand, Guid>> eventCommandHandlerBaseMock;
+        private Mock<IQueryHandler<GetEvent, EventModelDto>> eventQueryHandlerBaseMock;
+        private Mock<ICommandHandler<AddEventCommand, Guid>> eventCommandHandlerBaseMock;
+        private readonly Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>> _geneQueryHandlerBase;
+
 
         public EventControllerTests()
         {
@@ -34,10 +39,10 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             _eventWriteRepositoryMock = new Mock<IEventWriteRepository>();
             _mockPlayerRepository = new Mock<IPlayerRepository>();
             _mapper = new Mock<IMapper>();
-            _resultRepositoryMock = new Mock<IResultRepository>();
-            eventQueryHandlerBaseMock = new Mock<IQueryHandlerBase<GetEventQuery, EventModelDto>>();
+            eventQueryHandlerBaseMock = new Mock<IQueryHandler<GetEvent, EventModelDto>>();
+            _geneQueryHandlerBase = new Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>>();
 
-            _eventController = new EventController(_eventReadRepositoryMock.Object, _mockPlayerRepository.Object, _mapper.Object, _resultRepositoryMock.Object, _eventWriteRepositoryMock.Object, eventQueryHandlerBaseMock.Object, eventCommandHandlerBaseMock.Object);
+            _eventController = new EventController(_mockPlayerRepository.Object, _mapper.Object, eventQueryHandlerBaseMock.Object, eventCommandHandlerBaseMock.Object, _geneQueryHandlerBase.Object);
         }
 
         [Test]
@@ -74,7 +79,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         {
             //given
             _eventReadRepositoryMock.Setup(x => x.GetEvent(It.IsAny<Guid>()))
-                .Returns((Domain.Models.EventModel)null);
+                .Returns((DataAccess.Repositories.EventModel)null);
 
             //when + then
             Assert.Throws<NullReferenceException>(() => _eventController.GenerateFixtures(It.IsAny<Guid>()));
@@ -124,7 +129,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                 OwnerId = 4
             };
 
-            var domainEventModel = new Domain.Models.EventModel
+            var domainEventModel = new DataAccess.Repositories.EventModel
             {
                 Completed = true,
                 Date = date,

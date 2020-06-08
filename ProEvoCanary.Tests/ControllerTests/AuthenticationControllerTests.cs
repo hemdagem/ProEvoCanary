@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 
 namespace ProEvoCanary.UnitTests.ControllerTests

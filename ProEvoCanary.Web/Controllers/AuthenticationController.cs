@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Web.Models;
 
 namespace ProEvoCanary.Web.Controllers
@@ -25,7 +25,7 @@ namespace ProEvoCanary.Web.Controllers
         {
 	        if (ModelState.IsValid)
 	        {
-		        if (_userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress, model.Password) > 0)
+		        if (_userRepository.CreateUser(model.Username, model.Forename, model.Surname, model.EmailAddress) > 0)
 		        {
 			        return RedirectToAction("Index", "Default");
 		        }

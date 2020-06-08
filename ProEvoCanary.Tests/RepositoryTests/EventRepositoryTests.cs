@@ -4,11 +4,11 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
+using ProEvoCanary.DataAccess.Helpers;
+using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.Domain.Helpers.Exceptions;
-using ProEvoCanary.Domain.Helpers.Interfaces;
-using ProEvoCanary.Domain.Repositories;
 using ProEvoCanary.UnitTests.HelperTests;
-using ProEvoCanary.Web.Models;
+using TournamentType = ProEvoCanary.Web.Models.TournamentType;
 
 namespace ProEvoCanary.UnitTests.RepositoryTests
 {

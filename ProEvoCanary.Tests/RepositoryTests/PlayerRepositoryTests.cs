@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
-using ProEvoCanary.Domain.Helpers.Exceptions;
-using ProEvoCanary.Domain.Repositories;
+using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.UnitTests.HelperTests;
 
 namespace ProEvoCanary.UnitTests.RepositoryTests
@@ -91,7 +91,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             //when
 
 
-            Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(0));
+            Assert.Throws<Exception>(() => repository.GetTopPlayersRange(0));
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-            Assert.Throws<LessThanOneException>(() => repository.GetTopPlayersRange(1, 0));
+            Assert.Throws<Exception>(() => repository.GetTopPlayersRange(1, 0));
         }
 
         [Test]
@@ -165,7 +165,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             var repository = new PlayerRepository(helper.Object);
 
             //when
-            Assert.Throws<TooManyPlayersReturnedException>(() => repository.GetTopPlayersRange(1, 2));
+            Assert.Throws<Exception>(() => repository.GetTopPlayersRange(1, 2));
         }
     }
 }

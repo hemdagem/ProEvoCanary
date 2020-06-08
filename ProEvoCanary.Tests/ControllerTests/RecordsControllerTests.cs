@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.Repositories.Interfaces;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
 using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
