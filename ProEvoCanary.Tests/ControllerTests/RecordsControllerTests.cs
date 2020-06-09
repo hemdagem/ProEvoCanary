@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -34,9 +35,9 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                 }
             };
 
-            var domainPlayerModels = new List<PlayerModel>()
+            var domainPlayerModels = new List<DataAccess.Models.PlayerModel>()
             {
-                new PlayerModel
+                new DataAccess.Models.PlayerModel
                 {
                     PlayerName = "Hemang",
                     PlayerId = 1
@@ -60,26 +61,26 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                         AwayTeam = "Villa",
                         HomeScore = 3,
                         HomeTeam = "Arsenal",
-                        ResultId = 1
+                        ResultId = Guid.NewGuid()
                     }
                 }
             };
 
-            var domainRecordsModel = new RecordsModel
+            var domainRecordsModel = new DataAccess.Models.RecordsModel
             {
                 TotalMatches = 1,
                 PlayerOneWins = 2,
                 PlayerTwoWins = 3,
                 TotalDraws = 4,
-                Results = new List<ResultsModel>
+                Results = new List<DataAccess.Models.ResultsModel>
                 {
-                    new ResultsModel
+                    new DataAccess.Models.ResultsModel
                     {
                         AwayScore = 0,
                         AwayTeam = "Villa",
                         HomeScore = 3,
                         HomeTeam = "Arsenal",
-                        ResultId = 1
+                        ResultId = Guid.NewGuid()
                     }
                 }
             };

@@ -6,7 +6,6 @@ using NUnit.Framework;
 using ProEvoCanary.DataAccess;
 using ProEvoCanary.DataAccess.Helpers;
 using ProEvoCanary.DataAccess.Repositories;
-using ProEvoCanary.Domain.Helpers.Exceptions;
 using ProEvoCanary.UnitTests.HelperTests;
 using TournamentType = ProEvoCanary.Web.Models.TournamentType;
 
@@ -107,7 +106,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             var repository = new EventWriteRepository(helper.Object, xmlGeneratorMock.Object);
 
             //then
-            Assert.Throws<LessThanOneException>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>()));
+            Assert.Throws<Exception>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>()));
         }
 
         [Test]

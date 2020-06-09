@@ -11,6 +11,7 @@ using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
 using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;
 using ProEvoCanary.Domain.EventHandlers.Events.GetEvent;
+using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
 using EventModel = ProEvoCanary.Web.Models.EventModel;
@@ -27,7 +28,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         private Mock<IEventWriteRepository> _eventWriteRepositoryMock;
         private EventController _eventController;
         private Mock<IMapper> _mapper;
-        private Mock<IPlayerRepository> _mockPlayerRepository;
+        private Mock<IQuery<List<PlayerModelDto>>> _mockPlayerRepository;
         private Mock<IQueryHandler<GetEvent, EventModelDto>> eventQueryHandlerBaseMock;
         private Mock<ICommandHandler<AddEventCommand, Guid>> eventCommandHandlerBaseMock;
         private readonly Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>> _geneQueryHandlerBase;
@@ -37,7 +38,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         {
             _eventReadRepositoryMock = new Mock<IEventReadRepository>();
             _eventWriteRepositoryMock = new Mock<IEventWriteRepository>();
-            _mockPlayerRepository = new Mock<IPlayerRepository>();
+            _mockPlayerRepository = new Mock<IQuery<List<PlayerModelDto>>>();
             _mapper = new Mock<IMapper>();
             eventQueryHandlerBaseMock = new Mock<IQueryHandler<GetEvent, EventModelDto>>();
             _geneQueryHandlerBase = new Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>>();
@@ -79,7 +80,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         {
             //given
             _eventReadRepositoryMock.Setup(x => x.GetEvent(It.IsAny<Guid>()))
-                .Returns((DataAccess.Repositories.EventModel)null);
+                .Returns((DataAccess.Models.EventModel)null);
 
             //when + then
             Assert.Throws<NullReferenceException>(() => _eventController.GenerateFixtures(It.IsAny<Guid>()));
@@ -106,15 +107,15 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                     PlayerId = 1
                 }
             };
-            var domainPlayerModels = new List<PlayerModel>()
+            var domainPlayerModels = new List<PlayerModelDto>()
             {
-                new PlayerModel
+                new PlayerModelDto
                 {
                     PlayerName = "Test",
                     PlayerId = 1
                 }
             };
-            _mockPlayerRepository.Setup(x => x.GetAllPlayers()).Returns(domainPlayerModels);
+            _mockPlayerRepository.Setup(x => x.Handle()).Returns(domainPlayerModels);
 
             _mapper.Setup(x => x.Map<List<Web.Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
 
@@ -129,12 +130,12 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                 OwnerId = 4
             };
 
-            var domainEventModel = new DataAccess.Repositories.EventModel
+            var domainEventModel = new DataAccess.Models.EventModel
             {
                 Completed = true,
                 Date = date,
                 TournamentId = Guid.NewGuid(),
-               TournamentType = Domain.Models.TournamentType.Friendly,
+               TournamentType = DataAccess.Models.TournamentType.Friendly,
                 FixturesGenerated = true,
                 TournamentName = "Test",
                 OwnerId = 4

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using ProEvoCanary.Domain.Helpers;
-using ProEvoCanary.Domain.Helpers.Exceptions;
 
 namespace ProEvoCanary.UnitTests.HelperTests
 {
@@ -34,7 +33,7 @@ namespace ProEvoCanary.UnitTests.HelperTests
                 1,
             };
             //then
-            Assert.Throws<NotUniqueException>(() => fixtureGenerator.Generate(teamIds));
+            Assert.Throws<Exception>(() => fixtureGenerator.Generate(teamIds));
         }
 
         [Test]
