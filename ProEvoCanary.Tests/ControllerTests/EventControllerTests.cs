@@ -10,7 +10,7 @@ using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
 using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;
-using ProEvoCanary.Domain.EventHandlers.Events.GetEvent;
+using ProEvoCanary.Domain.EventHandlers.Events.GetEvents;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;

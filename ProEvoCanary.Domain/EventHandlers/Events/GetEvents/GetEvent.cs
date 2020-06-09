@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvent
+namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvents
 {
 	public class GetEvent
 	{
