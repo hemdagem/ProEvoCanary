@@ -12,9 +12,6 @@ using ProEvoCanary.Domain.EventHandlers.Events.GetEvents;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
-using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
-using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
-using RssFeedModel = ProEvoCanary.Domain.Models.RssFeedModel;
 
 namespace ProEvoCanary.UnitTests.ControllerTests
 {

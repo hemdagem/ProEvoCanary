@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using ProEvoCanary.DataAccess.Helpers;
 using ProEvoCanary.Domain.Helpers;
 
 namespace ProEvoCanary.UnitTests.HelperTests

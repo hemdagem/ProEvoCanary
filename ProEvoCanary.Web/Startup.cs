@@ -60,11 +60,8 @@ namespace ProEvoCanary.Web
 			//Auto mapper
 			var mapperConfiguration = new MapperConfiguration(cfg =>
 			{
-				cfg.CreateMap<RecordsModel, Models.RecordsModel>();
 				cfg.CreateMap<PlayerModel, Models.PlayerModel>();
-				cfg.CreateMap<EventModel, Models.EventModel>();
 				cfg.CreateMap<ResultsModel, Models.ResultsModel>();
-				cfg.CreateMap<RssFeedModel, Models.RssFeedModel>();
 				cfg.CreateMap<TournamentType, Models.TournamentType>();
 				cfg.CreateMap<Standings, Models.Standings>();
 			});

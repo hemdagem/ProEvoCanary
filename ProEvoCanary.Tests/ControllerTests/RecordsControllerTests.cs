@@ -8,9 +8,6 @@ using NUnit.Framework;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
-using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
-using RecordsModel = ProEvoCanary.Domain.Models.RecordsModel;
-using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
 
 namespace ProEvoCanary.UnitTests.ControllerTests
 {
