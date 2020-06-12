@@ -3,7 +3,6 @@ using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
 using ProEvoCanary.DataAccess.Repositories;
-using ProEvoCanary.Domain.Helpers;
 using ProEvoCanary.UnitTests.HelperTests;
 using ProEvoCanary.Web.Models;
 

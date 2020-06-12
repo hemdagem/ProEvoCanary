@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.Helpers;
 
-namespace ProEvoCanary.Domain.EventHandlers.Results
+namespace ProEvoCanary.Domain.EventHandlers.Results.AddResult
 {
 	public class AddResultCommandHandler :ICommandHandler<AddResultCommand,Guid>
 	{

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
 using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;

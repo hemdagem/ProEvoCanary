@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProEvoCanary.DataAccess.Models;
 
-namespace ProEvoCanary.Domain.Helpers
+namespace ProEvoCanary.DataAccess.Repositories
 {
     public interface IRssLoader
     {

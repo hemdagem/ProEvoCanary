@@ -2,7 +2,7 @@
 using AutoMapper;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.Helpers;
+using ProEvoCanary.Domain.Infrastructure;
 
 namespace ProEvoCanary.Domain.EventHandlers.Players.GetPlayers
 {

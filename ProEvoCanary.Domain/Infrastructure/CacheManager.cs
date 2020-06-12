@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace ProEvoCanary.Domain.Helpers
+namespace ProEvoCanary.Domain.Infrastructure
 {
     public class CacheManager : ICacheManager
     {

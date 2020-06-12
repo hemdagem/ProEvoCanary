@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Linq;
 using ProEvoCanary.DataAccess.Models;
 
-namespace ProEvoCanary.Domain.Helpers
+namespace ProEvoCanary.DataAccess.Repositories
 {
 	public class RssLoader : IRssLoader
 	{

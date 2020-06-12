@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProEvoCanary.Domain.Helpers
+namespace ProEvoCanary.Domain.Infrastructure
 {
     public interface ICacheManager
     {

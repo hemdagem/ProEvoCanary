@@ -7,7 +7,7 @@ using ProEvoCanary.DataAccess;
 using ProEvoCanary.DataAccess.Helpers;
 using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
-using ProEvoCanary.Domain.Helpers;
+using ProEvoCanary.Domain.Infrastructure;
 using ProEvoCanary.Domain.Models;
 
 namespace ProEvoCanary.Web

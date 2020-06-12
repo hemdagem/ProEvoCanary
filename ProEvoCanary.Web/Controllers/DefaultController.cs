@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
