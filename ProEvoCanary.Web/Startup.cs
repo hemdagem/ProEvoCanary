@@ -7,8 +7,17 @@ using ProEvoCanary.DataAccess;
 using ProEvoCanary.DataAccess.Helpers;
 using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
+using ProEvoCanary.Domain.EventHandlers.Events.Commands;
+using ProEvoCanary.Domain.EventHandlers.Events.Queries;
+using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
+using ProEvoCanary.Domain.EventHandlers.Results.GetResults;
+using ProEvoCanary.Domain.EventHandlers.RssFeeds.GetFeed;
 using ProEvoCanary.Domain.Infrastructure;
-using ProEvoCanary.Domain.Models;
+using ProEvoCanary.Web.Models;
+using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
+using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
+using Standings = ProEvoCanary.Domain.Models.Standings;
+using TournamentType = ProEvoCanary.Domain.Models.TournamentType;
 
 namespace ProEvoCanary.Web
 {
@@ -43,12 +52,13 @@ namespace ProEvoCanary.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddRazorPages();
+			
 
 			services.AddTransient<ICacheManager, CacheManager>();
 			services.AddTransient<IDBConfiguration, DbConfiguration>();
 			services.AddTransient<IDbHelper, DbHelper>();
 
-			services.AddTransient<IRssLoader, RssLoader>();
+			services.AddTransient<IRssRepository, RssRepository>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
 
 			services.AddTransient<IPlayerRepository, PlayerRepository>();
@@ -56,14 +66,25 @@ namespace ProEvoCanary.Web
 			services.AddTransient<IUserRepository, UserRepository>();
 			services.AddTransient<IEventWriteRepository, EventWriteRepository>();
 			services.AddTransient<IEventReadRepository, EventReadRepository>();
+			services.AddTransient<IEventsQueryHandler, EventsQueryHandler>();
+			services.AddTransient<IEventCommandHandler, EventCommandHandler>();
+			services.AddTransient<IGetRssFeedQueryHandler, GetRssFeedQueryHandler>();
+			services.AddTransient<IGetPlayersQueryHandler, GetPlayersQueryHandler>();
+			services.AddTransient<IGetResultQueryHandler, GetResultQueryHandler>();
 
 			//Auto mapper
 			var mapperConfiguration = new MapperConfiguration(cfg =>
 			{
+				cfg.CreateMap<PlayerModel, PlayerModelDto>();
 				cfg.CreateMap<PlayerModel, Models.PlayerModel>();
 				cfg.CreateMap<ResultsModel, Models.ResultsModel>();
+				cfg.CreateMap<ResultsModel, GetResultsModelDto>();
 				cfg.CreateMap<TournamentType, Models.TournamentType>();
 				cfg.CreateMap<Standings, Models.Standings>();
+				cfg.CreateMap<RssFeedModelDto, DataAccess.Models.RssFeedModel>();
+				cfg.CreateMap<DataAccess.Models.RssFeedModel, RssFeedModelDto>();
+				cfg.CreateMap<RssFeedModelDto, RssFeedModel>();
+				cfg.CreateMap<EventModel, EventModelDto>();
 			});
 
 			services.AddTransient<IMapper>(x => mapperConfiguration.CreateMapper());

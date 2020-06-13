@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProEvoCanary.DataAccess.Models;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 
 namespace ProEvoCanary.DataAccess.Repositories
 {

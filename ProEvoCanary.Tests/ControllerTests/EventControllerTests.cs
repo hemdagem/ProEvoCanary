@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
-using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;
-using ProEvoCanary.Domain.EventHandlers.Events.GetEvents;
+using ProEvoCanary.Domain.EventHandlers.Events.Commands;
+using ProEvoCanary.Domain.EventHandlers.Events.Queries;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
@@ -23,21 +22,21 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         readonly AddEventModel _eventModel = new AddEventModel(It.IsAny<TournamentType>(), It.IsAny<string>(), It.IsAny<DateTime>());
         private readonly EventController _eventController;
         private Mock<IMapper> _mapper;
-        private readonly Mock<IQuery<List<PlayerModelDto>>> _mockPlayerRepository;
+        private readonly Mock<IGetPlayersQueryHandler> _mockPlayerRepository;
         private readonly Mock<IEventsQueryHandler> eventQueryHandlerBaseMock;
-        private readonly Mock<ICommandHandler<AddEventCommand, Guid>> _eventCommandHandlerBaseMock;
+        private readonly Mock<IEventCommandHandler> _eventCommandHandlerBaseMock;
         private readonly Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>> _geneQueryHandlerBase;
 
 
         public EventControllerTests()
         {
-            _mockPlayerRepository = new Mock<IQuery<List<PlayerModelDto>>>();
+            _mockPlayerRepository = new Mock<IGetPlayersQueryHandler>();
             _mapper = new Mock<IMapper>();
             eventQueryHandlerBaseMock = new Mock<IEventsQueryHandler>();
             _geneQueryHandlerBase = new Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>>();
-            _eventCommandHandlerBaseMock = new Mock<ICommandHandler<AddEventCommand, Guid>>();
+            _eventCommandHandlerBaseMock = new Mock<IEventCommandHandler>();
 
-            _eventController = new EventController(_mockPlayerRepository.Object, _mapper.Object, eventQueryHandlerBaseMock.Object, _eventCommandHandlerBaseMock.Object, _geneQueryHandlerBase.Object);
+            _eventController = new EventController(_mockPlayerRepository.Object, _mapper.Object, eventQueryHandlerBaseMock.Object, _eventCommandHandlerBaseMock.Object);
         }
 
         [Test]

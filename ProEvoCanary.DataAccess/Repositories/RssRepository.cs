@@ -4,10 +4,11 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using System.Xml.Linq;
 using ProEvoCanary.DataAccess.Models;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 
 namespace ProEvoCanary.DataAccess.Repositories
 {
-	public class RssLoader : IRssLoader
+	public class RssRepository : IRssRepository
 	{
 		public List<RssFeedModel> Load(string url)
 		{

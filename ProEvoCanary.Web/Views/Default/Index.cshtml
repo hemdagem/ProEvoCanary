@@ -1,32 +1,33 @@
 ﻿@model ProEvoCanary.Web.Models.HomeModel
 
-<div class="row">
-    <div class="col s12 m6">
+<div class="pure-g">
+    <div class="pure-u-1-4">
+        <h2>Events</h2>
         @if (Model.Events.Count > 0)
         {
-            <div class="col s12">
-                <h2>Events</h2>
-                @await Html.PartialAsync("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
-            </div>
+            @await Html.PartialAsync("~/Views/Shared/Partials/_Events.cshtml", Model.Events)
         }
 
+    </div>
+
+
+    <div class="pure-u-1-4">
+        <h2>Top Players</h2>
         @if (Model.Players.Count > 0)
         {
-            <div class="col s12">
-                <h2>Top Players</h2>
-                @await Html.PartialAsync("~/Views/Shared/Partials/_Players.cshtml", Model.Players)
-            </div>
-        }
-
-        @if (Model.Results.Count > 0)
-        {
-            <div class="col s12">
-                <h2>Results</h2>
-                @await Html.PartialAsync("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
-            </div>
+            @await Html.PartialAsync("~/Views/Shared/Partials/_Players.cshtml", Model.Players)
         }
     </div>
-    <div class="col s12 m4">
+
+
+    <div class="pure-u-1-4">
+        <h2>Results</h2>
+        @if (Model.Results.Count > 0)
+        {
+            @await Html.PartialAsync("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
+        }
+    </div>
+    <div class="pure-u-1-4">
         <h2>News</h2>
         @await Html.PartialAsync("~/Views/Shared/Partials/_News.cshtml", Model.News)
     </div>

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using ProEvoCanary.DataAccess.Models;
 
-namespace ProEvoCanary.DataAccess.Repositories
+namespace ProEvoCanary.DataAccess.Repositories.Interfaces
 {
-    public interface IRssLoader
+    public interface IRssRepository
     {
         List<RssFeedModel> Load(string url);
     }

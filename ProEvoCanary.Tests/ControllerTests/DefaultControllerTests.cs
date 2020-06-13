@@ -8,8 +8,10 @@ using NUnit.Framework;
 using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.EventHandlers.Events.GetEvents;
+using ProEvoCanary.Domain.EventHandlers.Events.Queries;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
+using ProEvoCanary.Domain.EventHandlers.Results.GetResults;
+using ProEvoCanary.Domain.EventHandlers.RssFeeds.GetFeed;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
 
@@ -18,18 +20,17 @@ namespace ProEvoCanary.UnitTests.ControllerTests
     [TestFixture]
     public class DefaultControllerTests
     {
-        private Mock<IQuery<List<PlayerModelDto>>> _playerRepository;
-        private Mock<IRssFeedRepository> _rssFeedRepository;
-        private Mock<IEventReadRepository> _eventsRepository;
-        private Mock<IResultRepository> _resultsRepository;
+        private Mock<IGetPlayersQueryHandler> _playerRepository;
+        private Mock<IGetRssFeedQueryHandler> _rssFeedRepository;
+        private Mock<IGetResultQueryHandler> _resultsRepository;
         private Mock<IMapper> _mapper;
         private DefaultController _defaultController;
         private ViewResult _result;
-        private Mock<IQuery<List<EventModelDto>>> eventQueryBaseMock;
+        private Mock<IEventsQueryHandler> eventQueryBaseMock;
         public DefaultControllerTests()
         {
             _mapper = new Mock<IMapper>();
-            _playerRepository = new Mock<IQuery<List<PlayerModelDto>>>();
+            _playerRepository = new Mock<IGetPlayersQueryHandler>();
             var domainPlayerModels = new List<PlayerModelDto>
             {
                 new PlayerModelDto
@@ -56,10 +57,10 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             _playerRepository.Setup(x => x.Handle()).Returns(domainPlayerModels);
 
 
-            _rssFeedRepository = new Mock<IRssFeedRepository>();
-            var domainRssFeedModels = new List<DataAccess.Models.RssFeedModel>
+            _rssFeedRepository = new Mock<IGetRssFeedQueryHandler>();
+            var domainRssFeedModels = new List<RssFeedModelDto>
             {
-                new DataAccess.Models.RssFeedModel
+                new RssFeedModelDto
                 {
                     LinkTitle = "hemang",
                     LinkDescription = "ha"
@@ -74,9 +75,8 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                     LinkDescription = "ha"
                 }
             };
-            _rssFeedRepository.Setup(x => x.GetFeed(It.IsAny<string>())).Returns(domainRssFeedModels);
+            _rssFeedRepository.Setup(x => x.Handle(It.IsAny<RssFeedQuery>())).Returns(domainRssFeedModels);
 
-            _eventsRepository = new Mock<IEventReadRepository>();
 
             var domainEventModels = new List<EventModelDto>
             {
@@ -101,10 +101,10 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                 }
             };
 
-            _resultsRepository = new Mock<IResultRepository>();
-            var domainResultsModels = new List<DataAccess.Models.ResultsModel>
+            _resultsRepository = new Mock<IGetResultQueryHandler>();
+            var domainResultsModels = new List<GetResultsModelDto>
             {
-                new DataAccess.Models.ResultsModel
+                new GetResultsModelDto
                 {
                     ResultId = Guid.NewGuid(),
                     HomeTeamId = 1,
@@ -129,9 +129,9 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                     AwayScore = 2,
                 }
             };
-            _resultsRepository.Setup(x => x.GetResults()).Returns(domainResultsModels);
+            _resultsRepository.Setup(x => x.Handle()).Returns(domainResultsModels);
 
-            eventQueryBaseMock = new Mock<IQuery<List<EventModelDto>>>();
+            eventQueryBaseMock = new Mock<IEventsQueryHandler>();
 
             eventQueryBaseMock.Setup(x => x.Handle()).Returns(domainEventModels);
 

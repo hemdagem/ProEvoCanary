@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent
+namespace ProEvoCanary.Domain.EventHandlers.Events.Commands
 {
 	public class GenerateFixturesForEventCommand
 	{

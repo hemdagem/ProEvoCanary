@@ -6,7 +6,8 @@ using ProEvoCanary.Domain.Infrastructure;
 
 namespace ProEvoCanary.Domain.EventHandlers.Players.GetPlayers
 {
-	public class GetPlayersQueryHandler : IQuery<List<PlayerModelDto>>
+	public interface IGetPlayersQueryHandler : IQuery<List<PlayerModelDto>> { }
+	public class GetPlayersQueryHandler : IGetPlayersQueryHandler
 	{
 		private readonly IPlayerRepository _playerRepository;
 		private readonly IMapper _mapper;

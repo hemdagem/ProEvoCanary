@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using ProEvoCanary.DataAccess.Repositories;
+using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.Infrastructure;
 
-namespace ProEvoCanary.Domain.EventHandlers.Events.GetEvents
+namespace ProEvoCanary.Domain.EventHandlers.Events.Queries
 {
 	public interface IEventsQueryHandler :
 		IQuery<List<EventModelDto>>,

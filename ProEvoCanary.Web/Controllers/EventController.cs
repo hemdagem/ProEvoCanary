@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.EventHandlers.Events.AddEvent;
-using ProEvoCanary.Domain.EventHandlers.Events.GenerateFixturesForEvent;
-using ProEvoCanary.Domain.EventHandlers.Events.GetEvents;
+using ProEvoCanary.Domain.EventHandlers.Events.Commands;
+using ProEvoCanary.Domain.EventHandlers.Events.Queries;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Models;
 using EventModel = ProEvoCanary.Web.Models.EventModel;
@@ -14,23 +13,20 @@ namespace ProEvoCanary.Web.Controllers
 {
 	public class EventController : Controller
 	{
-		private readonly IQuery<List<PlayerModelDto>> _getPlayersQuery;
+		private readonly IGetPlayersQueryHandler _getPlayersQuery;
 		private readonly IMapper _mapper;
 		private readonly IEventsQueryHandler _eventsQueryHandler;
-		private readonly ICommandHandler<AddEventCommand, Guid> _eventCommand;
-		private readonly ICommandHandler<GenerateFixturesForEventCommand, Guid> _geneQueryHandler;
+		private readonly IEventCommandHandler _eventCommand;
 
-		public EventController(IQuery<List<PlayerModelDto>> getPlayersQuery, 
+		public EventController(IGetPlayersQueryHandler getPlayersQuery, 
 			IMapper mapper,
 			IEventsQueryHandler eventsQueryHandler,
-			ICommandHandler<AddEventCommand, Guid> eventCommand,
-			ICommandHandler<GenerateFixturesForEventCommand, Guid> geneQueryHandler)
+			IEventCommandHandler eventCommand)
 		{
 			_getPlayersQuery = getPlayersQuery;
 			_mapper = mapper;
 			_eventsQueryHandler = eventsQueryHandler;
 			_eventCommand = eventCommand;
-			_geneQueryHandler = geneQueryHandler;
 		}
 
 		public ActionResult Create()
@@ -68,7 +64,7 @@ namespace ProEvoCanary.Web.Controllers
 		public ActionResult GenerateFixtures(Guid id, List<int> userIds)
 		{
 			var eventCommand = new GenerateFixturesForEventCommand(id,userIds);
-			_geneQueryHandler.Handle(eventCommand);
+			_eventCommand.Handle(eventCommand);
 			return RedirectToAction("Details", "Event", new { Id = id });
 		}
 	}
