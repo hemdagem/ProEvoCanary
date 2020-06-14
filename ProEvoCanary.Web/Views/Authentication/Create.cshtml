@@ -1,4 +1,5 @@
 ﻿@model ProEvoCanary.Web.Models.CreateUserModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,34 +11,33 @@
 {
     <div class="row">
         <div class="input-field col s12 m6">
-            @Html.LabelFor(m => m.Username)
-            @Html.TextBoxFor(m => m.Username, new { @placeholder = "Enter your username", autocomplete = "off" })
+            <label asp-for="Username"></label>
+            <input type="text" asp-for="Username" placeholder="Enter your username" autocomplete="off"/>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12 m6">
-            @Html.LabelFor(m => m.EmailAddress)
+            <label asp-for="EmailAddress"></label>
+            <input type="text" asp-for="EmailAddress" placeholder="Enter your email Address" autocomplete="off"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12 m6">
+            <label asp-for="Forename"></label>
+            <input type="text" asp-for="Forename" placeholder="Enter your Forename" autocomplete="off"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s12 m6">
+            <label asp-for="Surname"></label>
+            <input type="text" asp-for="Surname" placeholder="Enter your Surname" autocomplete="off" />
 
-            @Html.TextBoxFor(m => m.EmailAddress, new { @placeholder = "Enter your email address" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s12 m6">
-            @Html.LabelFor(m => m.Forename)
-            @Html.TextBoxFor(m => m.Forename, new { @placeholder = "Enter your forename" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s12 m6">
-            @Html.LabelFor(m => m.Surname)
-            @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Enter your surname" })
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
             <button class="btn waves-effect waves-light" type="submit" name="action">
                 Submit
-                <i class="material-icons right">send</i>
             </button>
         </div>
     </div>

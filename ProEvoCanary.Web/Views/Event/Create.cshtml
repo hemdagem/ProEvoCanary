@@ -1,5 +1,6 @@
 ﻿@using ProEvoCanary.Web.Models
 @model ProEvoCanary.Web.Models.AddEventModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewBag.Title = "Create Event";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,18 +11,19 @@
 {
     <div class="row">
         <div class="input-field col s12 m6">
-            @Html.LabelFor(m => m.TournamentName)
-            @Html.TextBoxFor(model => model.TournamentName, new { placeholder = "Enter Tournament name", required = "required" })
+            <label asp-for="TournamentName"></label>
+            <input type="text" asp-for="TournamentName" placeholder="Enter tournament name" required="required"/>
         </div>
         <div class="input-field col s12 m6">
-            @Html.LabelFor(m => m.Date)
-            <input id="Date" name="Date" type="date" class="datepicker" required placeholder="Enter the Tournament Date" value="@Model.Date.ToString("yyyy-MM-dd")"/>
+            <label asp-for="Date"></label>
+            <input id="Date" name="Date" type="date" class="datepicker" required placeholder="Enter the Tournament Date" value="@DateTime.Now.ToString("yyyy-MM-dd")"/>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12 m6">
-            @Html.GetEnumSelectList(typeof(TournamentType))
-            @Html.LabelFor(m => m.TournamentType)
+            <select asp-for="TournamentType" asp-items="Html.GetEnumSelectList<TournamentType>()">
+            </select>
+            <label asp-for="TournamentType"></label>
         </div>
     </div>
 
@@ -29,7 +31,6 @@
         <div class="input-field col s12">
             <button class="btn waves-effect waves-light" type="submit" name="action">
                 Submit
-                <i class="material-icons right">send</i>
             </button>
         </div>
     </div>

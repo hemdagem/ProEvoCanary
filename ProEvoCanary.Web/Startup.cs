@@ -48,6 +48,11 @@ namespace ProEvoCanary.Web
 					name: "default",
 					pattern: "{controller=Default}/{action=Index}/{id?}");
 			});
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapRazorPages();
+			});
 		}
 		public void ConfigureServices(IServiceCollection services)
 		{
@@ -56,7 +61,7 @@ namespace ProEvoCanary.Web
 
 			services.AddTransient<ICacheManager, CacheManager>();
 			services.AddTransient<IDBConfiguration, DbConfiguration>();
-			services.AddTransient<IDbHelper, DbHelper>();
+			services.AddTransient<IDbHelper, SqlDbHelper>();
 
 			services.AddTransient<IRssRepository, RssRepository>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
@@ -85,6 +90,9 @@ namespace ProEvoCanary.Web
 				cfg.CreateMap<DataAccess.Models.RssFeedModel, RssFeedModelDto>();
 				cfg.CreateMap<RssFeedModelDto, RssFeedModel>();
 				cfg.CreateMap<EventModel, EventModelDto>();
+				cfg.CreateMap<EventModelDto, EventModel>();
+				cfg.CreateMap<EventModelDto, DataAccess.Models.EventModel>();
+				cfg.CreateMap<DataAccess.Models.EventModel, EventModelDto>();
 			});
 
 			services.AddTransient<IMapper>(x => mapperConfiguration.CreateMapper());

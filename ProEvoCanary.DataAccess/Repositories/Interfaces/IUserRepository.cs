@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ProEvoCanary.DataAccess.Models;
 
 namespace ProEvoCanary.DataAccess.Repositories.Interfaces
@@ -7,6 +8,6 @@ namespace ProEvoCanary.DataAccess.Repositories.Interfaces
     {
         UserModel GetUser(string username);
         List<UserModel> GetUsers();
-        int CreateUser(string userName, string forename, string surname, string emailAddress);
+        Guid CreateUser(Guid id,string userName, string forename, string surname, string emailAddress);
     }
 }

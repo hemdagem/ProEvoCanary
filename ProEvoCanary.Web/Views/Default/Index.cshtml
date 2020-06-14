@@ -1,7 +1,7 @@
 ﻿@model ProEvoCanary.Web.Models.HomeModel
 
-<div class="pure-g">
-    <div class="pure-u-1-4">
+<div class="columns">
+    <div class="column">
         <h2>Events</h2>
         @if (Model.Events.Count > 0)
         {
@@ -11,7 +11,7 @@
     </div>
 
 
-    <div class="pure-u-1-4">
+    <div class="column">
         <h2>Top Players</h2>
         @if (Model.Players.Count > 0)
         {
@@ -20,14 +20,14 @@
     </div>
 
 
-    <div class="pure-u-1-4">
+    <div class="column">
         <h2>Results</h2>
         @if (Model.Results.Count > 0)
         {
             @await Html.PartialAsync("~/Views/Shared/Partials/_Results.cshtml", Model.Results)
         }
     </div>
-    <div class="pure-u-1-4">
+    <div class="column">
         <h2>News</h2>
         @await Html.PartialAsync("~/Views/Shared/Partials/_News.cshtml", Model.News)
     </div>
