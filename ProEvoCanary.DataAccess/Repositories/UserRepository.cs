@@ -18,7 +18,7 @@ namespace ProEvoCanary.DataAccess.Repositories
         {
             UserModel userModel = null;
 
-            using (var reader = _dbHelper.GetItems("up_GetLoginDetails",username, new { Username =username}))
+            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails", new { Username =username}))
             {
                 while (reader.Read())
                 {
@@ -36,7 +36,7 @@ namespace ProEvoCanary.DataAccess.Repositories
         public List<UserModel> GetUsers()
         {
             var userModel = new List<UserModel>();
-            using (var reader = _dbHelper.GetItems("up_GetLoginDetails", "AllUsers"))
+            using (var reader = _dbHelper.ExecuteReader("up_GetLoginDetails"))
             {
                 while (reader.Read())
                 {
@@ -56,7 +56,8 @@ namespace ProEvoCanary.DataAccess.Repositories
 
         public Guid CreateUser(Guid id,string userName, string forename, string surname, string emailAddress)
         {
-            return _dbHelper.InsertItem("up_AddUser", id, new { Username = userName, Forename = forename, Surname = surname, Email = emailAddress });
+	        _dbHelper.ExecuteScalar("up_AddUser", new { Id = id, Username = userName, Forename = forename, Surname = surname, Email = emailAddress });
+	        return id;
         }
     }
 }

@@ -35,10 +35,6 @@ namespace ProEvoCanary.DataAccess.Repositories
 				});
 			}
 
-			if (players.Count > playersPerPage)
-			{
-				throw new Exception("Too many players return. A potential issue with the stored procedure up_GetTopPlayers");
-			}
 
 			return players;
 		}

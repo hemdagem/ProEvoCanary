@@ -5,9 +5,9 @@ using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
 using ProEvoCanary.DataAccess.Helpers;
+using ProEvoCanary.DataAccess.Models;
 using ProEvoCanary.DataAccess.Repositories;
 using ProEvoCanary.UnitTests.HelperTests;
-using TournamentType = ProEvoCanary.Web.Models.TournamentType;
 
 namespace ProEvoCanary.UnitTests.RepositoryTests
 {
@@ -20,7 +20,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             //given
             var dictionary = new Dictionary<string, object>
             {
-                {"TournamentId", 0},
+                {"TournamentId", Guid.NewGuid()},
                 {"TournamentName", "Event"},
                 {"Date", "10/10/2010"},
                 {"Name", "Arsenal"},
@@ -37,7 +37,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
 
             //then
             Assert.That(resultsModels.Count, Is.EqualTo(1));
-            Assert.That(resultsModels.First().TournamentId, Is.EqualTo(0));
+            Assert.That(resultsModels.First().TournamentId, Is.EqualTo(dictionary["TournamentId"]));
             Assert.That(resultsModels.First().TournamentName, Is.EqualTo("Event"));
             Assert.That(resultsModels.First().Date, Is.EqualTo("10/10/2010"));
             Assert.That(resultsModels.First().Name, Is.EqualTo("Arsenal"));
@@ -74,7 +74,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             Assert.That(eventModel.Date, Is.EqualTo("10/10/2010"));
             Assert.That(eventModel.Completed, Is.EqualTo(false));
             Assert.That(eventModel.FixturesGenerated, Is.EqualTo(false));
-            Assert.That(eventModel.TournamentType, Is.EqualTo(Domain.Models.TournamentType.Friendly));
+            Assert.That(eventModel.TournamentType, Is.EqualTo(DataAccess.Models.TournamentType.Friendly));
         }
 
         [Test]
@@ -93,21 +93,6 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             Assert.Throws<NullReferenceException>(() => repository.CreateEvent(tournamentName, It.IsAny<DateTime>(), It.IsAny<int>()));
         }
 
-        [Test]
-        [TestCase(0)]
-        [TestCase(-10)]
-        public void ShouldThrowExceptionIfOwnerIdIsLessThanZeroWhenCreatingEvent(int ownerId)
-        {
-            //given
-            var helper = new Mock<IDbHelper>();
-            var xmlGeneratorMock = new Mock<IXmlGenerator>();
-            helper.Setup(x => x.ExecuteScalar("up_AddTournament", null)).Returns(1);
-
-            var repository = new EventWriteRepository(helper.Object, xmlGeneratorMock.Object);
-
-            //then
-            Assert.Throws<Exception>(() => repository.CreateEvent("Test", It.IsAny<DateTime>(), It.IsAny<int>()));
-        }
 
         [Test]
         public void ShouldCreateNewTournament()

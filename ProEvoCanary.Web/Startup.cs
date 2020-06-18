@@ -14,10 +14,10 @@ using ProEvoCanary.Domain.EventHandlers.Results.GetResults;
 using ProEvoCanary.Domain.EventHandlers.RssFeeds.GetFeed;
 using ProEvoCanary.Domain.Infrastructure;
 using ProEvoCanary.Web.Models;
-using PlayerModel = ProEvoCanary.Domain.Models.PlayerModel;
-using ResultsModel = ProEvoCanary.Domain.Models.ResultsModel;
-using Standings = ProEvoCanary.Domain.Models.Standings;
-using TournamentType = ProEvoCanary.Domain.Models.TournamentType;
+using PlayerModel = ProEvoCanary.Domain.EventHandlers.Events.Queries.PlayerModel;
+using ResultsModel = ProEvoCanary.Domain.EventHandlers.Events.Queries.ResultsModel;
+using Standings = ProEvoCanary.Domain.EventHandlers.Events.Queries.Standings;
+using TournamentType = ProEvoCanary.Domain.EventHandlers.Events.Queries.TournamentType;
 
 namespace ProEvoCanary.Web
 {
@@ -61,7 +61,7 @@ namespace ProEvoCanary.Web
 
 			services.AddTransient<ICacheManager, CacheManager>();
 			services.AddTransient<IDBConfiguration, DbConfiguration>();
-			services.AddTransient<IDbHelper, SqlDbHelper>();
+			services.AddTransient<IDbHelper, DbHelper>();
 
 			services.AddTransient<IRssRepository, RssRepository>();
 			services.AddTransient<IXmlGenerator, XmlGenerator>();
@@ -75,7 +75,7 @@ namespace ProEvoCanary.Web
 			services.AddTransient<IEventCommandHandler, EventCommandHandler>();
 			services.AddTransient<IGetRssFeedQueryHandler, GetRssFeedQueryHandler>();
 			services.AddTransient<IGetPlayersQueryHandler, GetPlayersQueryHandler>();
-			services.AddTransient<IGetResultQueryHandler, GetResultQueryHandler>();
+			services.AddTransient<IGetResultsQueryHandler, GetResultsQueryHandler>();
 
 			//Auto mapper
 			var mapperConfiguration = new MapperConfiguration(cfg =>

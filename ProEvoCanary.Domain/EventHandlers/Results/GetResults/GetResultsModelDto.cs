@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProEvoCanary.Domain.EventHandlers.Results.GetResults
 {

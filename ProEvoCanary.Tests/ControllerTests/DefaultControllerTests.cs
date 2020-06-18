@@ -5,9 +5,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.DataAccess.Repositories;
-using ProEvoCanary.DataAccess.Repositories.Interfaces;
-using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.Queries;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Domain.EventHandlers.Results.GetResults;
@@ -22,7 +19,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
     {
         private Mock<IGetPlayersQueryHandler> _playerRepository;
         private Mock<IGetRssFeedQueryHandler> _rssFeedRepository;
-        private Mock<IGetResultQueryHandler> _resultsRepository;
+        private Mock<IGetResultsQueryHandler> _resultsRepository;
         private Mock<IMapper> _mapper;
         private DefaultController _defaultController;
         private ViewResult _result;
@@ -101,7 +98,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
                 }
             };
 
-            _resultsRepository = new Mock<IGetResultQueryHandler>();
+            _resultsRepository = new Mock<IGetResultsQueryHandler>();
             var domainResultsModels = new List<GetResultsModelDto>
             {
                 new GetResultsModelDto
@@ -152,7 +149,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
 
             //then
             Assert.That(model.Events.Count(), Is.EqualTo(1));
-            Assert.That(model.Events.First().TournamentId, Is.EqualTo(1));
+            Assert.That(model.Events.First().TournamentId, Is.TypeOf<Guid>());
             Assert.That(model.Events.First().TournamentName, Is.EqualTo("Hemang"));
             Assert.That(model.Events.First().Date, Is.EqualTo("10/10/2014"));
             Assert.That(model.Events.First().Name, Is.EqualTo("Hemang"));
@@ -182,7 +179,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
 
             //then
             Assert.That(model.Results.Count(), Is.EqualTo(1));
-            Assert.That(model.Results.First().ResultId, Is.EqualTo(1));
+            Assert.That(model.Results.First().ResultId, Is.TypeOf<Guid>());
             Assert.That(model.Results.First().HomeTeamId, Is.EqualTo(1));
             Assert.That(model.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(model.Results.First().HomeScore, Is.EqualTo(5));

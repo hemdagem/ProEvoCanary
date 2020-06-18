@@ -5,7 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProEvoCanary.Domain\ProEvoCanary.Domain.csproj" />
+    <ProjectReference Include="..\ProEvoCanary.Domain\ProEvoCanary.Application.csproj" />
     <ProjectReference Include="..\ProEvoCanary.Web\ProEvoCanary.Web.csproj" />
   </ItemGroup>
   <ItemGroup>

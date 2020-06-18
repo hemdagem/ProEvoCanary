@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
@@ -23,7 +24,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
                 {"AwayScore", 0},
                 {"HomeTeamId", 1},
                 {"AwayTeamId", 2},
-                {"ResultId", 1},
+                {"ResultId", Guid.NewGuid()},
             };
 
             var helper = new Mock<IDbHelper>();
@@ -43,7 +44,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             Assert.That(resultsModels.First().HomeScore, Is.EqualTo(3));
             Assert.That(resultsModels.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(resultsModels.First().HomeTeamId, Is.EqualTo(1));
-            Assert.That(resultsModels.First().ResultId, Is.EqualTo(1));
+            Assert.That(resultsModels.First().ResultId, Is.EqualTo(dictionary["ResultId"]));
         }
 
         [Test]
@@ -62,7 +63,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
                 {"AwayUser", "Villa"},
                 {"HomeScore", 3},
                 {"AwayScore", 0},
-                {"ResultId", 1},
+                {"ResultId", Guid.NewGuid()},
             };
 
             helper.Setup(x => x.ExecuteReader("up_HeadToHeadRecord", It.IsAny<object>())).Returns(
@@ -83,7 +84,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             Assert.That(resultsModels.Results.First().AwayTeam, Is.EqualTo("Villa"));
             Assert.That(resultsModels.Results.First().HomeScore, Is.EqualTo(3));
             Assert.That(resultsModels.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
-            Assert.That(resultsModels.Results.First().ResultId, Is.EqualTo(1));
+            Assert.That(resultsModels.Results.First().ResultId, Is.EqualTo(dictionary["ResultId"]));
         }
     }
 }

@@ -6,18 +6,18 @@ using ProEvoCanary.Domain.Infrastructure;
 
 namespace ProEvoCanary.Domain.EventHandlers.Results.GetResults
 {
-	public interface IGetResultQueryHandler : IQuery<List<GetResultsModelDto>>
+	public interface IGetResultsQueryHandler : IQuery<List<GetResultsModelDto>>
 	{
 
 	}
-	public class GetResultQueryHandler : IGetResultQueryHandler
+	public class GetResultsQueryHandler : IGetResultsQueryHandler
 	{
 		private readonly IResultRepository _resultRepository;
 		private readonly IMapper _mapper;
 		private readonly ICacheManager _cacheManager;
 		const string ResultsKey ="Results";
 
-		public GetResultQueryHandler(IResultRepository resultRepository, IMapper mapper, ICacheManager cacheManager)
+		public GetResultsQueryHandler(IResultRepository resultRepository, IMapper mapper, ICacheManager cacheManager)
 		{
 			_resultRepository = resultRepository;
 			_mapper = mapper;

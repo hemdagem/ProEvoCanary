@@ -5,7 +5,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.Commands;
 using ProEvoCanary.Domain.EventHandlers.Events.Queries;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
@@ -25,7 +24,6 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         private readonly Mock<IGetPlayersQueryHandler> _mockPlayerRepository;
         private readonly Mock<IEventsQueryHandler> eventQueryHandlerBaseMock;
         private readonly Mock<IEventCommandHandler> _eventCommandHandlerBaseMock;
-        private readonly Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>> _geneQueryHandlerBase;
 
 
         public EventControllerTests()
@@ -33,7 +31,6 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             _mockPlayerRepository = new Mock<IGetPlayersQueryHandler>();
             _mapper = new Mock<IMapper>();
             eventQueryHandlerBaseMock = new Mock<IEventsQueryHandler>();
-            _geneQueryHandlerBase = new Mock<ICommandHandler<GenerateFixturesForEventCommand, Guid>>();
             _eventCommandHandlerBaseMock = new Mock<IEventCommandHandler>();
 
             _eventController = new EventController(_mockPlayerRepository.Object, _mapper.Object, eventQueryHandlerBaseMock.Object, _eventCommandHandlerBaseMock.Object);
@@ -56,9 +53,9 @@ namespace ProEvoCanary.UnitTests.ControllerTests
         {
 
             //when
-            var viewResult = _eventController.Create(_eventModel) as RedirectToRouteResult;
-            var actionRoute = viewResult.RouteValues["action"];
-            var actionController = viewResult.RouteValues["controller"];
+            var viewResult = _eventController.Create(_eventModel) as RedirectToActionResult;
+            var actionRoute = viewResult.ActionName;
+            var actionController = viewResult.ControllerName;
 
             //then
             Assert.AreEqual("GenerateFixtures", actionRoute);
@@ -108,29 +105,34 @@ namespace ProEvoCanary.UnitTests.ControllerTests
 
             _mapper.Setup(x => x.Map<List<Web.Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
 
+            var tournamentId = Guid.NewGuid();
             var eventModel = new EventModel
             {
                 Completed = true,
                 Date = date,
-                TournamentId = Guid.NewGuid(),
+                TournamentId = tournamentId,
                TournamentType = TournamentType.Friendly,
                 FixturesGenerated = true,
                 TournamentName = "Test",
                 OwnerId = 4
             };
 
-            var domainEventModel = new DataAccess.Models.EventModel
+            var eventModelDto = new EventModelDto
             {
-                Completed = true,
-                Date = date,
-                TournamentId = Guid.NewGuid(),
-               TournamentType = DataAccess.Models.TournamentType.Friendly,
-                FixturesGenerated = true,
-                TournamentName = "Test",
-                OwnerId = 4
+	            Completed = true,
+	            Date = date,
+	            TournamentId = tournamentId,
+	            TournamentType = Domain.EventHandlers.Events.Queries.TournamentType.Friendly,
+	            FixturesGenerated = true,
+	            TournamentName = "Test",
+	            OwnerId = 4
             };
 
-            _mapper.Setup(x => x.Map<EventModel>(domainEventModel)).Returns(eventModel);
+
+
+            eventQueryHandlerBaseMock.Setup(x => x.Handle(It.IsAny<GetEvent>())).Returns(eventModelDto);
+
+            _mapper.Setup(x => x.Map<EventModel>(eventModelDto)).Returns(eventModel);
 
             //when
             var viewResult = _eventController.GenerateFixtures(It.IsAny<Guid>()) as ViewResult;
@@ -142,7 +144,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             Assert.AreEqual(model.TournamentName, "Test");
             Assert.AreEqual(model.OwnerId, 4);
             Assert.AreEqual(model.Date, date);
-            Assert.AreEqual(model.TournamentId, 10);
+            Assert.AreEqual(model.TournamentId, eventModel.TournamentId);
             Assert.AreEqual(1, model.Users.Count);
             Assert.AreEqual(model.TournamentType, TournamentType.Friendly);
         }

@@ -146,27 +146,6 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             Assert.That(resultsModels.First().PlayerId, Is.EqualTo(1));
         }
 
-        [Test]
-        public void ShouldThrowExceptionIfMorePlayersThenSpecifiedIsReturned()
-        {
-            var dictionary = new Dictionary<string, object>
-            {
-                {"UserId", 1},
-                {"Name", "Arsenal"},
-                {"GoalsPerGame", 3.2f},
-                {"PointsPerGame", 4.2f},
-                {"MatchesPlayed", 1}
-            };
-
-            var helper = new Mock<IDbHelper>();
-            helper.Setup(x => x.ExecuteReader("up_GetTopPlayers", It.IsAny<object>())).Returns(
-                DataReaderTestHelper.MultipleResultsReader(dictionary, new Queue<bool>(new[] { true, true, true, false })));
-
-            var repository = new PlayerRepository(helper.Object);
-
-            //when
-            Assert.Throws<Exception>(() => repository.GetTopPlayersRange(1, 2));
-        }
     }
 }
 

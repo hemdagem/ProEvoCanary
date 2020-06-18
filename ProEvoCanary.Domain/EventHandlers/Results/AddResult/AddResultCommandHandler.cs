@@ -1,7 +1,6 @@
 ﻿using System;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.EventHandlers.Results.GetResults;
 
 namespace ProEvoCanary.Domain.EventHandlers.Results.AddResult
 {

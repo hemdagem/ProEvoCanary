@@ -131,7 +131,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             Assert.That(model, Is.Not.Null);
             Assert.That(model.HeadToHead.Results.First().AwayScore, Is.EqualTo(0));
             Assert.That(model.HeadToHead.Results.First().HomeScore, Is.EqualTo(3));
-            Assert.That(model.HeadToHead.Results.First().ResultId, Is.EqualTo(1));
+            Assert.That(model.HeadToHead.Results.First().ResultId, Is.TypeOf<Guid>());
             Assert.That(model.HeadToHead.Results.First().HomeTeam, Is.EqualTo("Arsenal"));
             Assert.That(model.HeadToHead.Results.First().AwayTeam, Is.EqualTo("Villa"));
             Assert.That(model.PlayerOne, Is.EqualTo(1));

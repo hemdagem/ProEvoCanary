@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using ProEvoCanary.DataAccess;
@@ -80,12 +81,12 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
         {
             Setup();
             _helper.Setup(x => x.ExecuteScalar("up_AddUser", It.IsAny<object>())).Returns(1);
-
+            var userId = Guid.NewGuid();
             //when
-            var user = _repository.CreateUser(_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress);
+            var user = _repository.CreateUser(userId,_loginModel.Username, _loginModel.Forename, _loginModel.Surname, _loginModel.EmailAddress);
 
             //then
-            Assert.That(user, Is.EqualTo(1));
+            Assert.That(user, Is.EqualTo(userId));
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.Domain.EventHandlers.Configuration;
 using ProEvoCanary.Domain.EventHandlers.Events.Commands;
 using ProEvoCanary.Domain.EventHandlers.Events.Queries;
 using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
@@ -55,7 +54,8 @@ namespace ProEvoCanary.Web.Controllers
 			var eventQuery = new GetEvent(id);
 			var eventModel = _eventsQueryHandler.Handle(eventQuery);
 			EventModel model = _mapper.Map<EventModel>(eventModel);
-			model.Users = _mapper.Map<List<PlayerModel>>(_getPlayersQuery.Handle());
+			var playerModelDtos = _getPlayersQuery.Handle();
+			model.Users = _mapper.Map<List<Models.PlayerModel>>(playerModelDtos);
 
 			return View("GenerateFixtures", model);
 		}

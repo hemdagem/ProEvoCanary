@@ -1,4 +1,4 @@
-namespace ProEvoCanary.Domain.Models
+namespace ProEvoCanary.Domain.EventHandlers.Events.Queries
 {
     public class Standings
     {
