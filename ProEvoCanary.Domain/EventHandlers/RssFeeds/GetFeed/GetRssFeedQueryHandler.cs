@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
+using System.Linq;
 using ProEvoCanary.Application.EventHandlers.Configuration;
 using ProEvoCanary.Application.Infrastructure;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
@@ -13,13 +13,11 @@ namespace ProEvoCanary.Application.EventHandlers.RssFeeds.GetFeed
 	public class GetRssFeedQueryHandler : IGetRssFeedQueryHandler
 	{
 		private readonly IRssRepository _rssRepository;
-		private readonly IMapper _mapper;
 		private readonly ICacheManager _cacheManager;
 
-		public GetRssFeedQueryHandler(IRssRepository rssRepository, IMapper mapper, ICacheManager cacheManager)
+		public GetRssFeedQueryHandler(IRssRepository rssRepository, ICacheManager cacheManager)
 		{
 			_rssRepository = rssRepository;
-			_mapper = mapper;
 			_cacheManager = cacheManager;
 		}
 
@@ -27,7 +25,7 @@ namespace ProEvoCanary.Application.EventHandlers.RssFeeds.GetFeed
 		{
 			var eventModel =  _cacheManager.AddOrGetExisting(query.Url, () => _rssRepository.Load(query.Url));
 
-			return _mapper.Map<List<RssFeedModelDto>>(eventModel);
+			return eventModel.Select(x=> new RssFeedModelDto {LinkTitle = x.LinkTitle,LinkDescription = x.LinkDescription,LinkUrl = x.LinkUrl}).ToList();
 		}
 	}
 

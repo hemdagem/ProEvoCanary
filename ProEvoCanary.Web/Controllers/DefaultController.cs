@@ -18,7 +18,6 @@ namespace ProEvoCanary.Web.Controllers
 		public async Task<ActionResult> Index()
 		{
 			var client =_clientFactory.CreateClient("API");
-
 			var homeModel = JsonConvert.DeserializeObject<HomeModel>(await client.GetStringAsync("api/Home"));
 			
 			return View("Index", homeModel);
