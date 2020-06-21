@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProEvoCanary.Domain.EventHandlers.Results.GetResults
+namespace ProEvoCanary.Application.EventHandlers.Results.GetResults
 {
 	public class GetResultQuery
 	{

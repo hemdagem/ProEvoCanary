@@ -1,10 +1,14 @@
 ﻿using System;
+using ProEvoCanary.Application.EventHandlers.Configuration;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
-using ProEvoCanary.Domain.EventHandlers.Configuration;
 
-namespace ProEvoCanary.Domain.EventHandlers.Results.AddResult
+namespace ProEvoCanary.Application.EventHandlers.Results.AddResult
 {
-	public class AddResultCommandHandler :ICommandHandler<AddResultCommand,Guid>
+	public interface IAddResultCommandHandler : ICommandHandler<AddResultCommand, Guid>
+	{
+
+	}
+	public class AddResultCommandHandler : IAddResultCommandHandler
 	{
 		private readonly IResultRepository _resultRepository;
 

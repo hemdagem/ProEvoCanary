@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Domain.EventHandlers.Configuration
+﻿namespace ProEvoCanary.Application.EventHandlers.Configuration
 {
 	public interface ICommandHandler<in TCommand, out TResult>
 	{

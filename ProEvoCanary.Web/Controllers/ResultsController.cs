@@ -1,32 +1,37 @@
 ﻿using System;
-using AutoMapper;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.DataAccess.Repositories.Interfaces;
+using Newtonsoft.Json;
 
 namespace ProEvoCanary.Web.Controllers
 {
 	public class ResultsController : Controller
 	{
-		private readonly IResultRepository _resultRepository;
-		private readonly IMapper _mapper;
+		private readonly HttpClient _client;
 
-		public ResultsController(IResultRepository resultRepository, IMapper mapper)
+
+		public ResultsController(IHttpClientFactory clientFactory)
 		{
-			_resultRepository = resultRepository;
-			_mapper = mapper;
+			_client = clientFactory.CreateClient("API");
 		}
 
 		// GET: Results
-		public ActionResult Update(Guid id)
+		public async Task<ActionResult> Update(Guid id)
 		{
-			var resultsModel = _mapper.Map<Models.ResultsModel>(_resultRepository.GetResult(id));
-			return View(resultsModel);
+			var model = JsonConvert.DeserializeObject<Models.ResultsModel>(await _client.GetStringAsync("/api/Event"));
+			return View(model);
 		}
 
 		[HttpPost]
-		public ActionResult Update(Models.ResultsModel model)
+		public async Task<ActionResult> Update(Models.ResultsModel model)
 		{
-			_resultRepository.AddResult(model.ResultId, model.HomeScore, model.AwayScore);
+			var put = await _client.PutAsync("/api/Results", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
+			var readAsStringAsync = await put.Content.ReadAsStringAsync();
+
+			var eventId = JsonConvert.DeserializeObject<Guid>(readAsStringAsync);
+
 
 			return RedirectToAction("Details", "Event", new { id = model.EventId });
 

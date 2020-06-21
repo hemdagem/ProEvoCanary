@@ -1,7 +1,7 @@
 ﻿using System;
-using ProEvoCanary.Domain.EventHandlers.Configuration;
+using ProEvoCanary.Application.EventHandlers.Configuration;
 
-namespace ProEvoCanary.Domain.EventHandlers.Events.Commands
+namespace ProEvoCanary.Application.EventHandlers.Events.Commands
 {
 	public interface IEventCommandHandler : ICommandHandler<AddEventCommand, Guid>, ICommandHandler<GenerateFixturesForEventCommand, Guid>
 	{

@@ -74,7 +74,7 @@ namespace ProEvoCanary.UnitTests.RepositoryTests
             Assert.That(eventModel.Date, Is.EqualTo("10/10/2010"));
             Assert.That(eventModel.Completed, Is.EqualTo(false));
             Assert.That(eventModel.FixturesGenerated, Is.EqualTo(false));
-            Assert.That(eventModel.TournamentType, Is.EqualTo(DataAccess.Models.TournamentType.Friendly));
+            Assert.That(eventModel.TournamentType, Is.EqualTo(TournamentType.Friendly));
         }
 
         [Test]

@@ -46,7 +46,7 @@ namespace ProEvoCanary.DataAccess.Repositories
                 UserTwoId =playerTwo,
             };
 
-            var headToHeadRecordList = new RecordsModel { Results = new List<Models.ResultsModel>() };
+            var headToHeadRecordList = new RecordsModel { Results = new List<ResultsModel>() };
             using (var reader = _helper.ExecuteReader("up_HeadToHeadRecord", parameters))
             {
                 while (reader.Read())
@@ -61,7 +61,7 @@ namespace ProEvoCanary.DataAccess.Repositories
 
                 while (reader.Read())
                 {
-                    headToHeadRecordList.Results.Add(new Models.ResultsModel
+                    headToHeadRecordList.Results.Add(new ResultsModel
                     {
                         HomeTeam = reader["HomeUser"].ToString(),
                         AwayTeam = reader["AwayUser"].ToString(),

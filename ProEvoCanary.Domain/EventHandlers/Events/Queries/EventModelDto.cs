@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProEvoCanary.Application.EventHandlers.Players.GetPlayers;
 
-namespace ProEvoCanary.Domain.EventHandlers.Events.Queries
+namespace ProEvoCanary.Application.EventHandlers.Events.Queries
 {
     public class EventModelDto
     {
@@ -13,13 +14,13 @@ namespace ProEvoCanary.Domain.EventHandlers.Events.Queries
         public bool Completed { get; set; }
         public bool FixturesGenerated { get; set; }
         public TournamentType TournamentType { get; set; }
-        public List<PlayerModel> Users { get; set; }
+        public List<PlayerModelDto> Users { get; set; }
         public List<ResultsModel> Results { get; set; }
         public List<Standings> Standings { get; set; }
 
         public EventModelDto()
         {
-            Users = new List<PlayerModel>();
+            Users = new List<PlayerModelDto>();
             Results = new List<ResultsModel>();
             Standings = new List<Standings>();
         }

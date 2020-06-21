@@ -23,9 +23,9 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             _mapper = new Mock<IMapper>();
             _playerRepository = new Mock<IPlayerRepository>();
             _resultRepository = new Mock<IResultRepository>();
-            var playerModels = new List<Web.Models.PlayerModel>()
+            var playerModels = new List<PlayerModel>()
             {
-                new Web.Models.PlayerModel
+                new PlayerModel
                 {
                     PlayerName = "Hemang",
                     PlayerId = 1
@@ -42,17 +42,17 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             };
             _playerRepository.Setup(x => x.GetAllPlayers()).Returns(domainPlayerModels);
 
-            _mapper.Setup(x => x.Map<List<Web.Models.PlayerModel>>(domainPlayerModels)).Returns(playerModels);
+            _mapper.Setup(x => x.Map<List<PlayerModel>>(domainPlayerModels)).Returns(playerModels);
 
-            var recordsModel = new Web.Models.RecordsModel
+            var recordsModel = new RecordsModel
             {
                 TotalMatches = 1,
                 PlayerOneWins = 2,
                 PlayerTwoWins = 3,
                 TotalDraws = 4,
-                Results = new List<Web.Models.ResultsModel>
+                Results = new List<ResultsModel>
                 {
-                    new Web.Models.ResultsModel
+                    new ResultsModel
                     {
                         AwayScore = 0,
                         AwayTeam = "Villa",
@@ -83,7 +83,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
             };
             _resultRepository.Setup(x => x.GetHeadToHeadRecord(1, 2)).Returns(domainRecordsModel);
 
-            _mapper.Setup(x => x.Map<Web.Models.RecordsModel>(domainRecordsModel)).Returns(recordsModel);
+            _mapper.Setup(x => x.Map<RecordsModel>(domainRecordsModel)).Returns(recordsModel);
         }
 
         [Test]

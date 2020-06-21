@@ -5,9 +5,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
-using ProEvoCanary.Domain.EventHandlers.Events.Commands;
-using ProEvoCanary.Domain.EventHandlers.Events.Queries;
-using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
+using ProEvoCanary.Application.EventHandlers.Events.Commands;
+using ProEvoCanary.Application.EventHandlers.Events.Queries;
+using ProEvoCanary.Application.EventHandlers.Players.GetPlayers;
 using ProEvoCanary.Web.Controllers;
 using ProEvoCanary.Web.Models;
 using EventModel = ProEvoCanary.Web.Models.EventModel;
@@ -122,7 +122,7 @@ namespace ProEvoCanary.UnitTests.ControllerTests
 	            Completed = true,
 	            Date = date,
 	            TournamentId = tournamentId,
-	            TournamentType = Domain.EventHandlers.Events.Queries.TournamentType.Friendly,
+	            TournamentType = Application.EventHandlers.Events.Queries.TournamentType.Friendly,
 	            FixturesGenerated = true,
 	            TournamentName = "Test",
 	            OwnerId = 4

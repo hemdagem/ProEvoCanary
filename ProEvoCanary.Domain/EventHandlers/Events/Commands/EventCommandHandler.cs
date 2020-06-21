@@ -1,7 +1,7 @@
 ﻿using System;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
 
-namespace ProEvoCanary.Domain.EventHandlers.Events.Commands
+namespace ProEvoCanary.Application.EventHandlers.Events.Commands
 {
 	public class EventCommandHandler : IEventCommandHandler
 	{

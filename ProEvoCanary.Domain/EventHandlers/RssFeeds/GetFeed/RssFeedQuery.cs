@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Domain.EventHandlers.RssFeeds.GetFeed
+﻿namespace ProEvoCanary.Application.EventHandlers.RssFeeds.GetFeed
 {
     public class RssFeedQuery
     {

@@ -1,4 +1,4 @@
-﻿namespace ProEvoCanary.Domain.EventHandlers.Players.GetPlayers
+﻿namespace ProEvoCanary.Application.EventHandlers.Players.GetPlayers
 {
     public class PlayerModelDto
     {

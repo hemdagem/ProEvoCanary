@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using ProEvoCanary.Application.EventHandlers.Configuration;
+using ProEvoCanary.Application.Infrastructure;
 using ProEvoCanary.DataAccess.Repositories.Interfaces;
-using ProEvoCanary.Domain.EventHandlers.Configuration;
-using ProEvoCanary.Domain.Infrastructure;
 
-namespace ProEvoCanary.Domain.EventHandlers.RssFeeds.GetFeed
+namespace ProEvoCanary.Application.EventHandlers.RssFeeds.GetFeed
 {
 	public interface IGetRssFeedQueryHandler : IQueryHandler<RssFeedQuery, List<RssFeedModelDto>>
 	{

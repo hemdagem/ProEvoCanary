@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoMapper;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProEvoCanary.Domain.EventHandlers.Events.Commands;
-using ProEvoCanary.Domain.EventHandlers.Events.Queries;
-using ProEvoCanary.Domain.EventHandlers.Players.GetPlayers;
+using Newtonsoft.Json;
 using ProEvoCanary.Web.Models;
 using EventModel = ProEvoCanary.Web.Models.EventModel;
 
@@ -12,20 +12,11 @@ namespace ProEvoCanary.Web.Controllers
 {
 	public class EventController : Controller
 	{
-		private readonly IGetPlayersQueryHandler _getPlayersQuery;
-		private readonly IMapper _mapper;
-		private readonly IEventsQueryHandler _eventsQueryHandler;
-		private readonly IEventCommandHandler _eventCommand;
+		private readonly HttpClient _client;
 
-		public EventController(IGetPlayersQueryHandler getPlayersQuery, 
-			IMapper mapper,
-			IEventsQueryHandler eventsQueryHandler,
-			IEventCommandHandler eventCommand)
+		public EventController(IHttpClientFactory clientFactory)
 		{
-			_getPlayersQuery = getPlayersQuery;
-			_mapper = mapper;
-			_eventsQueryHandler = eventsQueryHandler;
-			_eventCommand = eventCommand;
+			_client = clientFactory.CreateClient("API");
 		}
 
 		public ActionResult Create()
@@ -34,38 +25,47 @@ namespace ProEvoCanary.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(AddEventModel model)
+		public async Task<ActionResult> Create(AddEventModel model)
 		{
-			var addEventCommand = new AddEventCommand(model.TournamentName, model.Date);
-			var id = _eventCommand.Handle(addEventCommand);
+			var put = await _client.PutAsync("/api/Event", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
+			var readAsStringAsync = await put.Content.ReadAsStringAsync();
 
-			return RedirectToAction("GenerateFixtures", "Event", new { id });
+			var eventId = JsonConvert.DeserializeObject<Guid>(readAsStringAsync);
+
+			return RedirectToAction("GenerateFixtures", "Event", new { eventId });
 		}
 
-		public ActionResult Details(Guid id)
+		public async Task<ActionResult> Details(Guid id)
 		{
-			var eventQuery = new GetEvent(id);
-			var model = _eventsQueryHandler.Handle(eventQuery);
-			return View("Details", _mapper.Map<EventModel>(model));
+			var model = JsonConvert.DeserializeObject<EventModel>(await _client.GetStringAsync("/api/Event"));
+			return View("Details", model);
 		}
 
-		public ActionResult GenerateFixtures(Guid id)
+		public async Task<ActionResult> GenerateFixtures(Guid id)
 		{
-			var eventQuery = new GetEvent(id);
-			var eventModel = _eventsQueryHandler.Handle(eventQuery);
-			EventModel model = _mapper.Map<EventModel>(eventModel);
-			var playerModelDtos = _getPlayersQuery.Handle();
-			model.Users = _mapper.Map<List<Models.PlayerModel>>(playerModelDtos);
-
+			var model = JsonConvert.DeserializeObject<FixturesModel>(await _client.GetStringAsync($"/api/Fixtures/{id}"));
 			return View("GenerateFixtures", model);
 		}
 
 		[HttpPost]
-		public ActionResult GenerateFixtures(Guid id, List<int> userIds)
+		public async Task<ActionResult> GenerateFixtures(Guid id, List<int> userIds)
 		{
-			var eventCommand = new GenerateFixturesForEventCommand(id,userIds);
-			_eventCommand.Handle(eventCommand);
-			return RedirectToAction("Details", "Event", new { Id = id });
+			var eventCommand = new GenerateFixturesModel(id, userIds);
+			var put = await _client.PutAsync("/api/Fixtures", new StringContent(JsonConvert.SerializeObject(eventCommand)));
+			var eventId = JsonConvert.DeserializeObject<Guid>(await put.Content.ReadAsStringAsync());
+			return RedirectToAction("Details", "Event", new { Id = eventId });
+		}
+	}
+
+	public class GenerateFixturesModel
+	{
+		public Guid Id { get; }
+		public List<int> UserIds { get; }
+
+		public GenerateFixturesModel(Guid id, List<int> userIds)
+		{
+			Id = id;
+			UserIds = userIds;
 		}
 	}
 }
